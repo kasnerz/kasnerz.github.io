@@ -1,18 +1,18 @@
 [
   {
     "icon": "fa-facebook",
-    "link": ""
+    "link": "https://www.facebook.com/zdenek.kasner/"
   },
   {
     "icon": "fa-twitter",
-    "link": ""
+    "link": "https://twitter.com/ZdenekKasner"
   },
   {
     "icon": "fa-linkedin",
-    "link": ""
+    "link": "https://www.linkedin.com/in/zdenek-kasner/"
   },
   {
-    "icon": "fa-stack-exchange",
-    "link": ""
+    "icon": "fa-user",
+    "link": "https://ufal.mff.cuni.cz/zdenek-kasner/"
   }
 ]

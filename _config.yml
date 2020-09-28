@@ -1,23 +1,23 @@
-remote_theme: codeasashu/hcz-jekyll-blog
+# remote_theme: codeasashu/hcz-jekyll-blog
 title: Zdeněk Kasner
 
-description: My Personal Blog
-author: John Smith
-logo: /hcz-jekyll-blog/static/img/avatar.png
-github: https://github.com/codeasashu
-about: Freelance developer
+description: Zdeněk Kasner - Personal Website
+author: Zdeněk Kasner
+logo: /static/img/avatar.jpg
+github: https://github.com/kasnerz
+about: PhD Student
 
 baseurl: ""
 url: ""
 
-allowsearch: true
+allowsearch: false
 
-disqus_shortname: aboutashu
-google_analytics: UA-72862926-1
+# disqus_shortname: aboutashu
+# google_analytics: UA-72862926-1
 
-share:
-  twitter_username: \#
-  fb_appid: 000000000000
+# share:
+#   twitter_username: \#zdenek.kasner
+#   fb_appid: zdenek.kasner
 
 
 enableTags: true
