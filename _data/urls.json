@@ -1,17 +1,22 @@
 [
   {
-    "text": "About",
-    "url": "/about/",
-    "icon": "fa-comments"
+    "text": "About Me",
+    "url": "/",
+    "icon": "fa-user"
+  },
+  {
+    "text": "Research",
+    "url": "/research",
+    "icon": "fa-area-chart"
   },
   {
     "text": "Teaching",
     "url": "/teaching",
-    "icon": "fa-graduation-cap",
+    "icon": "fa-graduation-cap"
   },
   {
-    "text": "Github",
-    "url": "https://github.com/kasnerz",
-    "icon": "fa-github"
+    "text": "Blog",
+    "url": "/blog",
+    "icon": "fa-comment"
   }
 ]

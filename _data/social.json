@@ -12,7 +12,11 @@
     "link": "https://www.linkedin.com/in/zdenek-kasner/"
   },
   {
-    "icon": "fa-user",
+    "icon": "fa-university",
     "link": "https://ufal.mff.cuni.cz/zdenek-kasner/"
+  },
+  {
+    "icon": "fa-github",
+    "link": "https://github.com/kasnerz"
   }
 ]

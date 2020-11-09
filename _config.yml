@@ -1,7 +1,7 @@
 # remote_theme: codeasashu/hcz-jekyll-blog
 title: Zdeněk Kasner
 
-description: Zdeněk Kasner - Personal Website
+description: Zdeněk Kasner - Personal website
 author: Zdeněk Kasner
 logo: /static/img/avatar.jpg
 github: https://github.com/kasnerz
@@ -11,14 +11,6 @@ baseurl: ""
 url: ""
 
 allowsearch: false
-
-# disqus_shortname: aboutashu
-# google_analytics: UA-72862926-1
-
-# share:
-#   twitter_username: \#zdenek.kasner
-#   fb_appid: zdenek.kasner
-
 
 enableTags: true
 tagarray: []
