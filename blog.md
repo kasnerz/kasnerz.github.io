@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Blog
-permalink: /
+permalink: /blog
 ---
 
 Nothing here (yet)!

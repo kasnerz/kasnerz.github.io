@@ -1,5 +1,9 @@
 [
-  
+  {
+    "text": "About",
+    "url": "/",
+    "icon": "fa-user"
+  },
   {
     "text": "Research",
     "url": "/research",
@@ -12,7 +16,7 @@
   },
   {
     "text": "Blog",
-    "url": "/",
+    "url": "/blog",
     "icon": "fa-edit"
   }
 ]
