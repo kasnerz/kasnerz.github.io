@@ -1,0 +1,106 @@
+---
+layout: default
+title: Research
+---
+
+<h2>Publications</h2>
+
+<h3>2020</h3>
+
+
+<div class="paper">
+
+<div class="row">
+    <div class="col-md-9 paper-title">
+    <b>Train Hard, Finetune Easy: Multilingual Denoising for RDF-to-Text Generation 
+    </b> 
+    </div>
+    <div class="col-md-3">
+        <a href="/assets/papers/pdf/2020_mbart.pdf" class="btn btn-pdf" role="button">PDF</a>
+    </div>
+    </div>
+    <div class="paper-authors">
+    <i>Zdeněk Kasner, Ondřej Dušek; INLG 2020</i>
+    </div>
+    <div class="paper-desc" style="margin-top: 10px">
+       <i>Data</i> == <i>noisy text</i>. That's definitely an overgeneralization, oversimplification... but um, it works! We succesfully generate text from DBPedia data in <i>English</i> and <i>Russian</i> just by finetuning mBART - a pretrained multilingual denoising autoencoder. This is our submission for the <a href="https://webnlg-challenge.loria.fr/challenge_2020/">WebNLG Challenge 2020</a>, presented at the <a href="https://webnlg-challenge.loria.fr/workshop_2020/">3rd Workshop on Natural Language Generation from the Semantic Web.</a>
+    </div>
+    <div class="paper-img">
+        <img src="/assets/papers/2020_mbart.png">
+    </div>
+</div>
+
+<hr>
+<div class="paper">
+    <div class="row">
+    <div class="col-md-9 paper-title">
+    <b>Evaluating Semantic Accuracy of Data-to-Text Generation with Natural Language Inference
+    </b> 
+    </div>
+    <div class="col-md-3">
+    <a href="https://arxiv.org/abs/2011.10819" target="_blank"  class="btn btn-arxiv" role="button">arXiv</a>
+    <a href="https://www.aclweb.org/anthology/2020.inlg-1.19/" target="_blank" class="btn btn-acl" role="button">ACL</a>
+    </div>
+    </div>
+    <div class="paper-authors">
+    <i>Ondřej Dušek, Zdeněk Kasner; INLG 2020</i>
+    </div>
+    <div class="paper-desc" style="margin-top: 10px">
+        Does a text contain all the information from the data? Hard to check manually, even harder to code. But what if we reformulate the question a little bit: can we <i>infer</i> all the data from the text and nothing else? That sounds like natural language inference. And guess what - somebody already pretrained a neural model for that!
+    </div>
+    <div class="paper-img">
+        <img src="/assets/papers/2020_nli_inlg.png">
+    </div>
+</div>
+
+<hr>
+
+<div class="paper">
+    <div class="row">
+    <div class="col-md-9 paper-title">
+    <b>Data-to-Text Generation with Iterative Text Editing</b> 
+    </div>
+    <div class="col-md-3">
+    <a href="http://arxiv.org/abs/2011.01694" target="_blank" class="btn btn-arxiv" role="button">arXiv</a>
+    <a href="https://www.aclweb.org/anthology/2020.inlg-1.9/" target="_blank" class="btn btn-acl" role="button">ACL</a>
+    <a href="/assets/papers/pdf/2020_d2t_text_editing.pdf" target="_blank" class="btn btn-poster" role="button">Poster</a>
+    </div>
+    </div>
+    <div class="paper-authors">
+    <i>Zdeněk Kasner, Ondřej Dušek; INLG 2020</i>
+    </div>
+    <div style="margin-top: 10px">
+        <p>
+        Imagine your task is to generate text from data. Which sounds easier: <i>generating text from scratch</i> or <i>joining existing sentences</i>?
+        </p><p>
+        In our approach for the data-to-text generation, we convert data to simple sentences using templates and iteratively join the sentences with a neural model. The model doesn't generate the sentences from scratch, so it cannot mess with the sentences too much. And another cool thing: it turns out that joining sentences is pretty much the same in any domain!
+        </p>
+    </div>
+    <div class="paper-img">
+    <img src="/assets/papers/2020_d2t_text_editing.png">
+    </div>
+</div>
+
+<hr>
+
+<div class="paper">
+    <div class="row">
+    <div class="col-md-9 paper-title">
+    <b>Improving Fluency of Non-Autoregressive Machine Translation</b> 
+    </div>
+    <div class="col-md-3">
+    <a href="https://arxiv.org/abs/2004.03227" target="_blank" class="btn btn-arxiv" role="button">arXiv</a>
+    </div>
+    </div>
+    <div class="paper-authors">
+    <i>Zdeněk Kasner, Jindřich Libovický, Jindřich Helcl</i>
+    </div>
+    <div style="margin-top: 10px">
+    A follow-up of my master thesis in which we improve translation quality of a CTC-based machine translation model. The model is non-autoregressive, i.e. faster but not as good as autoregressive models. To achieve that, we re-score the hypotheses in the beam of the model with a language model and several other features.
+    </div>
+    <div class="paper-img">
+        <img src="/assets/papers/2019_nonautoregressive.png" width="300" style="margin-top:20px;margin-left:auto; margin-right:auto; display:block">
+    </div>
+</div>
+
+<hr>

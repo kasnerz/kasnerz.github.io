@@ -1,7 +1,7 @@
 [
   {
-    "text": "About Me",
-    "url": "/",
+    "text": "About",
+    "url": "/about",
     "icon": "fa-user"
   },
   {
@@ -16,7 +16,7 @@
   },
   {
     "text": "Blog",
-    "url": "/blog",
-    "icon": "fa-comment"
+    "url": "/",
+    "icon": "fa-edit"
   }
 ]
