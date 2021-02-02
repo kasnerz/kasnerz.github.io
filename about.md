@@ -21,7 +21,7 @@ On this website, I just want to ["talk"](blog) <i class="fa fa-comment-alt"></i>
 - **Share** ideas which I find interesting (in better way than just clicking the *Share* button). 
 - **Collect the thoughts** floating in my head.
 
-Regarding the last point, I still wonder why I decided to use a public website for that.
+Regarding the last point, I still wonder why I decided to use a public website for that 🤔
 
 
 
