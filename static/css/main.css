@@ -297,3 +297,31 @@ body {
     margin-right: auto;
     max-width: 80%;
 }
+
+.centered-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 50%;
+}
+
+/* Three image containers (use 25% for four, and 50% for two, etc) */
+.column {
+    float: left;
+    width: 50%;
+    padding: 5px;
+  }
+  
+/* Clear floats after image containers */
+.row::after {
+content: "";
+clear: both;
+display: table;
+}
+
+#about-img {
+   border-radius: 50%;
+   max-width:160px; 
+   max-height:160px; 
+   margin: 30px 0px 0px 60px;
+}
