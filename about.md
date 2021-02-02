@@ -14,15 +14,14 @@ You will have to read on 😁
 
 ---
 ## Website
-This is my **personal website**. I have also an [official academic website](https://ufal.mff.cuni.cz/zdenek-kasner) <i class="fa fa-university"></i> and a [LinkedIn profile](https://www.linkedin.com/in/zdenek-kasner/) <i class="fab fa-linkedin"></i>. If you are interested in my research, have a look also at the [Research](research) tab (but the descriptions are quite informal).
-
-On this website, I just want to ["talk"](blog) <i class="fa fa-comment-alt"></i>. By which I mean:
-- **Explain** simply the concepts that I am familiar with.
-- **Share** ideas which I find interesting (in better way than just clicking the *Share* button). 
+On this website, I want to:
+- **Share the ideas** which I find interesting.
+- **Explain the concepts** that I am familiar with in simple terms.
 - **Collect the thoughts** floating in my head.
 
-Regarding the last point, I still wonder why I decided to use a public website for that 🤔
+(Regarding the last point, I still don't know why I decided to use a public website for that 😅)
 
+**Note**: This is my **personal website**. I have also an [official academic website](https://ufal.mff.cuni.cz/zdenek-kasner) <i class="fa fa-university"></i> and a [LinkedIn profile](https://www.linkedin.com/in/zdenek-kasner/) <i class="fab fa-linkedin"></i>. If you are interested in my research, you can have a look at the [Research](research) tab, although I try to keep the descriptions a bit informal.
 
 
 
@@ -33,11 +32,11 @@ Regarding the last point, I still wonder why I decided to use a public website f
 I learned many things at my alma mater [Czech Technical University](https://cvut.cz/) <img src="assets/cvut.png" style="display: inline">, before I moved on to [Charles University](https://cuni.cz/) <img src="assets/cuni.png" style="display: inline"> (both in Prague) to pursue a PhD in Computational Lingustics.
 
 
-For every thing I learned at the university, I learned two at [Board of European Student of Technology](https://best.eu.org) <img src="assets/best.png" style="display: inline">. This student organization has been a part of my life for almost five years, and the life lessons I got from here are priceless. 
+For every thing I learned at the university, I learned two at [Board of European Student of Technology](https://best.eu.org) <img src="assets/best.png" style="display: inline"> This student organization has been a part of my life for almost five years, and the life lessons I got from here are priceless. 
 
-Even now, I am always looking for new **volunteering** <i class="fa fa-people-arrows"></i> opportunities – organizing local [festivals](https://www.prahazijehudbou.cz) and [events](https://milionchvilek.cz), helping as a [buddy](https://esncuprague.cz), going to [workcamps](https//tamjdem.cz), etc.
+I am still looking for new **volunteering** <i class="fa fa-people-arrows"></i> opportunities – organizing local [festivals](https://www.prahazijehudbou.cz) and [events](https://milionchvilek.cz), helping as a [buddy](https://esncuprague.cz), going to [workcamps](https//tamjdem.cz), etc.
 
-I love **traveling** as much as anybody else, but I like to visit more tucked away places, meet local people and  [push my boundaries](https://x-challenge.cz/) <img src="assets/x.jpg" style="display: inline"> .
+I love **traveling** as much as anybody else, but I mostly like to visit places which are a little tucked away, meet local people and  [push my boundaries](https://x-challenge.cz/) <img src="assets/x.jpg" style="display: inline"> .
 
 
 Recently I started to learn to play **guitar** <i class="fa fa-guitar"></i> on my own, and I can't wait for summer campfires...
@@ -52,7 +51,7 @@ Besides all of this, I also enjoy some other things which – for some reason �
 
 - My only operating system is **Linux Mint 20.1** <img src="assets/mint.png" style="display: inline">, and I didn't need to use Windows for... well, almost an eternity now.
 - The more punk my travels are, the better. Hitchhiking, camping outside, [Couchsurfing](https://www.couchsurfing.com)...  <img src="assets/cs.png" style="display: inline"> (trains at Balkan or Ukraine also fit).
-- I like **writing long texts** <i class="fas fa-pen-nib"></i> instead of posting pictures with hashtags  or tweeting, so I mostly avoid socializing on social networks (although Twitter good as an information source).
+- I like **writing long texts** <i class="fas fa-pen-nib"></i> instead of posting pictures with hashtags  or tweeting, so I mostly avoid socializing on social networks (although I use Twitter as a good source of information).
 - My most favourite music genres are **folk / progressive / symphonic metal** <i class="fa fa-music"></i> and I still have to find out why people don't listen to them much more.
 - I use [shared bikes](https://www.nextbikeczech.com) <i class="fas fa-bicycle"></i> a lot, and I do not miss having a car at all. Also, I like the [14 T trams](https://en.wikipedia.org/wiki/%C5%A0koda_14_T) <i class="fas fa-tram"></i> the most (which is definitely not a mainstream opinion in Prague).
 - To make the list complete: I have no opinion whatsoever on a **pizza with pineapple**. 🍕
