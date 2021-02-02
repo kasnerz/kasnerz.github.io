@@ -16,12 +16,14 @@ You will have to read on 😁
 ## Website
 On this website, I want to:
 - **Share the ideas** which I find interesting.
-- **Explain the concepts** that I am familiar with in simple terms.
+- **Explain the concepts** that I am familiar with.
 - **Collect the thoughts** floating in my head.
 
-(Regarding the last point, I still don't know why I decided to use a public website for that 😅)
+(Regarding the last point, I still wonder why I decided to use a public website for that 😅).
 
-**Note**: This is my **personal website**. I have also an [official academic website](https://ufal.mff.cuni.cz/zdenek-kasner) <i class="fa fa-university"></i> and a [LinkedIn profile](https://www.linkedin.com/in/zdenek-kasner/) <i class="fab fa-linkedin"></i>. If you are interested in my research, you can have a look at the [Research](research) tab, although I try to keep the descriptions a bit informal.
+**Note**: This is my **personal website**, not related to my employment. I also have an [official academic website](https://ufal.mff.cuni.cz/zdenek-kasner) <i class="fa fa-university"></i> and a [LinkedIn profile](https://www.linkedin.com/in/zdenek-kasner/) <i class="fab fa-linkedin"></i>. 
+
+If you are interested in my research, you can also have a look at the [Research](research) tab, where I try to explain it in simple terms.
 
 
 
