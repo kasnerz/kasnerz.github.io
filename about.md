@@ -34,9 +34,9 @@ I learned many things at my alma mater [Czech Technical University](https://cvut
 
 For every thing I learned at the university, I learned two at [Board of European Student of Technology](https://best.eu.org) <img src="assets/best.png" style="display: inline">. This student organization has been a part of my life for almost five years, and the life lessons I got from here are priceless. 
 
-Even now, I am always looking for new **volunteering** <i class="fa fa-people-arrows"></i> opportunities – organizing local [festivals](https://www.prahazijehudbou.cz) and [events](https://milionchvilek.cz), helping as a [buddy](https://esncuprague.cz), going to [workcamps](tamjdem.cz), etc.
+Even now, I am always looking for new **volunteering** <i class="fa fa-people-arrows"></i> opportunities – organizing local [festivals](https://www.prahazijehudbou.cz) and [events](https://milionchvilek.cz), helping as a [buddy](https://esncuprague.cz), going to [workcamps](https//tamjdem.cz), etc.
 
-I love **traveling** as much as anybody else, but I mostly like to visit non-touristic places, meet local people and  [push my boundaries](x-challenge.cz/) <img src="assets/x.jpg" style="display: inline"> .
+I love **traveling** as much as anybody else, but I mostly like to visit non-touristic places, meet local people and  [push my boundaries](https://x-challenge.cz/) <img src="assets/x.jpg" style="display: inline"> .
 
 
 Recently I started to learn to play **guitar** <i class="fa fa-guitar"></i> on my own, and I can't wait for summer campfires...
