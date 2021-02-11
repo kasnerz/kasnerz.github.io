@@ -14,7 +14,7 @@ Sorry, you will have to read on 😁
 
 ---
 ## Website
-**Note**: This website is strictly **personal**. I also have an [official academic website](https://ufal.mff.cuni.cz/zdenek-kasner) <i class="fa fa-university"></i> and a [LinkedIn profile](https://www.linkedin.com/in/zdenek-kasner/) <i class="fab fa-linkedin"></i>. If you are interested in my research, have a look at the [Research](research) tab, where I explain it in simple terms.
+**Note**: This is my **personal** website. I also have and [official academic website](https://ufal.mff.cuni.cz/zdenek-kasner) <i class="fa fa-university"></i> and [LinkedIn profile](https://www.linkedin.com/in/zdenek-kasner/) <i class="fab fa-linkedin"></i>. If you are interested in my research, have a look at the [Research](research) tab, where I explain it in simple terms. 
 
 
 On this website, I want to:
