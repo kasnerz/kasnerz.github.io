@@ -288,6 +288,11 @@ body {
 
 }
 
+.paper-extra {
+    margin-bottom: 10px;
+    color: #b40724
+}
+
 .paper-buttons {
     text-align: right;
 }
