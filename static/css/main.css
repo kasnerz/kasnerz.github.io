@@ -247,27 +247,27 @@ body {
 
 .btn-arxiv {
     color :#ffffff;
-    background-color:#03aa03;
+    background-color: #007D72;
 }
 
 .btn-acl {
     color :#ffffff;
-    background-color: #df0007;
+    background-color: #007D72;
 }
 
 .btn-poster {
     color :#ffffff;
-    background-color: #6e00d4;
+    background-color: #007D72;
 }
 
 .btn-pdf {
     color :#ffffff;
-    background-color: #00a38d;
+    background-color: #007D72;
 }
 
 .btn-code {
-    color :#000000;
-    background-color: #ffd900;
+    color :#ffffff;
+    background-color: #007D72;
 }
 
 .paper {
@@ -290,7 +290,7 @@ body {
 
 .paper-extra {
     margin-bottom: 10px;
-    color: #b40724
+    color:#00665c
 }
 
 .paper-buttons {

@@ -6,7 +6,7 @@ permalink: /
 <img id="about-img" align="right" src="assets/me_3.jpg" alt="me_3">
 
 ## TL;DR
-I am a **second-year PhD student** at the [Institute of Formal and Applied Linguistics](https://ufal.mff.cuni.cz/), Charles University, Prague. But here it might be more appropriate to say that I am just a guy who likes to test new ideas. Or that I am a graphomaniac with a withdrawal syndrome.
+I am a **PhD student** at the [Institute of Formal and Applied Linguistics](https://ufal.mff.cuni.cz/), Charles University, Prague. But here it might be more appropriate to say that I am just a guy who likes to test new ideas. Or that I am a graphomaniac with a withdrawal syndrome.
 
 Let's just say it is hard to describe a person in a single sentence.
 
