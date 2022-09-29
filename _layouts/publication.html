@@ -3,8 +3,8 @@ layout: default
 ---
 
 {{ content }}
-
 {% for i in site.data.articles %}
+<hr>
 <div class="paper" {% if i.id %} id="{{ i.id }}" {% endif %}>
 	<h4><b>{{ i.title }}</b> </h4>
 
@@ -26,7 +26,7 @@ layout: default
 			{{ i.text }}
 		</div>
 		<div class="col-md-6 paper-img">
-			<img src="{{ i.img }}">
+			<img src="/assets/papers/{{ i.img }}">
 		</div>
 	</div>
 	
@@ -38,5 +38,5 @@ layout: default
 		{% if i.code %} <a href="{{ i.code }}" class="btn btn-code" role="button"><i class="fa fa-github"></i> Code</a> {% endif %}
 	</div>
 </div>
-<hr>
+
 {% endfor %}

@@ -1,0 +1,32 @@
+[
+	{
+		"name": "Statistical Dialogue Systems",
+		"instances": [ 
+			{
+				"period" : "22/23 Winter", 
+				"text": "I am one of the TAs for Statistical Dialogue Systems (<a href=\"https://ufal.mff.cuni.cz/courses/npfl099\">NPFL099</a>), helping with grading homework assignments and teaching the natural language generation for dialogue systems."
+			}
+		],
+		"img": "2022_npfl099.png"
+	},
+	{
+		"name": "Introduction to Linux",
+		"instances": [ 
+			{
+				"period": "21/22 Summer", 
+				"text": "I was teaching a lab for Introduction to Linux (<a href=\"https://d3s.mff.cuni.cz/teaching/nswi177/\">NSWI177</a>) in Czech (finally in person!). Instead of lectures, the students had a \"<i>before-class reading</i>\" which we built upon during the lab."
+			}
+		],
+		"img": "2022_nswi177.png"
+	},
+	{
+		"name": "Introduction to Algorithms + Programming 1",
+		"instances": [ 
+			{
+				"period": "20/21 Winter", 
+				"text": "I was teaching a lab for Introduction to Algorithms (<a href=\"https://is.cuni.cz/studium/predmety/index.php?do=predmet&kod=NPRG062\">NPRG062</a>) and Programming 1 (<a href=\"https://is.cuni.cz/studium/predmety/index.php?do=predmet&kod=NPRG030\">NPRG030</a>) in Czech via Zoom. Didn't expect my first class to be virtual, but finding ways to make it work was a nice challenge! The materials for the course can be found <a href=\"https://github.com/kasnerz/nprg030_2020\">here</a>."
+			}
+		],
+		"img": "2020_nprg030.png"
+	}
+]

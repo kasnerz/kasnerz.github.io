@@ -1,0 +1,24 @@
+---
+layout: default
+---
+
+{{ content }}
+{% for i in site.data.courses %}
+<div class="course">
+	<h4><b>{{ i.name }}</b> </h4>
+
+	<div class="container course-body">
+		{% for c in i.instances %}
+		<div class="col-md-6 course-desc">
+			<div><b>{{ c.period }}</b></div>
+			<div>{{ c.text }}</div>
+		</div>
+
+		{% endfor %}
+		<div class="col-md-6 course-img">
+			<img src="/assets/teaching/{{ i.img }}">
+		</div>
+	</div>
+</div>
+<hr>
+{% endfor %}

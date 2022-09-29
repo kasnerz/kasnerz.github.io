@@ -13,13 +13,12 @@ So far, the area is dominated by single-purpose template-based systems. A way to
 
 
 My other research interests (ranging from "I digged into that a little bit" up to "if only I had more time") include:
-- evaluating quality of generated texts,
-- story generation,
-- logical and commonsense reasoning,
+- evaluating quality of generated texts
+- low-resource natural language generation
+- story generation
+- logical and commonsense reasoning
 - cogntive neuroscience and language processing in human brain.
 
 
-
-For the full list of my publications, have a look at my **<img src="/assets/icons/scholar.png" style="display: inline"> [Google Scholar](https://scholar.google.cz/citations?user=6NnuRB8AAAAJ) profile**.
-
 ## Selected publications
+For the full list of my publications, have a look at my **<img src="/assets/icons/scholar.png" style="display: inline"> [Google Scholar](https://scholar.google.cz/citations?user=6NnuRB8AAAAJ) profile**.

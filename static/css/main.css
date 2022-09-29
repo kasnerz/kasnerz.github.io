@@ -312,23 +312,29 @@ body {
 }
 
 .course {
-    margin-bottom: 50px;
-}
-.course-title {
-    font-family:Ruda,Helvetica,Arial,sans-serif;
-    font-weight:bold;
-    font-size: 18px;
-    margin-bottom: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
-.course-image {
+.course-body {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.course-desc {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.course-img {
     display: block;
-    margin-top: 20px;
-    margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
-    max-width: 80%;
+    max-height: 300px;
+    margin-left: 30px;
+    max-width: 250px;
 }
+
 
 .centered-image {
     display: block;
