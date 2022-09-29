@@ -6,7 +6,7 @@
 		"code" : "https://github.com/kasnerz/zeroshot-d2t-pipeline",
 		"authors" : "Zdeněk Kasner, Ondřej Dušek",
 		"venue" : "ACL 2022",
-		"text" : "We formulate data-to-text generation as a sequence of trainable text-to-text operations: ordering, aggregation, and paragraph compression. This allows us to combine the power of pretrained language models with controllability of pipeline approaches. As a welcome side-effect, we get rid of semantically incorrect outputs arising from noisy human-written references. Is NL-only approach to data-to-text generation the way to go?",
+		"text" : "To combine the power of pretrained language models with controllability of pipeline approaches, we formulate data-to-text generation as a sequence of trainable text-to-text operations: ordering, aggregation, and paragraph compression. As a welcome side-effect, we get rid of semantically incorrect outputs arising from noisy human-written references. Is NL-only approach to data-to-text generation the way to go?",
 		"img" : "2022_zeroshot_pipeline.png",
 		"id" : "neural_pipeline"
 	},
@@ -48,9 +48,9 @@
 		"code" : "https://github.com/kasnerz/d2t_iterative_editing",
 		"authors" : "Zdeněk Kasner, Ondřej Dušek",
 		"venue" : "INLG 2020",
-		"text" : "<p>Imagine your task is to generate text from data. Which sounds easier: <i>generating text from scratch</i> or <i>joining existing sentences</i>?</p><p>In our approach for the data-to-text generation, we convert data to simple sentences using templates and iteratively join the sentences with a neural model. The model doesn't generate the sentences from scratch, so it cannot mess with the sentences too much. And it also turns out that we can apply the same model for related domains!</p>",
+		"text" : "Imagine your task is to generate text from data. Which sounds easier: <i>generating text from scratch</i> or <i>joining existing sentences</i>? We propose an approach in which we iteratively join the sentences with a text-editing neural model. Since the model has a limited vocabulary, it has also a limited possibilities of introducing incorrect facts. Moreover, it also turns out that sentence fusion is a quite general task which works on multiple domains.",
 		"img" : "2020_d2t_text_editing.png",
-		"id" : "paper_iterative_editing"
+		"id" : "iterative_editing"
 	},
 	{
 		"title" : "Improving Fluency of Non-Autoregressive Machine Translation",
@@ -58,7 +58,7 @@
 		"code" : "https://github.com/kasnerz/neuralmonkey-ctc-decoder",
 		"authors" : "Zdeněk Kasner, Jindřich Libovický, Jindřich Helcl",
 		"venue" : "arXiv",
-		"text" : "A follow-up of my master thesis in which we improve translation quality of a CTC-based machine translation model. The model is non-autoregressive, i.e. faster but not as good as autoregressive models. To achieve that, we re-score the hypotheses in the beam of the model with a language model and several other features.",
+		"text" : "In the follow-up of my master thesis, we improve translation quality of a CTC-based machine translation model. The model is non-autoregressive, i.e. faster but lacking behind autoregressive models in translation quality. To improve the translation quality, we re-score the hypotheses during the beam search decoding with an n-gram language model and several other features.",
 		"img" : "2019_nonautoregressive.png"
 	}
 
