@@ -5,7 +5,7 @@ permalink: /research/
 ---
 In my research, I am working on **natural language generation** with **pretrained neural language models**. I focus on building systems which can accurately describe structured data (graphs, tables, charts, etc.) from various domains: 
 
-<img src="/assets/nlg_da_scheme.png" alt="d2t" style="max-width: 90%; margin: auto;">
+<img src="/assets/d2t.png" alt="d2t" style="max-width: 90%; margin: auto;">
 
 Existing systems are usually built on hand-crafted templates. A way to make the systems more flexible could be using pretrained models such as BART or T5. However, these models are good in language generation, but not in manipulating with data. 
 
