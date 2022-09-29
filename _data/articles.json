@@ -1,0 +1,63 @@
+[
+	{
+		"title" : "Neural Pipeline for Zero-Shot Data-to-Text Generation",
+		"acl" : "https://aclanthology.org/2022.acl-long.271/",
+		"poster" : "/assets/papers/pdf/2022_zeroshot_pipeline_poster.pdf",
+		"code" : "https://github.com/kasnerz/zeroshot-d2t-pipeline",
+		"authors" : "Zdeněk Kasner, Ondřej Dušek",
+		"venue" : "ACL 2022",
+		"text" : "We formulate data-to-text generation as a sequence of trainable text-to-text operations: ordering, aggregation, and paragraph compression. This allows us to combine the power of pretrained language models with controllability of pipeline approaches. As a welcome side-effect, we get rid of semantically incorrect outputs arising from noisy human-written references. Is NL-only approach to data-to-text generation the way to go?",
+		"img" : "/assets/papers/2022_zeroshot_pipeline.png",
+		"id" : "neural_pipeline"
+	},
+	{
+		"title" : "Text-in-Context: Token-Level Error Detection for Table-to-Text Generation",
+		"acl" : "https://aclanthology.org/2021.inlg-1.25/",
+		"poster" : "/assets/papers/pdf/2021_text_in_context_poster.pdf",
+		"code" : "https://github.com/kasnerz/accuracySharedTask_CUNI-UPF",
+		"authors" : "Zdeněk Kasner, Simon Mille, Ondřej Dušek",
+		"venue" : "INLG 2021",
+		"text" : "How to automatically detect which parts of the generated text do not correspond to the data? In our submission for the <a href=\"https://github.com/ehudreiter/accuracySharedTask\">Shared Task in Evaluating Accuracy 2021</a>, we devise a 3-step approach combining a rule-based system with pretrained language models. And our approach was the best out of four submitted metrics!",
+		"img" : "/assets/papers/2021_text_in_context.png",
+		"id" : "text_in_context"
+	},
+	{
+		"title" : "Train Hard, Finetune Easy: Multilingual Denoising for RDF-to-Text Generation",
+		"acl" : "https://www.aclweb.org/anthology/2020.webnlg-1.20/",
+		"authors" : "Zdeněk Kasner, Ondřej Dušek",
+		"venue" : "INLG 2020",
+		"text" : "<i>Data</i> == <i>noisy text</i>. That's definitely an overgeneralization, oversimplification... but um, it works! We succesfully generate text from DBPedia data in <i>English</i> and <i>Russian</i> just by finetuning mBART - a pretrained multilingual denoising autoencoder. This is our submission for the <a href=\"https://webnlg-challenge.loria.fr/challenge_2020/\">WebNLG Challenge 2020</a>, presented at the <a href=\"https://webnlg-challenge.loria.fr/workshop_2020/\">3rd Workshop on Natural Language Generation from the Semantic Web.</a>",
+		"img" : "/assets/papers/2020_mbart.png"
+	},
+	{
+		"title" : "Evaluating Semantic Accuracy of Data-to-Text Generation with Natural Language Inference",
+		"award" : "INLG 2020 Best Short Paper Award",
+		"acl" : "https://www.aclweb.org/anthology/2020.inlg-1.19/",
+		"code" : "https://github.com/ufal/nlgi_eval",
+		"authors" : "Ondřej Dušek, Zdeněk Kasner",
+		"venue" : "INLG 2020",
+		"text" : "Does a text contain all the information from the data? Hard to check manually, even harder to code. But what if we reformulate the question a little bit: can we <i>infer</i> all the data from the text and nothing else? That sounds like natural language inference. And guess what - somebody already pretrained a neural model for that!",
+		"img" : "/assets/papers/2020_nli_inlg.png"
+	},
+	{
+		"title" : "Data-to-Text Generation with Iterative Text Editing",
+		"acl" : "https://www.aclweb.org/anthology/2020.inlg-1.9/",
+		"poster" : "/assets/papers/pdf/2020_d2t_text_editing.pdf",
+		"code" : "https://github.com/kasnerz/d2t_iterative_editing",
+		"authors" : "Zdeněk Kasner, Ondřej Dušek",
+		"venue" : "INLG 2020",
+		"text" : "<p>Imagine your task is to generate text from data. Which sounds easier: <i>generating text from scratch</i> or <i>joining existing sentences</i>?</p><p>In our approach for the data-to-text generation, we convert data to simple sentences using templates and iteratively join the sentences with a neural model. The model doesn't generate the sentences from scratch, so it cannot mess with the sentences too much. And it also turns out that we can apply the same model for related domains!</p>",
+		"img" : "/assets/papers/2020_d2t_text_editing.png",
+		"id" : "paper_iterative_editing"
+	},
+	{
+		"title" : "Improving Fluency of Non-Autoregressive Machine Translation",
+		"arxiv" : "https://arxiv.org/abs/2004.03227" ,
+		"code" : "https://github.com/kasnerz/neuralmonkey-ctc-decoder",
+		"authors" : "Zdeněk Kasner, Jindřich Libovický, Jindřich Helcl",
+		"venue" : "arXiv",
+		"text" : "A follow-up of my master thesis in which we improve translation quality of a CTC-based machine translation model. The model is non-autoregressive, i.e. faster but not as good as autoregressive models. To achieve that, we re-score the hypotheses in the beam of the model with a language model and several other features.",
+		"img" : "/assets/papers/2019_nonautoregressive.png"
+	}
+
+]

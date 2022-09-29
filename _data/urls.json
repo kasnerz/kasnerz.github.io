@@ -1,8 +1,8 @@
 [
   {
-    "text": "About",
+    "text": "Home",
     "url": "/",
-    "icon": "fa-user"
+    "icon": "fa-home"
   },
   {
     "text": "Research",
@@ -18,5 +18,10 @@
     "text": "Blog",
     "url": "/blog",
     "icon": "fa-edit"
+  },
+  {
+    "text": "About",
+    "url": "/about",
+    "icon": "fa-user"
   }
 ]

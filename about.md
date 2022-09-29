@@ -1,7 +1,7 @@
 ---
 layout: default
 title: About
-permalink: /
+permalink: /about
 ---
 <img id="about-img" align="right" src="assets/me_3.jpg" alt="me_3">
 
@@ -26,9 +26,9 @@ On this website, I want to:
 
 ---
 ## [Me²](https://www.dailymotion.com/video/x3b1ozq)
-I learned many things at my alma mater [Czech Technical University](https://cvut.cz/) <img src="assets/cvut.png" style="display: inline">, before I moved on to [Charles University](https://cuni.cz/) <img src="assets/cuni.png" style="display: inline"> (both in Prague) to pursue a PhD in Computational Lingustics.
+I learned many things at my alma mater [Czech Technical University](https://cvut.cz/) <img src="assets/icons/cvut.png" style="display: inline">, before I moved on to [Charles University](https://cuni.cz/) <img src="assets/icons/cuni.png" style="display: inline"> (both in Prague) to pursue a PhD in Computational Lingustics.
 
-For every thing I learned at the university, I learned two at [Board of European Student of Technology](https://best.eu.org) <img src="assets/best.png" style="display: inline"> This student organization has been a part of my life for almost five years and the life lessons I got from here are priceless. 
+For every thing I learned at the university, I learned two at [Board of European Student of Technology](https://best.eu.org) <img src="assets/icons/best.png" style="display: inline"> This student organization has been a part of my life for almost five years and the life lessons I got from here are priceless. 
 
 I am still looking for new **volunteering** <i class="fa fa-people-arrows"></i> opportunities – organizing local festivals and other events, helping as a buddy, going to workcamps, etc.
 
@@ -44,10 +44,10 @@ In general, I would describe myself as an **introvert** who likes socializing, m
 
 Besides all of this, I also enjoy some other things which – for some reason – are even less mainstream:
 
-- My only operating system is **Linux Mint** <img src="assets/mint.png" style="display: inline">, and I didn't need to use Windows for... well, almost an eternity now.
+- My only operating system is **Linux Mint** <img src="assets/icons/mint.png" style="display: inline">, and I didn't need to use Windows for... well, almost an eternity now.
 - I like **writing long texts** <i class="fas fa-pen-nib"></i> instead of posting pictures with hashtags  or tweeting, so I mostly avoid being active on social networks.
 - My most favourite music genres are **folk / progressive / symphonic metal** <i class="fa fa-music"></i> and I still have to find out why people don't listen to them much more.
-- The more punk my travels are, the better. Hitchhiking, camping outside, [Couchsurfing](https://www.couchsurfing.com)...  <img src="assets/cs.png" style="display: inline"> (trains at Balkan or Ukraine also fit).
+- The more punk my travels are, the better. Hitchhiking, camping outside, [Couchsurfing](https://www.couchsurfing.com)...  <img src="assets/icons/cs.png" style="display: inline"> (trains at Balkan or Ukraine also fit).
 - I use [shared bikes](https://www.nextbikeczech.com) <i class="fas fa-bicycle"></i> a lot and I do not miss having a car at all. Also, I like the [14 T trams](https://en.wikipedia.org/wiki/%C5%A0koda_14_T) <i class="fas fa-tram"></i> the most (which is definitely not a mainstream opinion in Prague).
 - To make the list complete: I have no opinion whatsoever on a **pizza with pineapple**. 🍕
 
