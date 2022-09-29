@@ -15,9 +15,14 @@
     "icon": "fa-graduation-cap"
   },
   {
+    "text": "Projects",
+    "url": "/projects",
+    "icon": "fa-code"
+  },
+  {
     "text": "Blog",
     "url": "/blog",
-    "icon": "fa-edit"
+    "icon": "fa-pen-fancy"
   },
   {
     "text": "About",

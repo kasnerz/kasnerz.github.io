@@ -335,6 +335,21 @@ body {
     max-width: 250px;
 }
 
+.project-content {
+    padding-bottom: 10px;
+    /* padding-left: 10px; */
+    padding-right: 10px;
+    /* font-size: smaller; */
+    word-wrap: break-word;
+}
+
+.project-headline {
+    font-size: larger;
+}
+
+.project-view {
+    margin-top: 5px;
+}
 
 .centered-image {
     display: block;

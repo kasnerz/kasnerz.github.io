@@ -3,36 +3,17 @@ layout: default
 title: About
 permalink: /about
 ---
+
 <img id="about-img" align="right" src="assets/me_3.jpg" alt="me_3">
+Oh, hello again! Here you can find a little bit more about me.
 
-## TL;DR
-I am a **PhD student** at the [Institute of Formal and Applied Linguistics](https://ufal.mff.cuni.cz/), Charles University, Prague. But here it might be more appropriate to say that I am just a guy who likes to test new ideas. Or that I am a graphomaniac with a withdrawal syndrome.
+I learned many things at my alma mater <img src="assets/icons/cvut.png" style="display: inline"> [Czech Technical University](https://cvut.cz/) , before I moved on to <img src="assets/icons/cuni.png" style="display: inline"> [Charles University](https://cuni.cz/) (both in Prague) to pursue a PhD in Computational Lingustics.
 
-Let's just say it is hard to describe a person in a single sentence.
-
-Sorry, you will have to read on 😁
-
----
-## Website
-**Note**: This is my **personal** website. I also have and [official academic website](https://ufal.mff.cuni.cz/zdenek-kasner) <i class="fa fa-university"></i> and [LinkedIn profile](https://www.linkedin.com/in/zdenek-kasner/) <i class="fab fa-linkedin"></i>. If you are interested in my research, have a look at the [Research](research) tab, where I explain it in simple terms. 
-
-
-On this website, I want to:
-- **Share the ideas** which I find interesting.
-- **Explain the concepts** that I am familiar with.
-- **Talk about the thoughts** floating in my head.
-
-(Regarding the last point – any clue why using a public website for that sounded like a good idea?).
-
----
-## [Me²](https://www.dailymotion.com/video/x3b1ozq)
-I learned many things at my alma mater [Czech Technical University](https://cvut.cz/) <img src="assets/icons/cvut.png" style="display: inline">, before I moved on to [Charles University](https://cuni.cz/) <img src="assets/icons/cuni.png" style="display: inline"> (both in Prague) to pursue a PhD in Computational Lingustics.
-
-For every thing I learned at the university, I learned two at [Board of European Student of Technology](https://best.eu.org) <img src="assets/icons/best.png" style="display: inline"> This student organization has been a part of my life for almost five years and the life lessons I got from here are priceless. 
+For every thing I learned at the university, I learned two at <img src="assets/icons/best.png" style="display: inline"> [Board of European Student of Technology](https://best.eu.org) This student organization has been a part of my life for almost five years and the life lessons I got from here are priceless. 
 
 I am still looking for new **volunteering** <i class="fa fa-people-arrows"></i> opportunities – organizing local festivals and other events, helping as a buddy, going to workcamps, etc.
 
-I love **traveling** as much as anybody else, but I mostly like to visit tucked away places, meet local people and  [push my boundaries](https://x-challenge.cz/) <img src="assets/x.jpg" style="display: inline"> .
+I love **traveling** as much as anybody else, but I mostly like to visit tucked away places, meet local people and  <img src="assets/x.jpg" style="display: inline"> [push my boundaries](https://x-challenge.cz/) .
 
 **Languages** <i class="fa fa-language"></i> are not just my work, but my hobby. I want to practice French or Dutch in the future again. And yes, I also learned Japanese, and no, I cannot speak it (well, nor can I speak the former two).
 
@@ -48,7 +29,7 @@ Besides all of this, I also enjoy some other things which – for some reason �
 - I like **writing long texts** <i class="fas fa-pen-nib"></i> instead of posting pictures with hashtags  or tweeting, so I mostly avoid being active on social networks.
 - My most favourite music genres are **folk / progressive / symphonic metal** <i class="fa fa-music"></i> and I still have to find out why people don't listen to them much more.
 - The more punk my travels are, the better. Hitchhiking, camping outside, [Couchsurfing](https://www.couchsurfing.com)...  <img src="assets/icons/cs.png" style="display: inline"> (trains at Balkan or Ukraine also fit).
-- I use [shared bikes](https://www.nextbikeczech.com) <i class="fas fa-bicycle"></i> a lot and I do not miss having a car at all. Also, I like the [14 T trams](https://en.wikipedia.org/wiki/%C5%A0koda_14_T) <i class="fas fa-tram"></i> the most (which is definitely not a mainstream opinion in Prague).
+- I use <i class="fas fa-tram"> [shared bikes](https://www.nextbikeczech.com) <i class="fas fa-bicycle"></i> a lot and I do not miss having a car at all. Also, I like the [14 T trams](https://en.wikipedia.org/wiki/%C5%A0koda_14_T)</i> the most (which is definitely not a mainstream opinion in Prague).
 - To make the list complete: I have no opinion whatsoever on a **pizza with pineapple**. 🍕
 
 ---

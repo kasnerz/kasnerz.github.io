@@ -14,7 +14,7 @@
 		"instances": [ 
 			{
 				"period": "21/22 Summer", 
-				"text": "I was teaching a lab for Introduction to Linux (<a href=\"https://d3s.mff.cuni.cz/teaching/nswi177/\">NSWI177</a>) in Czech (finally in person!). Instead of lectures, the students had a \"<i>before-class reading</i>\" which we built upon during the lab."
+				"text": "I was teaching a lab for Introduction to Linux (<a href=\"https://d3s.mff.cuni.cz/teaching/nswi177/\">NSWI177</a>) in Czech (finally in person!). We used the inverted lecture system – instead of lectures, the students had a \"<i>before-class reading</i>\" which we built upon during the lab."
 			}
 		],
 		"img": "2022_nswi177.png"
