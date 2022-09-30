@@ -9,7 +9,7 @@ I work on **natural language generation** with **pretrained neural language mode
 
 Existing systems are usually built on hand-crafted templates. Pretrained language models such as BART or T5 have potential for making these systems more flexible, but the models are not good in manipulating with data. 
 
-I try to combine the best of both worlds: using templates for **transforming the data to text** and using neural models for **postprocessing the text** (see [[1]](#neural_pipeline), [[2]](#iterative_editing), [[3]](#text_in_context)).
+In my research, I combine the best of both worlds: using templates for **transforming the data to text** and using neural models for **postprocessing the text** (see [[1]](#neural_pipeline), [[2]](#iterative_editing), [[3]](#text_in_context)).
 
 
 My other research interests (ranging from "I digged into that a little bit" up to "if only I had more time") include:
@@ -21,4 +21,4 @@ My other research interests (ranging from "I digged into that a little bit" up t
 
 
 ## Selected publications
-*For the full list of my publications, have a look at my **<img src="/assets/icons/scholar.png" style="display: inline"> [Google Scholar](https://scholar.google.cz/citations?user=6NnuRB8AAAAJ) profile**.*
+For the full list of my publications, have a look at my **<img src="/assets/icons/scholar.png" style="display: inline"> [Google Scholar](https://scholar.google.cz/citations?user=6NnuRB8AAAAJ)** profile.
