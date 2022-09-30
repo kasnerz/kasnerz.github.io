@@ -3,7 +3,7 @@
 
 .main.outer{
     padding-top: 50px; 
-    padding-left: 0px; 
+    padding-left: 20px; 
 }
 .header-panel.shadow-z-2 {
     background-color: #00665c;
@@ -227,6 +227,16 @@ footer {
     right: 12px;
 }
 
+a {
+    color: #333;
+    text-decoration: underline;
+}
+
+.btn {
+    text-decoration: none;
+}
+
+
 body .container .well{
     box-shadow: 0 0px 0px 0 rgba(0,0,0,.2), 0 0px 0px 0 rgba(0,0,0,.19);
 }
@@ -246,6 +256,10 @@ h5,h6{
 body {
     font-family: 'Fira Sans',Helvetica,Arial,sans-serif;font-weight:300;
     text-align: justify;
+}
+.btn-default {
+    color :#ffffff;
+    background-color: #007D72;
 }
 
 .btn-arxiv {
@@ -343,8 +357,13 @@ body {
     word-wrap: break-word;
 }
 
+.project-box {
+    padding: 0px;
+}
+
 .project-headline {
-    font-size: larger;
+    /* font-size: larger; */
+    /* text-decoration: none; */
 }
 
 .project-view {

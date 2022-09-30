@@ -5,17 +5,17 @@ layout: default
 
     {% for i in site.data.projects %}
 	<hr>
-    	<div class="container">
-    		<div class="col-md-6">
-                <a href="{{ i.url }}">{{ i.name }}</a> 
+    	<div class="container project-box">
+    		<div class="col-md-6" style="padding-left: 0px;">
+				<!-- <div class="project-headline"><a href="{{ i.url }}">{{ i.name }}</a> </div> -->
+				<h4>{{ i.name }}</h4>
 				{% if i.text %} <p>{{ i.text }}</p> {% endif %}
     			<div class="project-content">
     				
     			</div>
     		</div>
 			<div class="col-md-6 project-view">
-				<a href="{{ i.url }}" class="btn btn-info btn-raised btn-sm project-link">View</a>
+				<a href="{{ i.url }}" class="btn btn-default project-link">View</a>
 			</div>
     	</div>
     {% endfor %}
-	<hr>

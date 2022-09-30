@@ -4,8 +4,8 @@ title: About
 permalink: /about
 ---
 
-Here is a couple of random facts about me:
 <img id="about-img" align="right" src="assets/me/2.jpg" alt="me">
+Some random facts about me:
 
 I learned many things at my alma mater <img src="assets/icons/cvut.png" style="display: inline"> [Czech Technical University](https://cvut.cz/) , before I moved on to <img src="assets/icons/cuni.png" style="display: inline"> [Charles University](https://cuni.cz/) (both in Prague) to pursue a PhD in Computational Lingustics.
 
