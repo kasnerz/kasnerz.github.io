@@ -1,17 +1,16 @@
 ---
 layout: default
-title: About
+title: About me
 permalink: /about
 ---
 
 <img id="about-img" align="right" src="assets/me/2.jpg" alt="me">
-Some random facts about me:
 
 I learned many things at my alma mater <img src="assets/icons/cvut.png" style="display: inline"> [Czech Technical University](https://cvut.cz/) , before I moved on to <img src="assets/icons/cuni.png" style="display: inline"> [Charles University](https://cuni.cz/) (both in Prague) to pursue a PhD in Computational Lingustics.
 
 For every thing I learned at the university, I learned two at the <img src="assets/icons/best.png" style="display: inline"> [Board of European Student of Technology](https://best.eu.org). This student organization has been a part of my life for almost five years and the life lessons I got from here are priceless. 
 
-I love **traveling**: I have visited over 30 countries so far, but I prefer to spend longer time at one place. I have lived for a couple of months in Belgium, Japan, and Scotland. I also like to visit tucked away places, meet local people and push my boundaries with <img src="assets/icons/x.jpg" style="display: inline"> [X-Challenge](https://x-challenge.cz/).
+I love **travelling**: I have visited over 30 countries so far, but I prefer to spend longer time at one place. I have lived for a couple of months in Belgium, Japan, and Scotland. I also like to visit tucked away places, meet local people and push my boundaries with <img src="assets/icons/x.jpg" style="display: inline"> [X-Challenge](https://x-challenge.cz/).
 <img id="about-img" align="right" src="assets/me/5.jpg" alt="me">
 
 I am still looking for new <i class="fa fa-people-arrows"></i> **volunteering** opportunities – organizing local festivals and other events, helping as a buddy, going to workcamps, etc.
