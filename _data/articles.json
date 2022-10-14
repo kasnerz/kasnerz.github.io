@@ -1,5 +1,15 @@
 [
 	{
+		"title" : "Mind the Labels: Describing Relations in Knowledge Graphs With Pretrained Models",
+		"code" : "https://anonymous.4open.science/r/rel2text/",
+		"authors" : "Zdeněk Kasner, Ioannis Konstas, Ondřej Dušek",
+		"venue" : "arXiv",
+		"text" : "What is the prefered way of learning the semantics of the data for a specific domain – memorizing an arbitrary mapping, or taking the human-readable data labels into account? On the task of describing a relation specified by a triple (entity_1, relation, entity_2), we show that the models are able to describe previously unseen relations as long as the relation label is meaningful and unambiguous! Isn't that a good reason to avoid abbreviations?",
+		"img" : "2022_rel2text.png",
+		"pdf" : "/assets/papers/pdf/2022_rel2text.pdf",
+		"id" : "rel2text"
+	},
+	{
 		"title" : "Neural Pipeline for Zero-Shot Data-to-Text Generation",
 		"acl" : "https://aclanthology.org/2022.acl-long.271/",
 		"poster" : "/assets/papers/pdf/2022_zeroshot_pipeline_poster.pdf",
