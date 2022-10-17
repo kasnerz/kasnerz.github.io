@@ -4,9 +4,9 @@
 		"code" : "https://anonymous.4open.science/r/rel2text/",
 		"authors" : "Zdeněk Kasner, Ioannis Konstas, Ondřej Dušek",
 		"venue" : "arXiv",
-		"text" : "What is the prefered way of learning the semantics of the data for a specific domain – memorizing an arbitrary mapping, or taking the human-readable data labels into account? On the task of describing a relation specified by a triple (entity_1, relation, entity_2), we show that the models are able to describe previously unseen relations as long as the relation label is meaningful and unambiguous! Isn't that a good reason to avoid abbreviations?",
+		"text" : "What is a better way to learn the data semantics – memorizing an arbitrary mapping or taking the human-readable data labels into account? On the task of describing a triple <i>(entity_1, relation, entity_2)</i>, we show that the models are able to describe previously unseen relations as long as the relation label is meaningful and unambiguous. To put it another way: if you want to train robust data-to-text systems, don't use abbreviations!",
 		"img" : "2022_rel2text.png",
-		"pdf" : "/assets/papers/pdf/2022_rel2text.pdf",
+		"arxiv" : "https://arxiv.org/abs/2210.07373",
 		"id" : "rel2text"
 	},
 	{
