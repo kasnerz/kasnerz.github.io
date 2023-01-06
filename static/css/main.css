@@ -359,6 +359,8 @@ body {
 
 .project-box {
     padding: 0px;
+    /* display: table-cell; */
+	vertical-align: middle;
 }
 
 .project-headline {

@@ -1,24 +1,26 @@
 [
 	{
 		"name": "⚡️ LightNLG",
-		"img": "lightnlg.png",
 		"url": "https://github.com/kasnerz/lightnlg",
-		"text": "A minimalistic codebase for working with neural NLG models."
+		"text": "A minimalistic codebase for training and running neural NLG models."
+	},
+	{
+		"name": "🧞 TabGenie",
+		"url": "https://github.com/kasnerz/tabgenie",
+		"text": "A framework for working with table-to-text generation datasets."
 	},
 	{
 		"name": "🛠️ reffix",
-		"img": "reffix.png",
 		"url": "https://github.com/kasnerz/reffix",
 		"text": "A tool for fixing the BibTeX list of references."
 	},
 	{
-		"name": "⌨️ multiling-o-cs",
+		"name": "📱 multiling-o-cs",
 		"url": "https://github.com/kasnerz/multiling-o-cs",
 		"text": "My custom configuration files for the Multiling-o keyboard."
 	},
 	{
-		"name": "🎶 songbook",
-		"img": "songbook.png",
+		"name": "🎵 songbook",
 		"url": "https://github.com/kasnerz/songbook",
 		"text": "My personal guitar songbook."
 	}

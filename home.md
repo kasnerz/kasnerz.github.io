@@ -5,7 +5,7 @@ permalink: /
 ---
 <img id="about-img" align="right" src="assets/me/3.jpg" alt="me">
 
-I am Zdeněk /ˈzdɛɲɛk/, a PhD student of Computational Linguistics at Charles University in Prague. 
+Hi, I am Zdeněk /ˈzdɛɲɛk/, a PhD student of Computational Linguistics at Charles University, Prague. 
 
 If you are interested in my work, here are a few pointers:
 - my <i class="fa fa-area-chart"></i> [research](/research) and <i class="fa fa-graduation-cap"></i> [teaching](/teaching) activities,
@@ -15,4 +15,4 @@ If you are interested in my work, here are a few pointers:
 - my <i class="fab fa-linkedin"></i> [LinkedIn profile](https://www.linkedin.com/in/zdenek-kasner/),
 - my <i class="fa fa-file-pdf"></i> [CV](/assets/cv/cv.pdf).
 
-If you are interested in me personally, see my <i class="fa fa-user"></i> [bio](/about)! 
+See also my <i class="fa fa-user"></i> [bio](/about) for my personal story.
