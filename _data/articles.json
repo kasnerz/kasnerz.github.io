@@ -1,5 +1,16 @@
 [
 	{
+		"title": "TabGenie: A Toolkit for Table-to-Text Generation",
+		"code": "https://github.com/kasnerz/tabgenie",
+		"authors": "Zdeněk Kasner, Ekaterina Garanina, Ondřej Plátek, Ondřej Dušek",
+		"venue": "arXiv",
+		"text": "We began developing this tool to play with the generative language models in real time, but it soon evolved into a swiss knife for table-to-text generation. TabGenie provides interactive data visualization, unified data representation & unified programming interface for more than 15 datasets. You can use the web interface as a dataset viewer and a model playground, the programming interface then allows  to quickly prototype new models.",
+		"img": "2023_tabgenie.png",
+		"arxiv": "https://arxiv.org/abs/2302.14169",
+		"demo": "https://quest.ms.mff.cuni.cz/rel2text/tabgenie/",
+		"id": "tabgenie"
+	},
+	{
 		"title": "Mind the Labels: Describing Relations in Knowledge Graphs With Pretrained Models",
 		"code": "https://github.com/kasnerz/rel2text",
 		"authors": "Zdeněk Kasner, Ioannis Konstas, Ondřej Dušek",
@@ -7,11 +18,14 @@
 		"text": "What is a better way to learn the data semantics – memorizing an arbitrary mapping or taking the human-readable data labels into account? On the task of describing a triple <i>(entity_1, relation, entity_2)</i>, we show that the models are able to describe previously unseen relations as long as the relation label is meaningful and unambiguous. To put it another way: if you want to train robust data-to-text systems, don't use abbreviations!",
 		"img": "2022_rel2text.png",
 		"arxiv": "https://arxiv.org/abs/2210.07373",
+		"acl": "https://aclanthology.org/2023.eacl-main.176/",
+		"poster": "/assets/papers/pdf/2023_mind_the_labels_poster.pdf",
 		"id": "rel2text"
 	},
 	{
 		"title": "Neural Pipeline for Zero-Shot Data-to-Text Generation",
 		"acl": "https://aclanthology.org/2022.acl-long.271/",
+		"arxiv": "https://arxiv.org/abs/2203.16279",
 		"poster": "/assets/papers/pdf/2022_zeroshot_pipeline_poster.pdf",
 		"code": "https://github.com/kasnerz/zeroshot-d2t-pipeline",
 		"authors": "Zdeněk Kasner, Ondřej Dušek",
@@ -45,6 +59,7 @@
 		"title": "Evaluating Semantic Accuracy of Data-to-Text Generation with Natural Language Inference",
 		"award": "INLG 2020 Best Short Paper Award",
 		"acl": "https://www.aclweb.org/anthology/2020.inlg-1.19/",
+		"arxiv": "https://arxiv.org/abs/2011.10819",
 		"code": "https://github.com/ufal/nlgi_eval",
 		"authors": "Ondřej Dušek, Zdeněk Kasner",
 		"venue": "INLG 2020",
@@ -54,6 +69,7 @@
 	{
 		"title": "Data-to-Text Generation with Iterative Text Editing",
 		"acl": "https://www.aclweb.org/anthology/2020.inlg-1.9/",
+		"arxiv": "https://arxiv.org/abs/2011.01694",
 		"poster": "/assets/papers/pdf/2020_d2t_text_editing.pdf",
 		"code": "https://github.com/kasnerz/d2t_iterative_editing",
 		"authors": "Zdeněk Kasner, Ondřej Dušek",

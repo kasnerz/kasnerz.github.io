@@ -12,13 +12,13 @@ layout: default
 	<div class="paper-extra">
 		<i class="fa fa-award"></i><b> {{ i.award }}</b>
 	</div>
-	{% endif %}	
+	{% endif %}
 
 
 	<div class="paper-authors">
 		<div> <i class="fa fa-user-friends"></i> <i>{{ i.authors }}</i></div>
 		<div> <i class="fa fa-paperclip"></i> <i>{{ i.venue }}</i></div>
-		
+
 	</div>
 
 	<div class="container paper-body">
@@ -29,13 +29,23 @@ layout: default
 			<img src="/assets/papers/{{ i.img }}">
 		</div>
 	</div>
-	
+
 	<div class="paper-buttons">
-		{% if i.acl %} <a href="{{ i.acl }}" class="btn btn-acl" role="button"><i class="fa fa-file-pdf"></i> ACL Anthology</a> {% endif %}
-		{% if i.arxiv %} <a href="{{ i.arxiv }}" class="btn btn-arxiv" role="button"><i class="fa fa-file-pdf"></i> arXiv</a> {% endif %}
-		{% if i.pdf %} <a href="{{ i.pdf }}" class="btn btn-pdf" role="button"><i class="fa fa-file-pdf"></i> PDF</a> {% endif %}
-		{% if i.poster %} <a href="{{ i.poster }}" class="btn btn-poster" role="button"><i class="fa fa-file-invoice"></i> Poster</a> {% endif %}
-		{% if i.code %} <a href="{{ i.code }}" class="btn btn-code" role="button"><i class="fa fa-github"></i> Code</a> {% endif %}
+		{% if i.acl %} <a href="{{ i.acl }}" class="btn btn-default" role="button"><i class="fa fa-file-pdf"></i> ACL
+			Anthology</a> {% endif %}
+		{% if i.arxiv %} <a href="{{ i.arxiv }}" class="btn btn-default" role="button"><i class="fa fa-file-pdf"></i>
+			arXiv</a> {% endif %}
+		{% if i.pdf %} <a href="{{ i.pdf }}" class="btn btn-default" role="button"><i class="fa fa-file-pdf"></i>
+			PDF</a> {%
+		endif %}
+		{% if i.poster %} <a href="{{ i.poster }}" class="btn btn-default" role="button"><i
+				class="fa fa-file-invoice"></i> Poster</a> {% endif %}
+		{% if i.code %} <a href="{{ i.code }}" class="btn btn-default" role="button"><i class="fa fa-github"></i>
+			Code</a>
+		{% endif %}
+		{% if i.demo %} <a href="{{ i.demo }}" class="btn btn-default" role="button"><i class="fa fa-laptop"></i>
+			Demo</a>
+		{% endif %}
 	</div>
 </div>
 <hr>
