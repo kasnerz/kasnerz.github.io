@@ -64,7 +64,8 @@
 		"authors": "Ondřej Dušek, Zdeněk Kasner",
 		"venue": "INLG 2020",
 		"text": "Does a text contain all the information from the data? Hard to check manually, even harder to code. But what if we reformulate the question a little bit: can we <i>infer</i> all the data from the text and nothing else? That sounds like natural language inference. And guess what - somebody already pretrained a neural model for that!",
-		"img": "2020_nli_inlg.png"
+		"img": "2020_nli_inlg.png",
+		"id": "semacc"
 	},
 	{
 		"title": "Data-to-Text Generation with Iterative Text Editing",
