@@ -8,6 +8,7 @@
 		"img": "2023_tabgenie.png",
 		"arxiv": "https://arxiv.org/abs/2302.14169",
 		"demo": "https://quest.ms.mff.cuni.cz/rel2text/tabgenie/",
+		"poster": "/assets/papers/pdf/2023_tabgenie_poster.pdf",
 		"id": "tabgenie"
 	},
 	{
