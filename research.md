@@ -6,7 +6,7 @@ permalink: /research/
 
 My research revolves around improving **data-to-text generation** systems.
 
-The approaches I have worked on include:
+The things I have worked on include:
 - domain-independent data-to-text generation [[1]](#neural_pipeline), [[2]](#iterative_editing),
 - evaluating semantic accuracy of generated text [[3]](#text_in_context), [[4]](#semacc),
 - investigating the role of data labels [[5]](#rel2text).
@@ -14,7 +14,7 @@ The approaches I have worked on include:
 
 I focus on developing efficient representations of structured data, so that the data can be used as an input to pretrained language models. 
 
-Currently, I am working on applying large language models for autonomous web navigation, which is a pretty hot topic!
+During my internship at Mila, I was working on applying LLMs for autonomous web navigation, which was an interesting experience.
 
 In the future, I would also like to delve deeper into **model interpretability**: how is the information inside the language models represented, how do language models reason, and how this all relates to human cognition.
 
