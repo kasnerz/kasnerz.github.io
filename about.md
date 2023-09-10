@@ -10,15 +10,15 @@ I learned a lot at my alma mater <img src="assets/icons/cvut.png" style="display
 
 For every thing I learned at the university, I learned two at the <img src="assets/icons/best.png" style="display: inline"> [Board of European Student of Technology](https://best.eu.org). This student organization has been a part of my life for almost five years and the life lessons I got from here are priceless. 
 
-I love **travelling**: I have visited over 30 countries so far. Out of these, I have lived in Belgium, Japan, and Scotland for several months. And although Prague is still my favourite city, I would definitely like to spend some time abroad again.
+I love **travelling**: I have visited over 30 countries so far. Out of these, I have lived in Belgium, Japan, Scotland, and Canada for several months. And although Prague will always be my favourite city, I will definitely say "yes" to spending some time abroad again!
 
-I am currently involved in the  <img src="assets/icons/x.jpg" style="display: inline"> [X-Challenge](https://x-challenge.cz/) community, which helps me to further push my boundaries and experience life to its fullest (however cheesy that may sound). I am also always looking for new <i class="fa fa-people-arrows"></i> **volunteering** opportunities – organizing local festivals and events, helping as a buddy, going to workcamps, etc.
+I am currently involved in <img src="assets/icons/x.jpg" style="display: inline"> [X-Challenge](https://x-challenge.cz/), a community organizing various activities related to low-cost travelling, hiking, education, self-improvement, jamming, and many more. It is the place where I can meet diverse people and enjoy life to its fullest 🤗 I am also always up for any <i class="fa fa-people-arrows"></i> **volunteering** opportunities – organizing local festivals and events, helping as a buddy, going to workcamps, etc.
 
-**Languages** are not just my work, but also my hobby. I definitely want to practice French and Dutch in the future again. I also learned a bit of Japanese, but I'm not sure I will be ever be able to learn it properly 😁
+**Languages** are not just my work, but also my hobby. I definitely want to practice French and Dutch in the future again. I also learned a bit of Japanese, but that was probably just a fun episode 😁
 
-Recently I started to learn to play <i class="fa fa-guitar"></i> **guitar** and I already expanded my [songbook](/projects) by quite a bit!
+I am learning to play <i class="fa fa-guitar"></i> **guitar** for some time now and I already expanded my [songbook](/projects) by quite a bit!
 
-In general, I would describe myself as an **introvert** who likes socializing, meeting new people, and finding myself in new and uncomfortable situations. And I think it is important not to take life too seriously 🙃
+In general, I would describe myself as an **introvert** who likes socializing, meeting new people, and finding myself in new and uncomfortable situations 🙃 And I think it is important not to take life too seriously.
 
 ---
 
