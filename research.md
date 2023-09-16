@@ -14,7 +14,7 @@ The things I have worked on include:
 
 I focus on developing efficient representations of structured data, so that the data can be used as an input to pretrained language models. 
 
-During my internship at Mila, I was working on applying LLMs for autonomous web navigation, which was an interesting experience.
+During my internship at [Mila](https://mila.quebec/), I was working on applying LLMs for autonomous web navigation.
 
 In the future, I would also like to delve deeper into **model interpretability**: how is the information inside the language models represented, how do language models reason, and how this all relates to human cognition.
 
