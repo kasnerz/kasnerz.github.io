@@ -4,7 +4,7 @@
 		"code": "https://github.com/kasnerz/tabgenie",
 		"authors": "Zdeněk Kasner, Ekaterina Garanina, Ondřej Plátek, Ondřej Dušek",
 		"venue": "ACL 2023 – Demo Track",
-		"text": "We began developing this tool to play with the generative language models in real time but it soon evolved into a swiss knife for table-to-text generation. TabGenie provides interactive data visualization, unified data representation & unified programming interface for more than 15 datasets. You can use the web interface as a dataset viewer and a model playground, the programming interface then allows  to quickly prototype new models.",
+		"text": "We began developing this tool to play with the generative language models in real time but it soon evolved into a swiss knife for table-to-text generation. TabGenie provides interactive data visualization, unified data representation & unified programming interface for more than 15 data-to-text datasets. You can use the web interface as a dataset viewer and a model playground, the programming interface then allows  to quickly prototype new models.",
 		"img": "2023_tabgenie.png",
 		"arxiv": "https://arxiv.org/abs/2302.14169",
 		"demo": "https://quest.ms.mff.cuni.cz/nlg/tabgenie/",
