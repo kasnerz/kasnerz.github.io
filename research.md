@@ -12,7 +12,7 @@ The projects I have worked on include:
 - investigating the role of data labels [[5]](#rel2text).
 - software toolkit for data-to-text generation [[6]](#tabgenie).
 
-I focus on developing efficient representations of structured data, so that the data can be used as an input to pretrained language models. 
+I focus on developing efficient representations of structured data, so that the data can be used as an input to pretrained language models for generating automated reports.
 
 During my internship at [Mila](https://mila.quebec/), I was working on applying LLMs for autonomous web navigation.
 
