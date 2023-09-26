@@ -12,9 +12,9 @@ For every thing I learned at the university, I learned two at the <img src="asse
 
 I love **travelling**: I have visited over 30 countries so far. Out of these, I have lived in Belgium, Japan, Scotland, and Canada for several months. And although Prague will always be my favourite city, I will definitely say "yes" to spending some time abroad again!
 
-I am currently involved in <img src="assets/icons/x.jpg" style="display: inline"> [X-Challenge](https://x-challenge.cz/), a community organizing various activities related to low-cost travelling, hiking, education, self-improvement, jamming, and many more. It is the place where I can meet diverse people and enjoy life to its fullest 🤗 I am also always up for any <i class="fa fa-people-arrows"></i> **volunteering** opportunities – organizing local festivals and events, helping as a buddy, going to workcamps, etc.
+I am currently involved in <img src="assets/icons/x.jpg" style="display: inline"> [X-Challenge](https://x-challenge.cz/), a community organizing various activities related to low-cost travelling, hiking, education, self-improvement, music jamming, and much more. It is the place where I can meet diverse people and enjoy life to its fullest 🤗 I am also always up for any <i class="fa fa-people-arrows"></i> **volunteering** opportunities – organizing local festivals and events, helping as a buddy, going to workcamps, etc.
 
-**Languages** are not just my work, but also my hobby. I definitely want to practice French and Dutch in the future again. I also learned a bit of Japanese, but that was probably just a fun episode 😁
+**Languages** are not just my work, but also my hobby. I definitely want to practice French and Dutch in the future again. I also learned a bit of Japanese, but that was just a fun episode.
 
 I am learning to play <i class="fa fa-guitar"></i> **guitar** for some time now and I already expanded my [songbook](/projects) by quite a bit!
 
@@ -26,8 +26,8 @@ Besides all of this, I also enjoy some other things which – for some reason �
 
 - My only operating system is <img src="assets/icons/mint.png" style="display: inline"> **Linux Mint** and I didn't need to use Windows for... well, almost an eternity now.
 - I prefer <i class="fas fa-pen-nib"></i>  **writing long texts** to posting pictures with hashtags, so I mostly tend to avoid being active on social media. I would still love to start blogging if only I had extra time!
-- My favourite music genres are <i class="fa fa-music"></i> **progressive / folk / symphonic metal** which are beautifully complex and powerful forms of music, even though not many people think so.
+- My favourite music genres are <i class="fa fa-music"></i> **progressive / folk / symphonic metal** which are beautifully complex and powerful forms of music.
 - The more punk my travels are, the better. Hitchhiking, camping outside, <img src="assets/icons/vlakfest.png" style="display: inline"> [train festivals](https://vlakfest.cz/), <img src="assets/icons/cs.png" style="display: inline"> [couchsurfing](https://www.couchsurfing.com/people/zdenek-kasner)...
 - I enjoy compact phones, especially with my [custom](/assets/keyboard.png) <img src="assets/icons/multilingo.webp" style="display: inline"> [Multiling-o](https://play.google.com/store/apps/details?id=kl.ime.oh) keyboard, and I hope that smaller phones will come into fashion again.
-- I am a big fan of <i class="fas fa-bicycle"></i> [shared bikes](https://www.nextbikeczech.com) and I do not miss having a car at all. Also, I like the <i class="fas fa-tram"></i> [14 T trams](https://en.wikipedia.org/wiki/%C5%A0koda_14_T) the most (which is definitely not a mainstream opinion in Prague).
+- I am a big fan of <i class="fas fa-bicycle"></i> [shared bikes](https://www.nextbikeczech.com) and I do not miss having a car at all.
 - To make the list complete: I have no opinion whatsoever on a pizza with pineapple. 🍕
