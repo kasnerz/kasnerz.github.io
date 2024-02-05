@@ -1,5 +1,17 @@
 [
 	{
+		"title": "Beyond Reference-Based Metrics: Analyzing Behaviors of Open LLMs on Data-to-Text Generation",
+		"code": "https://github.com/kasnerz/quintd",
+		"authors": "Zdeněk Kasner, Ondřej Dušek",
+		"venue": "2024, arXiv",
+		"text": "Bechmarks for data-to-text generation are, well... not great. Most of them are small-scale, subject to data contamination, and slowly becoming saturated. But there are plenty of novel structured data online! In this paper, we make use of structured data scraped from open APIs and evaluate open LLMs (Llama2, Mistral, and Zephyr) on five data-to-text generation tasks, such as generating weather forecasts or product descriptions. Using both GPT-4 and human annotators, we find that the models outputs contain plenty of semantic errors on token-level: on average, more than 80% of outputs contain at least one error.",
+		"img": "2024_d2t_llm.png",
+		"arxiv": "http://arxiv.org/abs/2401.10186",
+		"website": "https://d2t-llm.github.io",
+		"demo": "https://quest.ms.mff.cuni.cz/nlg/d2t-llm/data",
+		"id": "d2t-llm"
+	},
+	{
 		"title": "TabGenie: A Toolkit for Table-to-Text Generation",
 		"code": "https://github.com/kasnerz/tabgenie",
 		"authors": "Zdeněk Kasner, Ekaterina Garanina, Ondřej Plátek, Ondřej Dušek",
@@ -85,7 +97,7 @@
 		"arxiv": "https://arxiv.org/abs/2004.03227",
 		"code": "https://github.com/kasnerz/neuralmonkey-ctc-decoder",
 		"authors": "Zdeněk Kasner, Jindřich Libovický, Jindřich Helcl",
-		"venue": "arXiv",
+		"venue": "2020, arXiv",
 		"text": "In the follow-up of my master thesis, we improve translation quality of a CTC-based machine translation model. The model is non-autoregressive, i.e. faster but lacking behind autoregressive models in translation quality. To improve the translation quality, we re-score the hypotheses during the beam search decoding with an n-gram language model and several other features.",
 		"img": "2019_nonautoregressive.png"
 	}

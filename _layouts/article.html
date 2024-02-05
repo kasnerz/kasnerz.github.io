@@ -3,6 +3,37 @@ layout: default
 ---
 
 {{ content }}
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var imagePopups = document.querySelectorAll('.image-popup');
+		var popupOverlay = document.createElement('div');
+		popupOverlay.classList.add('popup-overlay');
+
+		imagePopups.forEach(function (popupTrigger) {
+			popupTrigger.addEventListener('click', function (e) {
+				e.preventDefault();
+				var imageUrl = this.getAttribute('data-src');
+
+				var popupContent = document.createElement('img');
+				popupContent.src = imageUrl;
+				popupContent.alt = 'Full Size Image';
+				popupContent.classList.add('popup-content');
+
+				popupOverlay.innerHTML = '';
+				popupOverlay.appendChild(popupContent);
+
+				document.body.appendChild(popupOverlay);
+				popupOverlay.style.display = 'flex';
+			});
+		});
+
+		popupOverlay.addEventListener('click', function () {
+			popupOverlay.style.display = 'none';
+		});
+	});
+</script>
+
 {% for i in site.data.articles %}
 
 <div class="paper" {% if i.id %} id="{{ i.id }}" {% endif %}>
@@ -26,7 +57,9 @@ layout: default
 			{{ i.text }}
 		</div>
 		<div class="col-md-6 paper-img">
-			<img src="/assets/papers/{{ i.img }}">
+			<a href="#" class="image-popup" data-src="/assets/papers/{{ i.img }}">
+				<img src="/assets/papers/{{ i.img }}">
+			</a>
 		</div>
 	</div>
 
@@ -40,12 +73,16 @@ layout: default
 		endif %}
 		{% if i.poster %} <a href="{{ i.poster }}" class="btn btn-default" role="button"><i
 				class="fa fa-file-invoice"></i> Poster</a> {% endif %}
+		{% if i.website %} <a href="{{ i.website }}" class="btn btn-default" role="button"><i class="fa fa-home"></i>
+			Website</a>
+		{% endif %}
 		{% if i.code %} <a href="{{ i.code }}" class="btn btn-default" role="button"><i class="fa fa-github"></i>
 			Code</a>
 		{% endif %}
 		{% if i.demo %} <a href="{{ i.demo }}" class="btn btn-default" role="button"><i class="fa fa-laptop"></i>
 			Demo</a>
 		{% endif %}
+
 	</div>
 </div>
 <hr>
