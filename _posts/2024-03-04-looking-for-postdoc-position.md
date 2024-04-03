@@ -50,7 +50,7 @@ If you know of a position that would be a good fit, please [let me know](mailto:
 And if you wonder whether I am a good candidate:
 - Here is my [CV](/assets/cv/cv.pdf), my [Google Scholar page](https://scholar.google.cz/citations?user=6NnuRB8AAAAJ&hl=cs), and the [summary of my research projects](/research).
 - Even though I have not (directly) worked on the aforementioned topics, I am deeply familiar with the related NLP and machine learning techniques.
-- I already spent quite some time getting familiar with the literature in these areas.
+- I already spent quite some time getting familiar with the literature on these topics.
 - I am very enthusiastic about these topics, ready to learn and experiment.
 - And if you are still not persuaded, I am ready to talk to you!
 
