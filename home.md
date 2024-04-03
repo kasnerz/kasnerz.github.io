@@ -3,6 +3,11 @@ layout: default
 title: Home
 permalink: /
 ---
+**I am currently looking for a post-doc position – [see my post](/research/2024/03/31/looking-for-postdoc.html)!**
+
+---
+
+
 <img id="about-img" align="right" src="assets/me/3.jpg" alt="me">
 
 Hi, I am Zdeněk /ˈzdɛɲɛk/, a PhD student of Computational Linguistics at Charles University, Prague. 

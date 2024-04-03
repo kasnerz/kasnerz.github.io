@@ -1,6 +1,6 @@
 Gemfile.lock
 _site/
-_posts/
+# _posts/
 category/
 *~
 .jekyll-cache/

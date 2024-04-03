@@ -1,10 +1,20 @@
 [
 	{
+		"name": "Large Language Models",
+		"instances": [
+			{
+				"period": "23/24 Summer",
+				"text": "Together with my colleagues, we started a brand new course in 23/24 on large language models (<a href=\"https://ufal.mff.cuni.cz/courses/npfl140\">NPFL140</a>). The course is keeping up with recent developments, which is another way to say that it is a bit improvized :) Anyway, quite a lot of students signed up and they seem to be enjoying it so far. We hope to keep it a mix of theory, groupwork, and paper reading. I was in charge of the lecture on LLM inference and the first practical assigment."
+			}
+		],
+		"img": "2024_llms.png"
+	},
+	{
 		"name": "Machine Learning for Greenhorns",
 		"instances": [
 			{
 				"period": "23/24 Winter",
-				"text": "I am a TA for Machine Learning for Greenhorns (<a href=\"https://ufal.mff.cuni.cz/courses/npfl129\">NPFL129</a>), a course which is officially called \"Introduction to Machine Learning with Python.\" and covers the basics of machine learning for bachelor students. I am teaching the English lab and helping the students with homework assignments."
+				"text": "I was a TA for Machine Learning for Greenhorns (<a href=\"https://ufal.mff.cuni.cz/courses/npfl129\">NPFL129</a>), a course which is officially called \"Introduction to Machine Learning with Python.\" and covers the basics of machine learning for bachelor students. I was teaching the English lab and helping the students with homework assignments."
 			}
 		],
 		"img": "2023_npfl129.png"

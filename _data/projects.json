@@ -1,5 +1,10 @@
 [
 	{
+		"name": "🛠️ reffix",
+		"url": "https://github.com/kasnerz/reffix",
+		"text": "A tool for fixing the BibTeX list of references."
+	},
+	{
 		"name": "⚡️ LightNLG",
 		"url": "https://github.com/kasnerz/lightnlg",
 		"text": "A minimalistic codebase for training and running neural NLG models."
@@ -10,18 +15,13 @@
 		"text": "A framework for working with table-to-text generation datasets."
 	},
 	{
-		"name": "🛠️ reffix",
-		"url": "https://github.com/kasnerz/reffix",
-		"text": "A tool for fixing the BibTeX list of references."
+		"name": "🎵 songbook",
+		"url": "https://github.com/kasnerz/songbook",
+		"text": "My personal guitar songbook."
 	},
 	{
 		"name": "📱 multiling-o-cs",
 		"url": "https://github.com/kasnerz/multiling-o-cs",
 		"text": "My custom configuration files for the Multiling-o keyboard."
-	},
-	{
-		"name": "🎵 songbook",
-		"url": "https://github.com/kasnerz/songbook",
-		"text": "My personal guitar songbook."
 	}
 ]
