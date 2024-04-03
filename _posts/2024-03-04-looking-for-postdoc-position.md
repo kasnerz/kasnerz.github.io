@@ -38,7 +38,7 @@ In my future research, I would like to move even closer to **understanding what 
 **My dream position would be 👇️**
 
 - Within the field of NLP interpretability, low-resource learning, world models, reasoning, knowledge representations, and such,
-- At a European university or research center,
+- At a **European** university or research center,
 - Starting from September 2024.
   
 ---
