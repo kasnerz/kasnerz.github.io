@@ -31,7 +31,7 @@ And along with that, I would like to start working on some of the questions that
 
 Some of my works already focus on similar questions, investigating the [generalization abilities of pretrained LMs](https://aclanthology.org/2023.eacl-main.176/) and [behaviors of open LLMs](https://arxiv.org/abs/2401.10186) on the task of data-to-text generation. 
 
-In my future research, I would like to move even closer to **understanding what the models are doing**, delving deeper into model interpretability.
+In my future research, I would like to move even closer to **understanding what the models are doing**.
 
 
 ---
