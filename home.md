@@ -3,7 +3,7 @@ layout: default
 title: Home
 permalink: /
 ---
-**I am currently looking for a post-doc position – [see my post](/research/2024/03/31/looking-for-postdoc.html)!**
+**I am currently looking for a post-doc position – [see my post](/looking-for-postdoc-position.html)!**
 
 ---
 
