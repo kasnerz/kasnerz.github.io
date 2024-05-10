@@ -3,7 +3,7 @@
 		"title": "Beyond Reference-Based Metrics: Analyzing Behaviors of Open LLMs on Data-to-Text Generation",
 		"code": "https://github.com/kasnerz/quintd",
 		"authors": "Zdeněk Kasner, Ondřej Dušek",
-		"venue": "2024, arXiv",
+		"venue": "arXiv",
 		"text": "Bechmarks for data-to-text generation are, well... not great. Most of them are small-scale, subject to data contamination, and slowly becoming saturated. But there are plenty of novel structured data online! In this paper, we make use of structured data scraped from open APIs and evaluate open LLMs (Llama2, Mistral, and Zephyr) on five data-to-text generation tasks, such as generating weather forecasts or product descriptions. Using both GPT-4 and human annotators, we find that the models outputs contain plenty of semantic errors on token-level: on average, more than 80% of outputs contain at least one error.",
 		"img": "2024_d2t_llm.png",
 		"preview": "2024_d2t_llm_preview.png",
@@ -16,12 +16,13 @@
 		"title": "WebLINX: Real-World Website Navigation with Multi-Turn Dialogue",
 		"code": "https://github.com/McGill-NLP/WebLINX",
 		"authors": "Xing Han Lù, Zdeněk Kasner, Siva Reddy",
-		"venue": "2024, arXiv",
+		"venue": "ICML 2024",
 		"text": "Automating web navigation – that was the project I was working on during my internship at Mila. We started with the idea that fully autonomous agents controlling a web browser are unsafe and impractical. So instead, we built a dataset for train and evaluating <i>conversational</i> web navigation: giving the model instructions via chat. On our dataset, we recorded demonstrations with expert annotators and evaluated quite a lot of models of various kinds. Since multi-modal models are not pretrained on structured inputs (...such as websites), text-only LLMs turned out to be suprisingly good for the task.",
 		"img": "2024_weblinx.png",
 		"preview": "2024_weblinx_preview.png",
 		"arxiv": "https://arxiv.org/abs/2402.05930",
 		"website": "https://mcgill-nlp.github.io/weblinx/",
+		"poster": "/assets/papers/pdf/2024_weblinx_poster.pdf",
 		"id": "weblinx"
 	},
 	{
