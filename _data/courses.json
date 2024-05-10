@@ -4,7 +4,7 @@
 		"instances": [
 			{
 				"period": "23/24 Summer",
-				"text": "Together with my colleagues, we started a brand new course in 23/24 on large language models (<a href=\"https://ufal.mff.cuni.cz/courses/npfl140\">NPFL140</a>). The course is keeping up with recent developments, which is another way to say that it is a bit improvized :) Anyway, quite a lot of students signed up and they seem to be enjoying it so far. We hope to keep it a mix of theory, groupwork, and paper reading. I was in charge of the lecture on LLM inference and the first practical assigment."
+				"text": "We started a brand new course in 23/24 on large language models (<a href=\"https://ufal.mff.cuni.cz/courses/npfl140\">NPFL140</a>). It is a mix of theory, groupwork, and paper reading. I was in charge of the lecture on LLM inference and the first practical assigment."
 			}
 		],
 		"img": "2024_llms.png"
