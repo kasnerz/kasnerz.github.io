@@ -3,7 +3,7 @@
 		"title": "Beyond Reference-Based Metrics: Analyzing Behaviors of Open LLMs on Data-to-Text Generation",
 		"code": "https://github.com/kasnerz/quintd",
 		"authors": "Zdeněk Kasner, Ondřej Dušek",
-		"venue": "arXiv",
+		"venue": "ACL 2024",
 		"text": "Bechmarks for data-to-text generation are, well... not great. Most of them are small-scale, subject to data contamination, and slowly becoming saturated. But there are plenty of novel structured data online! In this paper, we make use of structured data scraped from open APIs and evaluate open LLMs (Llama2, Mistral, and Zephyr) on five data-to-text generation tasks, such as generating weather forecasts or product descriptions. Using both GPT-4 and human annotators, we find that the models outputs contain plenty of semantic errors on token-level: on average, more than 80% of outputs contain at least one error.",
 		"img": "2024_d2t_llm.png",
 		"preview": "2024_d2t_llm_preview.png",
