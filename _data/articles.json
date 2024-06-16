@@ -3,7 +3,7 @@
 		"title": "Data-to-Text Generation with Neural Language Models",
 		"authors": "Zdeněk Kasner",
 		"venue": "PhD Thesis",
-		"text": "My PhD Thesis I submitted Charles University in June 2024 (on the day of my 30th birthday!). If want to know more about the interplay of neural language models and data-to-text generation, this tome will guide you through. It also contains content of a variety papers of mine in a condensed form, with conclusions updated so that they reflect the current state of the art.",
+		"text": "My PhD Thesis I submitted at Charles University in June 2024 (on the day of my 30th birthday!). If want to know more about the interplay of neural language models and data-to-text generation, this tome will guide you through. It also contains a variety of papers of mine in a condensed form, with conclusions updated so that they reflect the current state of the art.",
 		"img": "thesis.png",
 		"preview": "thesis.png",
 		"pdf": "/assets/papers/pdf/thesis.pdf",
