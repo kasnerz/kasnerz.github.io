@@ -27,6 +27,7 @@
 		"code": "https://github.com/McGill-NLP/WebLINX",
 		"authors": "Xing Han Lù, Zdeněk Kasner, Siva Reddy",
 		"venue": "ICML 2024",
+		"award": "ICML 2024 Spotlight paper (3.5% acceptance rate)",
 		"text": "Automating web navigation – that was the project I was working on during my internship at Mila. We started with the idea that fully autonomous agents controlling a web browser are unsafe and impractical. So instead, we built a dataset for train and evaluating <i>conversational</i> web navigation: giving the model instructions via chat. On our dataset, we recorded demonstrations with expert annotators and evaluated quite a lot of models of various kinds. Since multi-modal models are not pretrained on structured inputs (...such as websites), text-only LLMs turned out to be suprisingly good for the task.",
 		"img": "2024_weblinx.png",
 		"preview": "2024_weblinx_preview.png",
