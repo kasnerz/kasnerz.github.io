@@ -3,9 +3,6 @@ layout: default
 title: Home
 permalink: /
 ---
-**I am currently looking for a post-doc position – [see my post](/looking-for-postdoc-position.html)!**
-
----
 
 
 <img id="about-img" align="right" src="assets/me/3.jpg" alt="me">
