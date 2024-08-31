@@ -4,10 +4,6 @@ title: Research
 permalink: /research/
 ---
 
-**I am currently looking for a post-doc position – [see my post](/looking-for-postdoc-position.html)!**
-
----
-
 My research revolves around improving **data-to-text generation** systems.
 
 The projects I have worked on include:
