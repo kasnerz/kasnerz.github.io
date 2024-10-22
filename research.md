@@ -8,9 +8,9 @@ My research revolves around improving **data-to-text generation** systems.
 
 The projects I have worked on include:
 - domain-independent and low-resource data-to-text generation [[1]](#d2t-llm), [[2]](#neural_pipeline), [[3]](#iterative_editing),
-- evaluating semantic accuracy of generated text [[1]](#d2t-llm), [[4]](#text_in_context), [[5]](#semacc),
+- evaluating semantic accuracy of generated text [[4]](#text_in_context), [[5]](#semacc), [[8]](#factgenie), [[9]](#d2t-llm),
 - investigating the role of data labels [[6]](#rel2text).
-- software toolkit for data-to-text generation [[7]](#tabgenie).
+- a software toolkit for data-to-text generation [[7]](#tabgenie).
 
 I focus on developing efficient representations of structured data, so that the data can be used as an input to pretrained language models for generating automated reports.
 
