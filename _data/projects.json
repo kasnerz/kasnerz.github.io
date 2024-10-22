@@ -1,5 +1,10 @@
 [
 	{
+		"name": "🌈 factgenie",
+		"url": "https://github.com/ufal/factgenie",
+		"text": "A lightweight self-hosted span annotation tool."
+	},
+	{
 		"name": "🛠️ reffix",
 		"url": "https://github.com/kasnerz/reffix",
 		"text": "A tool for fixing the BibTeX list of references."

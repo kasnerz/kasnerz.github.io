@@ -1,5 +1,17 @@
 [
 	{
+		"title": "factgenie: A Framework for Span-based Evaluation of Generated Texts",
+		"code": "https://github.com/ufal/factgenie",
+		"authors": "Zdeněk Kasner, Ondřej Plátek, Patrícia Schmidtová, Simone Balloccu, Ondřej Dušek",
+		"venue": "INLG 2024 – Demo Track",
+		"text": "Have you ever found youself staring at a meaningless wall of results from corpus-level metrics? Not anymore! Our <i>factgenie</i> framework promotes a more fine-grained and telling way of evaluating generated texts. Any error is highlighted on the level of individual text spans. How can you do that? Either the \"old-fashioned way\" using human annotators, or using LLM-as-evaluators – it's up to you to choose! All conveniently packaged in a lightweight, self-hosted, Flask-based web app.",
+		"img": "2024_factgenie.png",
+		"preview": "2024_factgenie.png",
+		"acl": "https://aclanthology.org/2024.inlg-demos.5/",
+		"arxiv": "https://arxiv.org/abs/2407.17863",
+		"id": "factgenie"
+	},
+	{
 		"title": "Data-to-Text Generation with Neural Language Models",
 		"authors": "Zdeněk Kasner",
 		"venue": "PhD Thesis",
@@ -18,6 +30,7 @@
 		"img": "2024_d2t_llm.png",
 		"preview": "2024_d2t_llm_preview.png",
 		"arxiv": "http://arxiv.org/abs/2401.10186",
+		"acl": "https://aclanthology.org/2024.acl-long.651/",
 		"website": "https://d2t-llm.github.io",
 		"demo": "https://quest.ms.mff.cuni.cz/nlg/d2t-llm/data",
 		"id": "d2t-llm"
@@ -44,6 +57,7 @@
 		"text": "We began developing this tool to play with the generative language models in real time but it soon evolved into a swiss knife for table-to-text generation. TabGenie provides interactive data visualization, unified data representation & unified programming interface for more than 15 data-to-text datasets. You can use the web interface as a dataset viewer and a model playground, the programming interface then allows  to quickly prototype new models.",
 		"img": "2023_tabgenie.png",
 		"preview": "2023_tabgenie.png",
+		"acl": "https://aclanthology.org/2023.acl-demo.42/",
 		"arxiv": "https://arxiv.org/abs/2302.14169",
 		"demo": "https://quest.ms.mff.cuni.cz/nlg/tabgenie/",
 		"poster": "/assets/papers/pdf/2023_tabgenie_poster.pdf",
