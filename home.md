@@ -7,7 +7,7 @@ permalink: /
 
 <img id="about-img" align="right" src="assets/me/3.jpg" alt="me">
 
-Hi, I am Zdeněk /ˈzdɛɲɛk/, a researcher and teacher at Charles University, Prague. 
+Hi, I am Zdeněk /ˈzdɛɲɛk/, a postdoctoral researcher and teacher working at [ÚFAL](https://ufal.mff.cuni.cz), Charles University, Prague. 
 
 If you are interested in my work, here are a few pointers:
 - my <i class="fa fa-area-chart"></i> [research](/research) and <i class="fa fa-graduation-cap"></i> [teaching](/teaching) activities,
