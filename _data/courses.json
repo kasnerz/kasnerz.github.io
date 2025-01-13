@@ -3,8 +3,8 @@
 		"name": "Large Language Models",
 		"instances": [
 			{
-				"period": "23/24 Summer",
-				"text": "We started a brand new course in 23/24 on large language models (<a href=\"https://ufal.mff.cuni.cz/courses/npfl140\">NPFL140</a>). It is a mix of theory, groupwork, and paper reading. I was in charge of the lecture on LLM inference and the first practical assigment."
+				"period": "23/24 Summer, 24/25 Summer",
+				"text": "Our new course on Transformer-based large language models (<a href=\"https://ufal.mff.cuni.cz/courses/npfl140\">NPFL140</a>). After the brief introduction of the Transformer architecture, we focus on various practical aspects of language modeling. We also put emphasis on group assignments and reading research papers. In the first run, I was teaching the lecture on LLM inference and preparing the first practical assigment. I am helping with the course again in 24/25.<br><br>#llmsgobrrr<br>#hypeornohype"
 			}
 		],
 		"img": "2024_llms.png"
