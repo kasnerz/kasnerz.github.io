@@ -33,6 +33,7 @@
 		"acl": "https://aclanthology.org/2024.acl-long.651/",
 		"website": "https://d2t-llm.github.io",
 		"demo": "https://quest.ms.mff.cuni.cz/nlg/d2t-llm/data",
+		"poster": "/assets/papers/pdf/2025_quintd_poster.pdf",
 		"id": "d2t-llm"
 	},
 	{
