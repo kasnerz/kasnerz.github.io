@@ -20,11 +20,6 @@
     "icon": "fa-code-branch"
   },
   {
-    "text": "Blog",
-    "url": "/blog",
-    "icon": "fa-pen-fancy"
-  },
-  {
     "text": "About",
     "url": "/about",
     "icon": "fa-user"

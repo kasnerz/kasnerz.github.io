@@ -3,14 +3,26 @@ layout: default
 ---
 {{ content }}
 
-{% for i in site.data.projects %}
-<hr>
-<div class="container project-box">
-	<div class="col-md-1" style="margin-right: -15px;"><a href="{{ i.url }}"
-			class="btn btn-default btn-sm project-link">View</a></div>
-	<div class="col-md-8" style="padding-left: 0px; line-height: 30px;">
-		<b>{{ i.name }}</b> – {{ i.text }}
+<div class="row" style="margin-top: 20px;">
+	{% for i in site.data.projects %}
+	<div class="col-md-6 col-sm-12" style="margin-bottom: 10px;">
+		<div class="thumbnail"
+			style="height: 160px; background-color: #ffffff; border: 1px solid #e3e3e3;  padding: 20px; display: flex; align-items: flex-start;">
+			<a href="{{ i.url }}" style="flex-shrink: 0; width: 120px; margin-right: 20px;">
+				<img src="{{ i.image | default: '/static/img/icon.png' }}" alt="{{ i.name }}"
+					style="width: 100%; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+			</a>
+			<div class="caption" style="padding: 0; flex-grow: 1;">
+				<h3 style="margin-top: 0; margin-bottom: 10px; font-size: 18px; font-weight: bold;">
+					<a href="{{ i.url }}" style="color: #333; text-decoration: none;">{{ i.name }}</a>
+				</h3>
+				<p style="color: #666; font-size: 14px; line-height: 1.5; margin-bottom: 15px;">{{ i.text }}</p>
+				<p style="margin-bottom: 0;"><a href="{{ i.url }}"
+						style="color: #00665c; font-weight: bold; font-size: small; text-decoration: none;">→ See
+						more</a>
+				</p>
+			</div>
+		</div>
 	</div>
+	{% endfor %}
 </div>
-{% endfor %}
-<hr>

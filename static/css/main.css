@@ -135,8 +135,8 @@ h2.blog-title-pro {
 
 }
 
-/* only on screens <800 px */
-@media screen and (max-width: 800px) {
+/* only on screens <992 px */
+@media screen and (max-width: 991px) {
     h2.blog-title-pro {
         margin-left: 5%;
         margin-right: 5%;
@@ -219,9 +219,24 @@ span.tags {
     border: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 991px) {
     #portfolio-filter {
         margin-top: 0px;
+    }
+}
+
+/* Force hamburger menu up to 991px */
+@media (max-width: 991px) {
+    .navbar-toggle {
+        display: block;
+    }
+
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+
+    .navbar-collapse.collapse.in {
+        display: block !important;
     }
 }
 

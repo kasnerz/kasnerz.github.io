@@ -1,32 +1,38 @@
 [
 	{
-		"name": "🌈 factgenie",
+		"name": "animated-llm",
+		"url": "https://animatedllm.com",
+		"text": "Interactive animations of language models.",
+		"image": "/assets/projects/animated-llm.png"
+	},
+	{
+		"name": "factgenie",
 		"url": "https://github.com/ufal/factgenie",
-		"text": "A lightweight self-hosted span annotation tool."
+		"text": "A lightweight self-hosted web span annotation tool.",
+		"image": "/assets/projects/factgenie.png"
 	},
 	{
-		"name": "🛠️ reffix",
+		"name": "reffix",
 		"url": "https://github.com/kasnerz/reffix",
-		"text": "A tool for fixing the BibTeX list of references."
+		"text": "A Python CLI for fixing the BibTeX list of references.",
+		"image": "/assets/projects/reffix.png"
 	},
 	{
-		"name": "⚡️ LightNLG",
-		"url": "https://github.com/kasnerz/lightnlg",
-		"text": "A minimalistic codebase for training and running neural NLG models."
-	},
-	{
-		"name": "🧞 TabGenie",
+		"name": "tabgenie",
 		"url": "https://github.com/kasnerz/tabgenie",
-		"text": "A framework for working with table-to-text generation datasets."
+		"text": "A framework for working with table-to-text generation datasets.",
+		"image": "/assets/projects/tabgenie.png"
 	},
 	{
-		"name": "🎵 songbook",
+		"name": "songbook",
 		"url": "https://github.com/kasnerz/songbook",
-		"text": "My personal guitar songbook."
+		"text": "My personal guitar songbook.",
+		"image": "/assets/projects/songbook.png"
 	},
 	{
-		"name": "📱 multiling-o-cs",
+		"name": "multiling-o-cs",
 		"url": "https://github.com/kasnerz/multiling-o-cs",
-		"text": "My custom configuration files for the Multiling-o keyboard."
+		"text": "My custom configuration files for the Multiling-o keyboard.",
+		"image": "/assets/projects/multiling-o-cs.png"
 	}
 ]
