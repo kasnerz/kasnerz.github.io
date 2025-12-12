@@ -4,4 +4,4 @@ title: Projects
 permalink: /projects/
 ---
 
-My personal projects that you may find interesting:
+Links to my personal projects:

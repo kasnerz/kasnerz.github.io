@@ -2,7 +2,7 @@
 	{
 		"name": "animated-llm",
 		"url": "https://animatedllm.com",
-		"text": "Interactive animations of language models.",
+		"text": "An educational website containing interactive animations of large language models.",
 		"image": "/assets/projects/animated-llm.png"
 	},
 	{
@@ -14,13 +14,13 @@
 	{
 		"name": "reffix",
 		"url": "https://github.com/kasnerz/reffix",
-		"text": "A Python CLI for fixing the BibTeX list of references.",
+		"text": "A Python CLI tool for improving the BibTeX list of references.",
 		"image": "/assets/projects/reffix.png"
 	},
 	{
 		"name": "tabgenie",
 		"url": "https://github.com/kasnerz/tabgenie",
-		"text": "A framework for working with table-to-text generation datasets.",
+		"text": "A web app and CLI tool for working with table-to-text generation datasets.",
 		"image": "/assets/projects/tabgenie.png"
 	},
 	{
