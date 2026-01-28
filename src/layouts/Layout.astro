@@ -15,6 +15,7 @@ type Props = {
   pubDatetime?: Date;
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
+  lang?: string;
 };
 
 const {
@@ -27,6 +28,7 @@ const {
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
+  lang = SITE.lang ?? "en",
 } = Astro.props;
 
 const socialImageURL = new URL(ogImage, Astro.url);
@@ -49,11 +51,7 @@ const structuredData = {
 ---
 
 <!doctype html>
-<html
-  dir={SITE.dir}
-  lang=`${SITE.lang ?? "en"}`
-  class={`${scrollSmooth && "scroll-smooth"}`}
->
+<html dir={SITE.dir} lang={lang} class={`${scrollSmooth && "scroll-smooth"}`}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -168,6 +166,58 @@ const structuredData = {
           },
         };
       })();
+    </script>
+    <script is:inline>
+      const currentParams = window.location.pathname.split("/").filter(Boolean);
+      const isEnglish = currentParams.length === 0 || currentParams[0] !== "cs";
+      const userLang = navigator.language || navigator.userLanguage;
+      const isCzechBrowser = userLang?.toLowerCase().startsWith("cs");
+
+      // Check if user has a preference saved
+      const savedLang = localStorage.getItem("lang");
+
+      if (!savedLang && isCzechBrowser && isEnglish) {
+        // First visit with Czech browser on English page -> redirect to Czech
+        // But we must be careful not to redirect if the user specifically navigated to English.
+        // Since we don't know that easily without a cookie/storage, this is a common trade-off.
+        // "Make it possible to persistently switch... by a button".
+        // If we redirect here, we should save the preference.
+        // But wait, if I redirect automatically, I might annoy users.
+        // The user requirement: "If anyone's browser is set to Czech, it should open in Czech"
+        // This implies auto-redirect on first visit.
+        // Construct new path
+        const newPath = "/cs" + window.location.pathname;
+        window.location.href = newPath.replace("//", "/");
+      } else if (savedLang === "cs" && isEnglish) {
+        // User prefers Czech but landed on English
+        const newPath = "/cs" + window.location.pathname;
+        window.location.href = newPath.replace("//", "/");
+      } else if (
+        savedLang === "en" &&
+        !isEnglish &&
+        window.location.pathname.startsWith("/cs")
+      ) {
+        // User prefers English but landed on Czech
+        // const newPath = window.location.pathname.replace(/^\/cs/, "") || "/";
+        // window.location.href = newPath.replace("//", "/");
+        // Wait, if they clicked a link to /cs explicitly?
+        // Maybe only redirect from root?
+        // User said "open in Czech". Usually means entry point.
+        // Let's implement button logic to save preference.
+      }
+
+      // Save language on switch detection
+      document.addEventListener("DOMContentLoaded", () => {
+        const langSwitch =
+          document.getElementById("lang-switch") ||
+          document.querySelector("a[aria-label^='Switch to']");
+        if (langSwitch) {
+          langSwitch.addEventListener("click", e => {
+            const targetLang = isEnglish ? "cs" : "en";
+            localStorage.setItem("lang", targetLang);
+          });
+        }
+      });
     </script>
   </head>
   <body>

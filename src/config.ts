@@ -2,7 +2,7 @@ export const SITE = {
   website: "https://kasnerz.github.io/", // replace this with your deployed domain
   author: "Zdeněk Kasner",
   profile: "https://kasnerz.github.io/",
-  desc: "Personal website of Zdeněk Kasner, NLP researcher.",
+  desc: "Personal website of Zdeněk Kasner.",
   title: "Zdeněk Kasner",
   ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
@@ -19,5 +19,5 @@ export const SITE = {
   dynamicOgImage: true,
   dir: "ltr", // "rtl" | "auto"
   lang: "en", // html lang code. Set this empty and default will be "en"
-  timezone: "Asia/Bangkok", // Default global timezone (IANA format) https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  timezone: "	Europe/Prague", // Default global timezone (IANA format) https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 } as const;

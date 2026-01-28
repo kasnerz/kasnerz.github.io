@@ -1,6 +1,10 @@
 ---
 import { Icon } from "astro-icon/components";
 import { SITE } from "@/config";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 const { pathname } = Astro.url;
 
@@ -14,6 +18,13 @@ const isActive = (path: string) => {
 
   return currentPath === path || currentPathArray[0] === pathArray[0];
 };
+
+const toggleLang = lang === "en" ? "cs" : "en";
+const toggleLangLabel = lang === "en" ? "CZ" : "EN";
+const toggleLangPath =
+  lang === "en"
+    ? `/cs${pathname === "/" ? "" : pathname}`
+    : pathname.replace("/cs", "") || "/";
 ---
 
 <a
@@ -25,7 +36,7 @@ const isActive = (path: string) => {
 </a>
 
 <header
-  class="flex w-full flex-col items-center justify-between border-b border-border bg-background text-accent sm:flex-row"
+  class="flex w-full flex-col items-center justify-between border-b border-border bg-accent text-white sm:flex-row"
 >
   <div
     id="top-nav-wrap"
@@ -44,12 +55,12 @@ const isActive = (path: string) => {
       <img
         src="/icon_dark.png"
         alt="Zdeněk Kasner Logo"
-        class="h-12 w-12 rounded-sm sm:h-16 sm:w-16"
+        class="h-12 w-12 rounded-sm sm:h-14 sm:w-14"
       />
     </a>
     <nav
       id="nav-menu"
-      class="flex w-full flex-col items-center sm:col-start-2 sm:flex-row sm:justify-center sm:py-0"
+      class="flex w-full flex-col items-center sm:col-start-2 sm:flex-row sm:justify-end sm:py-0"
     >
       <button
         id="menu-btn"
@@ -73,72 +84,72 @@ const isActive = (path: string) => {
       >
         <li class="col-span-2 sm:flex-1">
           <a
-            href="/teaching"
+            href={lang === "en" ? "/teaching" : "/cs/teaching"}
             class:list={[
               { "active-nav": isActive("/teaching") },
-              "focus-outline flex flex-col items-center justify-center gap-1 px-4 py-3 hover:opacity-80 sm:h-full sm:px-2 sm:py-1",
+              "focus-outline sm:h-lg flex flex-col items-center justify-center gap-1 px-2 py-3 hover:opacity-80 sm:px-2 sm:py-1",
             ]}
           >
             <div class="rounded-full">
-              <Icon name="tabler:books" class="size-6" />
+              <Icon name="mdi:graduation-cap" class="size-6" />
             </div>
-            <span class="font-bold">Teaching</span>
+            <span>{t("nav.teaching")}</span>
           </a>
         </li>
         <li class="col-span-2 sm:flex-1">
           <a
-            href="/research"
+            href={lang === "en" ? "/research" : "/cs/research"}
             class:list={[
               { "active-nav": isActive("/research") },
-              "focus-outline flex flex-col items-center justify-center gap-1 px-4 py-3 hover:opacity-80 sm:h-full sm:px-2 sm:py-1",
+              "focus-outline sm:h-lg flex flex-col items-center justify-center gap-1 px-2 py-3 hover:opacity-80 sm:px-2 sm:py-1",
             ]}
           >
             <div class="rounded-full">
               <Icon name="tabler:chart-dots-3-filled" class="size-6" />
             </div>
-            <span class="font-bold">Research</span>
+            <span>{t("nav.research")}</span>
           </a>
         </li>
         <li class="col-span-2 sm:flex-1">
           <a
-            href="/projects"
+            href={lang === "en" ? "/projects" : "/cs/projects"}
             class:list={[
               { "active-nav": isActive("/projects") },
-              "focus-outline flex flex-col items-center justify-center gap-1 px-4 py-3 hover:opacity-80 sm:h-full sm:px-2 sm:py-1",
+              "focus-outline sm:h-lg flex flex-col items-center justify-center gap-1 px-2 py-3 hover:opacity-80 sm:px-2 sm:py-1",
             ]}
           >
             <div class="rounded-full">
               <Icon name="tabler:air-balloon" class="size-6" />
             </div>
-            <span class="font-bold">Projects</span>
+            <span>{t("nav.projects")}</span>
           </a>
         </li>
-        <li class="col-span-2 sm:flex-1">
+        <!-- <li class="col-span-2 sm:flex-1">
           <a
-            href="/talks"
+            href={lang === "en" ? "/talks" : "/cs/talks"}
             class:list={[
               { "active-nav": isActive("/talks") },
-              "focus-outline flex flex-col items-center justify-center gap-1 px-4 py-3 hover:opacity-80 sm:h-full sm:px-2 sm:py-1",
+              "focus-outline flex flex-col items-center justify-center gap-1 px-2 py-3 hover:opacity-80 sm:h-lg sm:px-2 sm:py-1",
             ]}
           >
             <div class="rounded-full">
               <Icon name="tabler:speakerphone" class="size-6" />
             </div>
-            <span class="font-bold">Talks</span>
+            <span>{t("nav.news")}</span>
           </a>
-        </li>
+        </li> -->
         <li class="col-span-2 sm:flex-1">
           <a
-            href="/contact"
+            href={lang === "en" ? "/about" : "/cs/about"}
             class:list={[
               { "active-nav": isActive("/contace") },
-              "focus-outline flex flex-col items-center justify-center gap-1 px-4 py-3 hover:opacity-80 sm:h-full sm:px-2 sm:py-1",
+              "focus-outline sm:h-lg flex flex-col items-center justify-center gap-1 px-2 py-3 hover:opacity-80 sm:px-2 sm:py-1",
             ]}
           >
             <div class="rounded-full">
               <Icon name="tabler:binoculars-filled" class="size-6" />
             </div>
-            <span class="font-bold">Contact me</span>
+            <span>{t("nav.about")}</span>
           </a>
         </li>
         {
@@ -165,11 +176,20 @@ const isActive = (path: string) => {
             </li>
           )
         }
+        <li class="col-span-1 flex items-center justify-center sm:hidden">
+          <a
+            href={toggleLangPath}
+            class="focus-outline flex items-center justify-center px-2 py-1 font-semibold hover:opacity-80"
+            aria-label={`Switch to ${toggleLangLabel}`}
+          >
+            {toggleLangLabel}
+          </a>
+        </li>
       </ul>
     </nav>
-    {
-      SITE.lightAndDarkMode && (
-        <div class="sm:col-start-3 sm:flex sm:justify-end">
+    <div class="sm:col-start-3 sm:flex sm:items-center sm:justify-end sm:gap-4">
+      {
+        SITE.lightAndDarkMode && (
           <button
             id="theme-btn"
             class="focus-outline hidden items-center justify-center px-2 py-1 hover:opacity-80 sm:flex"
@@ -188,9 +208,17 @@ const isActive = (path: string) => {
               />
             </div>
           </button>
-        </div>
-      )
-    }
+        )
+      }
+      <a
+        id="lang-switch"
+        href={toggleLangPath}
+        class="focus-outline hidden items-center justify-center px-2 py-1 font-semibold hover:opacity-80 sm:flex"
+        aria-label={`Switch to ${toggleLangLabel}`}
+      >
+        {toggleLangLabel}
+      </a>
+    </div>
   </div>
 </header>
 

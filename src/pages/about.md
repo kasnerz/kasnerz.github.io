@@ -3,26 +3,3 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-I learned a lot at my alma mater [Czech Technical University](https://cvut.cz/), before I moved on to [Charles University](https://cuni.cz/) (both in Prague) where I currently work on [NLP research](/research).
-
-For every thing I learned at the university, I learned two at the [Board of European Students of Technology](https://best.eu.org/). This student organization has been a part of my life for almost five years and the life lessons I got from here are priceless.
-
-I love travelling: I have visited over 30 countries so far. Out of these, I have lived in Belgium, Japan, Scotland, and Canada for several months. And although Prague will always be my favourite city, I will definitely say “yes” to spending some time abroad again!
-
-I am currently involved in [X-Challenge](https://x-challenge.cz/), a community organizing various activities related to low-cost travelling, hiking, education, self-improvement, music jamming, and much more. It is the place where I can meet diverse people and enjoy life to its fullest 🤗 I am also always up for any volunteering opportunities – organizing local festivals and events, helping as a buddy, going to workcamps, etc.
-
-Languages are not just my work, but also my hobby. I definitely want to practice French and Dutch in the future again. I also learned a bit of Japanese, but that was just a fun episode.
-
-I am learning to play guitar for some time now and I already expanded my [songbook](/projects) by quite a bit!
-
-In general, I would describe myself as an introvert who likes socializing, meeting new people, and finding myself in new and uncomfortable situations 🙃 And I think it is important not to take life too seriously.
-
-Besides all of this, I also enjoy some other things which – for some reason – are even less mainstream:
-
-- My only operating system is Linux Mint and I didn’t need to use Windows for… well, almost an eternity now.
-- I prefer writing long texts to posting pictures with hashtags, so I mostly tend to avoid being active on social media. I would still love to start blogging if only I had extra time!
-- My favourite music genres are progressive / folk / symphonic metal which are beautifully complex and powerful forms of music.
-- The more punk my travels are, the better. Hitchhiking, camping outside, [train festivals](https://vlakfest.cz/), [couchsurfing](https://www.couchsurfing.com/people/zdenek-kasner)…
-- I enjoy compact phones, especially with my [custom keyboard](https://github.com/kasnerz/multiling-o-cs), and I hope that smaller phones will come into fashion again.
-- I am a big fan of [shared bikes](https://www.nextbikeczech.com/) and I do not miss having a car at all.
-- To make the list complete: I have no opinion whatsoever on a pizza with pineapple. �

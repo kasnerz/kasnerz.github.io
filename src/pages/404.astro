@@ -4,6 +4,10 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import { SITE } from "@/config";
+import { useTranslations, getLangFromUrl } from "@/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <Layout title={`404 Not Found | ${SITE.title}`}>
@@ -16,15 +20,36 @@ import { SITE } from "@/config";
     <div class="mb-14 flex flex-col items-center justify-center">
       <h1 class="text-9xl font-bold text-accent">404</h1>
       <span aria-hidden="true">¯\_(ツ)_/¯</span>
-      <p class="mt-4 text-2xl sm:text-3xl">Page Not Found</p>
+      <p class="mt-4 text-2xl sm:text-3xl">{t("404.title")}</p>
       <LinkButton
-        href="/"
+        href={lang === "en" ? "/" : "/cs/"}
         class="my-6 text-lg underline decoration-dashed underline-offset-8"
       >
-        Go back home
+        {t("404.button")}
       </LinkButton>
     </div>
   </main>
 
   <Footer />
 </Layout>
+
+<script>
+  // Client-side fix for 404 page content if served statically at root for subpaths
+  import { ui, defaultLang } from "@/i18n/ui";
+
+  const pathname = window.location.pathname;
+  const isCzech = pathname.startsWith("/cs/") || pathname === "/cs";
+
+  if (isCzech) {
+    const titleEl = document.querySelector("main p");
+    const btnEl = document.querySelector("main a");
+
+    if (titleEl && ui.cs["404.title"]) {
+      titleEl.textContent = ui.cs["404.title"];
+    }
+    if (btnEl && ui.cs["404.button"]) {
+      btnEl.textContent = ui.cs["404.button"];
+      btnEl.setAttribute("href", "/cs/");
+    }
+  }
+</script>

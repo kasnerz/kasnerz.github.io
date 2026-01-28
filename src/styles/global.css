@@ -10,14 +10,16 @@ html[data-theme="light"] {
   --accent: #00665C;
   --muted: #e6e6e6;
   --border: #ece9e9;
+  --text-muted: #6b7280;
 }
 
 html[data-theme="dark"] {
-  --background: #2c2c2c;
+  --background: #202020;
   --foreground: #eaedf3;
   --accent: #00665C;
   --muted: #34603e;
   --border: #00665C;
+  --text-muted: #9ca3af;
 }
 
 @theme inline {
@@ -27,6 +29,7 @@ html[data-theme="dark"] {
   --color-accent: var(--accent);
   --color-muted: var(--muted);
   --color-border: var(--border);
+  --color-text-muted: var(--text-muted);
 }
 
 @layer base {

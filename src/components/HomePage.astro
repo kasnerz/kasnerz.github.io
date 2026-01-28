@@ -1,0 +1,97 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Socials from "@/components/Socials.astro";
+import LinkButton from "@/components/LinkButton.astro";
+import InterpolatedText from "@/components/InterpolatedText.astro";
+import { useTranslations } from "@/i18n/utils";
+
+interface Props {
+  lang: "en" | "cs";
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const teachingHref = lang === "en" ? "/teaching" : "/cs/teaching";
+const researchHref = lang === "en" ? "/research" : "/cs/research";
+const projectHref = lang === "en" ? "/projects" : "/cs/projects";
+---
+
+<Layout lang={lang}>
+  <Header />
+
+  <main
+    id="main-content"
+    class="app-layout flex w-full flex-1 flex-col items-center"
+  >
+    <div class="my-auto flex max-w-lg flex-col items-center justify-center">
+      <div class="group relative">
+        <img
+          src="/profile.jpg"
+          alt="Zdeněk Kasner, photo: adam&costey"
+          class="h-32 w-32 rounded-4xl object-cover md:h-40 md:w-40"
+        />
+        <div
+          class="absolute inset-0 flex items-end justify-center overflow-hidden rounded-4xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        >
+          <span
+            class="w-full bg-black/70 px-2 py-1 text-center text-xs text-white"
+          >
+            Photo: adam&costey
+          </span>
+        </div>
+      </div>
+      <h1
+        class="mt-6 inline-block text-4xl font-bold text-accent dark:text-foreground"
+      >
+        Zdeněk Kasner
+      </h1>
+      <h2 class="mt-2 mb-4 inline-block text-lg font-semibold text-foreground">
+        <i>{t("home.subtitle")}</i>
+      </h2>
+      <p class="mt-4 text-center">
+        <InterpolatedText text={t("home.bio")}>
+          <LinkButton
+            slot="teaching"
+            icon="mdi:graduation-cap"
+            href={teachingHref}
+          >
+            {t("home.link.teaching")}
+          </LinkButton>
+          <LinkButton
+            slot="research"
+            icon="tabler:chart-dots-3-filled"
+            href={researchHref}
+          >
+            {t("home.link.research")}
+          </LinkButton>
+          <LinkButton
+            slot="projects"
+            icon="tabler:balloon-filled"
+            href={projectHref}
+          >
+            {t("home.link.projects")}
+          </LinkButton>
+        </InterpolatedText>
+      </p>
+      <p class="mt-8 text-center">
+        <Socials />
+      </p>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const indexLayout = (document.querySelector("#main-content") as HTMLElement)
+      ?.dataset?.layout;
+    if (indexLayout) {
+      const backUrl = window.location.pathname.startsWith("/cs") ? "/cs/" : "/";
+      sessionStorage.setItem("backUrl", backUrl);
+    }
+  });
+</script>
