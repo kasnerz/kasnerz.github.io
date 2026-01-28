@@ -1,4 +1,22 @@
-[
+export interface Article {
+	title: string;
+	code?: string;
+	authors: string;
+	venue: string;
+	award?: string;
+	text: string;
+	img: string;
+	preview: string;
+	website?: string;
+	arxiv?: string;
+	acl?: string;
+	demo?: string;
+	poster?: string;
+	pdf?: string;
+	id?: string;
+}
+
+export const articles: Article[] = [
 	{
 		"title": "Large Language Models as Span Annotators",
 		"code": "https://github.com/llm-span-annotators/span-annotation",
@@ -161,4 +179,4 @@
 		"img": "2019_nonautoregressive.png",
 		"preview": "2019_nonautoregressive.png"
 	}
-]
+];

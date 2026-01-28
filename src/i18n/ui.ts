@@ -24,7 +24,7 @@ export const ui = {
         "home.link.research": "research",
         "home.link.projects": "open-source projects",
         "projects.title": "My projects",
-        "projects.description": "Here are some of my open-source projects I created.",
+        "projects.description": "Here you can browse through some of my open-source projects.",
         "projects.more": "You can find more on my {github}.",
     },
     cs: {
@@ -44,7 +44,7 @@ export const ui = {
         "home.link.research": "výzkum",
         "home.link.projects": "open-source projekty",
         "projects.title": "Moje projekty",
-        "projects.description": "Zde je několik mých open-source projektů, které jsem vytvořil.",
-        "projects.more": "Více najdete na mém {github}.",
+        "projects.description": "Zde je na ukázku několik mých open-source projektů.",
+        "projects.more": "Více jich najdete na mém {github}u.",
     },
 } as const;

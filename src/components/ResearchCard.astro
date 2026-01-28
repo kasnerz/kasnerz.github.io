@@ -1,0 +1,109 @@
+---
+import type { Article } from "../data/articles";
+import InterpolatedText from "./InterpolatedText.astro";
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+
+// Helper to determine icon class based on link type
+function getIconForLink(type: string): string {
+  switch (type) {
+    case "arxiv":
+      return "ai ai-arxiv";
+    case "acl":
+      return "ai ai-acl";
+    case "code":
+      return "fab fa-github";
+    case "website":
+      return "fas fa-home";
+    case "demo":
+      return "fas fa-play-circle";
+    case "poster":
+      return "far fa-file-image";
+    case "pdf":
+      return "far fa-file-pdf";
+    default:
+      return "fas fa-link";
+  }
+}
+
+// Map the keys to display labels
+const linkLabels: Record<string, string> = {
+  arxiv: "arXiv",
+  acl: "ACL Anthology",
+  code: "Code",
+  website: "Website",
+  demo: "Demo",
+  poster: "Poster",
+  pdf: "PDF",
+};
+
+const links = Object.keys(linkLabels)
+  .filter(key => (article as any)[key])
+  .map(key => ({
+    type: key,
+    url: (article as any)[key],
+    label: linkLabels[key],
+    icon: getIconForLink(key),
+  }));
+
+// Function to replace HTML tags in the text description with spans/semantic tags that can be styled
+// Since the input `text` contains <i> tags, we can rely on InterpolatedText component or set:html
+---
+
+<div class="border-skin-line mb-12 border-b pb-8 last:border-b-0">
+  <div class="header">
+    <h3 class="text-skin-accent mb-2 text-xl font-semibold">{article.title}</h3>
+    <div class="text-skin-base mb-1 text-sm italic">
+      <i class="fas fa-user-friends text-skin-accent mr-1 w-5 text-center"></i>
+      {article.authors}
+    </div>
+    <div class="text-skin-base mb-1 text-sm italic">
+      <i class="fas fa-paperclip text-skin-accent mr-1 w-5 text-center"></i>
+      {article.venue}
+    </div>
+    {
+      article.award && (
+        <div class="text-skin-accent mb-1 text-sm font-semibold italic">
+          <i class="fas fa-trophy text-skin-accent mr-1 w-5 text-center" />{" "}
+          {article.award}
+        </div>
+      )
+    }
+  </div>
+
+  <div class="content sm:flex">
+    <div class="description sm:w-2/3 sm:pr-4">
+      <p class="mt-2 mb-4">
+        <InterpolatedText text={article.text} />
+      </p>
+
+      <div class="links mt-4 flex flex-wrap gap-2">
+        {
+          links.map(link => (
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="bg-skin-card text-skin-base hover:text-skin-accent hover:bg-skin-card-muted border-skin-line inline-flex items-center rounded border px-3 py-1 text-xs transition-colors"
+            >
+              <i class={`${link.icon} mr-2`} /> {link.label}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="image mt-4 sm:mt-0 sm:w-1/3">
+      <img
+        src={`/papers/${article.preview}`}
+        alt={article.title}
+        class="h-auto w-full rounded"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</div>

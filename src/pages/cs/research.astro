@@ -1,0 +1,35 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Main from "../../layouts/Main.astro";
+import ResearchCard from "../../components/ResearchCard.astro";
+import { SITE } from "../../config";
+import { articles } from "../../data/articles";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title={`Výzkum | ${SITE.title}`}>
+  <Header activeNav="research" />
+  <Main
+    pageTitle="Výzkum"
+    pageDesc="Mé akademické publikace a výzkumné projekty."
+  >
+    <div
+      class="bg-skin-card-muted border-skin-line mb-8 rounded border p-4 text-sm italic"
+    >
+      Poznámka: Popisy výzkumných článků jsou ponechány v angličtině pro
+      zachování přesnosti.
+    </div>
+
+    <section>
+      <div class="research-container">
+        {articles.map(article => <ResearchCard article={article} />)}
+      </div>
+    </section>
+  </Main>
+  <Footer />
+</Layout>

@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Main from "../layouts/Main.astro";
+import ResearchCard from "../components/ResearchCard.astro";
+import { SITE } from "../config";
+import { articles } from "../data/articles";
+
+// const posts = await getCollection("blog");
+
+// const sortedPosts = getSortedPosts(posts);
+// const pagination = getPagination({
+//   posts: sortedPosts,
+//   page: 1,
+//   isIndex: true,
+// });
+---
+
+<Layout title={`Research | ${SITE.title}`}>
+  <Header activeNav="research" />
+  <Main
+    pageTitle="Research"
+    pageDesc="In my research, I focus on making sure that large language models (LLMs) generate accurate text."
+  >
+    <section>
+      <div class="research-container">
+        {articles.map(article => <ResearchCard article={article} />)}
+      </div>
+    </section>
+  </Main>
+  <Footer />
+</Layout>
+
+<style>
+  /* .research-container {
+        @apply flex flex-col gap-8;
+    } */
+</style>
