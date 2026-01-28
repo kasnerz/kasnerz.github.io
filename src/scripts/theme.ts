@@ -32,7 +32,9 @@ function setPreference(): void {
 function reflectPreference(): void {
   document.firstElementChild?.setAttribute("data-theme", themeValue);
 
-  document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
+  document
+    .querySelectorAll("#theme-btn, #theme-btn-mobile")
+    .forEach(button => button.setAttribute("aria-label", themeValue));
 
   // Get a reference to the body element
   const body = document.body;
@@ -76,11 +78,19 @@ function setThemeFeature(): void {
   reflectPreference();
 
   // now this script can find and listen for clicks on the control
-  document.querySelector("#theme-btn")?.addEventListener("click", () => {
-    themeValue = themeValue === LIGHT ? DARK : LIGHT;
-    window.theme?.setTheme(themeValue);
-    setPreference();
-  });
+  document
+    .querySelectorAll<HTMLElement>("#theme-btn, #theme-btn-mobile")
+    .forEach(button => {
+      if (button.dataset.themeBound === "true") return;
+
+      button.addEventListener("click", () => {
+        themeValue = themeValue === LIGHT ? DARK : LIGHT;
+        window.theme?.setTheme(themeValue);
+        setPreference();
+      });
+
+      button.dataset.themeBound = "true";
+    });
 }
 
 // Set up theme features after page load

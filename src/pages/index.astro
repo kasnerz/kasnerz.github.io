@@ -3,19 +3,14 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import Socials from "@/components/Socials.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import Card from "@/components/Card.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
-import IconRss from "@/assets/icons/IconRss.svg";
-import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SITE } from "@/config";
-import { SOCIALS } from "@/constants";
 
 const posts = await getCollection("blog");
 
 const sortedPosts = getSortedPosts(posts);
-const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 ---
 
@@ -23,67 +18,34 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
   <Header />
   <main id="main-content" data-layout="index" class="app-layout">
     <section id="hero" class:list={["pt-8 pb-6", "border-b border-border"]}>
-      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        Hi, I am Zdeněk
-      </h1>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="inline-block"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <IconRss
-          width={20}
-          height={20}
-          class="scale-125 stroke-accent stroke-3 rtl:-rotate-90"
-        />
-        <span class="sr-only">RSS Feed</span>
-      </a>
+      <div class="flex flex-col items-start gap-6 md:flex-row">
+        <div class="flex-1 md:w-2/3">
+          <h1
+            class="my-4 inline-block text-4xl font-bold text-accent sm:my-8 sm:text-5xl"
+          >
+            Zdeněk Kasner
+          </h1>
 
-      <p>
-        Hi, I am Zdeněk /ˈzdɛɲɛk/, a postdoctoral researcher and teacher working
-        at
-        <LinkButton
-          class="underline decoration-dashed underline-offset-4 hover:text-accent"
-          href="https://ufal.mff.cuni.cz/"
-        >
-          ÚFAL
-        </LinkButton>, Charles University, Prague.
-      </p>
-      <p class="mt-2">
-        If you are interested in my work, check out my
-        <LinkButton
-          class="underline decoration-dashed underline-offset-4 hover:text-accent"
-          href="/about"
-        >
-          bio
-        </LinkButton> or connect with me via social links.
-      </p>
-      {
-        // only display if at least one social link is enabled
-        SOCIALS.length > 0 && (
-          <div class="mt-4 flex max-sm:flex-col sm:items-center">
-            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
-            <Socials />
-          </div>
-        )
-      }
+          <p>Hi, I am Zdeněk /ˈzdɛɲɛk/.</p>
+          <p class="mt-2">
+            If you are interested in my work, check out my
+            <LinkButton
+              class="underline decoration-dashed underline-offset-4 hover:text-accent"
+              href="/about"
+            >
+              bio
+            </LinkButton> or connect with me via social links.
+          </p>
+        </div>
+        <div class="flex flex-shrink-0 justify-center md:w-1/3 md:justify-end">
+          <img
+            src="/profile.jpg"
+            alt="Zdeněk Kasner"
+            class="h-44 w-44 rounded-lg object-cover md:h-56 md:w-56"
+          />
+        </div>
+      </div>
     </section>
-
-    {
-      recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
-          <ul>
-            {recentPosts.map(
-              (data, index) =>
-                index < SITE.postPerIndex && <Card variant="h3" {...data} />
-            )}
-          </ul>
-        </section>
-      )
-    }
   </main>
   <Footer />
 </Layout>

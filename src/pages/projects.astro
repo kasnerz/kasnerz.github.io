@@ -1,0 +1,91 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { SITE } from "@/config";
+
+const projects = [
+  {
+    title: "animated-llm",
+    url: "https://animatedllm.com/",
+    description:
+      "An educational website containing interactive animations of large language models.",
+    image: "/projects/animated-llm.png",
+  },
+  {
+    title: "factgenie",
+    url: "https://github.com/ufal/factgenie",
+    description: "A lightweight self-hosted web span annotation tool.",
+    image: "/projects/factgenie.png",
+  },
+  {
+    title: "reffix",
+    url: "https://github.com/kasnerz/reffix",
+    description:
+      "A Python CLI tool for improving the BibTeX list of references.",
+    image: "/projects/reffix.png",
+  },
+  {
+    title: "tabgenie",
+    url: "https://github.com/kasnerz/tabgenie",
+    description:
+      "A web app and CLI tool for working with table-to-text generation datasets.",
+    image: "/projects/tabgenie.png",
+  },
+  {
+    title: "songbook",
+    url: "https://github.com/kasnerz/songbook",
+    description: "My personal guitar songbook.",
+    image: "/projects/songbook.png",
+  },
+  {
+    title: "multiling-o-cs",
+    url: "https://github.com/kasnerz/multiling-o-cs",
+    description: "My custom configuration files for the Multiling-o keyboard.",
+    image: "/projects/multiling-o-cs.png",
+  },
+];
+---
+
+<Layout title={`Projects | ${SITE.title}`}>
+  <Header />
+  <Breadcrumb />
+  <main id="main-content" class="app-layout">
+    <section id="projects" class="mb-28 max-w-app">
+      <h1 class="mb-8 text-2xl tracking-wider sm:text-3xl">Projects</h1>
+
+      <div class="space-y-8">
+        {
+          projects.map((project, index) => (
+            <>
+              <div class="flex flex-col items-start gap-6 sm:flex-row">
+                <div class="w-full flex-shrink-0 sm:w-32">
+                  <img
+                    src={project.image}
+                    alt={`${project.title} preview`}
+                    class="w-full rounded-2xl"
+                  />
+                </div>
+                <div class="flex-1">
+                  <h2 class="mb-2 text-xl font-bold">
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-accent hover:underline"
+                    >
+                      {project.title}
+                    </a>
+                  </h2>
+                  <p class="text-skin-base">{project.description}</p>
+                </div>
+              </div>
+              {index < projects.length - 1 && <hr class="border-border" />}
+            </>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

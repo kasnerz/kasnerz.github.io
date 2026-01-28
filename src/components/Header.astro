@@ -1,13 +1,5 @@
 ---
-import IconX from "@/assets/icons/IconX.svg";
-import IconMoon from "@/assets/icons/IconMoon.svg";
-import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
-import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
-import IconSearch from "@/assets/icons/IconSearch.svg";
-import IconEdit from "@/assets/icons/IconEdit.svg";
-import IconArchive from "@/assets/icons/IconArchive.svg";
-import IconHash from "@/assets/icons/IconHash.svg";
-import LinkButton from "./LinkButton.astro";
+import { Icon } from "astro-icon/components";
 import { SITE } from "@/config";
 
 const { pathname } = Astro.url;
@@ -33,7 +25,7 @@ const isActive = (path: string) => {
 </a>
 
 <header
-  class="flex w-full flex-col items-center justify-between bg-accent text-white sm:flex-row"
+  class="flex w-full flex-col items-center justify-between border-b border-border bg-background text-accent sm:flex-row"
 >
   <div
     id="top-nav-wrap"
@@ -42,18 +34,22 @@ const isActive = (path: string) => {
       "py-4 sm:py-6",
       "relative w-full",
       "flex items-baseline justify-between sm:items-center",
+      "sm:grid sm:grid-cols-[auto_1fr_auto] sm:gap-8",
     ]}
   >
-    <a href="/" class="absolute flex items-center py-1 sm:static sm:my-auto">
+    <a
+      href="/"
+      class="absolute flex items-center py-1 sm:static sm:col-start-1 sm:my-auto"
+    >
       <img
-        src="https://kasnerz.github.io/static/img/icon.png"
+        src="/icon_dark.png"
         alt="Zdeněk Kasner Logo"
-        class="h-12 w-12 rounded-full sm:h-16 sm:w-16"
+        class="h-12 w-12 rounded-sm sm:h-16 sm:w-16"
       />
     </a>
     <nav
       id="nav-menu"
-      class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"
+      class="flex w-full flex-col items-center sm:col-start-2 sm:flex-row sm:justify-center sm:py-0"
     >
       <button
         id="menu-btn"
@@ -62,94 +58,139 @@ const isActive = (path: string) => {
         aria-expanded="false"
         aria-controls="menu-items"
       >
-        <IconX id="close-icon" class="hidden" />
-        <IconMenuDeep id="menu-icon" />
+        <div class="rounded-lg bg-accent p-1.5 text-white">
+          <Icon name="tabler:x" id="close-icon" class="hidden size-6" />
+          <Icon name="tabler:menu-deep" id="menu-icon" class="size-6" />
+        </div>
       </button>
       <ul
         id="menu-items"
         class:list={[
           "mt-4 grid w-44 grid-cols-2 place-content-center gap-2",
           "hidden",
-          "sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0",
+          "sm:mt-0 sm:flex sm:w-full sm:max-w-lg sm:justify-between sm:gap-0",
         ]}
       >
-        <li class="col-span-2">
-          <a
-            href="/research"
-            class:list={[
-              { "active-nav": isActive("/research") },
-              "focus-outline flex flex-col items-center justify-center gap-1 px-4 py-3 hover:text-gray-200 sm:px-2 sm:py-1",
-            ]}
-          >
-            <div class="size-6 sm:size-6">
-              <IconSearch class="h-full w-full" />
-            </div>
-            <span class="font-medium">Research</span>
-          </a>
-        </li>
-        <li class="col-span-2">
+        <li class="col-span-2 sm:flex-1">
           <a
             href="/teaching"
             class:list={[
               { "active-nav": isActive("/teaching") },
-              "focus-outline flex flex-col items-center justify-center gap-1 px-4 py-3 hover:text-gray-200 sm:px-2 sm:py-1",
+              "focus-outline flex flex-col items-center justify-center gap-1 px-4 py-3 hover:opacity-80 sm:h-full sm:px-2 sm:py-1",
             ]}
           >
-            <div class="size-6 sm:size-6">
-              <IconEdit class="h-full w-full" />
+            <div class="rounded-full">
+              <Icon name="tabler:books" class="size-6" />
             </div>
-            <span class="font-medium">Teaching</span>
+            <span class="font-bold">Teaching</span>
           </a>
         </li>
-        <li class="col-span-2">
+        <li class="col-span-2 sm:flex-1">
+          <a
+            href="/research"
+            class:list={[
+              { "active-nav": isActive("/research") },
+              "focus-outline flex flex-col items-center justify-center gap-1 px-4 py-3 hover:opacity-80 sm:h-full sm:px-2 sm:py-1",
+            ]}
+          >
+            <div class="rounded-full">
+              <Icon name="tabler:chart-dots-3-filled" class="size-6" />
+            </div>
+            <span class="font-bold">Research</span>
+          </a>
+        </li>
+        <li class="col-span-2 sm:flex-1">
           <a
             href="/projects"
             class:list={[
               { "active-nav": isActive("/projects") },
-              "focus-outline flex flex-col items-center justify-center gap-1 px-4 py-3 hover:text-gray-200 sm:px-2 sm:py-1",
+              "focus-outline flex flex-col items-center justify-center gap-1 px-4 py-3 hover:opacity-80 sm:h-full sm:px-2 sm:py-1",
             ]}
           >
-            <div class="size-6 sm:size-6">
-              <IconArchive class="h-full w-full" />
+            <div class="rounded-full">
+              <Icon name="tabler:air-balloon" class="size-6" />
             </div>
-            <span class="font-medium">Projects</span>
+            <span class="font-bold">Projects</span>
           </a>
         </li>
-        <li class="col-span-2">
+        <li class="col-span-2 sm:flex-1">
           <a
-            href="/about"
+            href="/talks"
             class:list={[
-              { "active-nav": isActive("/about") },
-              "focus-outline flex flex-col items-center justify-center gap-1 px-4 py-3 hover:text-gray-200 sm:px-2 sm:py-1",
+              { "active-nav": isActive("/talks") },
+              "focus-outline flex flex-col items-center justify-center gap-1 px-4 py-3 hover:opacity-80 sm:h-full sm:px-2 sm:py-1",
             ]}
           >
-            <div class="size-6 sm:size-6">
-              <IconHash class="h-full w-full" />
+            <div class="rounded-full">
+              <Icon name="tabler:speakerphone" class="size-6" />
             </div>
-            <span class="font-medium">About</span>
+            <span class="font-bold">Talks</span>
+          </a>
+        </li>
+        <li class="col-span-2 sm:flex-1">
+          <a
+            href="/contact"
+            class:list={[
+              { "active-nav": isActive("/contace") },
+              "focus-outline flex flex-col items-center justify-center gap-1 px-4 py-3 hover:opacity-80 sm:h-full sm:px-2 sm:py-1",
+            ]}
+          >
+            <div class="rounded-full">
+              <Icon name="tabler:binoculars-filled" class="size-6" />
+            </div>
+            <span class="font-bold">Contact me</span>
           </a>
         </li>
         {
           SITE.lightAndDarkMode && (
-            <li class="col-span-1 flex items-center justify-center">
+            <li class="col-span-1 flex items-center justify-center sm:hidden">
               <button
-                id="theme-btn"
-                class="focus-outline flex flex-col items-center justify-center gap-1 px-2 py-1 hover:text-gray-200"
+                id="theme-btn-mobile"
+                class="focus-outline flex items-center justify-center px-2 py-1 hover:opacity-80"
                 title="Toggles light & dark"
                 aria-label="auto"
                 aria-live="polite"
               >
-                <div class="relative size-6 sm:size-6">
-                  <IconMoon class="absolute top-0 left-0 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-                  <IconSunHigh class="absolute top-0 left-0 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+                <div class="relative rounded-full">
+                  <Icon
+                    name="tabler:moon"
+                    class="size-6 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"
+                  />
+                  <Icon
+                    name="tabler:sun-high"
+                    class="absolute top-1.5 left-1.5 size-6 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"
+                  />
                 </div>
-                <span class="font-medium">Light/Dark</span>
               </button>
             </li>
           )
         }
       </ul>
     </nav>
+    {
+      SITE.lightAndDarkMode && (
+        <div class="sm:col-start-3 sm:flex sm:justify-end">
+          <button
+            id="theme-btn"
+            class="focus-outline hidden items-center justify-center px-2 py-1 hover:opacity-80 sm:flex"
+            title="Toggles light & dark"
+            aria-label="auto"
+            aria-live="polite"
+          >
+            <div class="relative rounded-full">
+              <Icon
+                name="tabler:moon"
+                class="size-6 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"
+              />
+              <Icon
+                name="tabler:sun-high"
+                class="absolute top-1.5 left-1.5 size-6 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"
+              />
+            </div>
+          </button>
+        </div>
+      )
+    }
   </div>
 </header>
 
