@@ -32,7 +32,7 @@ export const teaching: TeachingItem[] = [
         },
         description: {
             en: "TBA.",
-            cs: "TBA.",
+            cs: "Vedu nový volitelný kurz na FIT ČVUT zaměřený na jazykové modely. V kurzu se zaměřujeme nejen na pochopení technických detailů architektury Transformer, ale i širších aspektů fungování velkých jazykových modelů – jejich nasazení v praxi, etika, výzkum.",
         },
         image: "/lectures/ctu.png",
         category: "current",
@@ -54,8 +54,8 @@ export const teaching: TeachingItem[] = [
             cs: "LS 23/24, LS 24/25",
         },
         description: {
-            en: "I am helping to shape our new course on Transformer-based large language models. After the brief introduction of the Transformer architecture, we focus on various practical aspects of language modeling. We also put emphasis on group assignments and reading research papers. In the past years, I lead several lectures and helped with preparing practical assigments.",
-            cs: "Pomáhám utvářet náš nový kurz o velkých jazykových modelech založených na architektuře Transformer. Po stručném úvodu do architektury se zaměřujeme na různé praktické aspekty jazykového modelování. Důraz klademe také na skupinové úkoly a čtení výzkumných prací. V minulých letech jsem vedl několik přednášek a pomáhal s přípravou praktických úkolů.",
+            en: "I am helping to shape our new course on Transformer-based large language models. I lead several lectures and help with preparing practical assigments.",
+            cs: "Pomáhám spolutvářet kurz o velkých jazykových modelech vedený kolegy z ÚFALu. Vedu část přednášek a pomáhám s přípravou praktických úkolů.",
         },
         image: "/lectures/cuni-en.png",
         category: "current",
@@ -78,7 +78,7 @@ export const teaching: TeachingItem[] = [
         },
         description: {
             en: "TBA",
-            cs: "TBA",
+            cs: "Vedu workshop pro základní a střední školy v Didaktikonu UK, kde si zkoušíme v praxi pracovat s generativními modely obrázků a textu.",
         },
         image: "/lectures/didaktikon.jpg",
         category: "current",
@@ -87,6 +87,29 @@ export const teaching: TeachingItem[] = [
                 label: "Didaktikon",
                 url: "https://didaktikon.cz/DIDAKT-123.html",
                 type: "course",
+            },
+        ],
+    },
+    {
+        title: {
+            en: "Vibe coding: angličtina jako programovací jazyk (přednáška)",
+            cs: "Vibe coding: angličtina jako programovací jazyk (lecture, CZ)",
+        },
+        period: {
+            en: "11/2024",
+            cs: "11/2024",
+        },
+        description: {
+            en: "TBA",
+            cs: "Přednáška pro střední školy v rámci akce Dny.AI.",
+        },
+        image: "/lectures/didaktikon.jpg",
+        category: "talks",
+        links: [
+            {
+                label: "Dny.AI",
+                url: "https://www.dny.ai/event/ai-for-talents-ii",
+                type: "website",
             },
         ],
     },

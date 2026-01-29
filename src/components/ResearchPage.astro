@@ -1,0 +1,35 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "./Header.astro";
+import Footer from "./Footer.astro";
+import ResearchCard from "./ResearchCard.astro";
+import { SITE } from "../config";
+import { articles } from "../data/articles";
+import { useTranslations } from "../i18n/utils";
+
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Layout title={`${t("nav.research")} | ${SITE.title}`} lang={lang}>
+  <Header activeNav="research" />
+  <main id="main-content" class="app-layout">
+    <section class="mb-10 max-w-3xl">
+      <h1 class="mt-8 mb-6 text-2xl font-semibold sm:text-3xl">
+        {t("nav.research")}
+      </h1>
+      <slot />
+    </section>
+
+    <section>
+      <div class="research-container">
+        {articles.map(article => <ResearchCard article={article} />)}
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

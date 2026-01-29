@@ -18,15 +18,27 @@ export interface Article {
 
 export const articles: Article[] = [
 	{
-		"title": "Large Language Models as Span Annotators",
+		"title": "Strategies for Span Labeling with Large Language Models",
+		"authors": "Danil Semin, Ondřej Dušek, Zdeněk Kasner",
+		"venue": "2026, arXiv",
+		"text": "The first paper where my student is the first author! We look into the panoply of ways that people employ LLMs to <i>annotate an input text</i>. Since LLMs can only generate text, the annotation has to be based on exactly that. But how do you identify which part of text (so called \"text spans\") the model is talking about? Do ask the model for its start/end indices? Or do you let it generate the text again, or only the content of the span, ...? We find that each method has its merits, but some are better than others.",
+		"img": "2026_strategies.png",
+		"preview": "2026_strategies.png",
+		"arxiv": "https://arxiv.org/abs/2601.16946",
+		"code": "https://github.com/semindan/span_labeling",
+		"id": "llm-span-annot"
+	},
+	{
+		"title": "LLMs as Span Annotators: A Comparative Study of LLMs and Humans",
 		"code": "https://github.com/llm-span-annotators/span-annotation",
 		"authors": "Zdeněk Kasner, Vilém Zouhar, Patrícia Schmidtová, Ivan Kartáč, Kristýna Onderková, Ondřej Plátek, Dimitra Gkatzia, Saad Mahamood, Ondřej Dušek, Simone Balloccu",
-		"venue": "2025, arXiv",
+		"venue": "MME workshop @ EACL 2026",
 		"text": "Finding errors in the text by <i>highlighting the part that relates to the error</i> sounds like a great idea... until you have to start paying human annotators for doing it. So the question is: can we use LLMs to do that for us? We try it on three tasks: evaluation of data-to-text generation, finding errors in machine translation and propaganda techniques annotation. We find that for simpler, well-defined tasks, LLMs are catching up with skilled crowdworkers. The results are more mixed for complex tasks, but we still see LLMs for span annotation as the path forward!",
 		"img": "2025_llm_span_annot.png",
 		"preview": "2025_llm_span_annot.png",
 		"website": "https://llm-span-annotators.github.io",
 		"arxiv": "https://arxiv.org/abs/2504.08697",
+		"demo": "https://quest.ms.mff.cuni.cz/namuddis/span-eval/",
 		"id": "llm-span-annot"
 	},
 	{
@@ -62,7 +74,7 @@ export const articles: Article[] = [
 		"arxiv": "http://arxiv.org/abs/2401.10186",
 		"acl": "https://aclanthology.org/2024.acl-long.651/",
 		"website": "https://d2t-llm.github.io",
-		"demo": "https://quest.ms.mff.cuni.cz/nlg/d2t-llm/data",
+
 		"poster": "/papers/pdf/2025_quintd_poster.pdf",
 		"id": "d2t-llm"
 	},

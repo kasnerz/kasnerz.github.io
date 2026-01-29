@@ -1,40 +1,25 @@
 ---
-import { getCollection } from "astro:content";
-import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import Main from "../layouts/Main.astro";
-import ResearchCard from "../components/ResearchCard.astro";
-import { SITE } from "../config";
-import { articles } from "../data/articles";
-
-// const posts = await getCollection("blog");
-
-// const sortedPosts = getSortedPosts(posts);
-// const pagination = getPagination({
-//   posts: sortedPosts,
-//   page: 1,
-//   isIndex: true,
-// });
+import ResearchPage from "../components/ResearchPage.astro";
+import LinkButton from "@/components/LinkButton.astro";
 ---
 
-<Layout title={`Research | ${SITE.title}`}>
-  <Header activeNav="research" />
-  <Main
-    pageTitle="Research"
-    pageDesc="In my research, I focus on making sure that large language models (LLMs) generate accurate text. I am interested in how is the information inside the language models represented, how this all relates to human cognition, and how can we use AI tools to make our lives better."
-  >
-    <section>
-      <div class="research-container">
-        {articles.map(article => <ResearchCard article={article} />)}
-      </div>
-    </section>
-  </Main>
-  <Footer />
-</Layout>
-
-<style>
-  /* .research-container {
-        @apply flex flex-col gap-8;
-    } */
-</style>
+<ResearchPage lang="en">
+  <p class="mb-4">
+    In my research, I try to find ways how can we <i>evaluate generated texts</i
+    > and ensure its <i>accuracy</i>.
+  </p>
+  <p class="mb-4">
+    I have also worked / collaborated on projects related to <i
+      >LLM agents and reasoning</i
+    >, <i> data-to-text generation</i>, <i>pre-training open LLMs</i>, or <i>
+      autonomous web navigation
+    </i>.
+  </p>
+  <p class="mb-4">
+    You can find all my publications on <LinkButton
+      icon="tabler:school"
+      href="https://scholar.google.cz/citations?user=6NnuRB8AAAAJ&hl=cs"
+      >Google Scholar</LinkButton
+    >.
+  </p>
+</ResearchPage>
