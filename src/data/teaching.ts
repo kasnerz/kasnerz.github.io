@@ -1,3 +1,28 @@
+export interface TeachingTypeInfo {
+    icon: string;
+    label: {
+        en: string;
+        cs: string;
+    };
+}
+
+export const teachingTypes: Record<string, TeachingTypeInfo> = {
+    talk: {
+        icon: "tabler:presentation",
+        label: {
+            en: "talk",
+            cs: "přednáška",
+        },
+    },
+    workshop: {
+        icon: "tabler:users-group",
+        label: {
+            en: "workshop",
+            cs: "workshop",
+        },
+    },
+};
+
 export interface TeachingItem {
     title: {
         en: string;
@@ -11,7 +36,8 @@ export interface TeachingItem {
         en: string;
         cs: string;
     };
-    image: string;
+    image?: string;
+    type?: keyof typeof teachingTypes;
     category: "current" | "talks" | "past";
     links?: {
         label: string;
@@ -31,7 +57,7 @@ export const teaching: TeachingItem[] = [
             cs: "LS 25/26",
         },
         description: {
-            en: "TBA.",
+            en: "I teach a new elective course at FIT CTU focused on language models. In the course, we focus not only on understanding the technical details of the Transformer architecture but also on broader aspects of large language models' operation – their practical deployment, ethics, and research.",
             cs: "Vedu nový volitelný kurz na FIT ČVUT zaměřený na jazykové modely. V kurzu se zaměřujeme nejen na pochopení technických detailů architektury Transformer, ale i širších aspektů fungování velkých jazykových modelů – jejich nasazení v praxi, etika, výzkum.",
         },
         image: "/lectures/ctu.png",
@@ -77,7 +103,7 @@ export const teaching: TeachingItem[] = [
             cs: "od 2024",
         },
         description: {
-            en: "TBA",
+            en: "I lead a workshop for primary and secondary schools at Charles University's Didaktikon, where we practice working with generative image and text models.",
             cs: "Vedu workshop pro základní a střední školy v Didaktikonu UK, kde si zkoušíme v praxi pracovat s generativními modely obrázků a textu.",
         },
         image: "/lectures/didaktikon.jpg",
@@ -92,18 +118,18 @@ export const teaching: TeachingItem[] = [
     },
     {
         title: {
-            en: "Vibe coding: angličtina jako programovací jazyk (přednáška)",
-            cs: "Vibe coding: angličtina jako programovací jazyk (lecture, CZ)",
+            en: "Vibe coding: angličtina jako programovací jazyk (CZ)",
+            cs: "Vibe coding: angličtina jako programovací jazyk",
         },
         period: {
-            en: "11/2024",
-            cs: "11/2024",
+            en: "11/2025",
+            cs: "11/2025",
         },
         description: {
-            en: "TBA",
+            en: "Talk for high-school students as part of Dny.AI event.",
             cs: "Přednáška pro střední školy v rámci akce Dny.AI.",
         },
-        image: "/lectures/didaktikon.jpg",
+        type: "talk",
         category: "talks",
         links: [
             {
@@ -115,15 +141,79 @@ export const teaching: TeachingItem[] = [
     },
     {
         title: {
+            en: "LLM jako nástroj v příkazové řádce (CZ)",
+            cs: "LLM jako nástroj v příkazové řádce",
+        },
+        period: {
+            en: "10/2025",
+            cs: "10/2025",
+        },
+        description: {
+            en: "Talk at Linux Days 2025.",
+            cs: "Přednáška na akci Linux Days 2025.",
+        },
+        type: "talk",
+        category: "talks",
+        links: [
+            {
+                label: "",
+                url: "https://www.youtube.com/watch?v=lE4GJH49vS4",
+                type: "youtube",
+            },
+            {
+                label: "",
+                url: "https://pretalx.linuxdays.cz/linuxdays-2025/talk/LE8PBT/",
+                type: "website",
+            },
+        ],
+    },
+    {
+        title: {
+            en: "Detecting Translation Errors with LLMs",
+            cs: "Detecting Translation Errors with LLMs (EN)",
+        },
+        period: {
+            en: "09/2025",
+            cs: "09/2025",
+        },
+        description: {
+            en: "Internal workshop for Directorate-General for Translation (DGT).",
+            cs: "Interní workshop pro Directorate-General for Translation (DGT).",
+        },
+        type: "workshop",
+        category: "talks",
+        links: [
+        ],
+    },
+    {
+        title: {
+            en: "Constraining LLM Output",
+            cs: "Constraining LLM Output (EN)",
+        },
+        period: {
+            en: "09/2025",
+            cs: "09/2025",
+        },
+        description: {
+            en: "Internal lecture for Directorate-General for Translation (DGT).",
+            cs: "Interní lecture pro Directorate-General for Translation (DGT).",
+        },
+        type: "talk",
+        category: "talks",
+        links: [
+        ],
+    },
+    {
+        title: {
             en: "Machine Learning for Greenhorns",
-            cs: "Strojové učení pro začátečníky",
+            cs: "Strojové učení pro zelenáče",
         },
         period: {
             en: "23/24 Winter, 24/25 Winter",
             cs: "ZS 23/24, ZS 24/25",
         },
         description: {
-            en: "I was a TA for Machine Learning for Greenhorns, a course which is officially called 'Introduction to Machine Learning with Python' and covers the basics of machine learning for bachelor students. I was teaching the English lab and helping the students with homework assignments.",
+            en: "I was a TA for Machine Learning for Greenhorns, a course which is officially called 'Introduction to Machine Learning in Python' and covers the basics of machine learning for bachelor students. I was teaching the English lab and helping the students with homework assignments.",
             cs: "Působil jsem jako cvičící pro předmět Strojové učení pro začátečníky (oficiálně Úvod do strojového učení s Pythonem), který pokrývá základy strojového učení pro bakalářské studenty. Vedl jsem anglická cvičení a pomáhal studentům s domácími úkoly.",
         },
         image: "/lectures/cuni-en.png",
@@ -142,12 +232,12 @@ export const teaching: TeachingItem[] = [
             cs: "Statistické dialogové systémy",
         },
         period: {
-            en: "22/23 Winter",
-            cs: "ZS 22/23",
+            en: "22/23 Winter-now",
+            cs: "ZS 22/23-teď",
         },
         description: {
-            en: "I was a TA for Statistical Dialogue Systems, helping with grading homework assignments and teaching the lecture on natural language generation for dialogue systems.",
-            cs: "Byl jsem cvičícím pro Statistické dialogové systémy, pomáhal jsem s hodnocením domácích úkolů a přednášel o generování přirozeného jazyka pro dialogové systémy.",
+            en: "I am regularly teaching the lecture on natural language generation. In 22/23, I was also helping with grading homework assignments.",
+            cs: "Vedu pravidelně přednášku o generování přirozeného jazyka. V zimním semestru 22/23 jsem také pomáhal s hodnocením domácích úkolů.",
         },
         image: "/lectures/cuni-en.png",
         category: "past",
@@ -169,7 +259,7 @@ export const teaching: TeachingItem[] = [
             cs: "LS 21/22",
         },
         description: {
-            en: "I was teaching a lab for Introduction to Linux in Czech (finally in person!). We used the inverted lecture system – instead of lectures, the students had a '<i>before-class reading</i>' which we built upon during the lab.",
+            en: "I was teaching a lab for Introduction to Linux in Czech. We used the inverted lecture system – instead of lectures, the students had a '<i>before-class reading</i>' which we built upon during the lab.",
             cs: "Vedl jsem cvičení k Úvodu do Linuxu (konečně prezenčně!). Používali jsme systém obrácené výuky – místo přednášek měli studenti '<i>before-class reading</i>', na kterém jsme stavěli během cvičení.",
         },
         image: "/lectures/cuni-en.png",

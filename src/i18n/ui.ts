@@ -51,6 +51,6 @@ export const ui = {
         "projects.more": "Více jich najdete na mém {github}u.",
         "teaching.current": "Aktivní kurzy",
         "teaching.talks": "Přednášky a workshopy",
-        "teaching.past": "Minulé kurzy",
+        "teaching.past": "V minulost jsem učil...",
     },
 } as const;

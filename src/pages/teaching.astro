@@ -1,10 +1,22 @@
 ---
 import TeachingPage from "../components/TeachingPage.astro";
+import LinkButton from "@/components/LinkButton.astro";
 ---
 
 <TeachingPage lang="en">
-  <p class="mb-4 text-lg leading-relaxed text-foreground/90">
-    I enjoy explaining complex topics in a simple way. Here is a list of my
-    courses and other teaching activities.
+  <p class="mb-4">
+    I teach about large language models at Charles University and CTU in Prague.
+    I also occasionally speak at conferences or lead workshops. If you'd like me
+    to speak at your event, <LinkButton icon="mdi:person" href="/about"
+      >contact me!</LinkButton
+    >.
+  </p>
+  <p class="mb-4">
+    I also supervise student <LinkButton
+      icon="mdi:graduation-cap"
+      href="https://ufal.mff.cuni.cz/zdenek-kasner#Teaching"
+      >theses and projects</LinkButton
+    >. I currently have full capacity, but you can try reaching out with a
+    specific topic, preferably in person.
   </p>
 </TeachingPage>

@@ -1,5 +1,6 @@
 ---
-import type { TeachingItem } from "../data/teaching";
+import { Icon } from "astro-icon/components";
+import { teachingTypes, type TeachingItem } from "../data/teaching";
 import InterpolatedText from "./InterpolatedText.astro";
 
 interface Props {
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const { item, lang = "en" } = Astro.props;
+const typeInfo = item.type ? teachingTypes[item.type] : undefined;
 
 function getIconForLink(type: string): string {
   switch (type) {
@@ -27,43 +29,86 @@ function getIconForLink(type: string): string {
 }
 ---
 
-<div class="flex flex-col gap-4 border-b border-gray-300 py-8 last:border-0">
-  <div class="flex items-start gap-4">
-    <div class="h-16 w-16 flex-shrink-0">
-      <img
-        src={item.image}
-        alt={item.title[lang]}
-        class="h-full w-full rounded-lg border border-border object-contain"
-      />
-    </div>
-    <div class="flex-grow">
-      <h3 class="mb-1 text-xl font-bold text-foreground">{item.title[lang]}</h3>
-      <div class="flex items-center gap-2 text-sm text-foreground/80">
-        <i class="far fa-calendar-alt text-accent"></i>
-        <span>{item.period[lang]}</span>
+{
+  item.category === "talks" ? (
+    <div class="flex flex-col items-start gap-4 border-b border-gray-300 py-4 last:border-0 sm:flex-row sm:items-center">
+      <div class="flex min-w-[120px] items-center gap-3">
+        <div class="text-3xl text-accent">
+          {typeInfo ? <Icon name={typeInfo.icon} /> : <div class="h-8 w-8" />}
+        </div>
+        {typeInfo && (
+          <span class="text-sm font-bold tracking-wide text-accent">
+            {typeInfo.label[lang]}
+          </span>
+        )}
       </div>
-    </div>
-  </div>
-
-  <div class="text-base leading-relaxed text-foreground/90">
-    <InterpolatedText text={item.description[lang]} />
-  </div>
-
-  {
-    item.links && item.links.length > 0 && (
-      <div class="flex flex-wrap gap-3">
-        {item.links.map(link => (
-          <a
-            href={link.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-accent-foreground inline-flex items-center rounded-md border border-accent/20 bg-accent/10 px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/20 dark:text-accent"
-          >
-            <i class={`${getIconForLink(link.type)} mr-2`} />
-            {link.label}
-          </a>
-        ))}
+      <div class="w-18 flex-shrink-0 font-mono text-sm text-foreground/80">
+        {item.period[lang]}
       </div>
-    )
-  }
-</div>
+      <div class="flex-grow">
+        <h3 class="font-bold text-foreground">{item.title[lang]}</h3>
+        <div class="mt-1 text-sm text-foreground/80">
+          <InterpolatedText text={item.description[lang]} />
+        </div>
+      </div>
+      {item.links && item.links.length > 0 && (
+        <div class="flex flex-wrap gap-2">
+          {item.links.map(link => (
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={link.label}
+              class="flex h-8 w-8 items-center justify-center rounded-md border border-accent/20 bg-accent/10 text-accent transition-colors hover:bg-accent/20"
+            >
+              <i class={getIconForLink(link.type)} />
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  ) : (
+    <div class="flex flex-col gap-4 border-b border-gray-300 py-8 last:border-0">
+      <div class="flex items-start gap-4">
+        {item.image && (
+          <div class="h-16 w-16 flex-shrink-0">
+            <img
+              src={item.image}
+              alt={item.title[lang]}
+              class="h-full w-full rounded-lg border border-border object-contain"
+            />
+          </div>
+        )}
+        <div class="flex-grow">
+          <h3 class="mb-1 text-xl font-bold text-foreground">
+            {item.title[lang]}
+          </h3>
+          <div class="flex items-center gap-2 text-sm text-foreground/80">
+            <i class="far fa-calendar-alt text-accent" />
+            <span>{item.period[lang]}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-base leading-relaxed text-foreground/90">
+        <InterpolatedText text={item.description[lang]} />
+      </div>
+
+      {item.links && item.links.length > 0 && (
+        <div class="flex flex-wrap gap-3">
+          {item.links.map(link => (
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-accent-foreground inline-flex items-center rounded-md border border-accent/20 bg-accent/10 px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/20 dark:text-accent"
+            >
+              <i class={`${getIconForLink(link.type)} mr-2`} />
+              {link.label}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
