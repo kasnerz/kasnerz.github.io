@@ -48,7 +48,7 @@ export const articles: Article[] = [
 		"text": "My PhD Thesis I submitted at Charles University in June 2024 (on the day of my 30th birthday!). If want to know more about the interplay of neural language models and data-to-text generation, this tome will guide you through. It also contains a variety of papers of mine in a condensed form, with conclusions updated so that they reflect the current state of the art.",
 		"img": "thesis.png",
 		"preview": "thesis.png",
-		"pdf": "/assets/papers/pdf/thesis.pdf",
+		"pdf": "/papers/pdf/thesis.pdf",
 		"id": "thesis"
 	},
 	{
@@ -63,7 +63,7 @@ export const articles: Article[] = [
 		"acl": "https://aclanthology.org/2024.acl-long.651/",
 		"website": "https://d2t-llm.github.io",
 		"demo": "https://quest.ms.mff.cuni.cz/nlg/d2t-llm/data",
-		"poster": "/assets/papers/pdf/2025_quintd_poster.pdf",
+		"poster": "/papers/pdf/2025_quintd_poster.pdf",
 		"id": "d2t-llm"
 	},
 	{
@@ -77,7 +77,7 @@ export const articles: Article[] = [
 		"preview": "2024_weblinx_preview.png",
 		"arxiv": "https://arxiv.org/abs/2402.05930",
 		"website": "https://mcgill-nlp.github.io/weblinx/",
-		"poster": "/assets/papers/pdf/2024_weblinx_poster.pdf",
+		"poster": "/papers/pdf/2024_weblinx_poster.pdf",
 		"id": "weblinx"
 	},
 	{
@@ -91,7 +91,7 @@ export const articles: Article[] = [
 		"acl": "https://aclanthology.org/2023.acl-demo.42/",
 		"arxiv": "https://arxiv.org/abs/2302.14169",
 		"demo": "https://quest.ms.mff.cuni.cz/nlg/tabgenie/",
-		"poster": "/assets/papers/pdf/2023_tabgenie_poster.pdf",
+		"poster": "/papers/pdf/2023_tabgenie_poster.pdf",
 		"id": "tabgenie"
 	},
 	{
@@ -104,14 +104,14 @@ export const articles: Article[] = [
 		"preview": "2022_rel2text.png",
 		"arxiv": "https://arxiv.org/abs/2210.07373",
 		"acl": "https://aclanthology.org/2023.eacl-main.176/",
-		"poster": "/assets/papers/pdf/2023_mind_the_labels_poster.pdf",
+		"poster": "/papers/pdf/2023_mind_the_labels_poster.pdf",
 		"id": "rel2text"
 	},
 	{
 		"title": "Neural Pipeline for Zero-Shot Data-to-Text Generation",
 		"acl": "https://aclanthology.org/2022.acl-long.271/",
 		"arxiv": "https://arxiv.org/abs/2203.16279",
-		"poster": "/assets/papers/pdf/2022_zeroshot_pipeline_poster.pdf",
+		"poster": "/papers/pdf/2022_zeroshot_pipeline_poster.pdf",
 		"code": "https://github.com/kasnerz/zeroshot-d2t-pipeline",
 		"authors": "Zdeněk Kasner, Ondřej Dušek",
 		"venue": "ACL 2022",
@@ -124,7 +124,7 @@ export const articles: Article[] = [
 		"title": "Text-in-Context: Token-Level Error Detection for Table-to-Text Generation",
 		"award": "Best submission at Shared Task in Evaluating Accuracy",
 		"acl": "https://aclanthology.org/2021.inlg-1.25/",
-		"poster": "/assets/papers/pdf/2021_text_in_context_poster.pdf",
+		"poster": "/papers/pdf/2021_text_in_context_poster.pdf",
 		"code": "https://github.com/kasnerz/accuracySharedTask_CUNI-UPF",
 		"authors": "Zdeněk Kasner, Simon Mille, Ondřej Dušek",
 		"venue": "INLG 2021",
@@ -160,7 +160,7 @@ export const articles: Article[] = [
 		"title": "Data-to-Text Generation with Iterative Text Editing",
 		"acl": "https://www.aclweb.org/anthology/2020.inlg-1.9/",
 		"arxiv": "https://arxiv.org/abs/2011.01694",
-		"poster": "/assets/papers/pdf/2020_d2t_text_editing.pdf",
+		"poster": "/papers/pdf/2020_d2t_text_editing.pdf",
 		"code": "https://github.com/kasnerz/d2t_iterative_editing",
 		"authors": "Zdeněk Kasner, Ondřej Dušek",
 		"venue": "INLG 2020",

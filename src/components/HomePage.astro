@@ -55,7 +55,7 @@ const projectHref = lang === "en" ? "/projects" : "/cs/projects";
         <InterpolatedText text={t("home.bio")}>
           <LinkButton
             slot="teaching"
-            icon="mdi:graduation-cap"
+            icon="tabler:users-group"
             href={teachingHref}
           >
             {t("home.link.teaching")}
@@ -67,11 +67,7 @@ const projectHref = lang === "en" ? "/projects" : "/cs/projects";
           >
             {t("home.link.research")}
           </LinkButton>
-          <LinkButton
-            slot="projects"
-            icon="tabler:balloon-filled"
-            href={projectHref}
-          >
+          <LinkButton slot="projects" icon="tabler:code" href={projectHref}>
             {t("home.link.projects")}
           </LinkButton>
         </InterpolatedText>

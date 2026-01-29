@@ -14,7 +14,7 @@ function getIconForLink(type: string): string {
     case "arxiv":
       return "ai ai-arxiv";
     case "acl":
-      return "ai ai-acl";
+      return "far fa-file-pdf";
     case "code":
       return "fab fa-github";
     case "website":
@@ -54,41 +54,41 @@ const links = Object.keys(linkLabels)
 // Since the input `text` contains <i> tags, we can rely on InterpolatedText component or set:html
 ---
 
-<div class="border-skin-line mb-12 border-b pb-8 last:border-b-0">
-  <div class="header">
-    <h3 class="text-skin-accent mb-2 text-xl font-semibold">{article.title}</h3>
-    <div class="text-skin-base mb-1 text-sm italic">
-      <i class="fas fa-user-friends text-skin-accent mr-1 w-5 text-center"></i>
-      {article.authors}
-    </div>
-    <div class="text-skin-base mb-1 text-sm italic">
-      <i class="fas fa-paperclip text-skin-accent mr-1 w-5 text-center"></i>
-      {article.venue}
-    </div>
-    {
-      article.award && (
-        <div class="text-skin-accent mb-1 text-sm font-semibold italic">
-          <i class="fas fa-trophy text-skin-accent mr-1 w-5 text-center" />{" "}
-          {article.award}
-        </div>
-      )
-    }
-  </div>
+<div
+  class="research-card group relative mb-8 flex flex-col overflow-hidden rounded-xl border border-foreground/20 bg-background shadow-sm"
+>
+  <div
+    class="flex flex-col gap-6 border-b border-border/50 bg-black/5 p-6 sm:flex-row sm:items-center dark:bg-white/5"
+  >
+    <div class="flex flex-1 flex-col justify-center">
+      <h3 class="mb-1 text-lg font-bold text-foreground sm:text-xl">
+        {article.title}
+      </h3>
+      <div class="text-sm text-foreground/80 italic">
+        <i class="fas fa-user-friends mr-1 w-5 text-center text-accent/80"></i>
+        {article.authors}
+      </div>
+      <div class="mb-2 text-sm text-foreground/80 italic">
+        <i class="fas fa-paperclip mr-1 w-5 text-center text-accent/80"></i>
+        {article.venue}
+        {
+          article.award && (
+            <span class="ml-2 font-semibold text-accent">
+              <i class="fas fa-trophy mr-1 w-5 text-center" />
+              {article.award}
+            </span>
+          )
+        }
+      </div>
 
-  <div class="content sm:flex">
-    <div class="description sm:w-2/3 sm:pr-4">
-      <p class="mt-2 mb-4">
-        <InterpolatedText text={article.text} />
-      </p>
-
-      <div class="links mt-4 flex flex-wrap gap-2">
+      <div class="flex flex-wrap gap-2">
         {
           links.map(link => (
             <a
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              class="bg-skin-card text-skin-base hover:text-skin-accent hover:bg-skin-card-muted border-skin-line inline-flex items-center rounded border px-3 py-1 text-xs transition-colors"
+              class="inline-flex items-center rounded-md border border-border bg-white px-3 py-1 text-xs font-medium text-foreground hover:border-accent hover:text-accent dark:bg-black/20"
             >
               <i class={`${link.icon} mr-2`} /> {link.label}
             </a>
@@ -97,13 +97,66 @@ const links = Object.keys(linkLabels)
       </div>
     </div>
 
-    <div class="image mt-4 sm:mt-0 sm:w-1/3">
+    <button
+      type="button"
+      class="image-trigger group/image h-32 w-32 shrink-0 cursor-zoom-in self-start overflow-hidden rounded-md border border-border/50 bg-white shadow-md hover:scale-105 sm:self-auto"
+      aria-label="View full image"
+    >
       <img
         src={`/papers/${article.preview}`}
         alt={article.title}
-        class="h-auto w-full rounded"
+        class="h-full w-full object-cover object-center"
+        loading="lazy"
+      />
+    </button>
+  </div>
+
+  <div class="flex-grow p-5">
+    <div class="text-sm leading-relaxed text-foreground sm:text-base">
+      <InterpolatedText text={article.text} />
+    </div>
+  </div>
+
+  <dialog
+    class="zoom-dialog bg-transparent p-0 outline-none backdrop:bg-black/80"
+  >
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div
+        class="absolute inset-0 cursor-zoom-out"
+        onclick="this.closest('dialog').close()"
+      >
+      </div>
+      <img
+        src={`/papers/${article.img}`}
+        alt={article.title}
+        class="relative max-h-[90vh] max-w-[90vw] rounded-lg shadow-2xl ring-1 ring-white/10"
         loading="lazy"
       />
     </div>
-  </div>
+  </dialog>
 </div>
+
+<script>
+  function setupImageZoom() {
+    document.querySelectorAll(".research-card").forEach(card => {
+      const trigger = card.querySelector(".image-trigger");
+      const dialog = card.querySelector(".zoom-dialog") as HTMLDialogElement;
+
+      if (trigger && dialog) {
+        trigger.addEventListener("click", e => {
+          e.preventDefault();
+          dialog.showModal();
+        });
+
+        dialog.addEventListener("click", e => {
+          if (e.target === dialog) {
+            dialog.close();
+          }
+        });
+      }
+    });
+  }
+
+  setupImageZoom();
+  document.addEventListener("astro:page-load", setupImageZoom);
+</script>

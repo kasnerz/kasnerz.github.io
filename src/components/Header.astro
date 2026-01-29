@@ -30,7 +30,7 @@ const toggleLangPath =
 <a
   id="skip-to-content"
   href="#main-content"
-  class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-all focus:top-4"
+  class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-[top] focus:top-4"
 >
   Skip to content
 </a>
@@ -42,94 +42,92 @@ const toggleLangPath =
     id="top-nav-wrap"
     class:list={[
       "app-layout",
-      "py-4 sm:py-6",
+      "py-4 sm:py-4",
       "relative w-full",
       "flex items-baseline justify-between sm:items-center",
-      "sm:grid sm:grid-cols-[auto_1fr_auto] sm:gap-8",
+      // "sm:grid sm:grid-cols-[auto_1fr_auto] sm:gap-8",
     ]}
   >
-    <a
-      href="/"
-      class="absolute flex items-center py-1 sm:static sm:col-start-1 sm:my-auto"
-    >
+    <a href="/" class="absolute flex items-center py-1 sm:static sm:my-auto">
       <img
         src="/icon_dark.png"
         alt="Zdeněk Kasner Logo"
-        class="h-12 w-12 rounded-sm sm:h-14 sm:w-14"
+        class="h-12 w-12 rounded-sm sm:h-16 sm:w-16"
       />
     </a>
-    <nav
-      id="nav-menu"
-      class="flex w-full flex-col items-center sm:col-start-2 sm:flex-row sm:justify-end sm:py-0"
-    >
-      <button
-        id="menu-btn"
-        class="focus-outline self-end p-2 sm:hidden"
-        aria-label="Open Menu"
-        aria-expanded="false"
-        aria-controls="menu-items"
+    <div class="w-full sm:flex sm:w-auto sm:items-center sm:gap-8">
+      <nav
+        id="nav-menu"
+        class="flex w-full flex-col items-center sm:w-auto sm:flex-row sm:justify-end sm:py-0"
       >
-        <div class="rounded-lg bg-accent p-1.5 text-white">
-          <Icon name="tabler:x" id="close-icon" class="hidden size-6" />
-          <Icon name="tabler:menu-deep" id="menu-icon" class="size-6" />
-        </div>
-      </button>
-      <ul
-        id="menu-items"
-        class:list={[
-          "mt-4 grid w-44 grid-cols-2 place-content-center gap-2",
-          "hidden",
-          "sm:mt-0 sm:flex sm:w-full sm:max-w-lg sm:justify-between sm:gap-0",
-        ]}
-      >
-        <li class="col-span-2 sm:flex-1">
-          <a
-            href={lang === "en" ? "/teaching" : "/cs/teaching"}
-            class:list={[
-              { "active-nav": isActive("/teaching") },
-              "focus-outline sm:h-lg flex flex-col items-center justify-center gap-1 px-2 py-3 hover:opacity-80 sm:px-2 sm:py-1",
-            ]}
-          >
-            <div class="rounded-full">
-              <Icon name="mdi:graduation-cap" class="size-6" />
-            </div>
-            <span>{t("nav.teaching")}</span>
-          </a>
-        </li>
-        <li class="col-span-2 sm:flex-1">
-          <a
-            href={lang === "en" ? "/research" : "/cs/research"}
-            class:list={[
-              { "active-nav": isActive("/research") },
-              "focus-outline sm:h-lg flex flex-col items-center justify-center gap-1 px-2 py-3 hover:opacity-80 sm:px-2 sm:py-1",
-            ]}
-          >
-            <div class="rounded-full">
-              <Icon name="tabler:chart-dots-3-filled" class="size-6" />
-            </div>
-            <span>{t("nav.research")}</span>
-          </a>
-        </li>
-        <li class="col-span-2 sm:flex-1">
-          <a
-            href={lang === "en" ? "/projects" : "/cs/projects"}
-            class:list={[
-              { "active-nav": isActive("/projects") },
-              "focus-outline sm:h-lg flex flex-col items-center justify-center gap-1 px-2 py-3 hover:opacity-80 sm:px-2 sm:py-1",
-            ]}
-          >
-            <div class="rounded-full">
-              <Icon name="tabler:balloon-filled" class="size-6" />
-            </div>
-            <span>{t("nav.projects")}</span>
-          </a>
-        </li>
-        <!-- <li class="col-span-2 sm:flex-1">
+        <button
+          id="menu-btn"
+          class="focus-outline self-end p-2 sm:hidden"
+          aria-label="Open Menu"
+          aria-expanded="false"
+          aria-controls="menu-items"
+        >
+          <div class="rounded-lg bg-accent p-1.5 text-white">
+            <Icon name="tabler:x" id="close-icon" class="hidden size-6" />
+            <Icon name="tabler:menu-deep" id="menu-icon" class="size-6" />
+          </div>
+        </button>
+        <ul
+          id="menu-items"
+          class:list={[
+            "mt-4 grid w-44 grid-cols-2 place-content-center gap-2",
+            "hidden",
+            "sm:mt-0 sm:flex sm:w-auto sm:gap-4",
+          ]}
+        >
+          <li class="col-span-2">
+            <a
+              href={lang === "en" ? "/teaching" : "/cs/teaching"}
+              class:list={[
+                { "active-nav": isActive("/teaching") },
+                "focus-outline sm:h-lg flex flex-col items-center justify-center gap-0.5 px-2 py-3 hover:opacity-80 sm:px-2 sm:py-1",
+              ]}
+            >
+              <div class="rounded-full">
+                <Icon name="tabler:users-group" class="size-6" />
+              </div>
+              <span>{t("nav.teaching")}</span>
+            </a>
+          </li>
+          <li class="col-span-2">
+            <a
+              href={lang === "en" ? "/research" : "/cs/research"}
+              class:list={[
+                { "active-nav": isActive("/research") },
+                "focus-outline sm:h-lg flex flex-col items-center justify-center gap-0.5 px-2 py-3 hover:opacity-80 sm:px-2 sm:py-1",
+              ]}
+            >
+              <div class="rounded-full">
+                <Icon name="tabler:chart-dots-3-filled" class="size-6" />
+              </div>
+              <span>{t("nav.research")}</span>
+            </a>
+          </li>
+          <li class="col-span-2">
+            <a
+              href={lang === "en" ? "/projects" : "/cs/projects"}
+              class:list={[
+                { "active-nav": isActive("/projects") },
+                "focus-outline sm:h-lg flex flex-col items-center justify-center gap-0.5 px-2 py-3 hover:opacity-80 sm:px-2 sm:py-1",
+              ]}
+            >
+              <div class="rounded-full">
+                <Icon name="tabler:code" class="size-6" />
+              </div>
+              <span>{t("nav.projects")}</span>
+            </a>
+          </li>
+          <!-- <li class="col-span-2">
           <a
             href={lang === "en" ? "/talks" : "/cs/talks"}
             class:list={[
               { "active-nav": isActive("/talks") },
-              "focus-outline flex flex-col items-center justify-center gap-1 px-2 py-3 hover:opacity-80 sm:h-lg sm:px-2 sm:py-1",
+              "focus-outline flex flex-col items-center justify-center gap-0.5 px-2 py-3 hover:opacity-80 sm:h-lg sm:px-2 sm:py-1",
             ]}
           >
             <div class="rounded-full">
@@ -138,86 +136,87 @@ const toggleLangPath =
             <span>{t("nav.news")}</span>
           </a>
         </li> -->
-        <li class="col-span-2 sm:flex-1">
-          <a
-            href={lang === "en" ? "/about" : "/cs/about"}
-            class:list={[
-              { "active-nav": isActive("/contace") },
-              "focus-outline sm:h-lg flex flex-col items-center justify-center gap-1 px-2 py-3 hover:opacity-80 sm:px-2 sm:py-1",
-            ]}
-          >
-            <div class="rounded-full">
-              <Icon name="tabler:binoculars-filled" class="size-6" />
-            </div>
-            <span>{t("nav.about")}</span>
-          </a>
-        </li>
+          <li class="col-span-2">
+            <a
+              href={lang === "en" ? "/about" : "/cs/about"}
+              class:list={[
+                { "active-nav": isActive("/contace") },
+                "focus-outline sm:h-lg flex flex-col items-center justify-center gap-0.5 px-2 py-3 hover:opacity-80 sm:px-2 sm:py-1",
+              ]}
+            >
+              <div class="rounded-full">
+                <Icon name="mdi:person" class="size-6" />
+              </div>
+              <span>{t("nav.about")}</span>
+            </a>
+          </li>
+          {
+            SITE.lightAndDarkMode && (
+              <li class="col-span-1 flex items-center justify-center sm:hidden">
+                <button
+                  id="theme-btn-mobile"
+                  class="focus-outline flex items-center justify-center px-2 py-1 hover:opacity-80"
+                  title="Toggles light & dark"
+                  aria-label="auto"
+                  aria-live="polite"
+                >
+                  <div class="relative rounded-full">
+                    <Icon
+                      name="tabler:moon"
+                      class="size-6 scale-100 dark:scale-0"
+                    />
+                    <Icon
+                      name="tabler:sun-high"
+                      class="absolute top-0 left-0 size-6 scale-0 dark:scale-100"
+                    />
+                  </div>
+                </button>
+              </li>
+            )
+          }
+          <li class="col-span-1 flex items-center justify-center sm:hidden">
+            <a
+              href={toggleLangPath}
+              class="focus-outline flex items-center justify-center px-2 py-1 font-semibold hover:opacity-80"
+              aria-label={`Switch to ${toggleLangLabel}`}
+            >
+              {toggleLangLabel}
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="sm:flex sm:items-center sm:justify-end sm:gap-4">
         {
           SITE.lightAndDarkMode && (
-            <li class="col-span-1 flex items-center justify-center sm:hidden">
-              <button
-                id="theme-btn-mobile"
-                class="focus-outline flex items-center justify-center px-2 py-1 hover:opacity-80"
-                title="Toggles light & dark"
-                aria-label="auto"
-                aria-live="polite"
-              >
-                <div class="relative rounded-full">
-                  <Icon
-                    name="tabler:moon"
-                    class="size-6 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"
-                  />
-                  <Icon
-                    name="tabler:sun-high"
-                    class="absolute top-1.5 left-1.5 size-6 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"
-                  />
-                </div>
-              </button>
-            </li>
+            <button
+              id="theme-btn"
+              class="focus-outline hidden items-center justify-center px-2 py-1 hover:opacity-80 sm:flex"
+              title="Toggles light & dark"
+              aria-label="auto"
+              aria-live="polite"
+            >
+              <div class="relative rounded-full">
+                <Icon
+                  name="tabler:moon"
+                  class="size-6 scale-100 dark:scale-0"
+                />
+                <Icon
+                  name="tabler:sun-high"
+                  class="absolute top-0 left-0 size-6 scale-0 dark:scale-100"
+                />
+              </div>
+            </button>
           )
         }
-        <li class="col-span-1 flex items-center justify-center sm:hidden">
-          <a
-            href={toggleLangPath}
-            class="focus-outline flex items-center justify-center px-2 py-1 font-semibold hover:opacity-80"
-            aria-label={`Switch to ${toggleLangLabel}`}
-          >
-            {toggleLangLabel}
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <div class="sm:col-start-3 sm:flex sm:items-center sm:justify-end sm:gap-4">
-      {
-        SITE.lightAndDarkMode && (
-          <button
-            id="theme-btn"
-            class="focus-outline hidden items-center justify-center px-2 py-1 hover:opacity-80 sm:flex"
-            title="Toggles light & dark"
-            aria-label="auto"
-            aria-live="polite"
-          >
-            <div class="relative rounded-full">
-              <Icon
-                name="tabler:moon"
-                class="size-6 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"
-              />
-              <Icon
-                name="tabler:sun-high"
-                class="absolute top-1.5 left-1.5 size-6 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"
-              />
-            </div>
-          </button>
-        )
-      }
-      <a
-        id="lang-switch"
-        href={toggleLangPath}
-        class="focus-outline hidden items-center justify-center px-2 py-1 font-semibold hover:opacity-80 sm:flex"
-        aria-label={`Switch to ${toggleLangLabel}`}
-      >
-        {toggleLangLabel}
-      </a>
+        <a
+          id="lang-switch"
+          href={toggleLangPath}
+          class="focus-outline hidden items-center justify-center px-2 py-1 font-semibold hover:opacity-80 sm:flex"
+          aria-label={`Switch to ${toggleLangLabel}`}
+        >
+          {toggleLangLabel}
+        </a>
+      </div>
     </div>
   </div>
 </header>
