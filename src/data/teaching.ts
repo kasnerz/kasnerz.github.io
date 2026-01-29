@@ -76,8 +76,8 @@ export const teaching: TeachingItem[] = [
             cs: "Velké jazykové modely",
         },
         period: {
-            en: "23/24 Summer, 24/25 Summer",
-            cs: "LS 23/24, LS 24/25",
+            en: "23/24 Summer, 24/25 Summer, 25/26 Summer",
+            cs: "LS 23/24, LS 24/25, LS 25/26",
         },
         description: {
             en: "I am helping to shape our new course on Transformer-based large language models. I lead several lectures and help with preparing practical assigments.",

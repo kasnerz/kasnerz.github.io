@@ -1,0 +1,43 @@
+---
+import AboutLayout from "../layouts/AboutLayout.astro";
+import { Icon } from "astro-icon/components";
+import { SOCIALS } from "../constants";
+
+const title = "About";
+---
+
+<AboutLayout frontmatter={{ title }}>
+  <p>Welcome to my personal website.</p>
+
+  <div class="my-8">
+    <a
+      href="/cv.pdf"
+      target="_blank"
+      class="inline-flex items-center gap-2 rounded bg-accent px-4 py-2 font-semibold text-white no-underline shadow transition-colors hover:bg-accent/80"
+    >
+      <Icon name="tabler:file-text" class="size-6" />
+      Download CV
+    </a>
+  </div>
+
+  <h2>Connect</h2>
+  <ul>
+    {
+      SOCIALS.map(social => (
+        <li>
+          <a
+            href={social.href}
+            class="inline-flex items-center gap-2"
+            title={social.linkTitle}
+          >
+            <Icon name={social.icon} class="size-5" />
+            {social.name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2>Bio</h2>
+  <p>[Bio text placeholder]</p>
+</AboutLayout>

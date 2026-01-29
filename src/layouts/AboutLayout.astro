@@ -1,11 +1,15 @@
 ---
-import type { MarkdownLayoutProps } from "astro";
+import { SITE } from "@/config";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Layout from "./Layout.astro";
-import { SITE } from "@/config";
 
-type Props = MarkdownLayoutProps<{ title: string }>;
+export interface Props {
+  frontmatter: {
+    title: string;
+    description?: string;
+  };
+}
 
 const { frontmatter } = Astro.props;
 ---
@@ -14,7 +18,9 @@ const { frontmatter } = Astro.props;
   <Header />
   <main id="main-content" class="app-layout">
     <section id="about" class="app-prose mb-28 max-w-app prose-img:border-0">
-      <h1 class="text-2xl tracking-wider sm:text-3xl">{frontmatter.title}</h1>
+      <h1 class="mt-8 mb-6 text-2xl font-semibold tracking-wider sm:text-3xl">
+        {frontmatter.title}
+      </h1>
       <slot />
     </section>
   </main>

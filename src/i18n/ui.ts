@@ -27,7 +27,7 @@ export const ui = {
         "projects.description": "Here you can browse through some of my open-source projects.",
         "projects.more": "You can find more on my {github}.",
         "teaching.current": "Currently teaching",
-        "teaching.talks": "Talks & Workshops",
+        "teaching.talks": "Talks & workshops",
         "teaching.past": "Past courses",
     },
     cs: {
@@ -49,7 +49,7 @@ export const ui = {
         "projects.title": "Moje projekty",
         "projects.description": "Zde je na ukázku několik mých open-source projektů.",
         "projects.more": "Více jich najdete na mém {github}u.",
-        "teaching.current": "Aktivní kurzy",
+        "teaching.current": "Právě učím",
         "teaching.talks": "Přednášky a workshopy",
         "teaching.past": "V minulost jsem učil...",
     },
