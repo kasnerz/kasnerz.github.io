@@ -103,8 +103,8 @@ export const teaching: TeachingItem[] = [
             cs: "od 2024",
         },
         description: {
-            en: "I lead a workshop for primary and secondary schools at Charles University's Didaktikon, where we practice working with generative image and text models.",
-            cs: "Vedu workshop pro základní a střední školy v Didaktikonu UK, kde si zkoušíme v praxi pracovat s generativními modely obrázků a textu.",
+            en: "I lead a workshop for primary and secondary schools at Charles University's Didaktikon centre where we practically explore how generative image and text models work.",
+            cs: "Vedu workshop pro základní a střední školy v Didaktikonu UK, kde si prakticky zkoušíme, jak fungují generativní modely obrázků a textu.",
         },
         image: "/lectures/didaktikon.jpg",
         category: "current",

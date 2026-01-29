@@ -23,7 +23,7 @@ export const projects: Project[] = [
         url: "https://animatedllm.github.io/llm-cheatsheet",
         description: {
             en: "A PDF cheatsheet explaining how are LLMs trained and how they generate text.",
-            cs: "TBA.",
+            cs: "PDF tahák na to, jak se velké jazykové modely trénují a jak generují text.",
         },
         image: "/projects/llm-cheatsheet.png",
     },
@@ -32,7 +32,7 @@ export const projects: Project[] = [
         url: "https://github.com/ufal/factgenie",
         description: {
             en: "A lightweight self-hosted web span annotation tool.",
-            cs: "Lehký self-hosted nástroj pro anotaci webových rozsahů.",
+            cs: "Jednoduchý self-hosted nástroj pro anotaci textů.",
         },
         image: "/projects/factgenie.png",
     },
@@ -41,7 +41,7 @@ export const projects: Project[] = [
         url: "https://github.com/kasnerz/reffix",
         description: {
             en: "A Python CLI tool for improving the BibTeX list of references.",
-            cs: "Nástroj v Pythonu pro vylepšování seznamu referencí BibTeX.",
+            cs: "Pythoní nástroj do příkazové řádky pro vylepšování BibTeX  referencí.",
         },
         image: "/projects/reffix.png",
     },
