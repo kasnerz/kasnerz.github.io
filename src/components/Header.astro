@@ -19,7 +19,6 @@ const isActive = (path: string) => {
   return currentPath === path || currentPathArray[0] === pathArray[0];
 };
 
-const toggleLang = lang === "en" ? "cs" : "en";
 const toggleLangLabel = lang === "en" ? "CZ" : "EN";
 const toggleLangPath =
   lang === "en"
@@ -30,7 +29,7 @@ const toggleLangPath =
 <a
   id="skip-to-content"
   href="#main-content"
-  class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-[top] focus:top-4"
+  class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg focus:top-4"
 >
   Skip to content
 </a>

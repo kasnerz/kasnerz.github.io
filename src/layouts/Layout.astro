@@ -1,8 +1,8 @@
 ---
-import { Font } from "astro:assets";
 // import { ClientRouter } from "astro:transitions";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { SITE } from "@/config";
+import "@fontsource/fira-sans";
 import "@/styles/global.css";
 
 type Props = {
@@ -58,15 +58,6 @@ const structuredData = {
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
-
-    <!-- Load Font -->
-    <Font
-      cssVariable="--font-fira-sans"
-      preload={[
-        { subset: "latin", weight: 400, style: "normal" },
-        { subset: "latin-ext", weight: 400, style: "normal" },
-      ]}
-    />
 
     <!-- General Meta Tags -->
     <title>{title}</title>
@@ -212,7 +203,7 @@ const structuredData = {
           document.getElementById("lang-switch") ||
           document.querySelector("a[aria-label^='Switch to']");
         if (langSwitch) {
-          langSwitch.addEventListener("click", e => {
+          langSwitch.addEventListener("click", () => {
             const targetLang = isEnglish ? "cs" : "en";
             localStorage.setItem("lang", targetLang);
           });
@@ -220,13 +211,6 @@ const structuredData = {
       });
     </script>
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css"

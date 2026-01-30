@@ -35,7 +35,7 @@ const t = useTranslations(lang);
 
 <script>
   // Client-side fix for 404 page content if served statically at root for subpaths
-  import { ui, defaultLang } from "@/i18n/ui";
+  import { ui } from "@/i18n/ui";
 
   const pathname = window.location.pathname;
   const isCzech = pathname.startsWith("/cs/") || pathname === "/cs";

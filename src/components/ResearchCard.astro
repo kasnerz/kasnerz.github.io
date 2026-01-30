@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-icon/components";
 import type { Article } from "../data/articles";
 import InterpolatedText from "./InterpolatedText.astro";
 
@@ -14,19 +15,19 @@ function getIconForLink(type: string): string {
     case "arxiv":
       return "ai ai-arxiv";
     case "acl":
-      return "far fa-file-pdf";
+      return "tabler:file-text";
     case "code":
-      return "fab fa-github";
+      return "tabler:brand-github";
     case "website":
-      return "fas fa-home";
+      return "tabler:home";
     case "demo":
-      return "fas fa-play-circle";
+      return "tabler:player-play";
     case "poster":
-      return "far fa-file-image";
+      return "tabler:photo";
     case "pdf":
-      return "far fa-file-pdf";
+      return "tabler:file-type-pdf";
     default:
-      return "fas fa-link";
+      return "tabler:link";
   }
 }
 
@@ -41,11 +42,11 @@ const linkLabels: Record<string, string> = {
   pdf: "PDF",
 };
 
-const links = Object.keys(linkLabels)
-  .filter(key => (article as any)[key])
+const links = (Object.keys(linkLabels) as (keyof typeof linkLabels)[])
+  .filter(key => article[key as keyof Article])
   .map(key => ({
     type: key,
-    url: (article as any)[key],
+    url: article[key as keyof Article] as string,
     label: linkLabels[key],
     icon: getIconForLink(key),
   }));
@@ -65,16 +66,25 @@ const links = Object.keys(linkLabels)
         {article.title}
       </h3>
       <div class="text-sm text-foreground/80 italic">
-        <i class="fas fa-user-friends mr-1 w-5 text-center text-accent/80"></i>
+        <Icon
+          name="tabler:users"
+          class="mr-1 inline-block w-5 text-center text-accent/80"
+        />
         {article.authors}
       </div>
       <div class="mb-2 text-sm text-foreground/80 italic">
-        <i class="fas fa-paperclip mr-1 w-5 text-center text-accent/80"></i>
+        <Icon
+          name="tabler:paperclip"
+          class="mr-1 inline-block w-5 text-center text-accent/80"
+        />
         {article.venue}
         {
           article.award && (
             <span class="ml-2 font-semibold text-accent">
-              <i class="fas fa-trophy mr-1 w-5 text-center" />
+              <Icon
+                name="tabler:trophy"
+                class="mr-1 inline-block w-5 text-center"
+              />
               {article.award}
             </span>
           )
@@ -88,9 +98,14 @@ const links = Object.keys(linkLabels)
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center rounded-md border border-border bg-white px-3 py-1 text-xs font-medium text-foreground hover:border-accent hover:text-accent dark:bg-black/20"
+              class="inline-flex items-center rounded-md border border-accent/20 bg-accent/10 px-3 py-1 text-xs font-medium text-foreground hover:border-accent hover:text-accent dark:bg-black/20"
             >
-              <i class={`${link.icon} mr-2`} /> {link.label}
+              {link.icon.includes(":") ? (
+                <Icon name={link.icon} class="mr-2" />
+              ) : (
+                <i class={`${link.icon} mr-2`} />
+              )}{" "}
+              {link.label}
             </a>
           ))
         }

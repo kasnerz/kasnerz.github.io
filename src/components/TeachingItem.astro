@@ -14,17 +14,17 @@ const typeInfo = item.type ? teachingTypes[item.type] : undefined;
 function getIconForLink(type: string): string {
   switch (type) {
     case "website":
-      return "fas fa-globe";
+      return "tabler:world";
     case "github":
-      return "fab fa-github";
+      return "tabler:brand-github";
     case "youtube":
-      return "fab fa-youtube";
+      return "tabler:brand-youtube";
     case "course":
-      return "fa fa-link";
+      return "mdi:web";
     case "materials":
-      return "fas fa-book";
+      return "mdi:slideshow";
     default:
-      return "fas fa-link";
+      return "tabler:link";
   }
 }
 ---
@@ -59,9 +59,9 @@ function getIconForLink(type: string): string {
               target="_blank"
               rel="noopener noreferrer"
               title={link.label}
-              class="flex h-8 w-8 items-center justify-center rounded-md border border-accent/20 bg-accent/10 text-accent transition-colors hover:bg-accent/20"
+              class="flex h-8 w-8 items-center justify-center rounded-md border border-accent/20 bg-accent/10 text-accent hover:bg-accent/20"
             >
-              <i class={getIconForLink(link.type)} />
+              <Icon name={getIconForLink(link.type)} />
             </a>
           ))}
         </div>
@@ -84,7 +84,7 @@ function getIconForLink(type: string): string {
             {item.title[lang]}
           </h3>
           <div class="flex items-center gap-2 text-sm text-foreground/80">
-            <i class="far fa-calendar-alt text-accent" />
+            <Icon name="tabler:calendar" class="text-accent" />
             <span>{item.period[lang]}</span>
           </div>
         </div>
@@ -101,9 +101,9 @@ function getIconForLink(type: string): string {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-accent-foreground inline-flex items-center rounded-md border border-accent/20 bg-accent/10 px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/20 dark:text-accent"
+              class="text-accent-foreground inline-flex items-center rounded-md border border-accent/20 bg-accent/10 px-4 py-2 text-sm font-medium hover:bg-accent/20 dark:text-accent"
             >
-              <i class={`${getIconForLink(link.type)} mr-2`} />
+              <Icon name={getIconForLink(link.type)} class="mr-2" />
               {link.label}
             </a>
           ))}

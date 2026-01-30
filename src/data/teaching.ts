@@ -170,7 +170,7 @@ export const teaching: TeachingItem[] = [
     {
         title: {
             en: "Detecting Translation Errors with LLMs",
-            cs: "Detecting Translation Errors with LLMs (EN)",
+            cs: "Detecting Translation Errors with LLMs",
         },
         period: {
             en: "09/2025",
@@ -188,7 +188,7 @@ export const teaching: TeachingItem[] = [
     {
         title: {
             en: "Constraining LLM Output",
-            cs: "Constraining LLM Output (EN)",
+            cs: "Constraining LLM Output",
         },
         period: {
             en: "09/2025",
@@ -196,11 +196,58 @@ export const teaching: TeachingItem[] = [
         },
         description: {
             en: "Internal lecture for Directorate-General for Translation (DGT).",
-            cs: "Interní lecture pro Directorate-General for Translation (DGT).",
+            cs: "Interní přednáška pro Directorate-General for Translation (DGT).",
         },
         type: "talk",
         category: "talks",
         links: [
+        ],
+    },
+    {
+        title: {
+            en: "Evaluating Generated Texts in the Post-BLEU Era",
+            cs: "Evaluating Generated Texts in the Post-BLEU Era",
+        },
+        period: {
+            en: "11/2024",
+            cs: "11/2024",
+        },
+        description: {
+            en: "Invited talk for the Dublin City University NLP seminar.",
+            cs: "Zvaná přednáška pro NLP seminář na Dublin City University.",
+        },
+        type: "talk",
+        category: "talks",
+        links: [
+            {
+                label: "",
+                url: "https://docs.google.com/presentation/d/1uZfDQHGVwvWOptszpxrwuKkJKMZx1nPPLDhYbaVUIZI/edit?usp=sharing",
+                type: "materials",
+            },
+        ],
+    },
+    {
+        title: {
+            en: "PracticalD2T",
+            cs: "PracticalD2T",
+        },
+        period: {
+            en: "09/2023",
+            cs: "09/2023",
+        },
+        description: {
+            en: "1st Workshop on Practical LLM-assisted Data-to-Text Generation.",
+            cs: "Workshop na generování textu z dat pomocí velkých jazykových modeů.",
+        },
+        type: "workshop",
+        category: "talks",
+        links: [
+            {
+                label: "",
+                url: "https://ufallab.ms.mff.cuni.cz/~kasner/practicald2t/",
+                type: "website",
+            },
+
         ],
     },
     {
@@ -214,7 +261,7 @@ export const teaching: TeachingItem[] = [
         },
         description: {
             en: "I was a TA for Machine Learning for Greenhorns, a course which is officially called 'Introduction to Machine Learning in Python' and covers the basics of machine learning for bachelor students. I was teaching the English lab and helping the students with homework assignments.",
-            cs: "Působil jsem jako cvičící pro předmět Strojové učení pro začátečníky (oficiálně Úvod do strojového učení s Pythonem), který pokrývá základy strojového učení pro bakalářské studenty. Vedl jsem anglická cvičení a pomáhal studentům s domácími úkoly.",
+            cs: "Působil jsem jako cvičící pro předmět Strojové učení pro zelenáče (oficiálně Úvod do strojového učení v Pythonu), který pokrývá základy strojového učení pro bakalářské studenty. Vedl jsem anglická cvičení a pomáhal studentům s domácími úkoly.",
         },
         image: "/lectures/cuni-en.png",
         category: "past",
@@ -237,7 +284,7 @@ export const teaching: TeachingItem[] = [
         },
         description: {
             en: "I am regularly teaching the lecture on natural language generation. In 22/23, I was also helping with grading homework assignments.",
-            cs: "Vedu pravidelně přednášku o generování přirozeného jazyka. V zimním semestru 22/23 jsem také pomáhal s hodnocením domácích úkolů.",
+            cs: "Pravidelně přednáším o generování přirozeného jazyka. V zimním semestru 22/23 jsem také pomáhal s hodnocením domácích úkolů.",
         },
         image: "/lectures/cuni-en.png",
         category: "past",
@@ -260,7 +307,7 @@ export const teaching: TeachingItem[] = [
         },
         description: {
             en: "I was teaching a lab for Introduction to Linux in Czech. We used the inverted lecture system – instead of lectures, the students had a '<i>before-class reading</i>' which we built upon during the lab.",
-            cs: "Vedl jsem cvičení k Úvodu do Linuxu (konečně prezenčně!). Používali jsme systém obrácené výuky – místo přednášek měli studenti '<i>before-class reading</i>', na kterém jsme stavěli během cvičení.",
+            cs: "Vedl jsem cvičení k Úvodu do Linuxu. Používali jsme systém obrácené výuky – místo přednášek měli studenti '<i>before-class reading</i>', na kterém jsme stavěli během cvičení.",
         },
         image: "/lectures/cuni-en.png",
         category: "past",
@@ -283,7 +330,7 @@ export const teaching: TeachingItem[] = [
         },
         description: {
             en: "I was teaching a lab for Introduction to Algorithms and Programming 1 in Czech via Zoom. Didn't expect my first class to be virtual, but finding ways to make it work was a nice challenge!",
-            cs: "Vedl jsem cvičení k Úvodu do algoritmizace a Programování 1 přes Zoom. Nečekal jsem, že moje první výuka bude virtuální, ale hledání způsobů, jak to zvládnout, byla zajímavá výzva!",
+            cs: "Vedl jsem cvičení k Úvodu do algoritmizace a Programování 1 přes Zoom. Nečekal jsem, že moje první výuka bude virtuální, ale byla to zajímavá výzva!",
         },
         image: "/lectures/cuni-en.png",
         category: "past",
