@@ -1,6 +1,10 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import LinkButton from "@/components/LinkButton.astro";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const currentYear = new Date().getFullYear();
 
 type Props = {
@@ -23,10 +27,11 @@ const { noMarginTop = false, class: className, ...attrs } = Astro.props;
       <span class="hidden sm:inline">Zdeněk Kasner</span>
       <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
       <span>
-        Built sipping the <LinkButton
+        {t("footer.built")}
+        <LinkButton
           icon="tabler:rocket"
           href="https://fly.io/blog/youre-all-nuts/"
-          >LLM agents rocket fuel</LinkButton
+          >{t("footer.fuel")}</LinkButton
         ></span
       >
     </div>

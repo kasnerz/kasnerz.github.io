@@ -13,24 +13,35 @@ import Footer from "@/components/Footer.astro";
   <main id="main-content" class="app-layout">
     <section id="about" class="app-prose mb-28 max-w-app prose-img:border-0">
       <h1 class="mt-8 mb-6 text-2xl font-semibold sm:text-3xl">
-        Vítej, pocestný!
+        Vítej, milý pocestný!
       </h1>
 
       <p>
-        Hledáš tu na mě <b>pracovní kontakt</b>? Pak by tě mohlo zajímat <LinkButton
+        Jsi tu <b>pracovně</b>? To by tě mohlo zajímat <LinkButton
           href="/cv.pdf"
           icon="tabler:file-text">moje CV</LinkButton
-        >. Taky tu mám odkazy na různé sítě a weby, kde se vyskytuju:
+        >.
       </p>
+
+      <p>Tady jsou různé sítě a weby, kde se vyskytuju:</p>
 
       <ul class="list-none pl-0">
         {
           SOCIALS.map(social => (
-            <li class="my-2 -translate-x-2">
-              <LinkButton href={social.href} icon={social.icon}>
-                {social.nameCS || social.name}
-              </LinkButton>
-              – {social.descriptionCS}
+            <li class="my-2 flex -translate-x-1.5 items-start gap-1">
+              <Icon
+                name={social.icon}
+                class="text-skin-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+              />
+              <span>
+                <a
+                  href={social.href}
+                  class="group ml-1 inline-flex items-baseline gap-1 underline decoration-dashed underline-offset-6"
+                >
+                  {social.nameCS || social.name}
+                </a>{" "}
+                – {social.descriptionCS || social.description}
+              </span>
             </li>
           ))
         }
@@ -114,7 +125,7 @@ import Footer from "@/components/Footer.astro";
           />
           <span
             >Po Praze se přepravuji nejčastěji vlakem, na sdílených kolech nebo
-            pěšky (a chtěl bych plošně zakázat auta v centrech měst).
+            pěšky (a přál bych si plošně zakázat auta v centrech měst).
           </span>
         </li>
         <li class="my-2 flex -translate-x-1.5 items-start gap-2">

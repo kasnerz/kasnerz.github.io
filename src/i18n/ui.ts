@@ -30,6 +30,8 @@ export const ui = {
         "teaching.current": "Currently teaching",
         "teaching.talks": "Talks & workshops",
         "teaching.past": "Past courses",
+        "footer.built": "Built sipping the",
+        "footer.fuel": "LLM agents rocket fuel",
     },
     cs: {
         "nav.teaching": "Výuka",
@@ -54,5 +56,7 @@ export const ui = {
         "teaching.current": "Právě učím",
         "teaching.talks": "Přednášky a workshopy",
         "teaching.past": "V minulost jsem učil...",
+        "footer.built": "Vytvořeno s pomocí",
+        "footer.fuel": "raketového paliva LLM agentů",
     },
 } as const;
