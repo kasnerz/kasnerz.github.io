@@ -56,7 +56,7 @@ export const ui = {
         "teaching.current": "Právě učím",
         "teaching.talks": "Přednášky a workshopy",
         "teaching.past": "V minulost jsem učil...",
-        "footer.built": "Vytvořeno s pomocí",
-        "footer.fuel": "raketového paliva LLM agentů",
+        "footer.built": "Vytvořeno s",
+        "footer.fuel": "raketovým palivem LLM agentů",
     },
 } as const;

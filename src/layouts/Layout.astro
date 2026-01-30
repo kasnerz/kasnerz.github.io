@@ -199,15 +199,15 @@ const structuredData = {
 
       // Save language on switch detection
       document.addEventListener("DOMContentLoaded", () => {
-        const langSwitch =
-          document.getElementById("lang-switch") ||
-          document.querySelector("a[aria-label^='Switch to']");
-        if (langSwitch) {
+        const langSwitches = document.querySelectorAll(
+          "a[aria-label^='Switch to']"
+        );
+        langSwitches.forEach(langSwitch => {
           langSwitch.addEventListener("click", () => {
             const targetLang = isEnglish ? "cs" : "en";
             localStorage.setItem("lang", targetLang);
           });
-        }
+        });
       });
     </script>
 

@@ -59,18 +59,49 @@ const toggleLangPath =
         id="nav-menu"
         class="flex w-full flex-col items-center sm:w-auto sm:flex-row sm:justify-end sm:py-0"
       >
-        <button
-          id="menu-btn"
-          class="focus-outline self-end p-2 sm:hidden"
-          aria-label="Open Menu"
-          aria-expanded="false"
-          aria-controls="menu-items"
-        >
-          <div class="rounded-lg bg-accent p-1.5 text-white">
-            <Icon name="tabler:x" id="close-icon" class="hidden size-6" />
-            <Icon name="tabler:menu-deep" id="menu-icon" class="size-6" />
-          </div>
-        </button>
+        <div class="flex items-center self-end sm:hidden">
+          {
+            SITE.lightAndDarkMode && (
+              <button
+                id="theme-btn-mobile"
+                class="focus-outline flex items-center justify-center p-2 hover:opacity-80"
+                title="Toggles light & dark"
+                aria-label="auto"
+                aria-live="polite"
+              >
+                <div class="relative rounded-full">
+                  <Icon
+                    name="tabler:moon"
+                    class="size-6 scale-100 dark:scale-0"
+                  />
+                  <Icon
+                    name="tabler:sun-high"
+                    class="absolute top-0 left-0 size-6 scale-0 dark:scale-100"
+                  />
+                </div>
+              </button>
+            )
+          }
+          <a
+            href={toggleLangPath}
+            class="focus-outline flex items-center justify-center p-2 font-semibold hover:opacity-80"
+            aria-label={`Switch to ${toggleLangLabel}`}
+          >
+            {toggleLangLabel}
+          </a>
+          <button
+            id="menu-btn"
+            class="focus-outline p-2"
+            aria-label="Open Menu"
+            aria-expanded="false"
+            aria-controls="menu-items"
+          >
+            <div class="rounded-lg bg-accent p-1.5 text-white">
+              <Icon name="tabler:x" id="close-icon" class="hidden size-6" />
+              <Icon name="tabler:menu-deep" id="menu-icon" class="size-6" />
+            </div>
+          </button>
+        </div>
         <ul
           id="menu-items"
           class:list={[
@@ -147,39 +178,6 @@ const toggleLangPath =
                 <Icon name="mdi:person" class="size-6" />
               </div>
               <span>{t("nav.about")}</span>
-            </a>
-          </li>
-          {
-            SITE.lightAndDarkMode && (
-              <li class="col-span-1 flex items-center justify-center sm:hidden">
-                <button
-                  id="theme-btn-mobile"
-                  class="focus-outline flex items-center justify-center px-2 py-1 hover:opacity-80"
-                  title="Toggles light & dark"
-                  aria-label="auto"
-                  aria-live="polite"
-                >
-                  <div class="relative rounded-full">
-                    <Icon
-                      name="tabler:moon"
-                      class="size-6 scale-100 dark:scale-0"
-                    />
-                    <Icon
-                      name="tabler:sun-high"
-                      class="absolute top-0 left-0 size-6 scale-0 dark:scale-100"
-                    />
-                  </div>
-                </button>
-              </li>
-            )
-          }
-          <li class="col-span-1 flex items-center justify-center sm:hidden">
-            <a
-              href={toggleLangPath}
-              class="focus-outline flex items-center justify-center px-2 py-1 font-semibold hover:opacity-80"
-              aria-label={`Switch to ${toggleLangLabel}`}
-            >
-              {toggleLangLabel}
             </a>
           </li>
         </ul>
