@@ -1,7 +1,7 @@
 export const SITE = {
-  website: "https://kasnerz.github.io/", // replace this with your deployed domain
+  website: "https://zdenekkasner.cz/", // replace this with your deployed domain
   author: "Zdeněk Kasner",
-  profile: "https://kasnerz.github.io/",
+  profile: "https://zdenekkasner.cz/",
   desc: "Personal website of Zdeněk Kasner.",
   title: "Zdeněk Kasner",
   ogImage: "astropaper-og.jpg",
