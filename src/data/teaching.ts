@@ -21,6 +21,13 @@ export const teachingTypes: Record<string, TeachingTypeInfo> = {
             cs: "workshop",
         },
     },
+    video: {
+        icon: "tabler:video",
+        label: {
+            en: "recording",
+            cs: "nahrávka",
+        },
+    },
 };
 
 export interface TeachingItem {
@@ -118,7 +125,30 @@ export const teaching: TeachingItem[] = [
     },
     {
         title: {
-            en: "Vibe coding: angličtina jako programovací jazyk (CZ)",
+            en: "",
+            cs: "Úvod do AI a principy fungování",
+        },
+        period: {
+            en: "11/2025",
+            cs: "11/2025",
+        },
+        description: {
+            en: "Video lecture on the generative AI tools for FSv UK students.",
+            cs: "Videokurz 'Nástroje generativní AI a jejich využití při studiu' pro FSv UK.",
+        },
+        type: "video",
+        category: "talks",
+        links: [
+            {
+                label: "",
+                url: "https://aiskilling.fsv.cuni.cz/uvod-do-ai/",
+                type: "website",
+            },
+        ],
+    },
+    {
+        title: {
+            en: "Vibe coding: angličtina jako programovací jazyk",
             cs: "Vibe coding: angličtina jako programovací jazyk",
         },
         period: {
@@ -141,7 +171,7 @@ export const teaching: TeachingItem[] = [
     },
     {
         title: {
-            en: "LLM jako nástroj v příkazové řádce (CZ)",
+            en: "LLM jako nástroj v příkazové řádce",
             cs: "LLM jako nástroj v příkazové řádce",
         },
         period: {
