@@ -19,9 +19,11 @@ const images = [
           class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
         />
         <div class="absolute inset-0 flex items-end justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <span class="w-full bg-black/70 px-2 py-1 text-center text-xs text-white">
-            Photo: {image.credit}
-          </span>
+          {image.credit && (
+            <span class="w-full bg-black/70 px-2 py-1 text-center text-xs text-white">
+              Photo: {image.credit}
+            </span>
+          )}
         </div>
       </div>
     ))
