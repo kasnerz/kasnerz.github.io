@@ -1,8 +1,8 @@
 ---
 const images = [
   { src: "/me/zk1.jpg", alt: "Zdeněk Kasner", credit: "adam&costey" },
-  { src: "/me/zk3.jpg", alt: "Zdeněk Kasner" },
   { src: "/me/zk2.jpg", alt: "Zdeněk Kasner" },
+  { src: "/me/zk3.jpg", alt: "Zdeněk Kasner" },
 ];
 ---
 
@@ -10,13 +10,13 @@ const images = [
   {
     images.map(image => (
       <div
-        class="gallery-trigger group relative h-32 cursor-pointer overflow-hidden rounded-sm sm:h-48"
+        class="gallery-trigger group relative h-32 cursor-pointer overflow-hidden rounded-lg sm:h-48"
         data-src={image.src}
       >
         <img
           src={image.src}
           alt={image.alt}
-          class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+          class="h-full w-full rounded-lg object-cover transition duration-300 group-hover:scale-105"
         />
         <div class="absolute inset-0 flex items-end justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           {image.credit && (
