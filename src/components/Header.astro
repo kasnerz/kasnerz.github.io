@@ -26,14 +26,6 @@ const toggleLangPath =
     : pathname.replace("/cs", "") || "/";
 ---
 
-<a
-  id="skip-to-content"
-  href="#main-content"
-  class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg focus:top-4"
->
-  Skip to content
-</a>
-
 <header
   class="flex w-full flex-col items-center justify-between border-b border-border bg-accent text-white sm:flex-row"
 >
@@ -41,7 +33,7 @@ const toggleLangPath =
     id="top-nav-wrap"
     class:list={[
       "app-layout",
-      "py-4 sm:py-4",
+      "py-2 sm:py-2",
       "relative w-full",
       "flex items-baseline justify-between sm:items-center",
       // "sm:grid sm:grid-cols-[auto_1fr_auto] sm:gap-8",
@@ -152,20 +144,6 @@ const toggleLangPath =
               <span>{t("nav.projects")}</span>
             </a>
           </li>
-          <!-- <li class="col-span-2">
-          <a
-            href={lang === "en" ? "/talks" : "/cs/talks"}
-            class:list={[
-              { "active-nav": isActive("/talks") },
-              "focus-outline flex flex-col items-center justify-center gap-0.5 px-2 py-3 hover:opacity-80 sm:h-lg sm:px-2 sm:py-1",
-            ]}
-          >
-            <div class="rounded-full">
-              <Icon name="tabler:speakerphone" class="size-6" />
-            </div>
-            <span>{t("nav.news")}</span>
-          </a>
-        </li> -->
           <li class="col-span-2">
             <a
               href={lang === "en" ? "/about" : "/cs/about"}

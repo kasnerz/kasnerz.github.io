@@ -22,16 +22,18 @@ const { noMarginTop = false, class: className, ...attrs } = Astro.props;
     <div
       class="my-2 flex flex-col items-center justify-center text-sm whitespace-nowrap text-text-muted sm:flex-row"
     >
-      <span>&#169; {currentYear}</span>
-      <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
-      <span class="hidden sm:inline">Zdeněk Kasner</span>
+      <span>&#169; {currentYear}&nbsp;|&nbsp;Zdeněk Kasner</span>
       <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
       <span>
-        {t("footer.built")}
+        <LinkButton
+          icon="mdi:book-outline"
+          href="https://github.com/satnaing/astro-paper"
+          >astro-paper theme</LinkButton
+        > +
         <LinkButton
           icon="tabler:rocket"
           href="https://fly.io/blog/youre-all-nuts/"
-          >{t("footer.fuel")}</LinkButton
+          >LLM agents rocket fuel</LinkButton
         ></span
       >
     </div>

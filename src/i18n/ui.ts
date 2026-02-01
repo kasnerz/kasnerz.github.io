@@ -30,7 +30,7 @@ export const ui = {
         "teaching.current": "Currently teaching",
         "teaching.talks": "Talks & workshops",
         "teaching.past": "Past courses",
-        "footer.built": "Built sipping the",
+        "footer.built": "Based on the astro-paper theme + the",
         "footer.fuel": "LLM agents rocket fuel",
     },
     cs: {

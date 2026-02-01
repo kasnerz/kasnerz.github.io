@@ -125,7 +125,7 @@ export const teaching: TeachingItem[] = [
     },
     {
         title: {
-            en: "",
+            en: "Úvod do AI a principy fungování",
             cs: "Úvod do AI a principy fungování",
         },
         period: {
@@ -207,8 +207,8 @@ export const teaching: TeachingItem[] = [
             cs: "09/2025",
         },
         description: {
-            en: "Internal workshop for Directorate-General for Translation (DGT).",
-            cs: "Interní workshop pro Directorate-General for Translation (DGT).",
+            en: "Internal workshop for DGT @ European Commission.",
+            cs: "Interní workshop pro DGT, oddělení Evropské komise.",
         },
         type: "workshop",
         category: "talks",
@@ -313,8 +313,8 @@ export const teaching: TeachingItem[] = [
             cs: "ZS 22/23-teď",
         },
         description: {
-            en: "I am regularly teaching the lecture on natural language generation. In 22/23, I was also helping with grading homework assignments.",
-            cs: "Pravidelně přednáším o generování přirozeného jazyka. V zimním semestru 22/23 jsem také pomáhal s hodnocením domácích úkolů.",
+            en: "In 22/23, I was helping with grading homework assignments. I regularly teach the lecture on natural language generation since then.",
+            cs: "V zimním semestru 22/23 jsem pomáhal s hodnocením domácích úkolů, od té doby pravidelně vedu přednášku o generování přirozeného jazyka.",
         },
         image: "/lectures/cuni-en.png",
         category: "past",
