@@ -49,7 +49,7 @@ export interface TeachingItem {
     links?: {
         label: string;
         url: string;
-        type: "website" | "github" | "youtube" | "materials" | "course";
+        type: "website" | "github" | "youtube" | "materials" | "course" | "linkedin";
     }[];
 }
 
@@ -120,6 +120,29 @@ export const teaching: TeachingItem[] = [
                 label: "Didaktikon",
                 url: "https://didaktikon.cz/DIDAKT-123.html",
                 type: "course",
+            },
+        ],
+    },
+    {
+        title: {
+            en: "LLM, the security and everything",
+            cs: "LLM, the security and everything",
+        },
+        period: {
+            en: "02/2026",
+            cs: "02/2026",
+        },
+        description: {
+            en: "Invited talk for the Alef F5 AI Event.",
+            cs: "Zvaná přednáška na akci Alef F5 AI Event.",
+        },
+        type: "talk",
+        category: "talks",
+        links: [
+            {
+                label: "",
+                url: "https://www.linkedin.com/posts/alef-distribution-cz-s-r-o_ai-innovation-alef-activity-7427724355138273280-xRlB/",
+                type: "linkedin",
             },
         ],
     },
