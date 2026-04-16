@@ -71,13 +71,13 @@ export const teaching: TeachingItem[] = [
         category: "current",
         links: [
             {
-                label: "website",
+                label: "web",
                 url: "https://courses.fit.cvut.cz/NI-NLM/index.html",
                 type: "course",
             },
             {
                 label: "slides",
-                url: "/slides/ctu/",
+                url: "/slides/public/ctu/",
                 type: "materials",
             },
         ],
@@ -99,7 +99,7 @@ export const teaching: TeachingItem[] = [
         category: "current",
         links: [
             {
-                label: "NPFL140",
+                label: "web",
                 url: "https://ufal.mff.cuni.cz/courses/npfl140",
                 type: "course",
             },
