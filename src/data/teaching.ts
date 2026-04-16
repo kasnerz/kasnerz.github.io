@@ -71,9 +71,14 @@ export const teaching: TeachingItem[] = [
         category: "current",
         links: [
             {
-                label: "NI-NLM",
+                label: "website",
                 url: "https://courses.fit.cvut.cz/NI-NLM/index.html",
                 type: "course",
+            },
+            {
+                label: "slides",
+                url: "/slides/ctu/",
+                type: "materials",
             },
         ],
     },

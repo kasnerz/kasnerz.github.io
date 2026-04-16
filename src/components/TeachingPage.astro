@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
 import TeachingItem from "./TeachingItem.astro";
+import LinkButton from "./LinkButton.astro";
 import { SITE } from "../config";
 import { teaching } from "../data/teaching";
 import { useTranslations } from "../i18n/utils";
@@ -28,6 +29,22 @@ const pastCourses = teaching.filter(item => item.category === "past");
         {t("nav.teaching")}
       </h1>
       <slot />
+    </section>
+
+    <section class="mb-8">
+      <h2
+        class="border-b border-border/200 py-2 text-2xl font-semibold text-accent"
+      >
+        {t("teaching.slides")}
+      </h2>
+      <p class="mt-4 mb-4">
+        {t("teaching.slides.before")}
+        <LinkButton
+          icon="mdi:slideshow"
+          href="https://zdenekkasner.cz/slides/public"
+          >/slides/public</LinkButton
+        >.
+      </p>
     </section>
 
     {
