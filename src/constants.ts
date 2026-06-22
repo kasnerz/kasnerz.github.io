@@ -33,8 +33,8 @@ export const SOCIALS: Social[] = [
     href: "https://bsky.app/profile/zdenekkasner.cz",
     linkTitle: `${SITE.title} on Bluesky`,
     icon: "tabler:brand-bluesky",
-    description: "My research network, a source of comics, and a replacement for ✝ Twitter.",
-    descriptionCS: "Můj kontakt s výzkumným světem, zdroj komiksů a náhrada za ✝ Twitter.",
+    description: "My research network and a source of comics.",
+    descriptionCS: "Můj kontakt s výzkumným světem a zdroj komiksů.",
   },
   {
     name: "Facebook",

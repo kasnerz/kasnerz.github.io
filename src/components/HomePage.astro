@@ -17,6 +17,10 @@ const t = useTranslations(lang);
 const teachingHref = lang === "en" ? "/teaching" : "/cs/teaching";
 const researchHref = lang === "en" ? "/research" : "/cs/research";
 const projectHref = lang === "en" ? "/projects" : "/cs/projects";
+
+// Break the tagline at sentence boundaries so it reads as a deliberate
+// couplet rather than wrapping mid-clause.
+const subtitleLines = t("home.subtitle").split(/(?<=\.)\s+/);
 ---
 
 <Layout lang={lang}>
@@ -24,27 +28,56 @@ const projectHref = lang === "en" ? "/projects" : "/cs/projects";
 
   <main
     id="main-content"
-    class="app-layout flex w-full flex-1 flex-col items-center"
+    data-layout="index"
+    class="relative app-layout flex w-full flex-1 flex-col items-center justify-center overflow-hidden py-16 sm:py-20"
   >
-    <div class="my-auto flex max-w-lg flex-col items-center justify-center">
-      <div class="group relative">
+    <div class="hero-glow" aria-hidden="true"></div>
+
+    <div class="hero relative flex max-w-xl flex-col items-center text-center">
+      <div class="hero-item avatar-wrap group relative" style="--delay: 0ms">
         <img
-          src="/profile.jpg"
-          alt="Zdeněk Kasner, photo: adam&costey"
-          class="h-40 w-40 rounded-full object-cover md:h-48 md:w-48"
+          src="/profile.png"
+          alt="Zdeněk Kasner"
+          width="192"
+          height="192"
+          class="avatar h-36 w-36 rounded-full md:h-44 md:w-44"
         />
       </div>
+
       <h1
-        class="mt-6 inline-block text-center text-3xl font-semibold text-accent dark:text-foreground"
+        class="hero-item mt-7 text-4xl font-bold tracking-tight text-accent sm:text-5xl dark:text-foreground"
+        style="--delay: 80ms"
       >
         Zdeněk Kasner
       </h1>
-      <h2
-        class="align-center mt-2 mb-4 inline-block text-center text-lg font-semibold text-foreground"
+
+      <p
+        class="hero-item tagline mt-3 max-w-md text-xl font-medium text-balance text-foreground sm:text-2xl"
+        style="--delay: 160ms"
       >
-        <i>{t("home.subtitle")}</i>
-      </h2>
-      <p class="text-md mt-4 text-center">
+        {
+          subtitleLines.map(line => (
+            <span class="block">
+              <InterpolatedText text={line}>
+                <LinkButton
+                  slot="ai"
+                  icon="tabler:cpu"
+                  href="https://lokalni.ai"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  {t("home.link.ai")}
+                </LinkButton>
+              </InterpolatedText>
+            </span>
+          ))
+        }
+      </p>
+
+      <p
+        class="hero-item mt-6 max-w-md text-base leading-relaxed text-pretty text-foreground/85"
+        style="--delay: 240ms"
+      >
         <InterpolatedText text={t("home.bio")}>
           <LinkButton
             slot="teaching"
@@ -65,14 +98,96 @@ const projectHref = lang === "en" ? "/projects" : "/cs/projects";
           </LinkButton>
         </InterpolatedText>
       </p>
-      <p class="mt-8 text-center text-lg">
+
+      <div class="hero-item mt-9" style="--delay: 320ms">
         <Socials />
-      </p>
+      </div>
     </div>
   </main>
 
   <Footer />
 </Layout>
+
+<style>
+  /* Soft brand glow behind the portrait — adds depth without clutter. */
+  .hero-glow {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    width: min(34rem, 90vw);
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle,
+      color-mix(in oklab, var(--accent) 22%, transparent) 0%,
+      transparent 68%
+    );
+    filter: blur(8px);
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  html[data-theme="dark"] .hero-glow {
+    background: radial-gradient(
+      circle,
+      color-mix(in oklab, var(--accent) 22%, transparent) 0%,
+      transparent 70%
+    );
+    opacity: 0.32;
+  }
+
+  /* Portrait: accent ring + soft lift, gentle interaction. */
+  .avatar {
+    object-fit: cover;
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.08),
+      0 12px 30px -12px color-mix(in oklab, var(--accent) 45%, transparent);
+    outline: 2px solid color-mix(in oklab, var(--accent) 35%, transparent);
+    outline-offset: 4px;
+    transition:
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      outline-color 0.5s ease;
+  }
+
+  .avatar-wrap:hover .avatar {
+    transform: translateY(-2px) scale(1.02);
+    outline-color: color-mix(in oklab, var(--accent) 60%, transparent);
+  }
+
+  .tagline {
+    text-wrap: balance;
+  }
+
+  /* Staggered entrance — pure CSS, runs on load, ends fully visible. */
+  @keyframes hero-rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-item {
+    animation: hero-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--delay, 0ms);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-item {
+      animation: none;
+    }
+    .avatar,
+    .avatar-wrap:hover .avatar {
+      transition: none;
+      transform: none;
+    }
+  }
+</style>
 
 <script>
   document.addEventListener("astro:page-load", () => {
