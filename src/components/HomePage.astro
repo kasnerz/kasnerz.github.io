@@ -34,7 +34,7 @@ const subtitleLines = t("home.subtitle").split(/(?<=\.)\s+/);
     <div class="hero-glow" aria-hidden="true"></div>
 
     <div class="hero relative flex max-w-xl flex-col items-center text-center">
-      <div class="hero-item avatar-wrap group relative" style="--delay: 0ms">
+      <div class="avatar-wrap group relative">
         <img
           src="/profile.png"
           alt="Zdeněk Kasner"
@@ -45,15 +45,13 @@ const subtitleLines = t("home.subtitle").split(/(?<=\.)\s+/);
       </div>
 
       <h1
-        class="hero-item mt-7 text-4xl font-bold tracking-tight text-accent sm:text-5xl dark:text-foreground"
-        style="--delay: 80ms"
+        class="mt-7 text-4xl font-bold tracking-tight text-accent sm:text-5xl dark:text-foreground"
       >
         Zdeněk Kasner
       </h1>
 
       <p
-        class="hero-item tagline mt-3 max-w-md text-xl font-medium text-balance text-foreground sm:text-2xl"
-        style="--delay: 160ms"
+        class="tagline mt-3 max-w-md text-xl font-medium text-balance text-foreground sm:text-2xl"
       >
         {
           subtitleLines.map(line => (
@@ -75,8 +73,7 @@ const subtitleLines = t("home.subtitle").split(/(?<=\.)\s+/);
       </p>
 
       <p
-        class="hero-item mt-6 max-w-md text-base leading-relaxed text-pretty text-foreground/85"
-        style="--delay: 240ms"
+        class="mt-6 max-w-md text-base leading-relaxed text-pretty text-foreground/85"
       >
         <InterpolatedText text={t("home.bio")}>
           <LinkButton
@@ -99,7 +96,7 @@ const subtitleLines = t("home.subtitle").split(/(?<=\.)\s+/);
         </InterpolatedText>
       </p>
 
-      <div class="hero-item mt-9" style="--delay: 320ms">
+      <div class="mt-9">
         <Socials />
       </div>
     </div>
@@ -160,27 +157,7 @@ const subtitleLines = t("home.subtitle").split(/(?<=\.)\s+/);
     text-wrap: balance;
   }
 
-  /* Staggered entrance — pure CSS, runs on load, ends fully visible. */
-  @keyframes hero-rise {
-    from {
-      opacity: 0;
-      transform: translateY(14px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .hero-item {
-    animation: hero-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-    animation-delay: var(--delay, 0ms);
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .hero-item {
-      animation: none;
-    }
     .avatar,
     .avatar-wrap:hover .avatar {
       transition: none;
