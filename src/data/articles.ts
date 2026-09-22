@@ -18,9 +18,20 @@ export interface Article {
 
 export const articles: Article[] = [
 	{
+		"title": "Can LLM Coding Agents Reason About Time Series?",
+		"authors": "Filip Rechtorík, Ondřej Dušek, Zdeněk Kasner",
+		"venue": "INLG 2026",
+		"text": "Time series + LLMs generally do not play well together. Even though a time series is just a sequence of tokens, Transformers get easily lost in the sheer amount of data. But LLMs agents are now very good at writing Python code, right? Which is exactly what we did here. We compared the raw data baseline to a coding agent, which had access to a Pandas dataframe. The coding agent *was* better, but still made many errors. We looked deeper into them and distilled some deeper insights about what can be improved.",
+		"img": "2026_time_series.png",
+		"preview": "2026_time_series.png",
+		"arxiv": "https://arxiv.org/abs/2601.16946",
+		"code": "https://github.com/semindan/span_labeling",
+		"id": "time-series-agents"
+	},
+	{
 		"title": "Strategies for Span Labeling with Large Language Models",
 		"authors": "Danil Semin, Ondřej Dušek, Zdeněk Kasner",
-		"venue": "2026, arXiv",
+		"venue": "INLG 2026",
 		"text": "The first paper where my student is the first author! We look into the panoply of ways that people employ LLMs to <i>annotate an input text</i>. Since LLMs can only generate text, the annotation has to be based on exactly that. But how do you identify which part of text (so called \"text spans\") the model is talking about? Do ask the model for its start/end indices? Or do you let it generate the text again, or only the content of the span, ...? We find that each method has its merits, but some are better than others.",
 		"img": "2026_strategies.png",
 		"preview": "2026_strategies.png",
@@ -34,11 +45,12 @@ export const articles: Article[] = [
 		"authors": "Zdeněk Kasner, Vilém Zouhar, Patrícia Schmidtová, Ivan Kartáč, Kristýna Onderková, Ondřej Plátek, Dimitra Gkatzia, Saad Mahamood, Ondřej Dušek, Simone Balloccu",
 		"venue": "MME workshop @ EACL 2026",
 		"text": "Finding errors in the text by <i>highlighting the part that relates to the error</i> sounds like a great idea... until you have to start paying human annotators for doing it. So the question is: can we use LLMs to do that for us? We try it on three tasks: evaluation of data-to-text generation, finding errors in machine translation and propaganda techniques annotation. We find that for simpler, well-defined tasks, LLMs are catching up with skilled crowdworkers. The results are more mixed for complex tasks, but we still see LLMs for span annotation as the path forward!",
-		"img": "2025_llm_span_annot.png",
-		"preview": "2025_llm_span_annot.png",
+		"img": "2026_llm_span_annot.png",
+		"preview": "2026_llm_span_annot.png",
 		"website": "https://llm-span-annotators.github.io",
-		"arxiv": "https://arxiv.org/abs/2504.08697",
+		"acl": "https://aclanthology.org/2026.mme-main.1/",
 		"demo": "https://quest.ms.mff.cuni.cz/namuddis/span-eval/",
+		"poster": "/papers/pdf/2025_llm_span_annot_poster.pdf",
 		"id": "llm-span-annot"
 	},
 	{
