@@ -24,8 +24,8 @@ export const articles: Article[] = [
 		"text": "Time series + LLMs generally do not play well together. Even though a time series is just a sequence of tokens, Transformers get easily lost in the sheer amount of data. But LLMs agents are now very good at writing Python code, right? Which is exactly what we did here. We compared the raw data baseline to a coding agent, which had access to a Pandas dataframe. The coding agent *was* better, but still made many errors. We looked deeper into them and distilled some deeper insights about what can be improved.",
 		"img": "2026_time_series.png",
 		"preview": "2026_time_series.png",
-		"arxiv": "https://arxiv.org/abs/2601.16946",
-		"code": "https://github.com/semindan/span_labeling",
+		"arxiv": "https://arxiv.org/abs/2606.16545",
+		"code": "https://github.com/DekuD2/can-llm-coding-agents-reason-about-time-series",
 		"id": "time-series-agents"
 	},
 	{
@@ -37,7 +37,20 @@ export const articles: Article[] = [
 		"preview": "2026_strategies.png",
 		"arxiv": "https://arxiv.org/abs/2601.16946",
 		"code": "https://github.com/semindan/span_labeling",
-		"id": "llm-span-annot"
+		"id": "span-labeling"
+	},
+	{
+		"title": "AnimatedLLM: Explaining LLMs with Interactive Visualizations",
+		"code": "https://github.com/kasnerz/animated-llm",
+		"authors": "Zdeněk Kasner, Ondřej Dušek",
+		"venue": "TeachingNLP workshop @ EACL 2026",
+		"text": "Are you explaining LLMs to someone? This web app is for you. It is minimalistic yet expressive, and allows you to go into as much detail as you wish. The pre-recorded traces are selected to be as educational as possible, same as the selection of languages.",
+		"img": "2026_animatedllm.png",
+		"preview": "2026_animatedllm_preview.png",
+		"website": "https://animatedllm.github.io",
+		"acl": "https://aclanthology.org/2026.teachingnlp-1.1/",
+		"poster": "/papers/pdf/2026_animatedllm_poster.pdf",
+		"id": "animatedllm"
 	},
 	{
 		"title": "LLMs as Span Annotators: A Comparative Study of LLMs and Humans",
