@@ -45,12 +45,12 @@ export const articles: Article[] = [
 		"authors": "Zdeněk Kasner, Vilém Zouhar, Patrícia Schmidtová, Ivan Kartáč, Kristýna Onderková, Ondřej Plátek, Dimitra Gkatzia, Saad Mahamood, Ondřej Dušek, Simone Balloccu",
 		"venue": "MME workshop @ EACL 2026",
 		"text": "Finding errors in the text by <i>highlighting the part that relates to the error</i> sounds like a great idea... until you have to start paying human annotators for doing it. So the question is: can we use LLMs to do that for us? We try it on three tasks: evaluation of data-to-text generation, finding errors in machine translation and propaganda techniques annotation. We find that for simpler, well-defined tasks, LLMs are catching up with skilled crowdworkers. The results are more mixed for complex tasks, but we still see LLMs for span annotation as the path forward!",
-		"img": "2026_llm_span_annot.png",
-		"preview": "2026_llm_span_annot.png",
+		"img": "2025_llm_span_annot.png",
+		"preview": "2025_llm_span_annot.png",
 		"website": "https://llm-span-annotators.github.io",
 		"acl": "https://aclanthology.org/2026.mme-main.1/",
 		"demo": "https://quest.ms.mff.cuni.cz/namuddis/span-eval/",
-		"poster": "/papers/pdf/2025_llm_span_annot_poster.pdf",
+		"poster": "/papers/pdf/2026_llm_span_annot_poster.pdf",
 		"id": "llm-span-annot"
 	},
 	{
