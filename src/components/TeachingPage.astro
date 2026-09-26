@@ -1,10 +1,7 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Header from "./Header.astro";
-import Footer from "./Footer.astro";
+import SubpageLayout from "../layouts/SubpageLayout.astro";
 import TeachingItem from "./TeachingItem.astro";
 import LinkButton from "./LinkButton.astro";
-import { SITE } from "../config";
 import { teaching } from "../data/teaching";
 import { useTranslations } from "../i18n/utils";
 
@@ -21,76 +18,68 @@ const talksWorkshops = teaching.filter(item => item.category === "talks");
 const pastCourses = teaching.filter(item => item.category === "past");
 ---
 
-<Layout title={`${t("nav.teaching")} | ${SITE.title}`} lang={lang}>
-  <Header activeNav="teaching" />
-  <main id="main-content" class="app-layout">
-    <section class="mb-10 max-w-3xl">
-      <h1 class="mt-8 mb-6 text-2xl font-semibold sm:text-3xl">
-        {t("nav.teaching")}
-      </h1>
-      <slot />
-    </section>
+<SubpageLayout lang={lang} page="teaching">
+  <section class="mb-10">
+    <slot />
+  </section>
 
-    <section class="mb-8">
-      <h2
-        class="border-b border-border/200 py-2 text-2xl font-semibold text-accent"
-      >
-        {t("teaching.slides")}
-      </h2>
-      <p class="mt-4 mb-4">
-        {t("teaching.slides.before")}
-        <LinkButton
-          icon="mdi:slideshow"
-          href="https://zdenekkasner.cz/slides/public"
-          >/slides/public</LinkButton
-        >.
-      </p>
-    </section>
+  <section class="mb-8">
+    <h2
+      class="border-b border-border/200 py-2 text-2xl font-semibold text-accent"
+    >
+      {t("teaching.slides")}
+    </h2>
+    <p class="mt-4 mb-4">
+      {t("teaching.slides.before")}
+      <LinkButton
+        icon="mdi:slideshow"
+        href="https://zdenekkasner.cz/slides/public">/slides/public</LinkButton
+      >.
+    </p>
+  </section>
 
-    {
-      currentTeaching.length > 0 && (
-        <section class="mb-8">
-          <h2 class="border-b border-border/200 py-2 text-2xl font-semibold text-accent">
-            {t("teaching.current")}
-          </h2>
-          <div class="flex flex-col">
-            {currentTeaching.map(item => (
-              <TeachingItem item={item} lang={lang} />
-            ))}
-          </div>
-        </section>
-      )
-    }
+  {
+    currentTeaching.length > 0 && (
+      <section class="mb-8">
+        <h2 class="border-b border-border/200 py-2 text-2xl font-semibold text-accent">
+          {t("teaching.current")}
+        </h2>
+        <div class="flex flex-col">
+          {currentTeaching.map(item => (
+            <TeachingItem item={item} lang={lang} />
+          ))}
+        </div>
+      </section>
+    )
+  }
 
-    {
-      talksWorkshops.length > 0 && (
-        <section class="mb-8">
-          <h2 class="mb-4 border-b border-border/200 py-2 text-2xl font-semibold text-accent">
-            {t("teaching.talks")}
-          </h2>
-          <div class="flex flex-col">
-            {talksWorkshops.map(item => (
-              <TeachingItem item={item} lang={lang} />
-            ))}
-          </div>
-        </section>
-      )
-    }
+  {
+    talksWorkshops.length > 0 && (
+      <section class="mb-8">
+        <h2 class="mb-4 border-b border-border/200 py-2 text-2xl font-semibold text-accent">
+          {t("teaching.talks")}
+        </h2>
+        <div class="flex flex-col">
+          {talksWorkshops.map(item => (
+            <TeachingItem item={item} lang={lang} />
+          ))}
+        </div>
+      </section>
+    )
+  }
 
-    {
-      pastCourses.length > 0 && (
-        <section class="mb-8">
-          <h2 class="border-b border-border/200 py-2 text-2xl font-semibold text-accent">
-            {t("teaching.past")}
-          </h2>
-          <div class="flex flex-col">
-            {pastCourses.map(item => (
-              <TeachingItem item={item} lang={lang} />
-            ))}
-          </div>
-        </section>
-      )
-    }
-  </main>
-  <Footer />
-</Layout>
+  {
+    pastCourses.length > 0 && (
+      <section class="mb-8">
+        <h2 class="border-b border-border/200 py-2 text-2xl font-semibold text-accent">
+          {t("teaching.past")}
+        </h2>
+        <div class="flex flex-col">
+          {pastCourses.map(item => (
+            <TeachingItem item={item} lang={lang} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+</SubpageLayout>

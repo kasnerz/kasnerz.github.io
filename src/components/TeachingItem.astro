@@ -33,7 +33,7 @@ function getIconForLink(type: string): string {
 
 {
   item.category === "talks" ? (
-    <div class="flex flex-col items-start gap-4 border-b border-gray-300 py-4 last:border-0 sm:flex-row sm:items-center">
+    <div class="flex flex-col items-start gap-4 border-b border-border py-4 last:border-0 sm:flex-row sm:items-center">
       <div class="flex min-w-[120px] items-center gap-3">
         <div class="text-3xl text-accent">
           {typeInfo ? <Icon name={typeInfo.icon} /> : <div class="h-8 w-8" />}
@@ -70,7 +70,7 @@ function getIconForLink(type: string): string {
       )}
     </div>
   ) : (
-    <div class="flex flex-col gap-4 border-b border-gray-300 py-8 last:border-0">
+    <div class="flex flex-col gap-4 border-b border-border py-8 last:border-0">
       <div class="flex items-start gap-4">
         {item.image && (
           <div class="h-16 w-16 flex-shrink-0">

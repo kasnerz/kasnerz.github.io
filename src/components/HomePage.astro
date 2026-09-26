@@ -1,178 +1,160 @@
 ---
+import { Icon } from "astro-icon/components";
 import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
-import Socials from "@/components/Socials.astro";
-import LinkButton from "@/components/LinkButton.astro";
-import InterpolatedText from "@/components/InterpolatedText.astro";
+import SceneNav from "@/components/SceneNav.astro";
+import SiteTools from "@/components/SiteTools.astro";
+import { SOCIALS } from "@/constants";
+import type { Lang } from "@/data/nav";
 import { useTranslations } from "@/i18n/utils";
 
 interface Props {
-  lang: "en" | "cs";
+  lang: Lang;
 }
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-
-const teachingHref = lang === "en" ? "/teaching" : "/cs/teaching";
-const researchHref = lang === "en" ? "/research" : "/cs/research";
-const projectHref = lang === "en" ? "/projects" : "/cs/projects";
-
-// Break the tagline at sentence boundaries so it reads as a deliberate
-// couplet rather than wrapping mid-clause.
-const subtitleLines = t("home.subtitle").split(/(?<=\.)\s+/);
 ---
 
 <Layout lang={lang}>
-  <Header />
+  <div class="topbar">
+    <a href={lang === "cs" ? "/cs/" : "/"} aria-label="Zdeněk Kasner">
+      <img src="/logo-white.png" alt="" width="52" height="52" />
+    </a>
+    <SiteTools lang={lang} />
+  </div>
 
-  <main
-    id="main-content"
-    data-layout="index"
-    class="relative app-layout flex w-full flex-1 flex-col items-center justify-center overflow-hidden py-16 sm:py-20"
-  >
-    <div class="hero-glow" aria-hidden="true"></div>
-
-    <div class="hero relative flex max-w-xl flex-col items-center text-center">
-      <div class="avatar-wrap group relative">
-        <img
-          src="/profile.png"
-          alt="Zdeněk Kasner"
-          width="192"
-          height="192"
-          class="avatar h-36 w-36 rounded-full md:h-44 md:w-44"
-        />
+  <main id="main-content" class="home">
+    <header class="hero">
+      <div class="hero-text">
+        <h1>Zdeněk Kasner</h1>
+        <p class="tagline">{t("home.tagline")}</p>
+        <div class="socials">
+          {
+            SOCIALS.filter(social => !social.hideIcon).map(social => (
+              <a href={social.href} title={social.linkTitle}>
+                <Icon name={social.icon} aria-hidden="true" />
+                <span class="sr-only">{social.linkTitle}</span>
+              </a>
+            ))
+          }
+        </div>
       </div>
+      <img
+        class="portrait"
+        src="/profile-transparent.png"
+        alt="Zdeněk Kasner"
+        width="210"
+        height="210"
+      />
+    </header>
 
-      <h1
-        class="mt-7 text-4xl font-bold tracking-tight text-accent sm:text-5xl dark:text-foreground"
-      >
-        Zdeněk Kasner
-      </h1>
-
-      <p
-        class="tagline mt-3 max-w-md text-xl font-medium text-balance text-foreground sm:text-2xl"
-      >
-        {
-          subtitleLines.map(line => (
-            <span class="block">
-              <InterpolatedText text={line}>
-                <LinkButton
-                  slot="ai"
-                  icon="tabler:cpu"
-                  href="https://lokalni.ai"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  {t("home.link.ai")}
-                </LinkButton>
-              </InterpolatedText>
-            </span>
-          ))
-        }
-      </p>
-
-      <p
-        class="mt-6 max-w-md text-base leading-relaxed text-pretty text-foreground/85"
-      >
-        <InterpolatedText text={t("home.bio")}>
-          <LinkButton
-            slot="teaching"
-            icon="tabler:users-group"
-            href={teachingHref}
-          >
-            {t("home.link.teaching")}
-          </LinkButton>
-          <LinkButton
-            slot="research"
-            icon="tabler:chart-dots-3-filled"
-            href={researchHref}
-          >
-            {t("home.link.research")}
-          </LinkButton>
-          <LinkButton slot="projects" icon="tabler:code" href={projectHref}>
-            {t("home.link.projects")}
-          </LinkButton>
-        </InterpolatedText>
-      </p>
-
-      <div class="mt-9">
-        <Socials />
-      </div>
-    </div>
+    <SceneNav lang={lang} class="home-nav" />
   </main>
-
-  <Footer />
 </Layout>
 
 <style>
-  /* Soft brand glow behind the portrait — adds depth without clutter. */
-  .hero-glow {
-    position: absolute;
-    top: 38%;
-    left: 50%;
-    width: min(34rem, 90vw);
-    aspect-ratio: 1;
-    translate: -50% -50%;
-    border-radius: 9999px;
-    background: radial-gradient(
-      circle,
-      color-mix(in oklab, var(--accent) 22%, transparent) 0%,
-      transparent 68%
-    );
-    filter: blur(8px);
-    opacity: 0.55;
-    pointer-events: none;
-    z-index: 0;
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem clamp(1rem, 4vw, 3.5rem);
+    color: #fff;
+  }
+  .topbar img {
+    width: 52px;
+    height: 52px;
   }
 
-  html[data-theme="dark"] .hero-glow {
-    background: radial-gradient(
-      circle,
-      color-mix(in oklab, var(--accent) 22%, transparent) 0%,
-      transparent 70%
-    );
-    opacity: 0.32;
+  /* hero and figures form one block centred in the viewport; the bottom padding
+     mirrors the top bar so the block sits in the middle of the screen, not below it */
+  .home {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: calc(52px + 2.5rem);
+    color: #fff;
+    /* the block narrows with the window like the name does, so name and photo
+       don't drift apart on mid-size screens; full width from ~1370px up */
+    --home-w: min(1000px, calc(60vw + 180px));
   }
-
-  /* Portrait: accent ring + soft lift, gentle interaction. */
-  .avatar {
-    object-fit: cover;
-    box-shadow:
-      0 1px 2px rgb(0 0 0 / 0.08),
-      0 12px 30px -12px color-mix(in oklab, var(--accent) 45%, transparent);
-    outline: 2px solid color-mix(in oklab, var(--accent) 35%, transparent);
-    outline-offset: 4px;
-    transition:
-      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-      outline-color 0.5s ease;
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2rem 4rem;
+    width: 100%;
+    max-width: var(--home-w);
+    margin: 0 auto;
+    padding: 0 1.5rem;
   }
-
-  .avatar-wrap:hover .avatar {
-    transform: translateY(-2px) scale(1.02);
-    outline-color: color-mix(in oklab, var(--accent) 60%, transparent);
+  .hero h1 {
+    margin: 0;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: clamp(2.4rem, 4.6vw, 3.75rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
   }
-
   .tagline {
-    text-wrap: balance;
+    margin: 0.9rem 0 0;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.25rem, 2.3vw, 1.75rem);
+    color: var(--mint);
+  }
+  .socials {
+    display: flex;
+    gap: 0.35rem;
+    margin: 1.1rem 0 0 -0.35rem;
+  }
+  .socials a {
+    display: grid;
+    padding: 0.35rem;
+    font-size: 1.5rem;
+    color: var(--mint);
+    transition: color 60ms linear;
+  }
+  .socials a:hover {
+    color: #fff;
+  }
+  .portrait {
+    display: block;
+    width: clamp(150px, 16vw, 210px);
+    height: auto;
+    aspect-ratio: 1;
+  }
+  .home :global(.home-nav) {
+    width: 100%;
+    max-width: calc(var(--home-w) + 80px);
+    margin: 3.5rem auto 0;
+    padding: 0 1.5rem;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .avatar,
-    .avatar-wrap:hover .avatar {
-      transition: none;
-      transform: none;
+  @media (max-width: 900px) {
+    .home {
+      justify-content: flex-start;
+      padding-bottom: 0;
+    }
+    .hero {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+      margin-top: 0;
+      text-align: center;
+    }
+    .socials {
+      justify-content: center;
+      margin-left: 0;
+    }
+    .portrait {
+      order: -1;
+      justify-self: center;
+      width: 116px;
+    }
+    .home :global(.home-nav) {
+      max-width: 420px;
+      margin: 3.5rem auto 2.5rem;
+      padding: 0 1rem;
     }
   }
 </style>
-
-<script>
-  document.addEventListener("astro:page-load", () => {
-    const indexLayout = (document.querySelector("#main-content") as HTMLElement)
-      ?.dataset?.layout;
-    if (indexLayout) {
-      const backUrl = window.location.pathname.startsWith("/cs") ? "/cs/" : "/";
-      sessionStorage.setItem("backUrl", backUrl);
-    }
-  });
-</script>

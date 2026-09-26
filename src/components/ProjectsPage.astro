@@ -1,0 +1,34 @@
+---
+import SubpageLayout from "../layouts/SubpageLayout.astro";
+import LinkButton from "./LinkButton.astro";
+import InterpolatedText from "./InterpolatedText.astro";
+import ProjectCard from "./ProjectCard.astro";
+import { projects } from "../data/projects";
+import { useTranslations } from "../i18n/utils";
+
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<SubpageLayout lang={lang} page="projects">
+  <section id="projects" class="mb-12">
+    <p class="mb-2">{t("projects.description")}</p>
+    <p class="mb-8">
+      <InterpolatedText text={t("projects.more")}>
+        <LinkButton
+          slot="github"
+          icon="tabler:brand-github"
+          href="https://github.com/kasnerz/">Github</LinkButton
+        >
+      </InterpolatedText>
+    </p>
+
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
+      {projects.map(project => <ProjectCard project={project} lang={lang} />)}
+    </div>
+  </section>
+</SubpageLayout>

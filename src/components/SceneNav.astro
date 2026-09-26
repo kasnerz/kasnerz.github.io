@@ -1,0 +1,35 @@
+---
+import { Icon } from "astro-icon/components";
+import Figure from "./Figure.astro";
+import { NAV, navHref, type Lang, type PageId } from "@/data/nav";
+import { useTranslations } from "@/i18n/utils";
+
+interface Props {
+  lang: Lang;
+  current?: PageId;
+  class?: string;
+}
+
+const { lang, current, class: className } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<nav class:list={["scene-nav", className]} aria-label={t("nav.main")}>
+  {
+    NAV.map(item => (
+      <a
+        class="scene"
+        href={navHref(item, lang)}
+        aria-current={item.id === current ? "page" : undefined}
+      >
+        <Figure id={item.id} />
+        <span class="scene-label">
+          {item.label[lang]}
+          {item.href && (
+            <Icon name="tabler:arrow-up-right" class="ext" aria-hidden="true" />
+          )}
+        </span>
+      </a>
+    ))
+  }
+</nav>

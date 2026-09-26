@@ -89,6 +89,15 @@ export default defineConfig({
         styles: ["normal", "italic"],
         subsets: ["latin", "latin-ext"],
       },
+      {
+        name: "Signika Negative",
+        cssVariable: "--font-signika-negative",
+        provider: fontProviders.google(),
+        fallbacks: ["sans-serif"],
+        weights: [400, 500, 600, 700],
+        styles: ["normal"],
+        subsets: ["latin", "latin-ext"],
+      },
     ],
   },
 });

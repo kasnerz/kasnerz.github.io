@@ -1,31 +1,44 @@
 @import "tailwindcss";
 @import "./typography.css";
+@import "./figures.css";
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
+/*
+ * The brand green fills every page in both themes; light/dark only changes
+ * the content card (background/foreground and friends below).
+ */
 :root,
 html[data-theme="light"] {
-  --background: #fdfdfd;
+  --brand: #00665c;
+  --mint: #d1e4d9;
+  --background: #fcfcfc;
   --foreground: #282728;
-  --accent: #00665C;
-  --accent-text: #00665C;
+  --accent: #00665c;
+  --accent-text: #00665c;
   --muted: #e6e6e6;
-  --border: #ece9e9;
+  --border: #d9dedb;
   --text-muted: #6b7280;
 }
 
+/* dark: the card takes the page green, so content flows straight out of the header;
+   accents and rules switch to mint tints to stay visible on it */
 html[data-theme="dark"] {
-  --background: #00231f;
-  --foreground: #eaedf3;
-  --accent: #00665C;
-  --accent-text: #eaedf3;
-  --muted: #34603e;
-  --border: #00665C;
-  --text-muted: #9ca3af;
+  --background: var(--brand);
+  --foreground: #f3f7f5;
+  --accent: var(--mint);
+  --accent-text: var(--mint);
+  --muted: color-mix(in oklab, var(--brand), var(--mint) 18%);
+  --border: color-mix(in oklab, var(--brand), var(--mint) 30%);
+  --text-muted: color-mix(in oklab, var(--brand), var(--mint) 72%);
 }
 
 @theme inline {
-  --font-app: "Fira Sans", sans-serif;
+  --font-app: var(--font-fira-sans), "Fira Sans", sans-serif;
+  --font-head:
+    var(--font-signika-negative), "Signika Negative", var(--font-app);
+  --color-brand: var(--brand);
+  --color-mint: var(--mint);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
@@ -37,7 +50,7 @@ html[data-theme="dark"] {
 
 @layer base {
   * {
-    @apply border-border outline-accent/75;
+    @apply border-border;
     scrollbar-width: auto;
     scrollbar-color: var(--color-muted) transparent;
   }
@@ -46,13 +59,26 @@ html[data-theme="dark"] {
     @apply overflow-y-scroll scroll-smooth;
   }
 
+  /* one faint lift at the very top, the same on every page */
   body {
-    @apply flex min-h-svh flex-col bg-background font-app text-foreground selection:bg-accent/75 selection:text-background;
+    @apply flex min-h-svh flex-col bg-brand font-app text-white selection:bg-mint selection:text-brand;
+    background-image: linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--brand), var(--mint) 9%) 0,
+      var(--brand) 180px
+    );
+    background-repeat: no-repeat;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-head);
   }
 
   a,
   button {
-    @apply outline-offset-1 outline-accent focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
+    @apply outline-offset-2 outline-current focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
   }
 
   button:not(:disabled),
@@ -67,10 +93,6 @@ html[data-theme="dark"] {
 
 @utility app-layout {
   @apply mx-auto w-full max-w-app px-4;
-}
-
-.active-nav {
-  @apply underline decoration-wavy decoration-2 underline-offset-8;
 }
 
 /* Source: https://piccalil.li/blog/a-more-modern-css-reset/ */

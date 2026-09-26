@@ -42,38 +42,30 @@ const images = [
 </div>
 
 <script>
-  function initLightbox() {
+  // Delegated to the document, so it keeps working after client-side navigation.
+  function closeLightbox() {
     const lightbox = document.getElementById("lightbox");
-    const lightboxImg = document.getElementById("lightbox-img");
-    const triggers = document.querySelectorAll(".gallery-trigger");
-
-    triggers.forEach(trigger => {
-      trigger.addEventListener("click", () => {
-        const src = trigger.getAttribute("data-src");
-        if (lightbox && lightboxImg && src) {
-          (lightboxImg as HTMLImageElement).src = src;
-          lightbox.classList.remove("hidden");
-          lightbox.classList.add("flex");
-        }
-      });
-    });
-
-    lightbox?.addEventListener("click", () => {
-      lightbox.classList.add("hidden");
-      lightbox.classList.remove("flex");
-    });
-
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape") {
-        lightbox?.classList.add("hidden");
-        lightbox?.classList.remove("flex");
-      }
-    });
+    lightbox?.classList.add("hidden");
+    lightbox?.classList.remove("flex");
   }
 
-  // Run on initial load
-  initLightbox();
+  document.addEventListener("click", event => {
+    const target = event.target as Element;
+    const trigger = target.closest<HTMLElement>(".gallery-trigger");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const src = trigger?.dataset.src;
 
-  // Run on view transitions navigation
-  document.addEventListener("astro:page-load", initLightbox);
+    if (src && lightbox && lightboxImg) {
+      (lightboxImg as HTMLImageElement).src = src;
+      lightbox.classList.remove("hidden");
+      lightbox.classList.add("flex");
+    } else if (target.closest("#lightbox")) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeLightbox();
+  });
 </script>

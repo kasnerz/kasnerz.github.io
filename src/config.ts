@@ -5,7 +5,7 @@ export const SITE = {
   desc: "Personal website of Zdeněk Kasner.",
   title: "Zdeněk Kasner",
   ogImage: "astropaper-og.jpg",
-  lightAndDarkMode: true,
+  lightAndDarkMode: false, // dark mode is hidden for now; flip to bring the toggle back
   postPerIndex: 4,
   postPerPage: 4,
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes

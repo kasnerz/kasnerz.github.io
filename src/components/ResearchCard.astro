@@ -152,26 +152,22 @@ const links = (Object.keys(linkLabels) as (keyof typeof linkLabels)[])
 </div>
 
 <script>
-  function setupImageZoom() {
-    document.querySelectorAll(".research-card").forEach(card => {
-      const trigger = card.querySelector(".image-trigger");
-      const dialog = card.querySelector(".zoom-dialog") as HTMLDialogElement;
+  // Delegated to the document, so it keeps working after client-side navigation.
+  document.addEventListener("click", e => {
+    const target = e.target as Element;
+    const trigger = target.closest(".image-trigger");
 
-      if (trigger && dialog) {
-        trigger.addEventListener("click", e => {
-          e.preventDefault();
-          dialog.showModal();
-        });
-
-        dialog.addEventListener("click", e => {
-          if (e.target === dialog) {
-            dialog.close();
-          }
-        });
-      }
-    });
-  }
-
-  setupImageZoom();
-  document.addEventListener("astro:page-load", setupImageZoom);
+    if (trigger) {
+      e.preventDefault();
+      trigger
+        .closest(".research-card")
+        ?.querySelector<HTMLDialogElement>(".zoom-dialog")
+        ?.showModal();
+    } else if (
+      target instanceof HTMLDialogElement &&
+      target.classList.contains("zoom-dialog")
+    ) {
+      target.close();
+    }
+  });
 </script>

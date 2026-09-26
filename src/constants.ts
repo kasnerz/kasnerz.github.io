@@ -8,6 +8,8 @@ interface Social {
   icon: string;
   description: string;
   descriptionCS: string;
+  /** Leave out of the front-page icon row; still listed on the About page. */
+  hideIcon?: boolean;
 }
 
 export const SOCIALS: Social[] = [
@@ -50,6 +52,7 @@ export const SOCIALS: Social[] = [
     href: "https://ufal.mff.cuni.cz/zdenek-kasner",
     linkTitle: `${SITE.title} on Charles University website`,
     icon: "tabler:building-bank",
+    hideIcon: true,
     description: "Details about my work at ÚFAL, including my work email.",
     descriptionCS: "Detaily o mém působení na ÚFALu, včetně pracovního mailu."
   },
@@ -62,61 +65,3 @@ export const SOCIALS: Social[] = [
     descriptionCS: "Seznam mých odborných publikací."
   },
 ] as const;
-
-export const SHARE_LINKS = [
-  {
-    name: "WhatsApp",
-    href: "https://wa.me/?text=",
-    linkTitle: `Share this post via WhatsApp`,
-    icon: "tabler:brand-whatsapp",
-  },
-  {
-    name: "Facebook",
-    href: "https://www.facebook.com/sharer.php?u=",
-    linkTitle: `Share this post on Facebook`,
-    icon: "tabler:brand-facebook",
-  },
-  {
-    name: "Twitter",
-    href: "https://twitter.com/intent/tweet?url=",
-    linkTitle: `Tweet this post`,
-    icon: "tabler:brand-twitter",
-  },
-  {
-    name: "Telegram",
-    href: "https://t.me/share/url?url=",
-    linkTitle: `Share this post via Telegram`,
-    icon: "tabler:brand-telegram",
-  },
-  {
-    name: "Pinterest",
-    href: "https://pinterest.com/pin/create/button/?url=",
-    linkTitle: `Share this post on Pinterest`,
-    icon: "tabler:brand-pinterest",
-  },
-  {
-    name: "LinkedIn",
-    href: "https://www.linkedin.com/sharing/share-offsite/?url=",
-    linkTitle: `Share this post on LinkedIn`,
-    icon: "tabler:brand-linkedin",
-  },
-  {
-    name: "Reddit",
-    href: "https://www.reddit.com/submit?url=",
-    linkTitle: `Share this post on Reddit`,
-    icon: "tabler:brand-reddit",
-  },
-  {
-    name: "Skype",
-    href: "https://web.skype.com/share?url=",
-    linkTitle: `Share this post via Skype`,
-    icon: "tabler:brand-skype",
-  },
-  {
-    name: "Email",
-    href: "mailto:?subject=See%20this%20post&body=",
-    linkTitle: `Share this post via email`,
-    icon: "tabler:mail",
-  },
-] as const;
-

@@ -1,8 +1,9 @@
 ---
-// import { ClientRouter } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { SITE } from "@/config";
-import "@fontsource/fira-sans";
+import { Font } from "astro:assets";
+import FigureDefs from "@/components/FigureDefs.astro";
 import "@/styles/global.css";
 
 type Props = {
@@ -51,7 +52,12 @@ const structuredData = {
 ---
 
 <!doctype html>
-<html dir={SITE.dir} lang={lang} class={`${scrollSmooth && "scroll-smooth"}`}>
+<html
+  dir={SITE.dir}
+  lang={lang}
+  class={`${scrollSmooth && "scroll-smooth"}`}
+  data-theme={SITE.lightAndDarkMode ? undefined : "light"}
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -65,6 +71,15 @@ const structuredData = {
     <meta name="description" content={description} />
     <meta name="author" content={author} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <!-- preload only what the first paint needs; other weights load on demand -->
+    <Font
+      cssVariable="--font-fira-sans"
+      preload={[{ weight: 400, style: "normal" }]}
+    />
+    <Font
+      cssVariable="--font-signika-negative"
+      preload={[{ weight: 500 }, { weight: 700 }]}
+    />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:title" content={title} />
@@ -104,16 +119,7 @@ const structuredData = {
       set:html={JSON.stringify(structuredData)}
     />
 
-    <!-- Enable RSS feed auto-discovery  -->
-    <!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery -->
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title={SITE.title}
-      href={new URL("rss.xml", Astro.site)}
-    />
-
-    <meta name="theme-color" content="" />
+    <meta name="theme-color" content="#00665c" />
 
     {
       // If PUBLIC_GOOGLE_SITE_VERIFICATION is set in the environment variable,
@@ -127,13 +133,15 @@ const structuredData = {
       )
     }
 
-    <!-- <ClientRouter /> -->
+    <!-- Client-side navigation: prefetches pages on hover and swaps them without a full reload -->
+    <ClientRouter />
 
-    <!-- Minimal inline script to prevent FOUC - sets theme immediately -->
-    <script is:inline>
+    <!-- Minimal inline script to prevent FOUC - sets theme immediately.
+         With SITE.lightAndDarkMode off it always picks light, ignoring saved and system preferences. -->
+    <script is:inline define:vars={{ allowDark: SITE.lightAndDarkMode }}>
       (function () {
-        const initialColorScheme = ""; // "light" | "dark"
-        const currentTheme = localStorage.getItem("theme");
+        const initialColorScheme = allowDark ? "" : "light"; // "light" | "dark"
+        const currentTheme = allowDark ? localStorage.getItem("theme") : null;
 
         function getPreferTheme() {
           if (currentTheme) return currentTheme;
@@ -159,56 +167,55 @@ const structuredData = {
       })();
     </script>
     <script is:inline>
-      const currentParams = window.location.pathname.split("/").filter(Boolean);
-      const isEnglish = currentParams.length === 0 || currentParams[0] !== "cs";
-      const userLang = navigator.language || navigator.userLanguage;
-      const isCzechBrowser = userLang?.toLowerCase().startsWith("cs");
+      (function () {
+        const currentParams = window.location.pathname
+          .split("/")
+          .filter(Boolean);
+        const isEnglish =
+          currentParams.length === 0 || currentParams[0] !== "cs";
+        const userLang = navigator.language || navigator.userLanguage;
+        const isCzechBrowser = userLang?.toLowerCase().startsWith("cs");
 
-      // Check if user has a preference saved
-      const savedLang = localStorage.getItem("lang");
+        // Check if user has a preference saved
+        const savedLang = localStorage.getItem("lang");
 
-      if (!savedLang && isCzechBrowser && isEnglish) {
-        // First visit with Czech browser on English page -> redirect to Czech
-        // But we must be careful not to redirect if the user specifically navigated to English.
-        // Since we don't know that easily without a cookie/storage, this is a common trade-off.
-        // "Make it possible to persistently switch... by a button".
-        // If we redirect here, we should save the preference.
-        // But wait, if I redirect automatically, I might annoy users.
-        // The user requirement: "If anyone's browser is set to Czech, it should open in Czech"
-        // This implies auto-redirect on first visit.
-        // Construct new path
-        const newPath = "/cs" + window.location.pathname;
-        window.location.href = newPath.replace("//", "/");
-      } else if (savedLang === "cs" && isEnglish) {
-        // User prefers Czech but landed on English
-        const newPath = "/cs" + window.location.pathname;
-        window.location.href = newPath.replace("//", "/");
-      } else if (
-        savedLang === "en" &&
-        !isEnglish &&
-        window.location.pathname.startsWith("/cs")
-      ) {
-        // User prefers English but landed on Czech
-        // const newPath = window.location.pathname.replace(/^\/cs/, "") || "/";
-        // window.location.href = newPath.replace("//", "/");
-        // Wait, if they clicked a link to /cs explicitly?
-        // Maybe only redirect from root?
-        // User said "open in Czech". Usually means entry point.
-        // Let's implement button logic to save preference.
-      }
+        if (!savedLang && isCzechBrowser && isEnglish) {
+          // First visit with Czech browser on English page -> redirect to Czech
+          // But we must be careful not to redirect if the user specifically navigated to English.
+          // Since we don't know that easily without a cookie/storage, this is a common trade-off.
+          // "Make it possible to persistently switch... by a button".
+          // If we redirect here, we should save the preference.
+          // But wait, if I redirect automatically, I might annoy users.
+          // The user requirement: "If anyone's browser is set to Czech, it should open in Czech"
+          // This implies auto-redirect on first visit.
+          // Construct new path
+          const newPath = "/cs" + window.location.pathname;
+          window.location.href = newPath.replace("//", "/");
+        } else if (savedLang === "cs" && isEnglish) {
+          // User prefers Czech but landed on English
+          const newPath = "/cs" + window.location.pathname;
+          window.location.href = newPath.replace("//", "/");
+        } else if (
+          savedLang === "en" &&
+          !isEnglish &&
+          window.location.pathname.startsWith("/cs")
+        ) {
+          // User prefers English but landed on Czech
+          // const newPath = window.location.pathname.replace(/^\/cs/, "") || "/";
+          // window.location.href = newPath.replace("//", "/");
+          // Wait, if they clicked a link to /cs explicitly?
+          // Maybe only redirect from root?
+          // User said "open in Czech". Usually means entry point.
+          // Let's implement button logic to save preference.
+        }
 
-      // Save language on switch detection
-      document.addEventListener("DOMContentLoaded", () => {
-        const langSwitches = document.querySelectorAll(
-          "a[aria-label^='Switch to']"
-        );
-        langSwitches.forEach(langSwitch => {
-          langSwitch.addEventListener("click", () => {
-            const targetLang = isEnglish ? "cs" : "en";
-            localStorage.setItem("lang", targetLang);
-          });
+        // Save language on switch; delegated so it survives client-side navigation
+        document.addEventListener("click", event => {
+          const langSwitch = event.target.closest("a[data-lang-switch]");
+          if (langSwitch)
+            localStorage.setItem("lang", langSwitch.dataset.langSwitch);
         });
-      });
+      })();
     </script>
 
     <link
@@ -220,9 +227,47 @@ const structuredData = {
     />
   </head>
   <body>
+    <FigureDefs />
+    <script>
+      // The client router rebuilds <head> on every navigation and only keeps stylesheet
+      // <link>s, so the inline @font-face styles from <Font> would be removed and re-added.
+      // The browser then treats them as new fonts and briefly paints fallback text.
+      // Marking them as persistent keeps the already-loaded fonts in place.
+      document.addEventListener("astro:before-swap", event => {
+        const mark = (doc: Document) =>
+          [...doc.head.querySelectorAll("style")]
+            .filter(style => style.textContent?.includes("@font-face"))
+            .forEach((style, i) =>
+              style.setAttribute(
+                "data-astro-transition-persist",
+                `font-face-${i}`
+              )
+            );
+        mark(document);
+        mark(event.newDocument);
+      });
+
+      // Only the first-paint weights are preloaded. Once the page is idle, fetch the rest
+      // (italics, bolds, Czech characters) so later pages never wait for a new font style.
+      const warmFonts = () => {
+        const css = getComputedStyle(document.documentElement);
+        const families = ["--font-fira-sans", "--font-signika-negative"].map(
+          v => css.getPropertyValue(v).trim()
+        );
+        const text = "Aa ěščřžýáíéúůň";
+        for (const family of families.filter(Boolean)) {
+          for (const weight of [400, 500, 600, 700]) {
+            document.fonts.load(`${weight} 1em ${family}`, text);
+            document.fonts.load(`italic ${weight} 1em ${family}`, text);
+          }
+        }
+      };
+      if ("requestIdleCallback" in window) requestIdleCallback(warmFonts);
+      else setTimeout(warmFonts, 1500);
+    </script>
     <slot />
 
     <!-- Load full theme logic -->
-    <script src="../scripts/theme.ts"></script>
+    {SITE.lightAndDarkMode && <script src="../scripts/theme.ts" />}
   </body>
 </html>

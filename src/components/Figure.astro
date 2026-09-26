@@ -1,0 +1,32 @@
+---
+import { SMALL, LARGE, PROPS } from "@/data/figures";
+import type { PageId } from "@/data/nav";
+
+interface Props {
+  id: PageId;
+  /** small: 48×48 stickman; large: header scene; prop: 24×24 object only */
+  size?: "small" | "large" | "prop";
+  class?: string;
+}
+
+const { id, size = "small", class: className } = Astro.props;
+// Large scenes are cropped to their drawn area and end at the ground line (y=215).
+const { viewBox, art } = {
+  small: { viewBox: "0 0 48 48", art: SMALL[id] },
+  large: { viewBox: "0 28 240 187.5", art: LARGE[id] },
+  prop: { viewBox: "0 0 24 24", art: PROPS[id] },
+}[size];
+---
+
+{
+  art && (
+    <svg
+      class={className}
+      viewBox={viewBox}
+      aria-hidden="true"
+      focusable="false"
+    >
+      <g class="ink" set:html={art} />
+    </svg>
+  )
+}

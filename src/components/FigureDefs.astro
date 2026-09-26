@@ -1,0 +1,49 @@
+---
+// Shared SVG defs for the stickman figures, rendered once per page.
+// The masks cut the board away behind the lecturer, so the figure reads as standing in front of it.
+---
+
+<svg
+  width="0"
+  height="0"
+  style="position:absolute"
+  aria-hidden="true"
+  focusable="false"
+>
+  <mask
+    id="ko-teach-s"
+    maskUnits="userSpaceOnUse"
+    x="0"
+    y="0"
+    width="48"
+    height="48"
+  >
+    <rect width="48" height="48" fill="#fff"></rect>
+    <path
+      d="M17 21.5V34M17 34L12 46M17 34L22 46M17 25L23 21L29 13M17 25L12 31L9 28"
+      fill="none"
+      stroke="#000"
+      stroke-width="6"
+      stroke-linecap="round"
+      stroke-linejoin="round"></path>
+    <circle cx="17" cy="17" r="7.5" fill="#000"></circle>
+  </mask>
+  <mask
+    id="ko-teach-l"
+    maskUnits="userSpaceOnUse"
+    x="0"
+    y="0"
+    width="240"
+    height="240"
+  >
+    <rect width="240" height="240" fill="#fff"></rect>
+    <path
+      d="M84 119V165M84 165L75 215M84 165L93 215M84 130L98 118L108 98M84 130L70 144L62 138"
+      fill="none"
+      stroke="#000"
+      stroke-width="10"
+      stroke-linecap="round"
+      stroke-linejoin="round"></path>
+    <circle cx="84" cy="110" r="14" fill="#000"></circle>
+  </mask>
+</svg>

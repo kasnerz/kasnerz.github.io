@@ -33,7 +33,7 @@ function reflectPreference(): void {
   document.firstElementChild?.setAttribute("data-theme", themeValue);
 
   document
-    .querySelectorAll("#theme-btn, #theme-btn-mobile")
+    .querySelectorAll(".theme-btn")
     .forEach(button => button.setAttribute("aria-label", themeValue));
 
   // Get a reference to the body element
@@ -79,7 +79,7 @@ function setThemeFeature(): void {
 
   // now this script can find and listen for clicks on the control
   document
-    .querySelectorAll<HTMLElement>("#theme-btn, #theme-btn-mobile")
+    .querySelectorAll<HTMLElement>(".theme-btn")
     .forEach(button => {
       if (button.dataset.themeBound === "true") return;
 

@@ -1,0 +1,1345 @@
+<!doctype html>
+<html lang="cs">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scene Strip Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Fira+Mono:wght@500&family=Signika+Negative:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --green: #00665c;
+      --mint: #d1e4d9;
+      --rest: var(--mint);
+      /* line colour at rest (toggle: mint / white) */
+      --head-fill: currentColor;
+      /* toggle: filled / outlined heads */
+      --mix: 30%;
+      /* how much mint the header gradient starts with */
+      --top: color-mix(in oklab, var(--green), var(--mint) var(--mix));
+      --dim: 0.28;
+      --card-bg: #fdfdfd;
+      --card-fg: #282728;
+      --card-head: var(--green);
+      --card-muted: #6b7280;
+      --card-rule: #d9dedb;
+      --font-head: "Signika Negative", "Fira Sans", sans-serif;
+      --font-body: "Fira Sans", system-ui, sans-serif;
+    }
+
+    body.tone-white {
+      --rest: #ffffff;
+    }
+
+    body.heads-outline {
+      --head-fill: none;
+    }
+
+    body.card-dark {
+      --card-bg: #00231f;
+      --card-fg: #eaedf3;
+      --card-head: var(--mint);
+      --card-muted: #9ca3af;
+      --card-rule: #0d4a42;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+    }
+
+    body {
+      background: var(--green);
+      color: #fff;
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ---------- prototype chrome ---------- */
+    .proto-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem 1.25rem;
+      align-items: center;
+      padding: .6rem 1rem;
+      background: rgb(0 35 31 / .92);
+      backdrop-filter: blur(6px);
+      font-size: .82rem;
+      color: var(--mint);
+    }
+
+    .proto-bar strong {
+      font-family: var(--font-head);
+      font-weight: 600;
+      color: #fff;
+      margin-right: .5rem;
+    }
+
+    .proto-bar .grp {
+      display: flex;
+      gap: .25rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .proto-bar .grp>span {
+      margin-right: .25rem;
+      opacity: .8;
+    }
+
+    .proto-bar button {
+      font: inherit;
+      color: var(--mint);
+      background: transparent;
+      border: 1px solid rgb(209 228 217 / .35);
+      border-radius: 999px;
+      padding: .15rem .6rem;
+      cursor: pointer;
+    }
+
+    .proto-bar button[aria-pressed="true"] {
+      background: var(--mint);
+      color: #00231f;
+      border-color: var(--mint);
+    }
+
+    .proto-label {
+      max-width: 1320px;
+      margin: 3.5rem auto 1rem;
+      padding: 0 1rem;
+      font-size: .78rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--mint);
+      opacity: .7;
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+
+    .proto-label::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: rgb(209 228 217 / .25);
+    }
+
+    /* the frame is one phone screen tall and scrolls inside, like a real device */
+    :root {
+      --screen: 800px;
+    }
+
+    .phone:has(.overlay.open) {
+      overflow: hidden;
+    }
+
+    .phone {
+      width: 390px;
+      max-width: calc(100vw - 32px);
+      margin: 0 auto;
+      border: 1px solid rgb(209 228 217 / .3);
+      border-radius: 32px;
+      position: relative;
+      height: var(--screen);
+      overflow: hidden auto;
+      scrollbar-width: none;
+      box-shadow: 0 30px 60px -30px rgb(0 0 0 / .5);
+    }
+
+    .pair {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      padding: 0 1rem;
+    }
+
+    /* every layout switch uses a container query, so the phone frames get the narrow layout at any viewport width */
+    .page {
+      container: page / inline-size;
+      background: var(--green);
+      position: relative;
+    }
+
+    .subwrap {
+      background: linear-gradient(180deg, var(--top) 0, var(--green) 420px, var(--green) 100%);
+    }
+
+    /* on phones the header stays close to the base green, with only a faint lift at the very top */
+    @container page (max-width: 900px) {
+      .subwrap {
+        background: linear-gradient(180deg, color-mix(in oklab, var(--green), var(--mint) 9%) 0, var(--green) 180px, var(--green) 100%);
+      }
+    }
+
+    /* ---------- top bar (front page) ---------- */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem clamp(1rem, 4cqi, 3.5rem);
+    }
+
+    .logo img {
+      width: 52px;
+      height: 52px;
+      display: block;
+    }
+
+    .tools {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .tools button {
+      background: none;
+      border: 0;
+      color: #fff;
+      padding: .25rem;
+      cursor: pointer;
+      display: grid;
+    }
+
+    .lang {
+      padding: .25rem;
+      transition: opacity 60ms linear;
+    }
+
+    .lang:hover {
+      opacity: .8;
+    }
+
+    .icon {
+      width: 26px;
+      height: 26px;
+    }
+
+    /* ---------- hero ---------- */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 2rem 4rem;
+      max-width: 1000px;
+      margin: 1rem auto 0;
+      padding: 0 1.5rem;
+    }
+
+    .hero-text {
+      justify-self: start;
+      text-align: left;
+    }
+
+    .hero h1 {
+      font-family: var(--font-head);
+      font-weight: 700;
+      margin: 0;
+      font-size: clamp(2.6rem, 6.4cqi, 5rem);
+      line-height: 1;
+      letter-spacing: -.01em;
+    }
+
+    .tagline {
+      margin: .9rem 0 0;
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.25rem, 2.3cqi, 1.75rem);
+      color: var(--mint);
+    }
+
+    .socials {
+      display: flex;
+      justify-content: flex-start;
+      gap: .35rem;
+      margin: 1.1rem 0 0 -.35rem;
+    }
+
+    .socials a {
+      color: var(--mint);
+      padding: .35rem;
+      border-radius: 8px;
+      display: grid;
+      transition: color 60ms linear;
+    }
+
+    .socials a:hover {
+      color: #fff;
+    }
+
+    .socials svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .portrait {
+      width: clamp(150px, 16cqi, 210px);
+      aspect-ratio: 1;
+      display: block;
+    }
+
+    @container page (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: .5rem;
+        margin-top: 0;
+      }
+
+      .hero-text {
+        justify-self: center;
+        text-align: center;
+      }
+
+      .socials {
+        justify-content: center;
+        margin-left: 0;
+      }
+
+      .portrait {
+        order: -1;
+        justify-self: center;
+        width: 116px;
+      }
+    }
+
+    /* ---------- the strip (small figures) ---------- */
+    .strip {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      max-width: 1080px;
+      margin: 4rem auto 4.5rem;
+      padding: 0 1.5rem;
+    }
+
+    .scene {
+      --sw: 1.85;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--rest);
+      transition: opacity 60ms linear, color 60ms linear;
+      outline: none;
+    }
+
+    .scene>svg {
+      width: 72px;
+      height: 72px;
+      display: block;
+      overflow: visible;
+    }
+
+    .scene .label {
+      font-family: var(--font-head);
+      font-weight: 500;
+      font-size: clamp(1.05rem, 1.6cqi, 1.4rem);
+      margin-top: .6rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+    }
+
+    svg.ext {
+      width: .8em;
+      height: .8em;
+      opacity: .75;
+      flex: none;
+    }
+
+    .strip:has(.scene:is(:hover, :focus-visible)) .scene:not(:hover, :focus-visible) {
+      opacity: var(--dim);
+    }
+
+    .scene:is(:hover, :focus-visible) {
+      color: #fff;
+    }
+
+    .scene:focus-visible svg {
+      outline: 2px dashed rgb(255 255 255 / .6);
+      outline-offset: 6px;
+      border-radius: 8px;
+    }
+
+    @container page (max-width: 900px) {
+      .strip {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 420px;
+        margin: 2.25rem auto 2.5rem;
+        padding: 0 1rem;
+        gap: 1.5rem .5rem;
+      }
+
+      .scene {
+        --sw: 2.4;
+      }
+
+      .scene>svg {
+        width: 52px;
+        height: 52px;
+      }
+
+      .scene .label {
+        font-size: 1.1rem;
+        margin-top: .35rem;
+      }
+    }
+
+    /* ---------- ink ---------- */
+    .ink {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: var(--sw);
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .ink .head {
+      fill: var(--head-fill);
+    }
+
+    .ink .dot,
+    .ink .solid {
+      fill: currentColor;
+      stroke: none;
+    }
+
+    .ink .thin {
+      stroke-width: calc(var(--sw) * .7);
+    }
+
+    .ink .thick {
+      stroke-width: calc(var(--sw) * 1.6);
+    }
+
+    .ink .dash {
+      stroke-dasharray: 4 5;
+    }
+
+    .ink .node {
+      fill: var(--green);
+    }
+
+    .ink .faint {
+      opacity: .45;
+    }
+
+    .ink text {
+      fill: currentColor;
+      stroke: none;
+      font-family: "Fira Mono", ui-monospace, monospace;
+      font-weight: 500;
+      font-size: 11px;
+      text-anchor: middle;
+    }
+
+    body.sketchy .ink {
+      filter: url(#wobble);
+    }
+
+    .ink [data-o] {
+      transform-box: view-box;
+    }
+
+    .a-spark,
+    .a-bulb {
+      opacity: 0;
+    }
+
+    /* hover-only animations; a figure is still until you point at it */
+    .scene:is(:hover, :focus-visible) {
+      .a-dots .dot {
+        animation: hop 1.1s ease-in-out infinite;
+      }
+
+      .a-dots .dot:nth-child(2) {
+        animation-delay: .15s;
+      }
+
+      .a-dots .dot:nth-child(3) {
+        animation-delay: .3s;
+      }
+
+      .a-arm {
+        animation: sway .7s ease-in-out infinite alternate;
+        --r: -14deg;
+      }
+
+      .a-type {
+        animation: sway .22s ease-in-out infinite alternate;
+        --r: 7deg;
+      }
+
+      .a-point {
+        animation: sway .9s ease-in-out infinite alternate;
+        --r: -10deg;
+      }
+
+      .a-lift {
+        animation: place 1.8s cubic-bezier(.5, 0, .3, 1) infinite;
+      }
+
+      .a-spark {
+        animation: spark 1.8s ease-out infinite;
+      }
+
+      .a-peer {
+        animation: peer 1.6s ease-in-out infinite alternate;
+      }
+
+      .a-leg1 {
+        animation: sway .6s ease-in-out infinite alternate;
+        --r: 12deg;
+      }
+
+      .a-leg2 {
+        animation: sway .6s ease-in-out infinite alternate-reverse;
+        --r: 12deg;
+      }
+
+      .a-sun {
+        animation: spin 7s linear infinite;
+      }
+    }
+
+    @keyframes sway {
+      from {
+        transform: rotate(0);
+      }
+
+      to {
+        transform: rotate(var(--r));
+      }
+    }
+
+    @keyframes hop {
+
+      0%,
+      60%,
+      100% {
+        transform: translateY(0);
+      }
+
+      30% {
+        transform: translateY(-1.5px);
+      }
+    }
+
+    @keyframes place {
+
+      0%,
+      15% {
+        transform: rotate(0);
+      }
+
+      50%,
+      65% {
+        transform: rotate(19deg);
+      }
+
+      100% {
+        transform: rotate(0);
+      }
+    }
+
+    @keyframes spark {
+
+      0%,
+      45% {
+        opacity: 0;
+      }
+
+      55% {
+        opacity: 1;
+      }
+
+      80%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes peer {
+      from {
+        transform: translate(0, 0);
+      }
+
+      to {
+        transform: translate(1px, 1.2px);
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scene * {
+        animation: none !important;
+      }
+    }
+
+    /* ---------- subpage header (desktop) ---------- */
+    .subhead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: .7rem clamp(1rem, 3cqi, 2.5rem);
+    }
+
+    .crumb {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      min-width: 0;
+      white-space: nowrap;
+    }
+
+    .crumb .logo img {
+      width: 34px;
+      height: 34px;
+    }
+
+    .crumb .name {
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: 1.3rem;
+    }
+
+    .crumb .sep {
+      color: var(--mint);
+      opacity: .7;
+    }
+
+    .crumb .tag {
+      font-style: italic;
+      color: var(--mint);
+    }
+
+    .crumb .here {
+      font-family: var(--font-head);
+      font-weight: 500;
+    }
+
+    .minis {
+      display: flex;
+      align-items: flex-end;
+      gap: .15rem;
+    }
+
+    .mini {
+      --sw: 2.3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+      padding: .2rem .45rem;
+      border-radius: 10px;
+      color: var(--rest);
+      opacity: .75;
+      transition: opacity 60ms linear, color 60ms linear;
+      font-family: var(--font-head);
+      font-size: .78rem;
+      font-weight: 500;
+    }
+
+    .mini>svg {
+      width: 40px;
+      height: 40px;
+      overflow: visible;
+    }
+
+    .minis:has(.mini:hover) .mini:not(:hover) {
+      opacity: .5;
+    }
+
+    .mini:hover {
+      opacity: 1;
+      color: #fff;
+    }
+
+    .mini[aria-current="page"] {
+      opacity: 1;
+      color: #fff;
+      background: rgb(0 60 54 / .28);
+    }
+
+    .mini .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .subhead .tools {
+      font-size: 1rem;
+      gap: .6rem;
+    }
+
+    .subhead .tools .divider {
+      width: 1px;
+      height: 32px;
+      background: rgb(209 228 217 / .35);
+    }
+
+    /* the page title and the big scene share one stage; the scene's figures stand on the card's top edge */
+    .stage {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 5cqi, 3.5rem);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .stage .title {
+      padding: 2.5rem 0 2rem;
+    }
+
+    .stage h1 {
+      font-family: var(--font-head);
+      font-weight: 700;
+      margin: 0;
+      line-height: 1;
+      font-size: clamp(2.4rem, 6cqi, 4rem);
+    }
+
+    .stage .sub {
+      margin: .6rem 0 0;
+      font-style: italic;
+      color: var(--mint);
+      font-size: 1.2rem;
+    }
+
+    .bigart {
+      --sw: 2.6;
+      width: 320px;
+      height: auto;
+      display: block;
+      flex: none;
+      color: var(--rest);
+      overflow: visible;
+    }
+
+    .bigart .ground {
+      display: none;
+    }
+
+    /* ---------- subpage header (phone) ---------- */
+    .mhead {
+      display: none;
+    }
+
+    @container page (max-width: 900px) {
+
+      .subhead,
+      .bigart {
+        display: none;
+      }
+
+      .mhead {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: .75rem;
+        padding: .6rem 1rem;
+      }
+
+      .mhead .logo img {
+        width: 36px;
+        height: 36px;
+      }
+
+      /* name, then the current page's figure as a breadcrumb; the page name itself is the heading below */
+      .mhead .current {
+        --sw: 2.6;
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        color: #fff;
+        min-width: 0;
+      }
+
+      .mhead .current .name {
+        font-family: var(--font-head);
+        font-weight: 600;
+        font-size: 1.15rem;
+        white-space: nowrap;
+      }
+
+      .mhead .current .sep {
+        color: var(--mint);
+        opacity: .7;
+      }
+
+      .mhead .current svg {
+        width: 30px;
+        height: 30px;
+        flex: none;
+        overflow: visible;
+      }
+
+      .mhead button {
+        background: none;
+        border: 0;
+        color: #fff;
+        padding: .4rem;
+        cursor: pointer;
+        display: grid;
+      }
+
+      .stage .title {
+        padding: 1rem 0 1.5rem;
+      }
+    }
+
+    .overlay {
+      /* one screen tall; in the real site this becomes position: fixed with 100dvh */
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: var(--screen);
+      z-index: 10;
+      background: var(--green);
+      display: none;
+      flex-direction: column;
+      overflow: auto;
+    }
+
+    .overlay.open {
+      display: flex;
+    }
+
+    .overlay .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .9rem 1rem;
+    }
+
+    .overlay .top .logo img {
+      width: 36px;
+      height: 36px;
+    }
+
+    .overlay .top button {
+      background: none;
+      border: 0;
+      color: #fff;
+      padding: .4rem;
+      cursor: pointer;
+      display: grid;
+    }
+
+    /* the menu grid gets more air and sits in the middle of the screen */
+    .overlay .strip {
+      margin: auto;
+      row-gap: 2.75rem;
+      column-gap: 1.5rem;
+    }
+
+    .overlay .tools {
+      justify-content: center;
+      padding-bottom: 2rem;
+    }
+
+    /* ---------- content card ---------- */
+    .card {
+      background: var(--card-bg);
+      color: var(--card-fg);
+      max-width: 960px;
+      margin: 0 auto 3rem;
+      border-radius: 20px;
+      padding: clamp(1.5rem, 5cqi, 3rem) clamp(1.25rem, 6cqi, 4.5rem) 3rem;
+      transition: background-color .3s, color .3s;
+    }
+
+    @container page (max-width: 900px) {
+      .card {
+        border-radius: 20px 20px 0 0;
+        margin: 0;
+      }
+    }
+
+    .card h2 {
+      font-family: var(--font-head);
+      font-weight: 600;
+      color: var(--card-head);
+      font-size: 1.6rem;
+      margin: 2rem 0 .5rem;
+      padding-bottom: .4rem;
+      border-bottom: 1px solid var(--card-rule);
+    }
+
+    .card p {
+      line-height: 1.65;
+      margin-top: 0;
+    }
+
+    .course {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--card-rule);
+    }
+
+    .course:last-child {
+      border-bottom: 0;
+    }
+
+    .course .logo-box {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      flex: none;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: .8rem;
+      background: #2563eb;
+      color: #fff;
+      text-align: center;
+    }
+
+    .course .logo-box.alt {
+      background: #fff;
+      color: #111;
+      border: 1px solid var(--card-rule);
+    }
+
+    .course h3 {
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: 1.3rem;
+      margin: 0 0 .2rem;
+    }
+
+    .course .meta {
+      font-size: .9rem;
+      color: var(--card-muted);
+    }
+
+    .notes {
+      max-width: 760px;
+      margin: 0 auto 5rem;
+      padding: 0 1rem;
+      color: var(--mint);
+      line-height: 1.6;
+      font-size: .95rem;
+    }
+
+    .notes h3 {
+      font-family: var(--font-head);
+      color: #fff;
+    }
+
+    .notes li {
+      margin-bottom: .35rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- shared defs: the optional hand-drawn wobble, and masks that cut the board away behind the lecturer -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="wobble" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7" />
+      <feDisplacementMap in="SourceGraphic" scale="2.2" />
+    </filter>
+    <mask id="ko-teach-s" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="48">
+      <rect width="48" height="48" fill="#fff" />
+      <g fill="none" stroke="#000" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21.5V34M17 34L12 46M17 34L22 46M17 25L23 21L29 13M17 25L12 31L9 28" />
+      </g>
+      <circle cx="17" cy="17" r="7.5" fill="#000" />
+    </mask>
+    <mask id="ko-teach-l" maskUnits="userSpaceOnUse" x="0" y="0" width="240" height="240">
+      <rect width="240" height="240" fill="#fff" />
+      <g fill="none" stroke="#000" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M84 119V165M84 165L75 215M84 165L93 215M84 130L98 118L108 98M84 130L70 144L62 138" />
+      </g>
+      <circle cx="84" cy="110" r="14" fill="#000" />
+    </mask>
+  </svg>
+
+  <div class="proto-bar" role="toolbar" aria-label="Prototype options">
+    <strong>Prototyp</strong>
+    <div class="grp"><span>Line tone</span>
+      <button data-set="tone" data-val="mint" aria-pressed="true">#D1E4D9</button>
+      <button data-set="tone" data-val="white" aria-pressed="false">white</button>
+    </div>
+    <div class="grp"><span>Heads</span>
+      <button data-set="heads" data-val="filled" aria-pressed="true">filled</button>
+      <button data-set="heads" data-val="outline" aria-pressed="false">outline</button>
+    </div>
+    <div class="grp"><span>Lines</span>
+      <button data-set="lines" data-val="clean" aria-pressed="true">clean</button>
+      <button data-set="lines" data-val="sketchy" aria-pressed="false">sketchy</button>
+    </div>
+    <div class="grp"><span>Header gradient</span>
+      <button data-set="mix" data-val="18%" aria-pressed="false">subtle</button>
+      <button data-set="mix" data-val="30%" aria-pressed="true">medium</button>
+      <button data-set="mix" data-val="48%" aria-pressed="false">strong</button>
+    </div>
+    <div class="grp"><span>Subpage</span>
+      <button data-set="page" data-val="consulting" aria-pressed="false">Konzultuji</button>
+      <button data-set="page" data-val="teaching" aria-pressed="true">Lektoruji</button>
+      <button data-set="page" data-val="projects" aria-pressed="false">Tvořím</button>
+      <button data-set="page" data-val="research" aria-pressed="false">Zkoumám</button>
+      <button data-set="page" data-val="about" aria-pressed="false">Žiju</button>
+    </div>
+    <div class="grp"><span>Language</span>
+      <button data-set="lang" data-val="cs" aria-pressed="true">CS</button>
+      <button data-set="lang" data-val="en" aria-pressed="false">EN</button>
+    </div>
+    <div class="grp"><span>Card</span>
+      <button data-set="card" data-val="light" aria-pressed="true">light</button>
+      <button data-set="card" data-val="dark" aria-pressed="false">dark</button>
+    </div>
+  </div>
+
+  <div class="proto-label">1 · Front page</div>
+  <div class="page" id="front-wide"></div>
+
+  <div class="proto-label">2 · Front page on a phone (390px)</div>
+  <div class="pair">
+    <div class="phone">
+      <div class="page" id="front-phone"></div>
+    </div>
+  </div>
+
+  <div class="proto-label">3 · Subpage, desktop (switch pages in the toolbar)</div>
+  <div class="page sub" id="sub-wide"></div>
+
+  <div class="proto-label">4 · Subpage on a phone (tap ☰ to open the menu)</div>
+  <div class="pair">
+    <div class="phone">
+      <div class="page sub" id="sub-phone"></div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <h3>What to look at</h3>
+    <ul>
+      <li>Front page: hover each figure. The rest dim and only that one moves. Keyboard Tab does the same.</li>
+      <li>Subpages: the big scene stands on the top edge of the content card, next to the page title. Switch pages in
+        the toolbar to see each one.</li>
+      <li>"Header gradient" sets how much light green the subpage background starts with at the top.</li>
+      <li>Motion switches off entirely when the OS asks for reduced motion.</li>
+    </ul>
+  </div>
+
+  <script>
+    const ICON = {
+      linkedin: '<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M8 11v5m0-8v.01M12 16v-5m4 5v-3a2 2 0 1 0-4 0"/><path d="M3 7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/></g>',
+      github: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2c2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2a4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6c-.6.6-.6 1.2-.5 2V21"/>',
+      bluesky: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6.335 5.144C4.681 3.945 2 3.017 2 5.970c0 .59.35 4.953.556 5.661C3.269 14.094 5.686 14.381 8 14c-4.045.665-4.889 3.208-2.667 5.41C6.363 20.428 7.246 21 8 21c2 0 3.134-2.769 3.5-3.5q.5-1 .5-1.5q0 .5.5 1.5c.366.731 1.5 3.5 3.5 3.5c.754 0 1.637-.571 2.667-1.59C20.889 17.207 20.045 14.664 16 14c2.314.38 4.730.094 5.444-2.369c.206-.708.556-5.072.556-5.661c0-2.953-2.68-2.025-4.335-.826C15.372 6.806 12.905 10.192 12 12c-.905-1.808-3.372-5.194-5.665-6.856"/>',
+      facebook: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2z"/>',
+      bank: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M3 10h18M5 6l7-3l7 3M4 10v11m16-11v11M8 14v3m4-3v3m4-3v3"/>',
+      school: '<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M22 9L12 5L2 9l10 4zv6"/><path d="M6 10.6V16a6 3 0 0 0 12 0v-5.4"/></g>',
+      menu: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>',
+      x: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/>',
+      moon: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z"/>',
+      ext: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" d="M17 7L7 17M8 7h9v9"/>',
+    };
+    const icon = (n, cls = "icon") => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICON[n]}</svg>`;
+    const o = (x, y) => `data-o style="transform-origin:${x}px ${y}px"`;
+    const rays = (cx, cy, r1, r2) => Array.from({ length: 8 }, (_, i) => {
+      const a = (i * Math.PI) / 4, c = Math.cos(a), s = Math.sin(a), f = v => v.toFixed(1);
+      return `M${f(cx + r1 * c)} ${f(cy + r1 * s)}L${f(cx + r2 * c)} ${f(cy + r2 * s)}`;
+    }).join("");
+
+    /* ------------------------------------------------------------------
+       Small figures (48×48): the front-page strip, the desktop header nav,
+       the phone header and the phone menu.
+       ------------------------------------------------------------------ */
+    const SMALL = {
+      consulting: `
+    <circle class="head" cx="17" cy="13" r="4.5"/>
+    <path d="M17 18V31M17 31L12 44M17 31L22 44M17 21L12 28L13 33"/>
+    <path class="a-arm" ${o(17, 21)} d="M17 21L23 25L27 20"/>
+    <rect x="27" y="3" width="17" height="11" rx="3.5"/><path d="M30.5 14L28.5 18.5L35 14"/>
+    <g class="a-dots"><circle class="dot" cx="31.5" cy="8.5" r="1.1"/><circle class="dot" cx="35.5" cy="8.5" r="1.1"/><circle class="dot" cx="39.5" cy="8.5" r="1.1"/></g>`,
+      blog: `
+    <circle class="head" cx="20" cy="13" r="4.5"/>
+    <path d="M19 18L16 31M16 31L12 44M16 31L21 44M28 31H46M44 31V44M30 31H39L42 20"/>
+    <path class="a-type" ${o(18.5, 21)} d="M18.5 21L25 27L31 29"/>`,
+      teaching: `
+    <g mask="url(#ko-teach-s)">
+      <rect x="10" y="3" width="35" height="22" rx="1.5"/>
+      <path class="thin" d="M31 9H41M31 14H41M31 19H37"/>
+    </g>
+    <circle class="head" cx="17" cy="17" r="4.5"/>
+    <path d="M17 21.5V34M17 34L12 46M17 34L22 46M17 25L12 31L9 28"/>
+    <path class="a-point" ${o(17, 25)} d="M17 25L23 21L29 13"/>`,
+      projects: `
+    <rect x="22" y="37" width="8" height="8" rx="1"/><rect x="30" y="37" width="8" height="8" rx="1"/><rect x="38" y="37" width="8" height="8" rx="1"/>
+    <rect x="26" y="29" width="8" height="8" rx="1"/><rect x="34" y="29" width="8" height="8" rx="1"/>
+    <circle class="head" cx="12" cy="14" r="4.5"/>
+    <path d="M12 18.5V32M12 32L8 45M12 32L17 45"/>
+    <g class="a-lift" ${o(12, 22)}>
+      <path d="M12 22L21 15L30 15.5M12 23.5L22 20L30 19.5"/>
+      <rect x="30" y="12" width="8" height="8" rx="1"/>
+    </g>
+    <path class="a-spark thin" d="M28 26l-2-2M44 26l2-2M36 24v-2.5"/>`,
+      research: `
+    <rect x="29" y="42" width="16" height="3" rx="1"/>
+    <path d="M42 42V35Q42 27 33 26"/>
+    <path class="thick" d="M29.5 10L34 25"/>
+    <path d="M27 11L32 9M34 25L35 28M30 31H41"/>
+    <path class="a-spark thin" d="M35.5 33.5v2.5M32 33l-1.5 2M39 33l1.5 2"/>
+    <g class="a-peer">
+      <circle class="head" cx="22" cy="13" r="4.5"/>
+      <path d="M20.5 17L15 31M18.6 21.5L26 27L31 29.5M18.6 21.5L13 27"/>
+    </g>
+    <path d="M15 31L11 45M15 31L20 45"/>`,
+      about: `
+    <circle cx="36" cy="12" r="5"/>
+    <path class="thin a-sun" ${o(36, 12)} d="${rays(36, 12, 7.5, 10)}"/>
+    <rect class="solid" x="10.5" y="16" width="8" height="12" rx="2.5" transform="rotate(8 14.5 22)"/>
+    <circle class="head" cx="23" cy="12" r="4.5"/>
+    <path d="M22 16.5L20 30M21.6 20L26 26L29.5 27"/>
+    <path class="a-leg1" ${o(20, 30)} d="M20 30L14 44"/>
+    <path class="a-leg2" ${o(20, 30)} d="M20 30L27 44"/>`,
+    };
+
+    /* ------------------------------------------------------------------
+       Big scenes (240 wide, ground at y=215): the subpage header art.
+       The ground itself is hidden there, the card's top edge replaces it.
+       ------------------------------------------------------------------ */
+    const LARGE = {
+      consulting: `
+    <path class="ground" d="M0 215H240"/>
+    <path d="M120 215V160M96 160H144"/>
+    <path d="M102 160v-8h9v8M111 153.5h2.5a2.2 2.2 0 0 1 0 4.4H111"/>
+    <path d="M129 160v-8h9v8"/>
+    <path class="thin" d="M106 147q-3-4 0-8M133 147q3-4 0-8"/>
+    <circle class="head" cx="70" cy="110" r="9"/>
+    <path d="M70 119V165M70 165L61 215M70 165L79 215M70 130L60 149L63 165M70 130L86 141L98 130"/>
+    <path class="thin" d="M92 60H126Q134 60 134 68V76Q134 84 126 84H101L86 96L92 84Q84 84 84 76V68Q84 60 92 60Z"/>
+    <circle class="dot" cx="99" cy="72" r="2.3"/><circle class="dot" cx="109" cy="72" r="2.3"/><circle class="dot" cx="119" cy="72" r="2.3"/>
+    <circle class="head" cx="170" cy="110" r="9"/>
+    <path d="M170 119V165M170 165L161 215M170 165L179 215M170 130L156 146L144 157M170 130L184 146L172 160"/>
+    <path d="M171 75q0-7 7-7t7 7q0 4.5-7 6.5v4"/><circle class="dot" cx="178" cy="92" r="1.9"/>`,
+      teaching: `
+    <path class="ground" d="M0 215H240"/>
+    <g mask="url(#ko-teach-l)">
+      <rect x="40" y="36" width="172" height="104" rx="3"/>
+      <path d="M58 140L52 215M194 140L200 215"/>
+      <path d="M118 58H176"/>
+      <path class="thin" d="M128 80H196M128 98H188M128 116H172"/>
+      <circle class="dot" cx="119" cy="80" r="2.4"/><circle class="dot" cx="119" cy="98" r="2.4"/><circle class="dot" cx="119" cy="116" r="2.4"/>
+    </g>
+    <circle class="head" cx="84" cy="110" r="9"/>
+    <path d="M84 119V165M84 165L75 215M84 165L93 215M84 130L98 118L108 98M84 130L70 144L62 138"/>`,
+      projects: `
+    <path class="ground" d="M0 215H240"/>
+    <rect x="140" y="189" width="26" height="26" rx="2"/><text x="153" y="205.5">{ }</text>
+    <rect x="166" y="189" width="26" height="26" rx="2"/><text x="179" y="205.5">01</text>
+    <rect x="192" y="189" width="26" height="26" rx="2"/><text x="205" y="205.5">( )</text>
+    <rect x="153" y="163" width="26" height="26" rx="2"/><text x="166" y="179.5">=&gt;</text>
+    <rect x="179" y="163" width="26" height="26" rx="2"/><text x="192" y="179.5">[ ]</text>
+    <circle class="head" cx="112" cy="110" r="9"/>
+    <path d="M112 119V165M112 165L103 215M112 165L121 215"/>
+    <path d="M112 128L138 116L166 113M112 130L140 128L166 125"/>
+    <rect x="166" y="106" width="26" height="26" rx="2"/><text x="179" y="122.5">&lt;/&gt;</text>
+    <path class="thin" d="M160 157l-5-3M198 157l5-3"/>`,
+      research: `
+    <path class="ground" d="M0 215H240"/>
+    <g transform="translate(9 0)">
+      <rect x="114" y="207" width="68" height="8" rx="2"/>
+      <path d="M166 207V172Q166 136 128 132"/>
+      <circle cx="166" cy="180" r="5"/>
+      <path class="thick" d="M117 106L134 150"/>
+      <path d="M110.4 108.4L123.6 103.6M134 150L137 159M114 163H174"/>
+      <path class="thin" d="M126 160H148"/>
+    </g>
+    <circle class="head" cx="99" cy="113" r="9"/>
+    <path d="M96 121L84 166M84 166L74 215M84 166L94 215M93.6 130L108 150L125 160M93.6 130L84 150L90 162"/>`,
+      about: `
+    <path d="M20 215L30 212L58 199L84 184L104 170L124 152L140 132L152 112L164 94L176 80L188 94L198 104L212 130L226 172L236 215"/>
+    <path d="M176 80V58"/><path class="solid" d="M176 58L191 63L176 68Z"/>
+    <circle cx="222" cy="44" r="8"/><path class="thin" d="${rays(222, 44, 12, 16)}"/>
+    <rect class="solid" x="85" y="88" width="12" height="26" rx="3.5" transform="rotate(8 91 101)"/>
+    <circle class="head" cx="106" cy="75" r="9"/>
+    <path d="M98 128L103 84M102 93L111 108L118 111M98 128L92 154L88 181M98 128L106 148L108 166"/>`,
+    };
+
+    const PAGES = [
+      {
+        id: "consulting", cs: "Konzultuji", en: "Consulting", href: "#consulting",
+        sub: { cs: "Pomáhám týmům zapojit AI do práce", en: "I help teams put AI to work" }
+      },
+      { id: "blog", cs: "Bloguji", en: "Blogging", href: "https://lokalni.ai/blog", external: true },
+      {
+        id: "teaching", cs: "Učím", en: "Teaching", href: "#teaching",
+        sub: { cs: "Přednáším, učím, vedu workshopy", en: "I lecture, teach and run workshops" }
+      },
+      {
+        id: "projects", cs: "Tvořím", en: "Building", href: "#projects",
+        sub: { cs: "Open-source projekty a nástroje", en: "Open-source projects and tools" }
+      },
+      {
+        id: "research", cs: "Zkoumám", en: "Researching", href: "#research",
+        sub: { cs: "Výzkum zpracování přirozeného jazyka", en: "Natural language processing research" }
+      },
+      {
+        id: "about", cs: "Žiju", en: "Living", href: "#about",
+        sub: { cs: "Kdo jsem, když zrovna nepracuju", en: "Who I am when I'm not working" }
+      },
+    ];
+
+    let lang = "cs";
+    let current = "teaching";
+    const cs = () => lang === "cs";
+    const ext = p => (p.external ? icon("ext", "ext") : "");
+    const small = id => `<svg viewBox="0 0 48 48" aria-hidden="true"><g class="ink">${SMALL[id]}</g></svg>`;
+
+    const stripHTML = () => `
+  <nav class="strip" aria-label="${cs() ? "Hlavní navigace" : "Main navigation"}">
+    ${PAGES.map(p => `
+      <a class="scene" href="${p.href}">
+        ${small(p.id)}
+        <span class="label">${p[lang]}${ext(p)}</span>
+      </a>`).join("")}
+  </nav>`;
+
+    const socialsHTML = () => `<div class="socials">${["linkedin", "github", "bluesky", "facebook", "bank", "school"]
+      .map(n => `<a href="#" aria-label="${n}">${icon(n)}</a>`).join("")}</div>`;
+
+    /* the switch names the language you would switch to */
+    const langSwitch = () => {
+      const to = cs() ? "en" : "cs";
+      const name = to === "en" ? "English" : "Čeština";
+      return `<a class="lang" href="#" lang="${to}" aria-label="${name}" title="${name}">${to}</a>`;
+    };
+    const toolsHTML = () => `<div class="tools"><button aria-label="theme">${icon("moon")}</button>${langSwitch()}</div>`;
+    const logo = () => `<a class="logo" href="#"><img src="logo-white.png" alt="ZK" /></a>`;
+
+    const frontHTML = () => `
+  <div class="topbar">${logo()}${toolsHTML()}</div>
+  <header class="hero">
+    <div class="hero-text">
+      <h1>Zdeněk Kasner</h1>
+      <p class="tagline">${cs() ? "AI minimalista" : "AI minimalist"}</p>
+      ${socialsHTML()}
+    </div>
+    <img class="portrait" src="../public/profile-transparent.png" alt="Zdeněk Kasner" />
+  </header>
+  ${stripHTML()}`;
+
+    function cardBody(id) {
+      if (id !== "teaching")
+        return `<p>${cs() ? "Obsah stránky zůstává, jak je teď." : "Page content stays as it is now."}</p>
+            <h2>${cs() ? "Nadpis sekce" : "Section heading"}</h2><p style="color:var(--card-muted)">…</p>`;
+      return `
+    <p>${cs()
+          ? "Učím o velkých jazykových modelech na Univerzitě Karlově a ČVUT. Občas také přednáším na konferencích nebo vedu workshopy."
+          : "I teach about large language models at Charles University and CTU in Prague. I also occasionally speak at conferences or lead workshops."}</p>
+    <h2>${cs() ? "Právě učím" : "Currently teaching"}</h2>
+    <div class="course"><div class="logo-box">ČVUT</div><div><h3>${cs() ? "Neuronové jazykové modely" : "Neural language models"}</h3><div class="meta">${cs() ? "LS 25/26" : "Summer 2026"}</div></div></div>
+    <div class="course"><div class="logo-box alt">DIDAK<br>TIKON</div><div><h3>${cs() ? "Počítačová kreativita" : "Computational creativity"}</h3><div class="meta">${cs() ? "od 2024" : "since 2024"}</div></div></div>
+    <h2>${cs() ? "Přednášky a workshopy" : "Talks & workshops"}</h2>
+    <p style="color:var(--card-muted)">…</p>`;
+    }
+
+    function subHTML(id) {
+      const p = PAGES.find(x => x.id === id);
+      return `<div class="subwrap">
+    <div class="subhead">
+      <div class="crumb">
+        ${logo()}
+        <span class="name">Zdeněk Kasner</span><span class="sep">|</span>
+        <span class="tag">${cs() ? "AI minimalista" : "AI minimalist"}</span><span class="sep">›</span>
+        <span class="here">${p[lang]}</span>
+      </div>
+      <nav class="minis" aria-label="${cs() ? "Hlavní navigace" : "Main navigation"}">
+        ${PAGES.map(m => `
+          <a class="mini" href="${m.href}" ${m.id === id ? 'aria-current="page"' : ""}>
+            ${small(m.id)}
+            <span class="label">${m[lang]}${ext(m)}</span>
+          </a>`).join("")}
+        <span class="tools"><span class="divider"></span>${toolsHTML()}</span>
+      </nav>
+    </div>
+    <div class="mhead">
+      ${logo()}
+      <div class="current"><span class="name">Zdeněk Kasner</span><span class="sep">›</span>${small(id)}</div>
+      <button class="open-menu" aria-label="Menu" aria-expanded="false">${icon("menu")}</button>
+    </div>
+    <div class="overlay" role="dialog" aria-label="Menu">
+      <div class="top">${logo()}<button class="close-menu" aria-label="${cs() ? "Zavřít" : "Close"}">${icon("x")}</button></div>
+      ${stripHTML()}
+      ${toolsHTML()}
+    </div>
+    <div class="stage">
+      <div class="title"><h1>${p[lang]}</h1><p class="sub">${p.sub[lang]}</p></div>
+      <svg class="bigart" viewBox="0 28 240 187.5" aria-hidden="true"><g class="ink">${LARGE[id]}</g></svg>
+    </div>
+    <main class="card">${cardBody(id)}</main>
+  </div>`;
+    }
+
+    function render() {
+      document.documentElement.lang = lang;
+      document.getElementById("front-wide").innerHTML = frontHTML();
+      document.getElementById("front-phone").innerHTML = frontHTML();
+      document.getElementById("sub-wide").innerHTML = subHTML(current);
+      document.getElementById("sub-phone").innerHTML = subHTML(current);
+    }
+    render();
+
+    /* in the prototype, internal links go nowhere; the external blog link is real */
+    document.addEventListener("click", e => {
+      const a = e.target.closest("a");
+      if (a && a.getAttribute("href")?.startsWith("#")) e.preventDefault();
+      const open = e.target.closest(".open-menu");
+      const close = e.target.closest(".close-menu");
+      if (open || close) {
+        const page = (open || close).closest(".page");
+        if (open) page.closest(".phone")?.scrollTo(0, 0);
+        page.querySelector(".overlay").classList.toggle("open", !!open);
+        page.querySelector(".open-menu").setAttribute("aria-expanded", String(!!open));
+      }
+    });
+
+    document.querySelectorAll(".proto-bar button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const { set, val } = btn.dataset;
+        document.querySelectorAll(`.proto-bar button[data-set="${set}"]`).forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
+        const b = document.body.classList;
+        if (set === "tone") b.toggle("tone-white", val === "white");
+        if (set === "heads") b.toggle("heads-outline", val === "outline");
+        if (set === "lines") b.toggle("sketchy", val === "sketchy");
+        if (set === "card") b.toggle("card-dark", val === "dark");
+        if (set === "mix") document.documentElement.style.setProperty("--mix", val);
+        if (set === "lang") { lang = val; render(); }
+        if (set === "page") { current = val; render(); }
+      });
+    });
+  </script>
+</body>
+
+</html>

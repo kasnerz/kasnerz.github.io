@@ -1,0 +1,100 @@
+---
+import Layout from "./Layout.astro";
+import Header from "@/components/Header.astro";
+import Figure from "@/components/Figure.astro";
+import { SITE } from "@/config";
+import { getNavItem, type Lang, type PageId } from "@/data/nav";
+
+interface Props {
+  lang: Lang;
+  /** The section this page belongs to; drives the title, subtitle and header art. */
+  page?: PageId;
+  /** Overrides for pages outside the navigation, such as 404. */
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  lang,
+  page,
+  title: titleOverride,
+  subtitle: subtitleOverride,
+} = Astro.props;
+const item = page ? getNavItem(page) : undefined;
+const title = titleOverride ?? item?.label[lang] ?? "";
+const subtitle = subtitleOverride ?? item?.subtitle?.[lang];
+---
+
+<Layout title={`${title} | ${SITE.title}`} lang={lang}>
+  <div class="subwrap">
+    <Header lang={lang} current={page} />
+    <div class="stage">
+      <div class="stage-title">
+        <h1>{title}</h1>
+        {subtitle && <p class="stage-sub">{subtitle}</p>}
+      </div>
+      {page && <Figure id={page} size="large" class="bigart" />}
+    </div>
+    <main id="main-content" class="page-card">
+      <slot />
+    </main>
+  </div>
+</Layout>
+
+<style>
+  .subwrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stage {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 5vw, 3.5rem);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    color: #fff;
+  }
+  .stage-title {
+    padding: 2.5rem 0 2rem;
+  }
+  .stage h1 {
+    margin: 0;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    line-height: 1;
+  }
+  .stage-sub {
+    margin: 0.6rem 0 0;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--mint);
+  }
+
+  /* the scene's figures stand on the card's top edge */
+  .page-card {
+    flex: 1;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto 3rem;
+    padding: clamp(1.5rem, 5vw, 3rem) clamp(1.25rem, 6vw, 4.5rem) 3rem;
+    border-radius: 20px;
+    background: var(--background);
+    color: var(--foreground);
+  }
+
+  @media (max-width: 900px) {
+    .stage-title {
+      padding: 1rem 0 1.5rem;
+    }
+    .page-card {
+      margin: 0;
+      border-radius: 20px 20px 0 0;
+    }
+  }
+</style>

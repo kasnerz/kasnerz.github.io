@@ -1,0 +1,123 @@
+---
+import { Icon } from "astro-icon/components";
+import SubpageLayout from "../layouts/SubpageLayout.astro";
+import LinkButton from "./LinkButton.astro";
+
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+
+// Placeholder copy, to be replaced with the real offer.
+const copy = {
+  en: {
+    intro:
+      "I help companies and teams use AI where it genuinely helps: from picking the right model to running it on your own hardware.",
+    local: "I run AI models locally at",
+    servicesTitle: "What I can help with",
+    services: [
+      {
+        icon: "tabler:server-2",
+        title: "Local & private AI",
+        text: "Open models running on your own infrastructure, with your data staying in-house.",
+      },
+      {
+        icon: "tabler:compass",
+        title: "AI strategy",
+        text: "Where AI makes sense in your processes, and where it does not.",
+      },
+      {
+        icon: "tabler:users-group",
+        title: "Workshops for teams",
+        text: "Hands-on training on how language models work and how to use them well.",
+      },
+      {
+        icon: "tabler:tool",
+        title: "Custom tools",
+        text: "Prototypes and internal tools built around language models.",
+      },
+    ],
+    ctaTitle: "Let's talk",
+    cta: "Write me a message on",
+  },
+  cs: {
+    intro:
+      "Pomáhám firmám a týmům využít AI tam, kde opravdu pomůže: od výběru vhodného modelu po jeho provoz na vlastním hardwaru.",
+    local: "Lokální AI modely rozjíždím na",
+    servicesTitle: "S čím můžu pomoct",
+    services: [
+      {
+        icon: "tabler:server-2",
+        title: "Lokální a soukromá AI",
+        text: "Otevřené modely na vaší vlastní infrastruktuře, data zůstávají u vás.",
+      },
+      {
+        icon: "tabler:compass",
+        title: "AI strategie",
+        text: "Kde má AI ve vašich procesech smysl a kde ne.",
+      },
+      {
+        icon: "tabler:users-group",
+        title: "Workshopy pro týmy",
+        text: "Praktická školení o tom, jak jazykové modely fungují a jak je dobře používat.",
+      },
+      {
+        icon: "tabler:tool",
+        title: "Nástroje na míru",
+        text: "Prototypy a interní nástroje postavené na jazykových modelech.",
+      },
+    ],
+    ctaTitle: "Pojďme to probrat",
+    cta: "Napište mi zprávu na",
+  },
+}[lang];
+---
+
+<SubpageLayout lang={lang} page="consulting">
+  <section class="mb-10">
+    <p class="mb-4">{copy.intro}</p>
+    <p class="mb-4">
+      {copy.local}
+      <LinkButton icon="tabler:cpu" href="https://lokalni.ai"
+        >lokalni.ai</LinkButton
+      >.
+    </p>
+  </section>
+
+  <section class="mb-10">
+    <h2
+      class="mb-6 border-b border-border py-2 text-2xl font-semibold text-accent"
+    >
+      {copy.servicesTitle}
+    </h2>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      {
+        copy.services.map(service => (
+          <div class="rounded-xl border border-border p-5">
+            <Icon name={service.icon} class="mb-2 size-7 text-accent" />
+            <h3 class="mb-1 text-lg font-semibold">{service.title}</h3>
+            <p class="text-sm leading-relaxed text-text-muted">
+              {service.text}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mb-4">
+    <h2
+      class="mb-4 border-b border-border py-2 text-2xl font-semibold text-accent"
+    >
+      {copy.ctaTitle}
+    </h2>
+    <p>
+      {copy.cta}
+      <LinkButton
+        icon="tabler:brand-linkedin"
+        href="https://www.linkedin.com/in/zdenek-kasner/">LinkedIn</LinkButton
+      >.
+    </p>
+  </section>
+</SubpageLayout>

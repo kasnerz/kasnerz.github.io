@@ -1,0 +1,51 @@
+---
+import { Icon } from "astro-icon/components";
+import { SITE } from "@/config";
+import type { Lang } from "@/data/nav";
+import { useTranslations } from "@/i18n/utils";
+
+interface Props {
+  lang: Lang;
+  class?: string;
+}
+
+const { lang, class: className } = Astro.props;
+const t = useTranslations(lang);
+
+// The switch names the language you would switch to and keeps you on the same page.
+const { pathname } = Astro.url;
+const target: Lang = lang === "en" ? "cs" : "en";
+const targetPath =
+  lang === "en"
+    ? `/cs${pathname === "/" ? "" : pathname}`
+    : pathname.replace(/^\/cs/, "") || "/";
+const targetName = target === "en" ? "English" : "Čeština";
+---
+
+<div class:list={["site-tools", className]}>
+  {
+    SITE.lightAndDarkMode && (
+      <button
+        type="button"
+        class="theme-btn"
+        title={t("tools.theme")}
+        aria-label="auto"
+        aria-live="polite"
+      >
+        <Icon name="tabler:moon" class="theme-icon theme-icon-moon" />
+        <Icon name="tabler:sun-high" class="theme-icon theme-icon-sun" />
+      </button>
+    )
+  }
+  <a
+    class="lang-switch"
+    href={targetPath}
+    hreflang={target}
+    lang={target}
+    title={targetName}
+    aria-label={targetName}
+    data-lang-switch={target}
+  >
+    {target}
+  </a>
+</div>
