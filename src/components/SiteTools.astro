@@ -12,7 +12,8 @@ interface Props {
 const { lang, class: className } = Astro.props;
 const t = useTranslations(lang);
 
-// The switch names the language you would switch to and keeps you on the same page.
+// The toggle shows both languages with the current one highlighted; clicking it
+// switches to the other one and keeps you on the same page.
 const { pathname } = Astro.url;
 const target: Lang = lang === "en" ? "cs" : "en";
 const targetPath =
@@ -38,14 +39,19 @@ const targetName = target === "en" ? "English" : "Čeština";
     )
   }
   <a
-    class="lang-switch"
+    class="lang-toggle"
     href={targetPath}
     hreflang={target}
     lang={target}
-    title={targetName}
     aria-label={targetName}
     data-lang-switch={target}
   >
-    {target}
+    {
+      (["en", "cs"] as const).map(l => (
+        <span class:list={["lang-opt", { on: l === lang }]} aria-hidden="true">
+          {l.toUpperCase()}
+        </span>
+      ))
+    }
   </a>
 </div>

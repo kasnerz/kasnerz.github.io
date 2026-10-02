@@ -1,5 +1,5 @@
 ---
-import { SMALL, LARGE, PROPS } from "@/data/figures";
+import { SMALL, LARGE, LARGE_FIT, PROPS } from "@/data/figures";
 import type { PageId } from "@/data/nav";
 
 interface Props {
@@ -10,23 +10,48 @@ interface Props {
 }
 
 const { id, size = "small", class: className } = Astro.props;
-// Large scenes are cropped to their drawn area and end at the ground line (y=215).
-const { viewBox, art } = {
-  small: { viewBox: "0 0 48 48", art: SMALL[id] },
-  large: { viewBox: "0 28 240 187.5", art: LARGE[id] },
-  prop: { viewBox: "0 0 24 24", art: PROPS[id] },
-}[size];
+const art = { small: SMALL, large: LARGE, prop: PROPS }[size][id];
+
+// Large scenes sit on the ground line (y=215) of a 240×187.5 box. A nested viewBox
+// scales each one to a common height; the stroke is divided by the same factor so
+// line weight stays equal. Nesting (rather than a transform) keeps the hover-animation
+// pivots in the scene's own coordinates.
+const W = 240;
+const H = 187.5;
+const fit = LARGE_FIT[id] ?? { scale: 1, cx: W / 2 };
+const innerViewBox = [
+  fit.cx - W / 2 / fit.scale,
+  215 - H / fit.scale,
+  W / fit.scale,
+  H / fit.scale,
+].join(" ");
 ---
 
 {
-  art && (
-    <svg
-      class={className}
-      viewBox={viewBox}
-      aria-hidden="true"
-      focusable="false"
-    >
-      <g class="ink" set:html={art} />
-    </svg>
-  )
+  art &&
+    (size === "large" ? (
+      <svg
+        class={className}
+        viewBox={`0 0 ${W} ${H}`}
+        aria-hidden="true"
+        focusable="false"
+      >
+        <svg viewBox={innerViewBox} overflow="visible">
+          <g
+            class="ink"
+            style={`--sw: calc(var(--big-sw, 3) / ${fit.scale})`}
+            set:html={art}
+          />
+        </svg>
+      </svg>
+    ) : (
+      <svg
+        class={className}
+        viewBox={size === "small" ? "0 0 48 48" : "0 0 24 24"}
+        aria-hidden="true"
+        focusable="false"
+      >
+        <g class="ink" set:html={art} />
+      </svg>
+    ))
 }

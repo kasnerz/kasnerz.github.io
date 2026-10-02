@@ -1,0 +1,25 @@
+---
+import SubpageLayout from "../layouts/SubpageLayout.astro";
+import LinkButton from "./LinkButton.astro";
+import InterpolatedText from "./InterpolatedText.astro";
+import { useTranslations } from "../i18n/utils";
+
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<SubpageLayout lang={lang} page="blog">
+  <section id="blog" class="mb-12">
+    <p>
+      <InterpolatedText text={t("blog.text")}>
+        <LinkButton slot="blog" icon="tabler:cpu" href="https://lokalni.ai"
+          >Lokální.AI</LinkButton
+        >
+      </InterpolatedText>
+    </p>
+  </section>
+</SubpageLayout>

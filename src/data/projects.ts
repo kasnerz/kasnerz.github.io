@@ -8,6 +8,7 @@ export interface Project {
     };
 }
 
+/** Representative software projects, shown on the developer page. */
 export const projects: Project[] = [
     {
         title: "AnimatedLLM",
@@ -17,15 +18,6 @@ export const projects: Project[] = [
             cs: "Vzdělávací web s interaktivními animacemi velkých jazykových modelů.",
         },
         image: "/projects/animated-llm.png",
-    },
-    {
-        title: "LLM Cheatsheet",
-        url: "https://animatedllm.github.io/llm-cheatsheet",
-        description: {
-            en: "A PDF cheatsheet explaining how are LLMs trained and how they generate text.",
-            cs: "PDF tahák na to, jak se velké jazykové modely trénují a jak generují text.",
-        },
-        image: "/projects/llm-cheatsheet.png",
     },
     {
         title: "factgenie",
@@ -45,6 +37,10 @@ export const projects: Project[] = [
         },
         image: "/projects/reffix.png",
     },
+];
+
+/** Personal side projects, shown on the about page. */
+export const personalProjects: Project[] = [
     {
         title: "multiling-o-cs",
         url: "https://github.com/kasnerz/multiling-o-cs",
@@ -63,5 +59,4 @@ export const projects: Project[] = [
         },
         image: "/projects/songbook.png",
     },
-
 ];

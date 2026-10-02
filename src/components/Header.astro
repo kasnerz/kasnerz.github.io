@@ -18,7 +18,7 @@ const currentItem = current ? getNavItem(current) : undefined;
 ---
 
 <header class="site-header">
-  <!-- desktop: breadcrumb on the left, the six figures and tools on the right -->
+  <!-- desktop: breadcrumb on the left, the figures and tools on the right -->
   <div class="subhead">
     <a class="crumb" href={homeHref}>
       <img
@@ -29,8 +29,6 @@ const currentItem = current ? getNavItem(current) : undefined;
         class="crumb-logo"
       />
       <span class="crumb-name">Zdeněk Kasner</span>
-      <span class="crumb-sep" aria-hidden="true">|</span>
-      <span class="crumb-tag">{t("home.tagline")}</span>
     </a>
     {
       currentItem && (
@@ -146,10 +144,6 @@ const currentItem = current ? getNavItem(current) : undefined;
   .crumb-sep {
     color: var(--mint);
     opacity: 0.7;
-  }
-  .crumb-tag {
-    font-style: italic;
-    color: var(--mint);
   }
   .crumb-here {
     display: flex;

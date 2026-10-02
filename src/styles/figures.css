@@ -69,6 +69,11 @@
   height: 64px;
   overflow: visible;
 }
+.scene-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .scene-label {
   display: inline-flex;
   align-items: center;
@@ -154,7 +159,7 @@
 
 /* ---------- subpage header: the big scene ---------- */
 .bigart {
-  --sw: 3;
+  --big-sw: 3; /* divided by each scene's fit scale in Figure.astro */
   display: block;
   flex: none;
   width: 240px;
@@ -194,20 +199,43 @@ html[data-theme="dark"] .theme-icon-moon {
 html[data-theme="dark"] .theme-icon-sun {
   display: block;
 }
-.lang-switch {
-  padding: 0.25rem;
+.lang-toggle {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 10px;
+  background: rgb(0 60 54 / 0.28);
   font-family: var(--font-head);
   font-weight: 600;
-  font-size: 1.15rem;
-  transition: opacity 60ms linear;
+  font-size: 0.95rem;
+  line-height: 1;
 }
-.theme-btn:hover,
-.lang-switch:hover {
+.lang-opt {
+  padding: 0.35rem 0.55rem;
+  border-radius: 7px;
+  color: var(--mint);
+  opacity: 0.75;
+  transition:
+    opacity 60ms linear,
+    color 60ms linear;
+}
+.lang-opt.on {
+  background: var(--mint);
+  color: var(--brand);
+  opacity: 1;
+}
+.lang-toggle:hover .lang-opt:not(.on) {
+  color: #fff;
+  opacity: 1;
+}
+.theme-btn:hover {
   opacity: 0.8;
 }
 
 /* ---------- hover animations: a figure is still until you point at it ---------- */
-:is(.scene, .mini):is(:hover, :focus-visible) {
+/* the big header scenes move only while pointed at */
+:is(.scene, .mini):is(:hover, :focus-visible),
+.home-tile:is(:hover, :focus-visible),
+.bigart:hover {
   .a-dots .dot {
     animation: fig-hop 1.1s ease-in-out infinite;
   }
@@ -248,6 +276,9 @@ html[data-theme="dark"] .theme-icon-sun {
   }
   .a-sun {
     animation: fig-spin 7s linear infinite;
+  }
+  .a-steam {
+    animation: fig-rise 1.8s ease-in-out infinite;
   }
 }
 @keyframes fig-sway {
@@ -300,6 +331,19 @@ html[data-theme="dark"] .theme-icon-sun {
   }
   to {
     transform: translate(1px, 1.2px);
+  }
+}
+@keyframes fig-rise {
+  0% {
+    transform: translateY(2px);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-5px);
+    opacity: 0;
   }
 }
 @keyframes fig-spin {

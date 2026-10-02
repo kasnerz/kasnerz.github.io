@@ -7,10 +7,12 @@ import { useTranslations } from "@/i18n/utils";
 interface Props {
   lang: Lang;
   current?: PageId;
+  /** Show each item's tagline under its label (front page). */
+  taglines?: boolean;
   class?: string;
 }
 
-const { lang, current, class: className } = Astro.props;
+const { lang, current, taglines = false, class: className } = Astro.props;
 const t = useTranslations(lang);
 ---
 
@@ -23,11 +25,18 @@ const t = useTranslations(lang);
         aria-current={item.id === current ? "page" : undefined}
       >
         <Figure id={item.id} />
-        <span class="scene-label">
-          {item.label[lang]}
-          {item.href && (
-            <Icon name="tabler:arrow-up-right" class="ext" aria-hidden="true" />
-          )}
+        <span class="scene-text">
+          <span class="scene-label">
+            {item.label[lang]}
+            {item.href && (
+              <Icon
+                name="tabler:arrow-up-right"
+                class="ext"
+                aria-hidden="true"
+              />
+            )}
+          </span>
+          {taglines && <span class="scene-tagline">{item.tagline[lang]}</span>}
         </span>
       </a>
     ))

@@ -1,45 +1,17 @@
 ---
 import { Icon } from "astro-icon/components";
-import { SOCIALS } from "../constants";
-import LinkButton from "@/components/LinkButton.astro";
 import AboutGallery from "@/components/AboutGallery.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import { personalProjects } from "@/data/projects";
+import { useTranslations } from "@/i18n/utils";
 
 import SubpageLayout from "@/layouts/SubpageLayout.astro";
+
+const t = useTranslations("en");
 ---
 
 <SubpageLayout lang="en" page="about">
   <section id="about" class="app-prose mb-8 max-w-none prose-img:border-0">
-    <p>
-      Are you interested in me professionally? Have a look at <LinkButton
-        href="/cv.pdf"
-        icon="tabler:file-text">my CV</LinkButton
-      >.
-    </p>
-
-    <p>You can also find me on these sites:</p>
-
-    <ul class="list-none pl-0">
-      {
-        SOCIALS.map(social => (
-          <li class="my-2 flex -translate-x-1.5 items-start gap-1">
-            <Icon
-              name={social.icon}
-              class="text-skin-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
-            />
-            <span>
-              <a
-                href={social.href}
-                class="group ml-1 inline-flex items-baseline gap-1 underline decoration-dashed underline-offset-6"
-              >
-                {social.name}
-              </a>{" "}
-              – {social.description}
-            </span>
-          </li>
-        ))
-      }
-    </ul>
-
     <AboutGallery />
 
     <h2>Still here?</h2>
@@ -130,6 +102,15 @@ import SubpageLayout from "@/layouts/SubpageLayout.astro";
         <span>I would like to start a blog one day.</span>
       </li>
     </ul>
+
+    <h2>{t("about.projects")}</h2>
+    <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2">
+      {
+        personalProjects.map(project => (
+          <ProjectCard project={project} lang="en" />
+        ))
+      }
+    </div>
 
     <h2>For LLM agents</h2>
     <p>
