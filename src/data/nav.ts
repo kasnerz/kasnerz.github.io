@@ -41,7 +41,7 @@ export const NAV: NavItem[] = [
     label: { en: "Teaching", cs: "Lektor" },
     tagline: {
       en: "university lecturing, workshops",
-      cs: "na univerzitě, vedu workshopy",
+      cs: "přednáším, učím, vedu workshopy",
     },
     subtitle: {
       en: "I lecture, teach and run workshops",
@@ -59,7 +59,7 @@ export const NAV: NavItem[] = [
   {
     id: "research",
     label: { en: "Researching", cs: "Výzkumník" },
-    tagline: { en: "generative AI models", cs: "generativní AI modely" },
+    tagline: { en: "generative AI models", cs: "generativních AI modelů" },
     subtitle: {
       en: "Natural language processing research",
       cs: "Výzkum zpracování přirozeného jazyka",

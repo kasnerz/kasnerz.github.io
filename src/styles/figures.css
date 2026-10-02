@@ -263,8 +263,13 @@ html[data-theme="dark"] .theme-icon-sun {
   .a-spark {
     animation: fig-spark 1.8s ease-out infinite;
   }
-  .a-peer {
-    animation: fig-peer 1.6s ease-in-out infinite alternate;
+  .a-dig {
+    --r: 6deg;
+    animation: fig-sway 0.25s ease-in-out infinite alternate;
+  }
+  .a-flutter {
+    --r: 16deg;
+    animation: fig-sway 0.6s ease-in-out infinite alternate;
   }
   .a-leg1 {
     --r: 12deg;
@@ -323,14 +328,6 @@ html[data-theme="dark"] .theme-icon-sun {
   80%,
   100% {
     opacity: 0;
-  }
-}
-@keyframes fig-peer {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(1px, 1.2px);
   }
 }
 @keyframes fig-rise {

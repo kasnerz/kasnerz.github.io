@@ -47,16 +47,23 @@ export const SMALL: Record<PageId, string> = {
     </g>
     <path class="a-spark thin" d="M28 26l-2-2M44 26l2-2M36 24v-2.5"/>`,
   research: `
-    <rect x="29" y="42" width="16" height="3" rx="1"/>
-    <path d="M42 42V35Q42 27 33 26"/>
-    <path class="thick" d="M29.5 10L34 25"/>
-    <path d="M27 11L32 9M34 25L35 28M30 31H41"/>
-    <path class="a-spark thin" d="M35.5 33.5v2.5M32 33l-1.5 2M39 33l1.5 2"/>
-    <g class="a-peer">
-      <circle class="head" cx="22" cy="13" r="4.5"/>
-      <path d="M20.5 17L15 31M18.6 21.5L26 27L31 29.5M18.6 21.5L13 27"/>
+    <path d="M28.5 45L28 42L29.5 39L27.5 36L28.5 33L44.5 32L44 36L46.5 39L45 42L46 45Z"/>
+    <path class="thin" d="M28 42H45M29.5 39H46.5M27.5 36H44"/>
+    <g class="a-flutter" ${pivot(39, 10)}>
+      <g transform="rotate(20 39 10)">
+        <path d="M35 4.5H41L43.5 7V16H35Z"/>
+        <path class="thin" d="M37 9H41.5M37 12H41.5"/>
+      </g>
     </g>
-    <path d="M15 31L11 45M15 31L20 45"/>`,
+    <path class="a-spark thin" d="M33 26.5q0-4 2.5-7"/>
+    <circle class="head" cx="10" cy="16" r="4.5"/>
+    <path d="M10 20.5V33M10 33L5 46M10 33L15 46"/>
+    <path class="a-dig" ${pivot(10, 24)} d="M10 24L19 29.5L28 33"/>
+    <path d="M10 24L16 23L20 20"/>
+    <g transform="rotate(-8 23 15)">
+      <path d="M18.5 9.5H24.5L27 12V21H18.5Z"/>
+      <path class="thin" d="M20.5 14H25M20.5 17H25"/>
+    </g>`,
   blog: `
     <circle class="head" cx="20" cy="13" r="4.5"/>
     <path d="M19 18L16 31M16 31L12 44M16 31L21 44M28 31H46M44 31V44M30 31H39L42 20"/>
@@ -89,9 +96,12 @@ export const PROPS: Record<PageId, string> = {
     <rect x="6" y="9" width="6" height="6" rx="0.8"/><rect x="12" y="9" width="6" height="6" rx="0.8"/>
     <rect x="9" y="3" width="6" height="6" rx="0.8"/>`,
   research: `
-    <path d="M5 21H19M16 21V15.5Q16 10.5 10.8 10"/>
-    <path class="thick" d="M7.8 3L10.6 10.6"/>
-    <path d="M5.8 4.1L9.6 2.6M10.6 10.6L11.2 12.4M8 14.5H17"/>`,
+    <path d="M3.5 21.5L3 19L4.5 16.5L3 14H20L21 16.5L20 19L21.5 21.5Z"/>
+    <path class="thin" d="M3 19H20M4.5 16.5H21"/>
+    <g transform="rotate(12 13 7.5)">
+      <path d="M8.5 2H14.5L17 4.5V13H8.5Z"/>
+      <path class="thin" d="M10.5 6.5H14.5M10.5 9.5H14.5"/>
+    </g>`,
   blog: `
     <rect x="5" y="4.5" width="14" height="10.5" rx="1.5"/>
     <path d="M5 15L2.5 19H21.5L19 15"/>
@@ -152,17 +162,26 @@ export const LARGE: Partial<Record<PageId, string>> = {
     <path class="thin a-spark" d="M160 157l-5-3M198 157l5-3M179 153v-5"/>`,
   research: `
     <path class="ground" d="M0 215H240"/>
-    <g transform="translate(9 0)">
-      <rect x="114" y="207" width="68" height="8" rx="2"/>
-      <path d="M166 207V172Q166 136 128 132"/>
-      <circle cx="166" cy="180" r="5"/>
-      <path class="thick" d="M117 106L134 150"/>
-      <path d="M110.4 108.4L123.6 103.6M134 150L137 159M114 163H174"/>
-      <path class="thin" d="M126 160H148"/>
-      <path class="thin a-spark" d="M131 158l-4-3M143 158l4-3"/>
+    <path d="M133 215L131 207L136 199L135 191L130 183L133 175L137 167L134 159L203 158L200 167L204 175L207 183L202 191L201 199L206 207L203 215Z"/>
+    <path class="thin" d="M131 207H206M136 199H201M135 191H202M130 183H207M133 175H204M137 167H200"/>
+    <path d="M207 183L220 178L224 187L205.5 191"/>
+    <g class="a-flutter" ${pivot(172, 68)}>
+      <g transform="rotate(20 172 68)">
+        <path d="M154 46H180L190 56V90H154Z"/>
+        <path class="thin" d="M180 46V56H190M161 60H178M161 69H183M161 78H183"/>
+      </g>
     </g>
-    <circle class="head a-peer" cx="99" cy="113" r="9"/>
-    <path d="M96 121L84 166M84 166L74 215M84 166L94 215M93.6 130L108 150L125 160M93.6 130L84 150L90 162"/>`,
+    <path class="thin a-spark" d="M150 120q-2-14 6-26M168 128q4-12 0-24"/>
+    <circle class="head" cx="70" cy="110" r="9"/>
+    <path d="M70 119V165M70 165L61 215M70 165L79 215"/>
+    <path class="a-dig" ${pivot(70, 130)} d="M70 130L102 148L134 158"/>
+    <path d="M70 130L88 126L100 112"/>
+    <g transform="rotate(-8 112 88)">
+      <path d="M94 64H120L130 74V112H94Z"/>
+      <path class="thin" d="M120 64V74H130"/>
+      <path d="M100 75H114"/>
+      <path class="thin" d="M100 84H124M100 92H124M101 99V108H123M103 106L108 102L113 104L121 99"/>
+    </g>`,
   blog: `
     <path class="ground" d="M0 215H240"/>
     <path d="M58 172H90M64 172L60 215M84 172L88 215"/>
@@ -193,7 +212,7 @@ export const LARGE_FIT: Partial<Record<PageId, { scale: number; cx: number }>> =
     consulting: { scale: 1, cx: 122 },
     teaching: { scale: 0.87, cx: 126 },
     projects: { scale: 1.36, cx: 160 },
-    research: { scale: 1.38, cx: 132 },
+    research: { scale: 0.89, cx: 142 },
     blog: { scale: 1.15, cx: 125 },
     about: { scale: 0.83, cx: 129 },
   };
