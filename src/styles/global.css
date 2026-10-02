@@ -59,13 +59,14 @@ html[data-theme="dark"] {
     @apply overflow-y-scroll scroll-smooth;
   }
 
-  /* one faint lift at the very top, the same on every page */
+  /* a soft lift at the top that fades out over the header, the same on every page */
   body {
     @apply flex min-h-svh flex-col bg-brand font-app text-white selection:bg-mint selection:text-brand;
     background-image: linear-gradient(
       180deg,
-      color-mix(in oklab, var(--brand), var(--mint) 9%) 0,
-      var(--brand) 180px
+      color-mix(in oklab, var(--brand), var(--mint) 16%) 0,
+      color-mix(in oklab, var(--brand), var(--mint) 6%) 220px,
+      var(--brand) 520px
     );
     background-repeat: no-repeat;
   }

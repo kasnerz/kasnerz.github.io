@@ -36,7 +36,7 @@ export const ui = {
         "home.tagline": "AI minimalista",
         "home.lead": "Pomáhám lidem s technickou stránkou AI",
         "home.navIntro": "Mohu vám pomoct jako:",
-        "home.cta": "Kontaktujte mě",
+        "home.cta": "Napišme si",
         "nav.main": "Hlavní navigace",
         "menu.open": "Otevřít menu",
         "menu.close": "Zavřít menu",
