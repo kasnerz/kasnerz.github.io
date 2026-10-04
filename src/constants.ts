@@ -16,11 +16,10 @@ interface Social {
 export const MAIL_B64 = "emRlbmVrQGxva2FsbmkuYWk=";
 
 /**
- * Cloudflare Turnstile site key — public, it ships in the HTML. Shared with the
- * lokalni.ai widget, which lists zdenekkasner.cz among its hostnames. The secret
- * key is the TURNSTILE_SECRET variable of the Pages project (functions/contact.ts).
+ * Cloudflare Turnstile site key — public, it ships in the HTML. The secret key is
+ * the TURNSTILE_SECRET variable of the Pages project (functions/contact.ts).
  */
-export const TURNSTILE_SITE_KEY = "0x4AAAAAADqTdUclBHOPJdIs";
+export const TURNSTILE_SITE_KEY = "0x4AAAAAAFN0N4XcvaK2bsfX";
 
 export const SOCIALS: Social[] = [
   {
