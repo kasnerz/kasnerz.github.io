@@ -197,16 +197,27 @@ const t = useTranslations("en");
     color: var(--accent-text);
   }
 
+  /* on narrow screens: icon + title as a header row, text full width below */
   @media (max-width: 640px) {
     .intro {
-      gap: 0.9rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 0.75rem 0.9rem;
       padding: 1rem;
+    }
+    .intro > div {
+      display: contents;
+    }
+    .intro p {
+      grid-column: 1 / -1;
     }
     .spot {
       --sw: 4.4;
-      width: 84px;
+      width: 72px;
     }
     .intro-title {
+      margin: 0;
       font-size: 1.15rem;
     }
   }
