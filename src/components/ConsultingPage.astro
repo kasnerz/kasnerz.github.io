@@ -14,33 +14,33 @@ type Copy = { intro: string; lead: string; steps: Step[] };
 const copies: Record<"cs" | "en", Copy> = {
   en: {
     intro:
-      "Want your own customized AI server, without worrying about monthly token bills? Have sensitive data you would rather not broadcast into the ether? Like doing things your own way?",
-    lead: "I can help you:",
+      "Like doing things your own way? Have sensitive data you would rather not broadcast into the ether? Want your own AI solution without worrying about recurring token bills?",
+    lead: "I can guide you through the whole process of <b>deploying a local AI solution</b> built on open-weight AI models (such as Qwen, Gemma, DeepSeek, Nemotron, ...) and hardware running right on your premises (a GPU server, an AI workstation, ...).<p>This is what our collaboration can look like:</p>",
     steps: [
       {
         art: "talk",
-        title: "An in-depth conversation",
-        text: "We will discuss how you use AI today, where your solution is heading and how it scales, and whether a local AI setup makes sense in cases like yours. <b>The first consultation is free</b>.",
+        title: "Initial consultation",
+        text: "We will discuss how you currently use AI and whether deploying a local AI solution makes sense in your case. <b>The initial consultation is free</b>.",
       },
       {
         art: "strategy",
-        title: "AI strategy analysis",
-        text: "Over a series of follow-up meetings, I will prepare a detailed proposal for your local AI solution: the hardware your local AI server needs, what it will cost, which models to deploy, how your users can work with them, and how to connect your existing services and tools.",
+        title: "Analyzing your AI strategy",
+        text: "Over the following meetings, I will prepare a detailed proposal for your local AI solution: what hardware you will need, which models to deploy, and how to connect your existing services and tools to it all.",
       },
       {
         art: "deploy",
-        title: "Deploying local AI",
-        text: "Together with your IT department and hardware suppliers, I will help you put the whole proposal into operation. I can set up the inference server, connect your existing services to it, program supporting tools and write documentation for running it.",
+        title: "Deploying AI on your premises",
+        text: "I will help you put the whole proposal into operation. I will set up the inference server, connect your existing services to it, build supporting tools and write detailed documentation.",
       },
       {
         art: "workshop",
-        title: "Tailored workshops",
-        text: "If you are interested, I can prepare a workshop for your internal team: hands-on technical training for working with the new solution.",
+        title: "Tailored workshop",
+        text: "I will prepare technical training for your team on working with the local AI solution. We will go over its benefits, limitations and risks, and learn how to build the right processes around it.",
       },
       {
         art: "upkeep",
         title: "Maintenance",
-        text: "I will be available to upgrade and maintain your solution: model updates, hardware scaling, new tools and more.",
+        text: "I will be available to upgrade or maintain your solution: model updates, hardware scaling or new tools.",
       },
     ],
   },

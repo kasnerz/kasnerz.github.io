@@ -64,7 +64,7 @@ export const teaching: TeachingItem[] = [
             cs: "LS 25/26, LS 26/27",
         },
         description: {
-            en: "I teach a new elective course at FIT CTU focused on language models. In the course, we focus not only on understanding the technical details of the Transformer architecture but also on broader aspects of large language models' operation – their practical deployment, ethics, and research.",
+            en: "I run a course on language models at FIT CTU, which I founded and designed myself. We start with the technical aspects of the Transformer architecture and pretrained models, then move on to current topics such as post-training, reasoning, agents, multimodality, efficiency, interpretability, and ethics.",
             cs: "Vedu předmět na FIT ČVUT zaměřený na jazykové modely. Kurz jsem sám založil a navrhnul. V kurzu začínáme od technických aspektů architektury Transformer a předtrénovaných modelů. Dále řešíme aktuální témata jako post-training, reasoning, agenti, multimodalita, efektivita, interpretabilita nebo etika.",
         },
         image: "/lectures/ctu.png",
@@ -92,7 +92,7 @@ export const teaching: TeachingItem[] = [
             cs: "od 2026",
         },
         description: {
-            en: "TODO translate.",
+            en: "I run a workshop for primary and secondary schools at Charles University's Didaktikon centre. Through a competition, quizzes and teamwork, we learn how today's AI models are trained.",
             cs: "Vedu workshop pro základní a střední školy v Didaktikonu UK. Formou soutěže, kvízů a práce v týmech se učíme, jak se trénují současné AI modely.",
         },
         image: "/lectures/didaktikon.jpg",
@@ -194,7 +194,7 @@ export const teaching: TeachingItem[] = [
             cs: "11/2025",
         },
         description: {
-            en: "Video lecture on the generative AI tools for FSv UK students.",
+            en: "Video course 'Generative AI Tools and Their Use in Studying' for the Faculty of Social Sciences, Charles University.",
             cs: "Videokurz 'Nástroje generativní AI a jejich využití při studiu' pro FSv UK.",
         },
         type: "video",
@@ -217,7 +217,7 @@ export const teaching: TeachingItem[] = [
             cs: "11/2025",
         },
         description: {
-            en: "Talk for high-school students as part of Dny.AI event.",
+            en: "Talk for high schools as part of the Dny.AI event.",
             cs: "Přednáška pro střední školy v rámci akce Dny.AI.",
         },
         type: "talk",
@@ -328,7 +328,7 @@ export const teaching: TeachingItem[] = [
         },
         description: {
             en: "1st Workshop on Practical LLM-assisted Data-to-Text Generation.",
-            cs: "Workshop na generování textu z dat pomocí velkých jazykových modeů.",
+            cs: "Workshop na generování textu z dat pomocí velkých jazykových modelů.",
         },
         type: "workshop",
         category: "talks",
@@ -351,7 +351,7 @@ export const teaching: TeachingItem[] = [
             cs: "LS 23/24, LS 24/25, LS 25/26",
         },
         description: {
-            en: "I helped to shape a new course on Transformer-based large language models. I led several lectures and help with preparing practical assigments.",
+            en: "I helped shape a course on large language models run by my colleagues from ÚFAL. I led some of the lectures and helped prepare practical assignments.",
             cs: "Pomáhal jsem spolutvářet kurz o velkých jazykových modelech vedený kolegy z ÚFALu. Vedl jsem část přednášek a pomáhám s přípravou praktických úkolů.",
         },
         image: "/lectures/cuni-en.png",

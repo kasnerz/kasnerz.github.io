@@ -28,24 +28,24 @@ export interface NavItem {
 export const NAV: NavItem[] = [
   {
     id: "consulting",
-    label: { en: "Consulting", cs: "Konzultant" },
-    heading: { en: "I design AI solutions", cs: "Analyzuji a nasazuji" },
+    label: { en: "Consultant", cs: "Konzultant" },
+    heading: { en: "I analyze and deploy", cs: "Analyzuji a nasazuji" },
     tagline: {
       en: "on deploying local AI models",
       cs: "nasazení lokálních AI modelů",
     },
     subtitle: {
-      en: "I help teams put AI to work",
+      en: "I help get AI running locally",
       cs: "Pomáhám rozjíždět AI lokálně",
     },
     path: "/consulting",
   },
   {
     id: "teaching",
-    label: { en: "Teaching", cs: "Lektor" },
-    heading: { en: "I teach", cs: "Veřejně vystupuji" },
+    label: { en: "Lecturer", cs: "Lektor" },
+    heading: { en: "I speak in public", cs: "Veřejně vystupuji" },
     tagline: {
-      en: "university lecturing, workshops",
+      en: "lecturing, teaching, running workshops",
       cs: "přednáším, učím, vedu workshopy",
     },
     subtitle: {
@@ -56,29 +56,35 @@ export const NAV: NavItem[] = [
   },
   {
     id: "projects",
-    label: { en: "Developing", cs: "Vývojář" },
-    heading: { en: "I build", cs: "Tvořím" },
-    tagline: { en: "open-source software", cs: "open-source softwaru" },
-    subtitle: { en: "My software projects", cs: "Softwarové projekty" },
+    label: { en: "Developer", cs: "Vývojář" },
+    heading: { en: "I create", cs: "Tvořím" },
+    tagline: { en: "of open-source software", cs: "open-source softwaru" },
+    subtitle: { en: "Software projects", cs: "Softwarové projekty" },
     path: "/projects",
   },
   {
     id: "research",
-    label: { en: "Researching", cs: "Výzkumník" },
+    label: { en: "Researcher", cs: "Výzkumník" },
     heading: { en: "I research", cs: "Zkoumám" },
-    tagline: { en: "generative AI models", cs: "velkých jazykových modelů" },
+    tagline: {
+      en: "in large language models",
+      cs: "velkých jazykových modelů",
+    },
     subtitle: {
-      en: "Natural language processing research",
+      en: "Large language models",
       cs: "Velké jazykové modely",
     },
     path: "/research",
   },
   {
     id: "blog",
-    label: { en: "Blogging", cs: "Blogger" },
+    label: { en: "Blogger", cs: "Blogger" },
     heading: { en: "I blog", cs: "Píšu blog" },
-    tagline: { en: "at Lokální.AI", cs: "na portálu Lokální.AI" },
-    subtitle: { en: "Writing about local AI", cs: "O otevřených AI modelech" },
+    tagline: { en: "on the Lokální.AI portal", cs: "na portálu Lokální.AI" },
+    subtitle: {
+      en: "On open-weight AI models",
+      cs: "O otevřených AI modelech",
+    },
     path: "/blog",
   },
   {
@@ -86,7 +92,10 @@ export const NAV: NavItem[] = [
     label: { en: "Person", cs: "Člověk" },
     heading: { en: "I am", cs: "Jsem" },
     tagline: { en: "with lots of interests", cs: "se spoustou zájmů" },
-    subtitle: { en: "Welcome!", cs: "Člověk se spoustou zájmů." },
+    subtitle: {
+      en: "A person with lots of interests.",
+      cs: "Člověk se spoustou zájmů.",
+    },
     path: "/about",
   },
 ];

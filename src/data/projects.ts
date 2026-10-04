@@ -14,7 +14,7 @@ export const projects: Project[] = [
         title: "AnimatedLLM",
         url: "https://animatedllm.github.io/",
         description: {
-            en: "A website full of interactive animations where you can yourself on how LLMs work under the hood.",
+            en: "An educational website with interactive animations of large language models.",
             cs: "Vzdělávací web s interaktivními animacemi velkých jazykových modelů.",
         },
         image: "/projects/animated-llm.png",
