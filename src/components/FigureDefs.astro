@@ -1,6 +1,9 @@
 ---
 // Shared SVG defs for the stickman figures, rendered once per page.
-// The masks cut the board away behind the lecturer, so the figure reads as standing in front of it.
+// The masks cut the board away behind the lecturer, so the figure reads as standing in front of it,
+// and the laptop away behind the blogger, who is seen from the back. On the consulting page they
+// cut the computer case away behind the reaching arm and the rubber duck's eye out of its head.
+// On the research page they hide the sheet while it is inside the pile.
 ---
 
 <svg
@@ -29,6 +32,24 @@
     <circle cx="17" cy="17" r="7.5" fill="#000"></circle>
   </mask>
   <mask
+    id="ko-blog-s"
+    maskUnits="userSpaceOnUse"
+    x="0"
+    y="0"
+    width="48"
+    height="48"
+  >
+    <rect width="48" height="48" fill="#fff"></rect>
+    <path
+      d="M24 27.5V46M24 31L12.5 35L15 25M24 31L35.5 35L33 25"
+      fill="none"
+      stroke="#000"
+      stroke-width="4.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"></path>
+    <circle cx="24" cy="23" r="7" fill="#000"></circle>
+  </mask>
+  <mask
     id="ko-teach-l"
     maskUnits="userSpaceOnUse"
     x="0"
@@ -45,5 +66,59 @@
       stroke-linecap="round"
       stroke-linejoin="round"></path>
     <circle cx="84" cy="110" r="14" fill="#000"></circle>
+  </mask>
+  <mask
+    id="ko-cons-l"
+    maskUnits="userSpaceOnUse"
+    x="0"
+    y="0"
+    width="240"
+    height="240"
+  >
+    <rect width="240" height="240" fill="#fff"></rect>
+    <path
+      d="M92.7 132.4L114 145L143 150"
+      fill="none"
+      stroke="#000"
+      stroke-width="10"
+      stroke-linecap="round"
+      stroke-linejoin="round"></path>
+  </mask>
+  <mask
+    id="ko-duck-l"
+    maskUnits="userSpaceOnUse"
+    x="0"
+    y="0"
+    width="240"
+    height="240"
+  >
+    <rect width="240" height="240" fill="#fff"></rect>
+    <circle cx="159.15" cy="117.9" r="1.15" fill="#000"></circle>
+  </mask>
+  <mask
+    id="ko-pile-s"
+    maskUnits="userSpaceOnUse"
+    x="-48"
+    y="-48"
+    width="144"
+    height="144"
+  >
+    <rect x="-48" y="-48" width="144" height="144" fill="#fff"></rect>
+    <path
+      d="M23 46L22.5 43L23.5 40L22 37L23 34L22.5 31L41 30.5L40.5 34L42 37L41 40L42.5 43L41.5 46Z"
+      fill="#000"></path>
+  </mask>
+  <mask
+    id="ko-pile-l"
+    maskUnits="userSpaceOnUse"
+    x="-240"
+    y="-240"
+    width="720"
+    height="720"
+  >
+    <rect x="-240" y="-240" width="720" height="720" fill="#fff"></rect>
+    <path
+      d="M105 215L103 207L108 199L107 191L102 183L105 175L109 167L106 159L175 158L172 167L176 175L179 183L174 191L173 199L178 207L175 215Z"
+      fill="#000"></path>
   </mask>
 </svg>

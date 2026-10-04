@@ -10,7 +10,10 @@ export type PageId =
 
 export interface NavItem {
   id: PageId;
+  /** Short noun shown next to the figure on the front page and in the top bar. */
   label: Record<Lang, string>;
+  /** Verb heading of the section's own page ("Teaching" → "I teach"). */
+  heading: Record<Lang, string>;
   /** Continues the label under the front-page figure ("Teaching" → "at CTU and CU"). */
   tagline: Record<Lang, string>;
   /** Shown under the page title in the subpage header. */
@@ -26,19 +29,21 @@ export const NAV: NavItem[] = [
   {
     id: "consulting",
     label: { en: "Consulting", cs: "Konzultant" },
+    heading: { en: "I design AI solutions", cs: "Analyzuji a nasazuji" },
     tagline: {
       en: "on deploying local AI models",
       cs: "nasazení lokálních AI modelů",
     },
     subtitle: {
       en: "I help teams put AI to work",
-      cs: "Pomáhám týmům zapojit AI do práce",
+      cs: "Pomáhám rozjíždět AI lokálně",
     },
     path: "/consulting",
   },
   {
     id: "teaching",
     label: { en: "Teaching", cs: "Lektor" },
+    heading: { en: "I teach", cs: "Veřejně vystupuji" },
     tagline: {
       en: "university lecturing, workshops",
       cs: "přednáším, učím, vedu workshopy",
@@ -52,32 +57,36 @@ export const NAV: NavItem[] = [
   {
     id: "projects",
     label: { en: "Developing", cs: "Vývojář" },
-    tagline: { en: "open-source software", cs: "open-source software" },
-    subtitle: { en: "My software projects", cs: "Moje softwarové projekty" },
+    heading: { en: "I build", cs: "Tvořím" },
+    tagline: { en: "open-source software", cs: "open-source softwaru" },
+    subtitle: { en: "My software projects", cs: "Softwarové projekty" },
     path: "/projects",
   },
   {
     id: "research",
     label: { en: "Researching", cs: "Výzkumník" },
-    tagline: { en: "generative AI models", cs: "generativních AI modelů" },
+    heading: { en: "I research", cs: "Zkoumám" },
+    tagline: { en: "generative AI models", cs: "velkých jazykových modelů" },
     subtitle: {
       en: "Natural language processing research",
-      cs: "Výzkum zpracování přirozeného jazyka",
+      cs: "Velké jazykové modely",
     },
     path: "/research",
   },
   {
     id: "blog",
     label: { en: "Blogging", cs: "Blogger" },
-    tagline: { en: "at Lokální.AI", cs: "na Lokální.AI" },
-    subtitle: { en: "Writing about local AI", cs: "Píšu o lokální AI" },
+    heading: { en: "I blog", cs: "Píšu blog" },
+    tagline: { en: "at Lokální.AI", cs: "na portálu Lokální.AI" },
+    subtitle: { en: "Writing about local AI", cs: "O otevřených AI modelech" },
     path: "/blog",
   },
   {
     id: "about",
     label: { en: "Person", cs: "Člověk" },
+    heading: { en: "I am", cs: "Jsem" },
     tagline: { en: "with lots of interests", cs: "se spoustou zájmů" },
-    subtitle: { en: "Welcome!", cs: "Vítej!" },
+    subtitle: { en: "Welcome!", cs: "Člověk se spoustou zájmů." },
     path: "/about",
   },
 ];

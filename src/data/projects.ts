@@ -29,6 +29,15 @@ export const projects: Project[] = [
         image: "/projects/factgenie.png",
     },
     {
+        title: "Počítačová kreativita",
+        url: "https://github.com/kasnerz/didaktikon-kreativita",
+        description: {
+            en: "A web app for an interactive workshop for high school students.",
+            cs: "Webová aplikace pro interaktivní workshop pro studenty středních škol.",
+        },
+        image: "/projects/didaktikon-kreativita.png",
+    },
+    {
         title: "reffix",
         url: "https://github.com/kasnerz/reffix",
         description: {

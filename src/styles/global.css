@@ -19,6 +19,10 @@ html[data-theme="light"] {
   --muted: #e6e6e6;
   --border: #d9dedb;
   --text-muted: #6b7280;
+  /* top bar padding, shared by the front page and the subpages so the tools on the
+     right (contact, CV, language) stay put when you move between them */
+  --bar-pad-y: 0.7rem;
+  --bar-pad-x: clamp(1rem, 3vw, 2.5rem);
 }
 
 /* dark: the card takes the page green, so content flows straight out of the header;

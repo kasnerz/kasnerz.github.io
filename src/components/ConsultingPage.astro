@@ -1,7 +1,6 @@
 ---
-import { Icon } from "astro-icon/components";
 import SubpageLayout from "../layouts/SubpageLayout.astro";
-import LinkButton from "./LinkButton.astro";
+import { SPOTS } from "@/data/figures";
 
 interface Props {
   lang: "cs" | "en";
@@ -9,115 +8,148 @@ interface Props {
 
 const { lang } = Astro.props;
 
-// Placeholder copy, to be replaced with the real offer.
-const copy = {
+type Step = { art: keyof typeof SPOTS; title: string; text: string };
+type Copy = { intro: string; lead: string; steps: Step[] };
+
+const copies: Record<"cs" | "en", Copy> = {
   en: {
     intro:
-      "I help companies and teams use AI where it genuinely helps: from picking the right model to running it on your own hardware.",
-    local: "I run AI models locally at",
-    servicesTitle: "What I can help with",
-    services: [
+      "Want your own customized AI server, without worrying about monthly token bills? Have sensitive data you would rather not broadcast into the ether? Like doing things your own way?",
+    lead: "I can help you:",
+    steps: [
       {
-        icon: "tabler:server-2",
-        title: "Local & private AI",
-        text: "Open models running on your own infrastructure, with your data staying in-house.",
+        art: "talk",
+        title: "An in-depth conversation",
+        text: "We will discuss how you use AI today, where your solution is heading and how it scales, and whether a local AI setup makes sense in cases like yours. <b>The first consultation is free</b>.",
       },
       {
-        icon: "tabler:compass",
-        title: "AI strategy",
-        text: "Where AI makes sense in your processes, and where it does not.",
+        art: "strategy",
+        title: "AI strategy analysis",
+        text: "Over a series of follow-up meetings, I will prepare a detailed proposal for your local AI solution: the hardware your local AI server needs, what it will cost, which models to deploy, how your users can work with them, and how to connect your existing services and tools.",
       },
       {
-        icon: "tabler:users-group",
-        title: "Workshops for teams",
-        text: "Hands-on training on how language models work and how to use them well.",
+        art: "deploy",
+        title: "Deploying local AI",
+        text: "Together with your IT department and hardware suppliers, I will help you put the whole proposal into operation. I can set up the inference server, connect your existing services to it, program supporting tools and write documentation for running it.",
       },
       {
-        icon: "tabler:tool",
-        title: "Custom tools",
-        text: "Prototypes and internal tools built around language models.",
+        art: "workshop",
+        title: "Tailored workshops",
+        text: "If you are interested, I can prepare a workshop for your internal team: hands-on technical training for working with the new solution.",
+      },
+      {
+        art: "upkeep",
+        title: "Maintenance",
+        text: "I will be available to upgrade and maintain your solution: model updates, hardware scaling, new tools and more.",
       },
     ],
-    ctaTitle: "Let's talk",
-    cta: "Write me a message on",
   },
   cs: {
     intro:
-      "Pomáhám firmám a týmům využít AI tam, kde opravdu pomůže: od výběru vhodného modelu po jeho provoz na vlastním hardwaru.",
-    local: "Lokální AI modely rozjíždím na",
-    servicesTitle: "S čím můžu pomoct",
-    services: [
+      "Rádi si řešíte věci po svém? Máte citlivá data, která nechcete vysílat do éteru? Chcete svoje vlastní AI řešení, u kterého nemusíte řešit pravidelné platby za tokeny? ",
+    lead: "Dokážu vás provést celým procesem <b>nasazení lokálního AI řešení</b> postaveném na otevřených AI modelech (jako Qwen, Gemma, DeepSeek, Nemotron, ...) a hardware běžícím přímo u vás (GPU server, AI pracovní stanice, ...).<p>Takhle může vypadat naše spolupráce:</p>",
+    steps: [
       {
-        icon: "tabler:server-2",
-        title: "Lokální a soukromá AI",
-        text: "Otevřené modely na vaší vlastní infrastruktuře, data zůstávají u vás.",
+        art: "talk",
+        title: "Úvodní konzultace",
+        text: "Prodiskutujeme, jak v současnosti používáte AI a jestli dává ve Vašem případě smysl nasadit lokální AI řešení. <b>Úvodní konzultace je zdarma</b>.",
       },
       {
-        icon: "tabler:compass",
-        title: "AI strategie",
-        text: "Kde má AI ve vašich procesech smysl a kde ne.",
+        art: "strategy",
+        title: "Analýza vaší AI strategie",
+        text: "Během dalších setkání vám připravím podrobný návrh lokálního AI řešení: jaký hardware budete potřebovat, jaké modely nasadit a jak do toho všeho zapojit vaše stávající služby a nástroje.",
       },
       {
-        icon: "tabler:users-group",
-        title: "Workshopy pro týmy",
-        text: "Praktická školení o tom, jak jazykové modely fungují a jak je dobře používat.",
+        art: "deploy",
+        title: "Nasazení AI lokálně u vás",
+        text: "Pomohu vám uvést celý návrh do provozu. Zprovozním inferenční server, napojím na něj existující služby, vytvořím pomocné nástroje a připravím podrobnou dokumentaci.",
       },
       {
-        icon: "tabler:tool",
-        title: "Nástroje na míru",
-        text: "Prototypy a interní nástroje postavené na jazykových modelech.",
+        art: "workshop",
+        title: "Workshop na míru",
+        text: "Připravím pro váš tým technické školení pro práci s lokálním AI řešením. Vysvětlíme si výhody, omezení i rizika, a naučíme se nad tímto řešením správně postavit procesy.",
+      },
+      {
+        art: "upkeep",
+        title: "Údržba",
+        text: "Budu k dispozici pro upgrade nebo údržbu vašeho řešení: aktualizace modelů, škálování hardware nebo nové nástroje.",
       },
     ],
-    ctaTitle: "Pojďme to probrat",
-    cta: "Napište mi zprávu na",
   },
-}[lang];
+};
+const copy = copies[lang];
 ---
 
 <SubpageLayout lang={lang} page="consulting">
-  <section class="mb-10">
+  <section class="mb-8">
     <p class="mb-4">{copy.intro}</p>
-    <p class="mb-4">
-      {copy.local}
-      <LinkButton icon="tabler:cpu" href="https://lokalni.ai"
-        >lokalni.ai</LinkButton
-      >.
-    </p>
+    <div class="lead" set:html={copy.lead} />
   </section>
 
-  <section class="mb-10">
-    <h2
-      class="mb-6 border-b border-border py-2 text-2xl font-semibold text-accent"
-    >
-      {copy.servicesTitle}
-    </h2>
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-      {
-        copy.services.map(service => (
-          <div class="rounded-xl border border-border p-5">
-            <Icon name={service.icon} class="mb-2 size-7 text-accent" />
-            <h3 class="mb-1 text-lg font-semibold">{service.title}</h3>
-            <p class="text-sm leading-relaxed text-text-muted">
-              {service.text}
-            </p>
+  <ol class="steps">
+    {
+      copy.steps.map(step => (
+        <li class="step">
+          <svg
+            class="spot"
+            viewBox="0 0 200 160"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <g class="ink" set:html={SPOTS[step.art]} />
+          </svg>
+          <div>
+            <h2 class="step-title">{step.title}</h2>
+            <p set:html={step.text} />
           </div>
-        ))
-      }
-    </div>
-  </section>
-
-  <section class="mb-4">
-    <h2
-      class="mb-4 border-b border-border py-2 text-2xl font-semibold text-accent"
-    >
-      {copy.ctaTitle}
-    </h2>
-    <p>
-      {copy.cta}
-      <LinkButton
-        icon="tabler:brand-linkedin"
-        href="https://www.linkedin.com/in/zdenek-kasner/">LinkedIn</LinkButton
-      >.
-    </p>
-  </section>
+        </li>
+      ))
+    }
+  </ol>
 </SubpageLayout>
+
+<style>
+  .lead :global(p) {
+    margin-top: 1rem;
+  }
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .step {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2rem);
+    padding: 1.25rem clamp(1rem, 3vw, 1.75rem);
+    border-radius: 14px;
+    background: color-mix(in oklab, var(--background), var(--accent) 7%);
+  }
+  .spot {
+    --sw: 3;
+    flex: none;
+    width: 168px;
+    height: auto;
+    color: var(--accent);
+  }
+  .step-title {
+    margin: 0 0 0.35rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--accent-text);
+  }
+
+  @media (max-width: 640px) {
+    .step {
+      gap: 0.9rem;
+      padding: 1rem;
+    }
+    .spot {
+      --sw: 3.6;
+      width: 104px;
+    }
+    .step-title {
+      font-size: 1.15rem;
+    }
+  }
+</style>

@@ -8,12 +8,24 @@ interface Social {
   icon: string;
   description: string;
   descriptionCS: string;
-  /** Leave out of the front-page icon row; still listed on the About page. */
-  hideIcon?: boolean;
 }
 
-export const SOCIALS: Social[] = [
+/**
+ * Contact e-mail, base64-encoded so the address never appears in the HTML or
+ * in this public repo as plain text. The contact page decodes it in the
+ * browser only when someone points at or focuses the link.
+ * Regenerate with: echo -n "name@domain" | base64
+ */
+export const MAIL_B64 = "emRlbmVrQGxva2FsbmkuYWk=";
 
+/**
+ * Cloudflare Turnstile site key — public, it ships in the HTML. Shared with the
+ * lokalni.ai widget, which lists zdenekkasner.cz among its hostnames. The secret
+ * key is the TURNSTILE_SECRET variable of the Pages project (functions/contact.ts).
+ */
+export const TURNSTILE_SITE_KEY = "0x4AAAAAADqTdUclBHOPJdIs";
+
+export const SOCIALS: Social[] = [
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/zdenek-kasner/",
@@ -44,24 +56,6 @@ export const SOCIALS: Social[] = [
     linkTitle: `${SITE.title} on Facebook`,
     icon: "tabler:brand-facebook",
     description: "For people I know personally.",
-    descriptionCS: "Pro lidi, které znám osobně."
-  },
-  {
-    name: "University website",
-    nameCS: "Univerzitní web",
-    href: "https://ufal.mff.cuni.cz/zdenek-kasner",
-    linkTitle: `${SITE.title} on Charles University website`,
-    icon: "tabler:building-bank",
-    hideIcon: true,
-    description: "Details about my work at ÚFAL, including my work email.",
-    descriptionCS: "Detaily o mém působení na ÚFALu, včetně pracovního mailu."
-  },
-  {
-    name: "Google Scholar",
-    href: "https://scholar.google.cz/citations?user=6NnuRB8AAAAJ&hl=cs",
-    linkTitle: `${SITE.title} on Google Scholar`,
-    icon: "tabler:school",
-    description: "List of my academic publications.",
-    descriptionCS: "Seznam mých odborných publikací."
+    descriptionCS: "Pro lidi, které znám osobně.",
   },
 ] as const;

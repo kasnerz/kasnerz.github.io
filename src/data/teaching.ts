@@ -60,12 +60,12 @@ export const teaching: TeachingItem[] = [
             cs: "Neuronové jazykové modely",
         },
         period: {
-            en: "25/26 Summer",
-            cs: "LS 25/26",
+            en: "25/26 Summer, 26/27 Summer",
+            cs: "LS 25/26, LS 26/27",
         },
         description: {
             en: "I teach a new elective course at FIT CTU focused on language models. In the course, we focus not only on understanding the technical details of the Transformer architecture but also on broader aspects of large language models' operation – their practical deployment, ethics, and research.",
-            cs: "Vedu nový volitelný kurz na FIT ČVUT zaměřený na jazykové modely. V kurzu se zaměřujeme nejen na pochopení technických detailů architektury Transformer, ale i širších aspektů fungování velkých jazykových modelů – jejich nasazení v praxi, etika, výzkum.",
+            cs: "Vedu předmět na FIT ČVUT zaměřený na jazykové modely. Kurz jsem sám založil a navrhnul. V kurzu začínáme od technických aspektů architektury Transformer a předtrénovaných modelů. Dále řešíme aktuální témata jako post-training, reasoning, agenti, multimodalita, efektivita, interpretabilita nebo etika.",
         },
         image: "/lectures/ctu.png",
         category: "current",
@@ -84,39 +84,16 @@ export const teaching: TeachingItem[] = [
     },
     {
         title: {
-            en: "Large Language Models",
-            cs: "Velké jazykové modely",
+            en: "How to train an AI model",
+            cs: "Jak natrénovat AI model",
         },
         period: {
-            en: "23/24 Summer, 24/25 Summer, 25/26 Summer",
-            cs: "LS 23/24, LS 24/25, LS 25/26",
+            en: "since 2026",
+            cs: "od 2026",
         },
         description: {
-            en: "I am helping to shape our new course on Transformer-based large language models. I lead several lectures and help with preparing practical assigments.",
-            cs: "Pomáhám spolutvářet kurz o velkých jazykových modelech vedený kolegy z ÚFALu. Vedu část přednášek a pomáhám s přípravou praktických úkolů.",
-        },
-        image: "/lectures/cuni-en.png",
-        category: "current",
-        links: [
-            {
-                label: "web",
-                url: "https://ufal.mff.cuni.cz/courses/npfl140",
-                type: "course",
-            },
-        ],
-    },
-    {
-        title: {
-            en: "Computational Creativity",
-            cs: "Počítačová kreativita",
-        },
-        period: {
-            en: "since 2024",
-            cs: "od 2024",
-        },
-        description: {
-            en: "I lead a workshop for primary and secondary schools at Charles University's Didaktikon centre where we practically explore how generative image and text models work.",
-            cs: "Vedu workshop pro základní a střední školy v Didaktikonu UK, kde si prakticky zkoušíme, jak fungují generativní modely obrázků a textu.",
+            en: "TODO translate.",
+            cs: "Vedu workshop pro základní a střední školy v Didaktikonu UK. Formou soutěže, kvízů a práce v týmech se učíme, jak se trénují současné AI modely.",
         },
         image: "/lectures/didaktikon.jpg",
         category: "current",
@@ -125,6 +102,62 @@ export const teaching: TeachingItem[] = [
                 label: "Didaktikon",
                 url: "https://didaktikon.cz/DIDAKT-123.html",
                 type: "course",
+            },
+        ],
+    },
+    {
+        title: {
+            en: "Lokální AI: Reality check",
+            cs: "Lokální AI: Reality check",
+        },
+        period: {
+            en: "09/2026",
+            cs: "09/2026",
+        },
+        description: {
+            en: "Talk at AI Bootcamp on the state of open models.",
+            cs: "Přednáška na AI Bootcampu o stavu otevřených modelů.",
+        },
+        type: "talk",
+        category: "talks",
+        links: [
+            {
+                label: "",
+                url: "/slides/talks/ai-bootcamp-lokalni-modely/",
+                type: "materials",
+            },
+            {
+                label: "",
+                url: "https://www.linkedin.com/posts/martin-zatkovic_a-je-to-tady-ai-bootcamp-je-ofici%C3%A1ln%C4%9B-za-activity-7507414512539463681-4WLO",
+                type: "linkedin",
+            },
+        ],
+    },
+    {
+        title: {
+            en: "Zase o desetinku víc: Proč jsou LLM benchmarky (často) mimo realitu?",
+            cs: "Zase o desetinku víc: Proč jsou LLM benchmarky (často) mimo realitu?",
+        },
+        period: {
+            en: "03/2026",
+            cs: "03/2026",
+        },
+        description: {
+            en: "Talk at AI Bootcamp on the pitfalls of LLM benchmarks.",
+            cs: "Přednáška na AI Bootcampu o úskalích LLM benchmarků.",
+        },
+        type: "talk",
+        category: "talks",
+        links: [
+            {
+                label: "",
+                url: "/slides/talks/ai-bootcamp-benchmarks/",
+                type: "materials",
+            },
+            {
+                label: "",
+                url: "https://www.linkedin.com/posts/martin-zatkovic_pr%C3%A1v%C4%9B-jsem-se-vr%C3%A1til-z-prvn%C3%ADho-ro%C4%8Dn%C3%ADku-ai-activity-7438999071194898433-04A4",
+                type: "linkedin",
             },
         ],
     },
@@ -306,6 +339,52 @@ export const teaching: TeachingItem[] = [
                 type: "website",
             },
 
+        ],
+    },
+    {
+        title: {
+            en: "Large Language Models",
+            cs: "Velké jazykové modely",
+        },
+        period: {
+            en: "23/24 Summer, 24/25 Summer, 25/26 Summer",
+            cs: "LS 23/24, LS 24/25, LS 25/26",
+        },
+        description: {
+            en: "I helped to shape a new course on Transformer-based large language models. I led several lectures and help with preparing practical assigments.",
+            cs: "Pomáhal jsem spolutvářet kurz o velkých jazykových modelech vedený kolegy z ÚFALu. Vedl jsem část přednášek a pomáhám s přípravou praktických úkolů.",
+        },
+        image: "/lectures/cuni-en.png",
+        category: "past",
+        links: [
+            {
+                label: "web",
+                url: "https://ufal.mff.cuni.cz/courses/npfl140",
+                type: "course",
+            },
+        ],
+    },
+    {
+        title: {
+            en: "Computational Creativity",
+            cs: "Počítačová kreativita",
+        },
+        period: {
+            en: "since 2024",
+            cs: "od 2024",
+        },
+        description: {
+            en: "I led a workshop for primary and secondary schools at Charles University's Didaktikon centre where we practically explored how generative image and text models work.",
+            cs: "Vedl jsem workshop pro základní a střední školy v Didaktikonu UK, kde jsme si prakticky zkoušeli, jak fungují generativní modely obrázků a textu.",
+        },
+        image: "/lectures/didaktikon.jpg",
+        category: "past",
+        links: [
+            {
+                label: "Didaktikon",
+                url: "https://didaktikon.cz/DIDAKT-123.html",
+                type: "course",
+            },
         ],
     },
     {

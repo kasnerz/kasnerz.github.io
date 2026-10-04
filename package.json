@@ -2,6 +2,7 @@
   "name": "astro-paper",
   "type": "module",
   "version": "5.5.1",
+  "packageManager": "pnpm@10.11.1",
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
@@ -16,6 +17,7 @@
     "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
     "@fontsource/fira-sans": "^5.2.7",
+    "@iconify-json/lucide": "^1.2.139",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/tabler": "^1.2.26",
     "@resvg/resvg-js": "^2.6.2",

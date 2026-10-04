@@ -7,7 +7,7 @@ import { getNavItem, type Lang, type PageId } from "@/data/nav";
 
 interface Props {
   lang: Lang;
-  /** The section this page belongs to; drives the title, subtitle and header art. */
+  /** The section this page belongs to; drives the title, heading, subtitle and header art. */
   page?: PageId;
   /** Overrides for pages outside the navigation, such as 404. */
   title?: string;
@@ -22,6 +22,7 @@ const {
 } = Astro.props;
 const item = page ? getNavItem(page) : undefined;
 const title = titleOverride ?? item?.label[lang] ?? "";
+const heading = titleOverride ?? item?.heading[lang] ?? "";
 const subtitle = subtitleOverride ?? item?.subtitle?.[lang];
 ---
 
@@ -30,7 +31,7 @@ const subtitle = subtitleOverride ?? item?.subtitle?.[lang];
     <Header lang={lang} current={page} />
     <div class="stage">
       <div class="stage-title">
-        <h1>{title}</h1>
+        <h1>{heading}</h1>
         {subtitle && <p class="stage-sub">{subtitle}</p>}
       </div>
       {page && <Figure id={page} size="large" class="bigart" />}

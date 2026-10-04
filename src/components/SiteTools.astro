@@ -6,11 +6,16 @@ import { useTranslations } from "@/i18n/utils";
 
 interface Props {
   lang: Lang;
+  /** Show the contact and CV buttons before the language toggle. */
+  contact?: boolean;
   class?: string;
 }
 
-const { lang, class: className } = Astro.props;
+const { lang, contact = false, class: className } = Astro.props;
 const t = useTranslations(lang);
+
+const contactHref = lang === "cs" ? "/cs/contact" : "/contact";
+const onContact = Astro.url.pathname.replace(/\/$/, "") === contactHref;
 
 // The toggle shows both languages with the current one highlighted; clicking it
 // switches to the other one and keeps you on the same page.
@@ -36,6 +41,27 @@ const targetName = target === "en" ? "English" : "Čeština";
         <Icon name="tabler:moon" class="theme-icon theme-icon-moon" />
         <Icon name="tabler:sun-high" class="theme-icon theme-icon-sun" />
       </button>
+    )
+  }
+  {
+    contact && (
+      <>
+        <div class="tools-links">
+          <a
+            class="mini tools-link"
+            href={contactHref}
+            aria-current={onContact ? "page" : undefined}
+          >
+            <Icon name="mdi:message-text-outline" aria-hidden="true" />
+            <span class="mini-label">{t("nav.contact")}</span>
+          </a>
+          <a class="mini tools-link" href="/cv.pdf" data-astro-reload>
+            <Icon name="tabler:file-type-pdf" aria-hidden="true" />
+            <span class="mini-label">CV</span>
+          </a>
+        </div>
+        <span class="tools-divider" aria-hidden="true" />
+      </>
     )
   }
   <a
