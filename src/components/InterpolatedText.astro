@@ -1,0 +1,25 @@
+---
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+const parts = text.split(/(\{.*?\})/);
+---
+
+{
+  Promise.all(
+    parts.map(async part => {
+      const match = part.match(/^\{(.*?)\}$/);
+      if (match) {
+        const slotName = match[1];
+        if (Astro.slots.has(slotName)) {
+          const content = await Astro.slots.render(slotName);
+          return <span class="contents" set:html={content} />;
+        }
+        return null;
+      }
+      return <span class="contents" set:html={part} />;
+    })
+  )
+}

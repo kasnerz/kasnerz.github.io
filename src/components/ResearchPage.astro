@@ -1,0 +1,21 @@
+---
+import SubpageLayout from "../layouts/SubpageLayout.astro";
+import ResearchCard from "./ResearchCard.astro";
+import { articles } from "../data/articles";
+
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+---
+
+<SubpageLayout lang={lang} page="research">
+  <section class="mb-10">
+    <slot />
+  </section>
+
+  <section>
+    {articles.map(article => <ResearchCard article={article} />)}
+  </section>
+</SubpageLayout>

@@ -1,0 +1,430 @@
+---
+import { Icon } from "astro-icon/components";
+import SubpageLayout from "../layouts/SubpageLayout.astro";
+import { MAIL_B64, SOCIALS, TURNSTILE_SITE_KEY } from "@/constants";
+import { useTranslations } from "@/i18n/utils";
+
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+type Copy = {
+  purpose: string;
+  purposes: string[];
+  name: string;
+  namePh: string;
+  email: string;
+  emailPh: string;
+  company: string;
+  companyPh: string;
+  optional: string;
+  message: string;
+  messagePh: string;
+  send: string;
+  note: string;
+  success: string;
+  /** Keyed by the error codes functions/contact.ts returns. */
+  errors: Record<string, string>;
+  elsewhere: string;
+  formTitle: string;
+};
+
+const copies: Record<"cs" | "en", Copy> = {
+  en: {
+    purpose: "What can I help you with?",
+    purposes: [
+      "Consulting",
+      "A talk or workshop",
+      "Working together on a project",
+      "Feedback",
+      "Other inquiry",
+    ],
+    name: "Name",
+    namePh: "Your name",
+    email: "E-mail",
+    emailPh: "name@company.com",
+    company: "Company / organization",
+    companyPh: "Company Ltd.",
+    optional: "(optional)",
+    message: "Message",
+    messagePh: "Describe how I can help you.",
+    send: "Send message",
+    note: "You can also contact me directly. Feel free to stay anonymous: fill in your e-mail only if you would like a reply.",
+    success: "Thanks, your message is on its way to me!",
+    errors: {
+      missing: "Please write a message.",
+      email: "That e-mail address does not look right.",
+      bot: "The bot check failed, please try again.",
+      fail: "Something went wrong, please try again later.",
+    },
+    elsewhere: "You can find me here:",
+    formTitle: "Contact form",
+  },
+  cs: {
+    purpose: "S čím Vám mohu pomoct?",
+    purposes: [
+      "Konzultace",
+      "Přednáška nebo workshop",
+      "Spolupráce na projektu",
+      "Zpětná vazba",
+      "Jiný dotaz",
+    ],
+    name: "Jméno",
+    namePh: "Vaše jméno",
+    email: "E-mail",
+    emailPh: "jmeno@domena.cz",
+    company: "Firma / organizace",
+    companyPh: "Firma s.r.o.",
+    optional: "(nepovinné)",
+    message: "Zpráva",
+    messagePh: "Popište, s čím Vám mohu pomoct.",
+    send: "Odeslat zprávu",
+    note: "Kontaktovat mě můžete také přímo. Klidně můžete zůstat v anonymitě: e-mail vyplňte, jen pokud chcete odpověď.",
+    success: "Díky, zpráva je na cestě ke mně!",
+    errors: {
+      missing: "Napište prosím zprávu.",
+      email: "Tahle e-mailová adresa nevypadá správně.",
+      bot: "Ověření proti robotům selhalo, zkuste to prosím znovu.",
+      fail: "Něco se nepovedlo, zkuste to prosím později.",
+    },
+    elsewhere: "Najdete mě zde:",
+    formTitle: "Kontaktní formulář",
+  },
+};
+const copy = copies[lang];
+---
+
+<SubpageLayout
+  lang={lang}
+  title={t("tools.contact")}
+  subtitle={t("contact.subtitle")}
+  art="contact"
+>
+  <section class="elsewhere">
+    <h2>{copy.elsewhere}</h2>
+    <ul class="links">
+      <li>
+        <!-- The mailto: is filled in by contact-form.ts on hover/focus/touch,
+             so harvesters reading the HTML never see the address. -->
+        <a href="#contact-form" data-mail={MAIL_B64} rel="nofollow">
+          <Icon name="tabler:mail" aria-hidden="true" />
+          <span>E-mail</span>
+        </a>
+      </li>
+      {
+        SOCIALS.map(social => (
+          <li>
+            <a
+              href={social.href}
+              title={lang === "cs" ? social.descriptionCS : social.description}
+            >
+              <Icon name={social.icon} aria-hidden="true" />
+              <span>
+                {lang === "cs" ? social.nameCS || social.name : social.name}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="write">
+    <h2>{copy.formTitle}</h2>
+    <p class="note">{copy.note}</p>
+    <form
+      class="form"
+      id="contact-form"
+      action="/contact"
+      method="POST"
+      data-contact
+      data-astro-reload
+      data-success={copy.success}
+      data-errors={JSON.stringify(copy.errors)}
+    >
+      <input type="hidden" name="lang" value={lang} />
+
+      <div class="field">
+        <label for="purpose">{copy.purpose}</label>
+        <div class="select">
+          <select id="purpose" name="purpose">
+            {
+              copy.purposes.map((p, i) => (
+                <option selected={i === copy.purposes.length - 1}>{p}</option>
+              ))
+            }
+          </select>
+          <Icon
+            name="tabler:chevron-down"
+            class="select-icon"
+            aria-hidden="true"
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="name">
+          {copy.name}
+          <span class="optional">{copy.optional}</span>
+        </label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          autocomplete="name"
+          maxlength="200"
+          placeholder={copy.namePh}
+        />
+      </div>
+
+      <div class="field">
+        <label for="email">
+          {copy.email}
+          <span class="optional">{copy.optional}</span>
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          autocomplete="email"
+          maxlength="200"
+          placeholder={copy.emailPh}
+        />
+      </div>
+
+      <div class="field">
+        <label for="company">
+          {copy.company}
+          <span class="optional">{copy.optional}</span>
+        </label>
+        <input
+          id="company"
+          name="company"
+          type="text"
+          autocomplete="organization"
+          maxlength="200"
+          placeholder={copy.companyPh}
+        />
+      </div>
+
+      <div class="field">
+        <label for="message">{copy.message}</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="6"
+          maxlength="10000"
+          required
+          placeholder={copy.messagePh}></textarea>
+      </div>
+
+      <!-- Honeypot: off-screen, hidden from people, catches bots. -->
+      <input
+        class="hp"
+        type="text"
+        name="website"
+        tabindex="-1"
+        autocomplete="off"
+        aria-hidden="true"
+      />
+      <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY}></div>
+
+      <button class="submit" type="submit">
+        {copy.send}
+        <Icon name="tabler:send" aria-hidden="true" />
+      </button>
+      <p class="status" role="status" aria-live="polite" hidden></p>
+    </form>
+  </section>
+</SubpageLayout>
+
+<style>
+  /* same tint as the link tiles above; the fields stay white on it */
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 38rem;
+    padding: clamp(1.1rem, 3vw, 1.75rem);
+    border-radius: 14px;
+    background: color-mix(in oklab, var(--background), var(--accent) 7%);
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .field label {
+    font-weight: 600;
+  }
+  .optional {
+    margin-left: 0.3rem;
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+
+  .field input,
+  .field textarea,
+  .select select {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--background);
+    color: var(--foreground);
+    font: inherit;
+    transition: border-color 0.15s ease;
+  }
+  .field textarea {
+    min-height: 9rem;
+    resize: vertical;
+    line-height: 1.55;
+  }
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: var(--text-muted);
+    opacity: 0.8;
+  }
+  .field input:focus-visible,
+  .field textarea:focus-visible,
+  .select select:focus-visible {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent), transparent 80%);
+  }
+
+  /* native arrow hidden for the same look in every browser */
+  .select {
+    position: relative;
+  }
+  .select select {
+    appearance: none;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+  .select :global(.select-icon) {
+    position: absolute;
+    top: 50%;
+    right: 0.85rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  .submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    margin-top: 0.25rem;
+    padding: 0.9rem 1.5rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--background);
+    font-weight: 600;
+    transition: background-color 0.15s ease;
+  }
+  .submit:hover:not(:disabled) {
+    background: color-mix(in oklab, var(--accent), black 18%);
+  }
+  .submit:disabled {
+    opacity: 0.6;
+  }
+  .submit :global(svg) {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .status {
+    margin: 0;
+    font-weight: 500;
+    text-align: center;
+  }
+  .status:global(.is-ok) {
+    color: var(--accent-text);
+  }
+  .status:global(.is-error) {
+    color: #b42318;
+  }
+  .note {
+    margin: -0.75rem 0 1.5rem;
+    color: var(--text-muted);
+  }
+
+  .write {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .elsewhere h2,
+  .write h2 {
+    margin: 0 0 1.25rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--accent-text);
+  }
+  .links {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.75rem;
+    max-width: 38rem;
+  }
+  .links a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 1rem 0.5rem;
+    border-radius: 14px;
+    background: color-mix(in oklab, var(--background), var(--accent) 7%);
+    color: var(--foreground);
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition:
+      background-color 0.06s ease,
+      color 0.06s ease;
+  }
+  .links a:hover {
+    background: color-mix(in oklab, var(--background), var(--accent) 14%);
+    color: var(--accent-text);
+  }
+  .links :global(svg) {
+    width: 1.9rem;
+    height: 1.9rem;
+    color: var(--accent);
+  }
+
+  @media (max-width: 640px) {
+    .links {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .field input,
+    .field textarea,
+    .select select,
+    .submit,
+    .links a {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import "../scripts/contact-form.ts";
+</script>

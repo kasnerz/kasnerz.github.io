@@ -1,0 +1,29 @@
+---
+import ResearchPage from "../../components/ResearchPage.astro";
+import LinkButton from "@/components/LinkButton.astro";
+---
+
+<ResearchPage lang="cs">
+  <p class="mb-2">
+    Jako PhD student a post-doc na MFF UK jsem pracoval na výzkumných projektech
+    týkajících se:
+  </p>
+  <ul class="mb-4 list-disc pl-6">
+    <li>generování textu ze strukturovaných dat,</li>
+    <li>evaluace generovaného textu,</li>
+    <li>LLM agentů a uvažování,</li>
+    <li>trénování otevřených jazykových modelů,</li>
+    <li>autonomní webové navigace.</li>
+  </ul>
+  <p class="mb-4">
+    Výzkumu se už <b>aktivně nevěnuji</b>.
+  </p>
+  <p class="mb-4">
+    Všechny své publikace mám na <LinkButton
+      icon="tabler:school"
+      href="https://scholar.google.cz/citations?user=6NnuRB8AAAAJ&hl=cs"
+      >Google Scholar</LinkButton
+    > (<i>h-index: 11</i>). Tady je část z nich, popisky jsou pouze v
+    angličtině:
+  </p>
+</ResearchPage>

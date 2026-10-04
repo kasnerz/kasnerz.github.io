@@ -1,0 +1,577 @@
+/*
+ * Stickman figures (src/data/figures.ts) and the navigation built from them.
+ * Global on purpose: the artwork is injected with set:html, which scoped styles don't reach.
+ */
+
+/* ---------- ink ---------- */
+.ink {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--sw, 2);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ink .head,
+.ink .dot,
+.ink .solid {
+  fill: currentColor;
+}
+.ink .dot,
+.ink .solid {
+  stroke: none;
+}
+.ink .thin {
+  stroke-width: calc(var(--sw, 2) * 0.7);
+}
+.ink .thick {
+  stroke-width: calc(var(--sw, 2) * 1.6);
+}
+.ink text {
+  fill: currentColor;
+  stroke: none;
+  font-family: "Fira Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-anchor: middle;
+}
+.ink [data-o] {
+  transform-box: view-box;
+}
+.ink .a-spark,
+.ink .a-sift-away {
+  opacity: 0;
+}
+/* juggling balls ride an oval (see SPOTS.juggle); they pause where they are when not pointed at */
+.ink .a-toss {
+  offset-path: var(--toss);
+  offset-rotate: 0deg;
+  offset-distance: var(--d);
+  animation: fig-toss 3.6s linear var(--delay) infinite paused;
+}
+.ext {
+  width: 0.8em;
+  height: 0.8em;
+  flex: none;
+  opacity: 0.75;
+}
+
+/* ---------- front page and phone menu: the six figures ---------- */
+.scene-nav {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+.scene {
+  --sw: 2.05;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--mint);
+  outline: none;
+  transition:
+    opacity 60ms linear,
+    color 60ms linear;
+}
+.scene > svg {
+  display: block;
+  width: 64px;
+  height: 64px;
+  overflow: visible;
+}
+.scene-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.scene-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.6rem;
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: clamp(1.05rem, 1.6vw, 1.4rem);
+}
+/* pointing at one figure dims the rest */
+.scene-nav:has(.scene:is(:hover, :focus-visible))
+  .scene:not(:hover, :focus-visible) {
+  opacity: 0.28;
+}
+.scene:is(:hover, :focus-visible),
+.scene[aria-current="page"] {
+  color: #fff;
+}
+.scene:focus-visible > svg {
+  outline: 2px dashed rgb(255 255 255 / 0.6);
+  outline-offset: 6px;
+  border-radius: 8px;
+}
+
+@media (max-width: 900px) {
+  .scene-nav {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem 0.5rem;
+  }
+  .scene {
+    --sw: 2.7;
+  }
+  .scene > svg {
+    width: 46px;
+    height: 46px;
+  }
+  .scene-label {
+    margin-top: 0.35rem;
+    font-size: 1.1rem;
+  }
+}
+
+/* ---------- subpage header: object-only icons ---------- */
+.mini {
+  --sw: 1.6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 0.35rem 0.6rem 0.3rem;
+  border-radius: 10px;
+  color: var(--mint);
+  opacity: 0.75;
+  font-family: var(--font-head);
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition:
+    opacity 60ms linear,
+    color 60ms linear;
+}
+.mini > svg {
+  width: 26px;
+  height: 26px;
+  overflow: visible;
+}
+.mini-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.minis:has(.mini:hover) .mini:not(:hover) {
+  opacity: 0.5;
+}
+.mini:hover {
+  opacity: 1;
+  color: #fff;
+}
+.mini[aria-current="page"] {
+  opacity: 1;
+  color: #fff;
+  background: rgb(0 60 54 / 0.28);
+}
+
+/* ---------- subpage header: the big scene ---------- */
+.bigart {
+  --big-sw: 3; /* divided by each scene's fit scale in Figure.astro */
+  display: block;
+  flex: none;
+  width: 240px;
+  height: auto;
+  color: var(--mint);
+  overflow: visible;
+}
+.bigart .ground {
+  display: none;
+}
+@media (max-width: 900px) {
+  .bigart {
+    display: none;
+  }
+}
+
+/* ---------- theme and language tools ---------- */
+.site-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  color: #fff;
+}
+.theme-btn {
+  display: grid;
+  padding: 0.25rem;
+  font-size: 1.6rem;
+  transition: opacity 60ms linear;
+}
+.theme-btn > * {
+  grid-area: 1 / 1;
+}
+.theme-icon-sun,
+html[data-theme="dark"] .theme-icon-moon {
+  display: none;
+}
+html[data-theme="dark"] .theme-icon-sun {
+  display: block;
+}
+.lang-toggle {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 10px;
+  background: rgb(0 60 54 / 0.28);
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+.lang-opt {
+  padding: 0.35rem 0.55rem;
+  border-radius: 7px;
+  color: var(--mint);
+  opacity: 0.75;
+  transition:
+    opacity 60ms linear,
+    color 60ms linear;
+}
+.lang-opt.on {
+  background: var(--mint);
+  color: var(--brand);
+  opacity: 1;
+}
+.lang-toggle:hover .lang-opt:not(.on) {
+  color: #fff;
+  opacity: 1;
+}
+.theme-btn:hover {
+  opacity: 0.8;
+}
+/* contact and CV: drawn like the page icons in the subpage header (.mini) */
+.tools-links {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.9rem;
+}
+.tools-links:has(.mini:hover) .mini:not(:hover) {
+  opacity: 0.5;
+}
+.tools-link {
+  white-space: nowrap;
+}
+/* the icon sets put stroke-width on an inner <g>, so it has to be overridden there */
+.tools-link > svg g {
+  stroke-width: 1.6;
+}
+/* on phones they are plain text links */
+@media (max-width: 900px) {
+  .tools-link > svg {
+    display: none;
+  }
+  .tools-link {
+    font-size: 1rem;
+  }
+}
+.tools-divider {
+  width: 1px;
+  height: 24px;
+  margin: 0 0.35rem;
+  background: rgb(209 228 217 / 0.35);
+}
+
+/* ---------- hover animations: a figure is still until you point at it ---------- */
+/* the big header scenes move only while pointed at */
+:is(.scene, .mini):is(:hover, :focus-visible),
+.home-tile:is(:hover, :focus-visible),
+.bigart:hover,
+.spot:hover {
+  .a-dots .dot {
+    animation: fig-hop 1.1s ease-in-out infinite;
+  }
+  .a-dots .dot:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .a-dots .dot:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .a-arm {
+    --r: -14deg;
+    animation: fig-sway 0.7s ease-in-out infinite alternate;
+  }
+  .a-type {
+    --r: 7deg;
+    animation: fig-sway 0.22s ease-in-out infinite alternate;
+  }
+  /* the other hand, mirrored and out of step */
+  .a-type-r {
+    --r: -7deg;
+    animation: fig-sway 0.22s ease-in-out infinite alternate-reverse;
+  }
+  /* both forearms swing up and down together, so the hands stay clasped */
+  .a-shake {
+    --r: -10deg;
+    animation: fig-sway 0.25s ease-in-out infinite alternate;
+  }
+  .a-shake-r {
+    --r: 10deg;
+    animation: fig-sway 0.25s ease-in-out infinite alternate;
+  }
+  .a-point {
+    --r: -10deg;
+    animation: fig-sway 0.9s ease-in-out infinite alternate;
+  }
+  .a-lift {
+    animation: fig-place 1.8s cubic-bezier(0.5, 0, 0.3, 1) infinite;
+  }
+  .a-spark {
+    animation: fig-spark 1.8s ease-out infinite;
+  }
+  .a-slide {
+    animation: fig-slide 1.8s cubic-bezier(0.5, 0, 0.3, 1) infinite;
+  }
+  /* read, put it away, pull the next one out of the pile: see sift() in figures.ts */
+  .a-sift {
+    animation: fig-sift 2.8s ease-in-out infinite;
+  }
+  .a-sift-hold {
+    animation: fig-sift-hold 2.8s ease-in-out infinite;
+  }
+  .a-sift-show {
+    animation: fig-sift-show 2.8s step-end infinite;
+  }
+  .a-sift-away {
+    animation: fig-sift-away 2.8s ease-out infinite;
+  }
+  .a-sift-recede {
+    animation: fig-sift-recede 2.8s ease-out infinite;
+  }
+  /* the duck nods its head up */
+  .a-quack {
+    --r: -10deg;
+    animation: fig-sway 0.3s ease-in-out infinite alternate;
+  }
+  .a-press {
+    animation: fig-press 0.9s ease-in-out infinite;
+  }
+  .a-leg1 {
+    --r: 12deg;
+    animation: fig-sway 0.6s ease-in-out infinite alternate;
+  }
+  .a-leg2 {
+    --r: 12deg;
+    animation: fig-sway 0.6s ease-in-out infinite alternate-reverse;
+  }
+  .a-wave {
+    --r: 22deg;
+    animation: fig-sway 0.35s ease-in-out infinite alternate;
+  }
+  .a-sun {
+    animation: fig-spin 7s linear infinite;
+  }
+  .a-spin {
+    animation: fig-spin 2.4s linear infinite;
+  }
+  .a-toss {
+    animation-play-state: running;
+  }
+  .a-blink .dot {
+    animation: fig-blink 0.9s steps(1) infinite;
+  }
+  .a-blink .dot:nth-child(2n) {
+    animation-delay: 0.45s;
+  }
+  .a-steam {
+    animation: fig-rise 1.8s ease-in-out infinite;
+  }
+}
+@keyframes fig-sway {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(var(--r));
+  }
+}
+/* the finger backs off the power button and pushes it again */
+@keyframes fig-press {
+  0%,
+  35%,
+  100% {
+    transform: translateX(0);
+  }
+  65% {
+    transform: translateX(var(--dx, -1.5px));
+  }
+}
+@keyframes fig-hop {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-1.5px);
+  }
+}
+@keyframes fig-place {
+  0%,
+  15% {
+    transform: rotate(0);
+  }
+  50%,
+  65% {
+    transform: rotate(19deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+@keyframes fig-slide {
+  0%,
+  15% {
+    transform: translateX(0);
+  }
+  50%,
+  65% {
+    transform: translateX(var(--dx));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes fig-spark {
+  0%,
+  45% {
+    opacity: 0;
+  }
+  55% {
+    opacity: 1;
+  }
+  80%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fig-rise {
+  0% {
+    transform: translateY(2px);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-5px);
+    opacity: 0;
+  }
+}
+/*
+ * The arm turns about the shoulder and the sheet back about the hand. Both share keyframe
+ * stops and easings, so the sheet's own tilt is exactly the difference: none while
+ * reading, -30deg at the flick (34%), where the flying copy takes over from that pose.
+ */
+/*
+ * The arm turns about the shoulder and the sheet back about the hand. Both share keyframe
+ * stops and easings, so the sheet stays upright throughout. At 36% the hand lets go and
+ * the copy in .a-sift-away takes over from that pose.
+ */
+@keyframes fig-sift {
+  0%,
+  26% {
+    transform: rotate(0);
+  }
+  36% {
+    transform: rotate(-12deg);
+  }
+  58% {
+    transform: rotate(72deg);
+  }
+  62% {
+    transform: rotate(76deg);
+  }
+  66% {
+    transform: rotate(72deg);
+  }
+  86%,
+  100% {
+    transform: rotate(0);
+  }
+}
+@keyframes fig-sift-hold {
+  0%,
+  26% {
+    transform: rotate(0);
+  }
+  36% {
+    transform: rotate(12deg);
+  }
+  58% {
+    transform: rotate(-72deg);
+  }
+  62% {
+    transform: rotate(-76deg);
+  }
+  66% {
+    transform: rotate(-72deg);
+  }
+  86%,
+  100% {
+    transform: rotate(0);
+  }
+}
+/* gone from the letting go until the hand is back in the pile */
+@keyframes fig-sift-show {
+  36% {
+    opacity: 0;
+  }
+  58% {
+    opacity: 1;
+  }
+}
+/* the sheet let go of drifts back, shrinks and fades into the background */
+@keyframes fig-sift-away {
+  0%,
+  35.99% {
+    opacity: 0;
+    transform: translate(calc(var(--k) * -9.2px), calc(var(--k) * -9px));
+  }
+  36% {
+    opacity: 1;
+    transform: translate(calc(var(--k) * -9.2px), calc(var(--k) * -9px));
+  }
+  54%,
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--k) * -20px), calc(var(--k) * -16px));
+  }
+}
+@keyframes fig-sift-recede {
+  0%,
+  36% {
+    transform: scale(1);
+  }
+  54%,
+  100% {
+    transform: scale(0.6);
+  }
+}
+@keyframes fig-blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+/* the first eighth of the loop is the quick pass between the hands, 34.88% of the oval;
+   the throw over the top slows near the apex */
+@keyframes fig-toss {
+  0% {
+    offset-distance: 0%;
+  }
+  12.5% {
+    offset-distance: 34.88%;
+    animation-timing-function: cubic-bezier(0.3, 0.4, 0.7, 0.6);
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
+@keyframes fig-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ink * {
+    animation: none !important;
+  }
+}

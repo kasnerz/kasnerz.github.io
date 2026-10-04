@@ -1,0 +1,30 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { Icon } from "astro-icon/components";
+
+type Props = {
+  disabled?: boolean;
+  icon?: string;
+} & HTMLAttributes<"a">;
+
+const { disabled, icon, class: className, ...attrs } = Astro.props;
+
+const Button = disabled ? "span" : "a";
+---
+
+<Button
+  aria-disabled={disabled}
+  class:list={[
+    "group inline-flex items-baseline gap-1 underline decoration-dashed underline-offset-6",
+    { "hover:text-accent": !disabled },
+    className,
+  ]}
+  {...attrs}
+>
+  {
+    icon && (
+      <Icon name={icon} class="inline-block h-[1em] w-[1em] translate-y-1" />
+    )
+  }
+  <slot />
+</Button>

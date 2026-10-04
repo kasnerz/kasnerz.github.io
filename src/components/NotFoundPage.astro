@@ -1,0 +1,25 @@
+---
+import SubpageLayout from "@/layouts/SubpageLayout.astro";
+import LinkButton from "@/components/LinkButton.astro";
+import type { Lang } from "@/data/nav";
+import { useTranslations } from "@/i18n/utils";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<SubpageLayout lang={lang} title="404" subtitle={t("404.title")}>
+  <div class="flex flex-col items-center py-10 text-center">
+    <span aria-hidden="true" class="text-2xl">¯\_(ツ)_/¯</span>
+    <LinkButton
+      href={lang === "cs" ? "/cs/" : "/"}
+      class="my-6 text-lg underline decoration-dashed underline-offset-8"
+    >
+      {t("404.button")}
+    </LinkButton>
+  </div>
+</SubpageLayout>

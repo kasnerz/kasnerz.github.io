@@ -1,0 +1,99 @@
+@import "tailwindcss";
+@import "./typography.css";
+@import "./figures.css";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/*
+ * The brand green fills every page in both themes; light/dark only changes
+ * the content card (background/foreground and friends below).
+ */
+:root,
+html[data-theme="light"] {
+  --brand: #00665c;
+  --mint: #d1e4d9;
+  --background: #fcfcfc;
+  --foreground: #282728;
+  --accent: #00665c;
+  --accent-text: #00665c;
+  --muted: #e6e6e6;
+  --border: #d9dedb;
+  --text-muted: #6b7280;
+  /* top bar padding, shared by the front page and the subpages so the tools on the
+     right (contact, CV, language) stay put when you move between them */
+  --bar-pad-y: 0.7rem;
+  --bar-pad-x: clamp(1rem, 3vw, 2.5rem);
+}
+
+/* dark: the card takes the page green, so content flows straight out of the header;
+   accents and rules switch to mint tints to stay visible on it */
+html[data-theme="dark"] {
+  --background: var(--brand);
+  --foreground: #f3f7f5;
+  --accent: var(--mint);
+  --accent-text: var(--mint);
+  --muted: color-mix(in oklab, var(--brand), var(--mint) 18%);
+  --border: color-mix(in oklab, var(--brand), var(--mint) 30%);
+  --text-muted: color-mix(in oklab, var(--brand), var(--mint) 72%);
+}
+
+@theme inline {
+  --font-app: var(--font-fira-sans), "Fira Sans", sans-serif;
+  --font-head:
+    var(--font-signika-negative), "Signika Negative", var(--font-app);
+  --color-brand: var(--brand);
+  --color-mint: var(--mint);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --text-color-accent: var(--accent-text);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-text-muted: var(--text-muted);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    scrollbar-width: auto;
+    scrollbar-color: var(--color-muted) transparent;
+  }
+
+  html {
+    @apply overflow-y-scroll scroll-smooth;
+  }
+
+  /* a soft lift at the top that fades out over the header, the same on every page */
+  body {
+    @apply flex min-h-svh flex-col bg-brand font-app text-white selection:bg-mint selection:text-brand;
+    background-image: linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--brand), var(--mint) 16%) 0,
+      color-mix(in oklab, var(--brand), var(--mint) 6%) 220px,
+      var(--brand) 520px
+    );
+    background-repeat: no-repeat;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-head);
+  }
+
+  a,
+  button {
+    @apply outline-offset-2 outline-current focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+/* Source: https://piccalil.li/blog/a-more-modern-css-reset/ */
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 1rem;
+}

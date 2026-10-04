@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="cs">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hero underlay previews</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,600;1,400&family=Fira+Mono:wght@500&family=Signika+Negative:wght@500;600;700&display=swap" />
+  <style>
+    /*
+       * Preview of a dim underlay graphic centred on the top-left corner of the "Z"
+       * in the hero name. Mirrors the real front page (HomePage.astro) at desktop width.
+       * Keys: 1–4 switch designs, A toggles the anchor marker.
+       */
+    :root {
+      --brand: #00665c;
+      --mint: #d1e4d9;
+      --font-head: "Signika Negative", "Fira Sans", sans-serif;
+      --font-app: "Fira Sans", sans-serif;
+      --ul-op: 0.16;
+      --ul-size: 480px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    body {
+      display: flex;
+      min-height: 100svh;
+      flex-direction: column;
+      background-color: var(--brand);
+      background-image: linear-gradient(180deg,
+          color-mix(in oklab, var(--brand), var(--mint) 16%) 0,
+          color-mix(in oklab, var(--brand), var(--mint) 6%) 220px,
+          var(--brand) 520px);
+      background-repeat: no-repeat;
+      font-family: var(--font-app);
+      color: #fff;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ---------- copy of the front page ---------- */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem clamp(1rem, 4vw, 3.5rem);
+    }
+
+    .topbar img {
+      width: 52px;
+      height: 52px;
+    }
+
+    .lang {
+      display: inline-flex;
+      padding: 3px;
+      border-radius: 10px;
+      background: rgb(0 60 54 / 0.28);
+      font: 600 0.95rem/1 var(--font-head);
+    }
+
+    .lang span {
+      padding: 0.35rem 0.55rem;
+      border-radius: 7px;
+      color: var(--mint);
+      opacity: 0.75;
+    }
+
+    .lang .on {
+      background: var(--mint);
+      color: var(--brand);
+      opacity: 1;
+    }
+
+    .home {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-bottom: calc(52px + 2.5rem);
+      --home-w: min(1190px, calc(60vw + 350px));
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 2rem 4rem;
+      width: 100%;
+      max-width: var(--home-w);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .hero-text {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .hero h1 {
+      position: relative;
+      margin: 0;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: clamp(2.4rem, 4.6vw, 3.75rem);
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+
+    .lead {
+      margin: 0.5rem 0 0;
+      font-style: italic;
+      font-size: clamp(1.15rem, 2vw, 1.5rem);
+      opacity: 0.9;
+      text-wrap: balance;
+    }
+
+    .cta {
+      display: inline-block;
+      margin-top: 1.4rem;
+      padding: 0.6rem 1.25rem;
+      border-radius: 10px;
+      background: rgb(0 60 54 / 0.28);
+      font: 600 1.15rem var(--font-head);
+    }
+
+    .portrait {
+      display: block;
+      width: clamp(150px, 16vw, 210px);
+      height: auto;
+      aspect-ratio: 1;
+    }
+
+    .help-box {
+      width: calc(100% - 3rem);
+      max-width: calc(var(--home-w) - 3rem);
+      min-height: 230px;
+      margin: 4.5rem auto 0;
+      padding: 1.6rem clamp(1rem, 2.5vw, 2.25rem) 2.25rem;
+      border-radius: 18px;
+      background: rgb(0 60 54 / 0.28);
+    }
+
+    .help-title {
+      margin: 0 0 1.5rem;
+      font-weight: 600;
+      font-size: clamp(0.85rem, 1.1vw, 0.95rem);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--mint);
+    }
+
+    .help-labels {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      padding-top: 70px;
+      text-align: center;
+      font: 500 clamp(1.2rem, 1.9vw, 1.65rem) var(--font-head);
+      color: var(--mint);
+    }
+
+    /* ---------- the underlay ---------- */
+    .underlay {
+      position: absolute;
+      z-index: -1;
+      width: var(--ul-size);
+      height: var(--ul-size);
+      color: var(--mint);
+      opacity: var(--ul-op);
+      pointer-events: none;
+      /* left/top set from the measured Z corner minus half the size */
+    }
+
+    .underlay .ink {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .underlay .fill {
+      fill: currentColor;
+      stroke: none;
+    }
+
+    .underlay .hair {
+      stroke-width: 0.7;
+    }
+
+    .underlay .strong {
+      stroke-width: 2.2;
+    }
+
+    .underlay text {
+      fill: currentColor;
+      stroke: none;
+      font: 500 11px "Fira Mono", ui-monospace, monospace;
+    }
+
+    .anchor {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      margin: -9px 0 0 -9px;
+      pointer-events: none;
+      display: none;
+    }
+
+    body.show-anchor .anchor {
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      .underlay {
+        display: none;
+      }
+    }
+
+    /* ---------- preview controls (not part of the design) ---------- */
+    .controls {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 10;
+      display: grid;
+      gap: 0.6rem;
+      width: 300px;
+      padding: 0.9rem 1rem;
+      border-radius: 12px;
+      background: #fdfdfd;
+      color: #282728;
+      box-shadow: 0 6px 24px rgb(0 0 0 / 0.25);
+      font-size: 0.85rem;
+    }
+
+    .controls h2 {
+      margin: 0;
+      font: 600 0.95rem var(--font-head);
+    }
+
+    .variants {
+      display: grid;
+      gap: 4px;
+    }
+
+    .variants button {
+      padding: 0.45rem 0.6rem;
+      border: 1px solid #d9dedb;
+      border-radius: 8px;
+      background: #fff;
+      text-align: left;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .variants button[aria-pressed="true"] {
+      border-color: var(--brand);
+      background: #e6f0eb;
+    }
+
+    .variants b {
+      display: block;
+      font-family: var(--font-head);
+      font-size: 0.95rem;
+    }
+
+    .variants small {
+      color: #5c6660;
+    }
+
+    .controls label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .controls input[type="range"] {
+      flex: 1;
+      accent-color: var(--brand);
+    }
+
+    .row {
+      display: flex;
+      gap: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <img src="logo-white.png" alt="" width="52" height="52" />
+    <div class="lang"><span id="lang-en">EN</span><span id="lang-cs" class="on">CS</span></div>
+  </div>
+
+  <main class="home">
+    <header class="hero">
+      <div class="hero-text">
+        <h1 id="name">
+          <svg class="underlay" id="underlay" viewBox="0 0 600 600" aria-hidden="true"></svg>
+          <svg class="anchor" id="anchor" viewBox="0 0 18 18" aria-hidden="true">
+            <path d="M9 0V18M0 9H18" stroke="#ff4d6d" stroke-width="1.5" />
+          </svg>
+          Zdeněk Kasner
+        </h1>
+        <p class="lead" id="lead">S AI jde pracovat i minimalisticky</p>
+        <a class="cta" href="#" id="cta">Kontaktujme se <span aria-hidden="true">→</span></a>
+      </div>
+      <img class="portrait" src="../public/profile-transparent.png" alt="" width="210" height="210" />
+    </header>
+
+    <section class="help-box">
+      <h2 class="help-title" id="help-title">Mohu vám pomoct jako:</h2>
+      <div class="help-labels" id="help-labels">
+        <span>Konzultant</span><span>Lektor</span><span>Vývojář</span><span>Výzkumník</span><span>Blogger</span><span>Člověk</span>
+      </div>
+    </section>
+  </main>
+
+  <aside class="controls" aria-label="Preview controls">
+    <h2>Underlay behind the name</h2>
+    <div class="variants" id="variants">
+      <button data-v="blueprint">
+        <b>1 · Technický výkres</b>
+        <small>“technickou stránkou”: compass circles, protractor ticks and centre lines, as if the name were set on a
+          drawing board</small>
+      </button>
+      <button data-v="network">
+        <b>2 · Neuronová síť</b>
+        <small>“AI”: layered network fanning out from the Z, one signal path traced through it</small>
+      </button>
+      <button data-v="people">
+        <b>3 · Spoje k lidem</b>
+        <small>“pomáhám lidem”: circuit traces run out from the Z and end in the hands of little stickmen</small>
+      </button>
+      <button data-v="lamp">
+        <b>4 · Lampička</b>
+        <small>a wiggly cartoon desk lamp bends over from the left and puts the Z in the spotlight</small>
+      </button>
+    </div>
+    <label>Dimness <input type="range" id="op" min="0.06" max="0.4" step="0.01" value="0.16" /><output
+        id="op-out">0.16</output></label>
+    <label>Size <input type="range" id="size" min="320" max="680" step="20" value="480" /><output
+        id="size-out">480</output></label>
+    <div class="row">
+      <label><input type="checkbox" id="show-anchor" /> anchor</label>
+      <label><input type="checkbox" id="en" /> English copy</label>
+    </div>
+  </aside>
+
+  <script>
+    const C = 300; // centre of the 600×600 underlay = the Z corner
+    const f = (v) => +v.toFixed(1);
+    const pol = (r, deg) => {
+      const a = (deg * Math.PI) / 180;
+      return [f(C + r * Math.cos(a)), f(C + r * Math.sin(a))];
+    };
+    function rng(seed) {
+      return () => {
+        seed |= 0;
+        seed = (seed + 0x6d2b79f5) | 0;
+        let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+    // every design fades out towards its edge, so it never ends in a hard line
+    const fade = (id, inner = 0.35) => `
+        <defs>
+          <radialGradient id="${id}-g" cx="${C}" cy="${C}" r="${C}" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#fff"/>
+            <stop offset="${inner}" stop-color="#fff"/>
+            <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+          </radialGradient>
+          <mask id="${id}-m" maskUnits="userSpaceOnUse" x="0" y="0" width="600" height="600">
+            <rect width="600" height="600" fill="url(#${id}-g)"/>
+          </mask>
+        </defs>`;
+
+    /* 1 — technical drawing */
+    function blueprint() {
+      let grid = "";
+      for (let v = 0; v <= 600; v += 30) grid += `M${v} 0V600M0 ${v}H600`;
+      let ticks = "";
+      for (let d = 0; d < 360; d += 5) {
+        const len = d % 45 === 0 ? 16 : d % 15 === 0 ? 10 : 5;
+        const [x1, y1] = pol(140, d);
+        const [x2, y2] = pol(140 + len, d);
+        ticks += `M${x1} ${y1}L${x2} ${y2}`;
+      }
+      const [rx, ry] = pol(250, -32);
+      const [ax1, ay1] = pol(56, 0);
+      const [ax2, ay2] = pol(56, -32);
+      const [dx, dy] = pol(210, 135);
+      const arrow = (x, y, deg) => {
+        const [p1x, p1y] = [x + 9 * Math.cos(((deg + 155) * Math.PI) / 180), y + 9 * Math.sin(((deg + 155) * Math.PI) / 180)];
+        const [p2x, p2y] = [x + 9 * Math.cos(((deg - 155) * Math.PI) / 180), y + 9 * Math.sin(((deg - 155) * Math.PI) / 180)];
+        return `M${f(p1x)} ${f(p1y)}L${x} ${y}L${f(p2x)} ${f(p2y)}`;
+      };
+      return `${fade("bp", 0.3)}
+          <g class="ink" mask="url(#bp-m)">
+            <path class="hair" d="${grid}" opacity="0.55"/>
+            <path d="M10 ${C}H590M${C} 10V590" stroke-dasharray="22 7 3 7"/>
+            <circle cx="${C}" cy="${C}" r="70"/>
+            <circle cx="${C}" cy="${C}" r="140"/>
+            <circle cx="${C}" cy="${C}" r="210" stroke-dasharray="5 7"/>
+            <circle cx="${C}" cy="${C}" r="275" class="hair" stroke-dasharray="2 9"/>
+            <path class="hair" d="${ticks}"/>
+            <path d="M${C} ${C}L${rx} ${ry}"/>
+            <path class="hair" d="M${ax1} ${ay1}A56 56 0 0 0 ${ax2} ${ay2}"/>
+            <text x="${C + 64}" y="${C - 14}">32°</text>
+            <path d="M${C} ${C}L${dx} ${dy}${arrow(dx, dy, 135)}"/>
+            <text x="${dx + 10}" y="${dy - 18}" transform="rotate(-45 ${dx + 10} ${dy - 18})">R 210</text>
+            <circle class="fill" cx="${C}" cy="${C}" r="3.5"/>
+          </g>`;
+    }
+
+    /* 2 — neural network */
+    function network() {
+      const rand = rng(7);
+      const rings = [
+        { r: 0, n: 1 },
+        { r: 72, n: 7 },
+        { r: 145, n: 12 },
+        { r: 218, n: 17 },
+        { r: 285, n: 23 },
+      ];
+      const layers = rings.map(({ r, n }, k) => {
+        const off = rand() * 360;
+        return Array.from({ length: n }, (_, i) => {
+          const deg = off + (i * 360) / n + (rand() - 0.5) * (200 / n);
+          const rr = r === 0 ? 0 : r + (rand() - 0.5) * 22;
+          const [x, y] = pol(rr, deg);
+          return { x, y, k };
+        });
+      });
+      let edges = "";
+      const links = [];
+      for (let k = 1; k < layers.length; k++) {
+        for (const node of layers[k]) {
+          const near = [...layers[k - 1]]
+            .sort((a, b) => Math.hypot(a.x - node.x, a.y - node.y) - Math.hypot(b.x - node.x, b.y - node.y))
+            .slice(0, k === 1 ? 1 : 2);
+          for (const p of near) {
+            edges += `M${p.x} ${p.y}L${node.x} ${node.y}`;
+            links.push([p, node]);
+          }
+        }
+      }
+      // one signal path from the rim to the centre, drawn heavier
+      let cur = layers[4][Math.floor(layers[4].length * 0.13)];
+      let path = `M${cur.x} ${cur.y}`;
+      for (let k = 3; k >= 0; k--) {
+        const next = links.filter(([p, n]) => n === cur).map(([p]) => p)[0];
+        path += `L${next.x} ${next.y}`;
+        cur = next;
+      }
+      const nodes = layers
+        .flat()
+        .map(({ x, y, k }) => {
+          const r = [5, 4, 3.4, 3, 2.6][k];
+          return k % 2 === 0 && k > 0
+            ? `<circle cx="${x}" cy="${y}" r="${r}"/>`
+            : `<circle class="fill" cx="${x}" cy="${y}" r="${r}"/>`;
+        })
+        .join("");
+      return `${fade("nn", 0.4)}
+          <g class="ink" mask="url(#nn-m)">
+            <path class="hair" d="${edges}"/>
+            <path class="strong" d="${path}"/>
+            ${nodes}
+          </g>`;
+    }
+
+    /* 3 — circuit traces that end with people */
+    function people() {
+      // [start angle, side offset, first run, bend (±45°), second run, ends with a person?]
+      const traces = [
+        [0, -7, 70, -45, 60, true],
+        [-45, 0, 80, 45, 90, false],
+        [-90, -8, 60, -45, 70, false],
+        [-90, 8, 95, 45, 50, true],
+        [-135, 0, 70, -45, 85, false],
+        [180, -7, 90, -45, 40, false],
+        [180, 7, 55, 45, 95, true],
+        [135, 0, 85, 45, 60, false],
+        [90, -8, 110, 45, 35, false],
+        [90, 8, 60, 45, 70, true],
+        [45, -6, 60, 45, 70, false],
+        [45, 8, 95, 45, 55, true],
+      ];
+      let lines = "";
+      let ends = "";
+      for (const [deg, off, l1, bend, l2, person] of traces) {
+        const a = (deg * Math.PI) / 180;
+        const nx = -Math.sin(a) * off;
+        const ny = Math.cos(a) * off;
+        const sx = C + 26 * Math.cos(a) + nx;
+        const sy = C + 26 * Math.sin(a) + ny;
+        const bx = sx + l1 * Math.cos(a);
+        const by = sy + l1 * Math.sin(a);
+        const b = ((deg + bend) * Math.PI) / 180;
+        const ex = bx + l2 * Math.cos(b);
+        const ey = by + l2 * Math.sin(b);
+        lines += `M${f(sx)} ${f(sy)}L${f(bx)} ${f(by)}L${f(ex)} ${f(ey)}`;
+        ends += `<circle class="fill" cx="${f(sx)}" cy="${f(sy)}" r="2.2"/>`;
+        if (person) {
+          // the trace ends in the figure's hand; the figure stands beyond it
+          const s = Math.cos(b) < -0.1 ? -1 : 1;
+          const hx = ex, hy = ey;
+          const shx = hx + s * 10, shy = hy + 6;
+          ends += `
+              <circle class="fill" cx="${f(shx)}" cy="${f(shy - 9)}" r="5"/>
+              <path class="strong" d="M${f(hx)} ${f(hy)}L${f(shx)} ${f(shy)}M${f(shx)} ${f(shy - 4)}V${f(shy + 13)}M${f(shx)} ${f(shy + 13)}L${f(shx - 5)} ${f(shy + 27)}M${f(shx)} ${f(shy + 13)}L${f(shx + 5)} ${f(shy + 27)}M${f(shx)} ${f(shy + 1)}L${f(shx + s * 6)} ${f(shy + 10)}"/>`;
+        } else {
+          ends += `<circle cx="${f(ex)}" cy="${f(ey)}" r="4.5"/>`;
+        }
+      }
+      return `${fade("pc", 0.5)}
+          <g class="ink" mask="url(#pc-m)">
+            <circle cx="${C}" cy="${C}" r="17"/>
+            <circle class="hair" cx="${C}" cy="${C}" r="26" stroke-dasharray="3 5"/>
+            <path d="${lines}"/>
+            ${ends}
+          </g>`;
+    }
+
+    /* 4 — cartoon desk lamp shining on the Z */
+    function lamp() {
+      // wobbly gooseneck from the base up, over the top and down to the head
+      const neck = "M200 508C196 460 150 440 140 390C130 340 175 300 168 255C161 210 128 190 132 140C136 90 165 62 192 72C214 80 210 120 205 162";
+      const [hx, hy] = [205, 170]; // head pivot
+      const rot = f((Math.atan2(C - hy, C - hx) * 180) / Math.PI - 90);
+      // head is drawn pointing down (+y); the rotation aims it at the Z corner
+      const ray = (deg, r1, r2, cx = 0, cy = 60) => {
+        const a = (deg * Math.PI) / 180;
+        return `M${f(cx + r1 * Math.cos(a))} ${f(cy + r1 * Math.sin(a))}L${f(cx + r2 * Math.cos(a))} ${f(cy + r2 * Math.sin(a))}`;
+      };
+      return `
+          <defs>
+            <mask id="lp-tube" maskUnits="userSpaceOnUse" x="0" y="0" width="600" height="600">
+              <rect width="600" height="600" fill="#fff"/>
+              <path d="${neck}" fill="none" stroke="#000" stroke-width="10" stroke-linecap="round"/>
+            </mask>
+          </defs>
+          <g class="ink" style="stroke-width:3.6">
+           <g transform="translate(${C} ${C}) scale(0.62) translate(${-C} ${-C})">
+            <path d="M146 549C120 553 115 578 88 574C62 570 66 540 86 546C104 552 84 590 26 588" style="stroke-width:2.8"/>
+            <path d="M143 553C145 528 170 515 200 514C230 515 255 528 257 553Q200 561 143 553Z"/>
+            <path d="M226 527q6 -3 10 2" style="stroke-width:5"/>
+            <rect x="192" y="503" width="16" height="13" rx="3"/>
+            <path d="${neck}" stroke-width="16" mask="url(#lp-tube)"/>
+            <path d="M112 352q-9 14 -4 30M99 346q-11 20 -5 42" style="stroke-width:2.4"/>
+            <g transform="translate(${hx} ${hy}) rotate(${rot})">
+              <path d="M-11 0C-15 20 -26 38 -36 52A36 7 0 0 0 36 52C26 38 15 20 11 0Q0 -4 -11 0Z"/>
+              <ellipse cx="0" cy="52" rx="36" ry="7"/>
+              <path class="fill" d="M-11 55A12 12 0 1 0 11 55Z"/>
+              <path d="${ray(8, 20, 31)}${ray(172, 20, 31)}${ray(32, 22, 36)}${ray(148, 22, 36)}" style="stroke-width:3"/>
+              <circle cx="0" cy="-5" r="6" style="stroke-width:3"/>
+              <path d="M-6 26q6 -2 12 0" style="stroke-width:2"/>
+            </g>
+           </g>
+          </g>`;
+    }
+
+    const designs = { blueprint, network, people, lamp };
+    const svg = document.getElementById("underlay");
+    const anchor = document.getElementById("anchor");
+    const h1 = document.getElementById("name");
+
+    // put the underlay's centre on the top-left corner of the "Z" glyph
+    function place() {
+      const cs = getComputedStyle(h1);
+      const fs = parseFloat(cs.fontSize);
+      const ctx = document.createElement("canvas").getContext("2d");
+      ctx.font = `${cs.fontWeight} ${fs}px ${cs.fontFamily}`;
+      const m = ctx.measureText("Z");
+      const lineH = parseFloat(cs.lineHeight) || fs;
+      const baseline = (lineH - (m.fontBoundingBoxAscent + m.fontBoundingBoxDescent)) / 2 + m.fontBoundingBoxAscent;
+      const x = -m.actualBoundingBoxLeft;
+      const y = baseline - m.actualBoundingBoxAscent;
+      const half = svg.getBoundingClientRect().width / 2;
+      svg.style.left = `${x - half}px`;
+      svg.style.top = `${y - half}px`;
+      anchor.style.left = `${x}px`;
+      anchor.style.top = `${y}px`;
+    }
+
+    function show(v) {
+      svg.innerHTML = designs[v]();
+      for (const b of document.querySelectorAll("#variants button")) b.setAttribute("aria-pressed", b.dataset.v === v);
+      try { localStorage.setItem("ul-variant", v); } catch { }
+    }
+
+    document.getElementById("variants").addEventListener("click", (e) => {
+      const b = e.target.closest("button");
+      if (b) show(b.dataset.v);
+    });
+    const op = document.getElementById("op");
+    op.addEventListener("input", () => {
+      document.documentElement.style.setProperty("--ul-op", op.value);
+      document.getElementById("op-out").textContent = op.value;
+    });
+    const size = document.getElementById("size");
+    size.addEventListener("input", () => {
+      document.documentElement.style.setProperty("--ul-size", size.value + "px");
+      document.getElementById("size-out").textContent = size.value;
+      place();
+    });
+    document.getElementById("show-anchor").addEventListener("change", (e) => document.body.classList.toggle("show-anchor", e.target.checked));
+    const copy = {
+      cs: { lead: "Pomáhám lidem s technickou stránkou AI", cta: "Kontaktujme se", title: "Mohu vám pomoct jako:", labels: ["Konzultant", "Lektor", "Vývojář", "Výzkumník", "Blogger", "Člověk"] },
+      en: { lead: "I help people with the technical side of AI", cta: "Get in touch", title: "I can help you as a:", labels: ["Consultant", "Lecturer", "Developer", "Researcher", "Blogger", "Human"] },
+    };
+    document.getElementById("en").addEventListener("change", (e) => {
+      const c = copy[e.target.checked ? "en" : "cs"];
+      document.getElementById("lead").textContent = c.lead;
+      document.getElementById("cta").firstChild.textContent = c.cta + " ";
+      document.getElementById("help-title").textContent = c.title;
+      document.getElementById("help-labels").innerHTML = c.labels.map((l) => `<span>${l}</span>`).join("");
+      document.getElementById("lang-en").classList.toggle("on", e.target.checked);
+      document.getElementById("lang-cs").classList.toggle("on", !e.target.checked);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.target.matches("input")) return;
+      const v = { 1: "blueprint", 2: "network", 3: "people", 4: "lamp" }[e.key];
+      if (v) show(v);
+      if (e.key === "a") {
+        const cb = document.getElementById("show-anchor");
+        cb.checked = !cb.checked;
+        cb.dispatchEvent(new Event("change"));
+      }
+    });
+
+    let start = "blueprint";
+    try { start = localStorage.getItem("ul-variant") || start; } catch { }
+    const q = new URLSearchParams(location.search);
+    if (q.get("v")) start = q.get("v");
+    if (q.get("op")) { op.value = q.get("op"); op.dispatchEvent(new Event("input")); }
+    if (q.has("anchor")) { document.getElementById("show-anchor").checked = true; document.body.classList.add("show-anchor"); }
+    if (q.has("nocontrols")) document.querySelector(".controls").remove();
+    show(designs[start] ? start : "blueprint");
+    place();
+    document.fonts.ready.then(place);
+    addEventListener("resize", place);
+  </script>
+</body>
+
+</html>

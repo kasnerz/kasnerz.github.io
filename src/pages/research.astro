@@ -1,0 +1,28 @@
+---
+import ResearchPage from "../components/ResearchPage.astro";
+import LinkButton from "@/components/LinkButton.astro";
+---
+
+<ResearchPage lang="en">
+  <p class="mb-2">
+    As a PhD student and postdoc at Charles University, I worked on research
+    projects related to:
+  </p>
+  <ul class="mb-4 list-disc pl-6">
+    <li>generating text from structured data,</li>
+    <li>evaluating generated text,</li>
+    <li>LLM agents and reasoning,</li>
+    <li>training open language models,</li>
+    <li>autonomous web navigation.</li>
+  </ul>
+  <p class="mb-4">
+    I am <b>no longer actively involved</b> in research.
+  </p>
+  <p class="mb-4">
+    You can find all my publications on <LinkButton
+      icon="tabler:school"
+      href="https://scholar.google.cz/citations?user=6NnuRB8AAAAJ&hl=cs"
+      >Google Scholar</LinkButton
+    > (<i>h-index: 11</i>). Here are some of them:
+  </p>
+</ResearchPage>

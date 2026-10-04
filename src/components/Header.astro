@@ -1,0 +1,361 @@
+---
+import { Icon } from "astro-icon/components";
+import Figure from "./Figure.astro";
+import SceneNav from "./SceneNav.astro";
+import SiteTools from "./SiteTools.astro";
+import { NAV, getNavItem, navHref, type Lang, type PageId } from "@/data/nav";
+import { useTranslations } from "@/i18n/utils";
+
+interface Props {
+  lang: Lang;
+  current?: PageId;
+}
+
+const { lang, current } = Astro.props;
+const t = useTranslations(lang);
+const homeHref = lang === "cs" ? "/cs/" : "/";
+const currentItem = current ? getNavItem(current) : undefined;
+const contactHref = lang === "cs" ? "/cs/contact" : "/contact";
+const onContact = Astro.url.pathname.replace(/\/$/, "") === contactHref;
+---
+
+<header class="site-header">
+  <!-- desktop: breadcrumb on the left, the figures and tools on the right -->
+  <div class="subhead">
+    <a class="crumb" href={homeHref}>
+      <img
+        src="/logo-white.png"
+        alt=""
+        width="34"
+        height="34"
+        class="crumb-logo"
+      />
+      <span class="crumb-name">Zdeněk Kasner</span>
+    </a>
+    {
+      currentItem && (
+        <span class="crumb-here">
+          <span class="crumb-sep" aria-hidden="true">
+            ›
+          </span>
+          {currentItem.label[lang]}
+        </span>
+      )
+    }
+    <nav class="minis" aria-label={t("nav.main")}>
+      {
+        NAV.map(item => (
+          <a
+            class="mini"
+            href={navHref(item, lang)}
+            aria-current={item.id === current ? "page" : undefined}
+          >
+            <Figure id={item.id} size="prop" />
+            <span class="mini-label">
+              {item.label[lang]}
+              {item.href && (
+                <Icon
+                  name="tabler:arrow-up-right"
+                  class="ext"
+                  aria-hidden="true"
+                />
+              )}
+            </span>
+          </a>
+        ))
+      }
+    </nav>
+    <span class="tools-divider subhead-divider" aria-hidden="true"></span>
+    <SiteTools lang={lang} contact />
+  </div>
+
+  <!-- phone: name and the current page's figure, everything else behind the menu button -->
+  <div class="mhead">
+    <a class="mhead-home" href={homeHref}>
+      <img src="/logo-white.png" alt="" width="36" height="36" />
+      <span class="mhead-name">Zdeněk Kasner</span>
+    </a>
+    {
+      current && (
+        <span class="mhead-current">
+          <span class="crumb-sep" aria-hidden="true">
+            ›
+          </span>
+          <Figure id={current} size="prop" />
+        </span>
+      )
+    }
+    <button
+      type="button"
+      class="menu-open"
+      aria-label={t("menu.open")}
+      aria-expanded="false"
+      aria-controls="site-menu"
+    >
+      <Icon name="tabler:menu-2" />
+    </button>
+  </div>
+
+  <div
+    id="site-menu"
+    class="menu-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-label={t("menu.label")}
+    hidden
+  >
+    <div class="menu-top">
+      <a class="mhead-home" href={homeHref}>
+        <img src="/logo-white.png" alt="" width="36" height="36" />
+        <span class="mhead-name">Zdeněk Kasner</span>
+      </a>
+      <button type="button" class="menu-close" aria-label={t("menu.close")}>
+        <Icon name="tabler:x" />
+      </button>
+    </div>
+    <div class="menu-body">
+      <SceneNav lang={lang} current={current} class="menu-nav" />
+      <nav class="scene-nav menu-nav menu-extra" aria-label={t("nav.contact")}>
+        <a
+          class="scene"
+          href={contactHref}
+          aria-current={onContact ? "page" : undefined}
+        >
+          <Icon name="tabler:message" is:inline aria-hidden="true" />
+          <span class="scene-text">
+            <span class="scene-label">{t("nav.contact")}</span>
+          </span>
+        </a>
+        <a class="scene" href="/cv.pdf" data-astro-reload>
+          <Icon name="tabler:file-type-pdf" is:inline aria-hidden="true" />
+          <span class="scene-text">
+            <span class="scene-label">CV</span>
+          </span>
+        </a>
+      </nav>
+    </div>
+    <SiteTools lang={lang} class="menu-tools" />
+  </div>
+</header>
+
+<style>
+  .site-header {
+    color: #fff;
+  }
+
+  .subhead {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: var(--bar-pad-y) var(--bar-pad-x);
+  }
+  .crumb {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    white-space: nowrap;
+  }
+  .crumb-logo {
+    width: 34px;
+    height: 34px;
+  }
+  .crumb-name {
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 1.3rem;
+  }
+  .crumb-sep {
+    color: var(--mint);
+    opacity: 0.7;
+  }
+  .crumb-here {
+    display: flex;
+    gap: 0.65rem;
+    font-family: var(--font-head);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .minis {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.9rem;
+    margin-left: auto;
+  }
+  /* with the bar's gap, this matches the spacing around the divider inside SiteTools */
+  .subhead-divider {
+    margin: 0 0.6rem;
+  }
+
+  .mhead,
+  .menu-overlay {
+    display: none;
+  }
+
+  /* below ~1180px the full bar no longer fits and would push the tools off their spot
+     (and off the screen). Only the left part gives way: the current page is already
+     highlighted among the icons, so its breadcrumb goes, and the icons move closer */
+  @media (max-width: 1180px) {
+    .crumb-here {
+      display: none;
+    }
+    .minis {
+      gap: 0.2rem;
+    }
+    .minis :global(.mini) {
+      padding-inline: 0.45rem;
+    }
+  }
+  @media (max-width: 980px) {
+    .minis {
+      gap: 0;
+    }
+    .minis :global(.mini) {
+      padding-inline: 0.35rem;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .subhead {
+      display: none;
+    }
+    .mhead {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+    }
+    .mhead-home {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      min-width: 0;
+    }
+    .mhead-home img {
+      width: 36px;
+      height: 36px;
+    }
+    .mhead-name {
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: 1.15rem;
+      white-space: nowrap;
+    }
+    .mhead-current {
+      --sw: 1.7;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .mhead-current :global(svg) {
+      width: 24px;
+      height: 24px;
+      overflow: visible;
+    }
+    .menu-open {
+      margin-left: auto;
+    }
+    .menu-open,
+    .menu-close {
+      display: grid;
+      padding: 0.4rem;
+      color: #fff;
+      font-size: 1.6rem;
+    }
+
+    .menu-overlay:not([hidden]) {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      background: var(--brand);
+    }
+    /* same box as .mhead, so the name and the button don't move when the menu opens */
+    .menu-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+    }
+    /* two big columns instead of the front page's three, spread over the free height */
+    .menu-body {
+      --menu-gap: clamp(1.5rem, 5dvh, 3rem);
+      width: 100%;
+      max-width: 26rem;
+      margin: auto;
+      padding: 1.5rem 1rem;
+    }
+    .menu-overlay :global(.menu-nav) {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: var(--menu-gap);
+      column-gap: 1rem;
+    }
+    /* contact and CV: two more cells of the same grid, set apart by a rule */
+    .menu-extra {
+      margin-top: var(--menu-gap);
+      padding-top: var(--menu-gap);
+      border-top: 1px solid rgb(209 228 217 / 0.35);
+    }
+    /* stroke icons drawn on a 24 grid: this weight matches the figures' lines */
+    .menu-extra :global(svg :is(path, g)) {
+      stroke-width: 1.15;
+    }
+    .menu-overlay :global(.menu-nav .scene) {
+      --sw: 2.3;
+    }
+    .menu-overlay :global(.menu-nav .scene > svg) {
+      width: clamp(52px, 8.5dvh, 72px);
+      height: clamp(52px, 8.5dvh, 72px);
+    }
+    .menu-overlay :global(.menu-nav .scene-label) {
+      margin-top: 0.5rem;
+      font-size: 1.2rem;
+    }
+    .menu-overlay :global(.menu-tools) {
+      justify-content: center;
+      padding-bottom: 2rem;
+    }
+  }
+
+  /* not "menu-open": that is the open button's class, and the click handler's
+     closest(".menu-open") would match <html> and swallow clicks on the close button */
+  :global(html.menu-locked) {
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  // Delegated to the document, so the menu keeps working after client-side navigation
+  // swaps the header out.
+  function setMenuOpen(open: boolean) {
+    const menu = document.querySelector<HTMLElement>("#site-menu");
+    const openBtn = document.querySelector<HTMLButtonElement>(".menu-open");
+    const closeBtn = document.querySelector<HTMLButtonElement>(".menu-close");
+    if (!menu || !openBtn || !closeBtn || menu.hidden === !open) return;
+
+    menu.hidden = !open;
+    openBtn.setAttribute("aria-expanded", String(open));
+    document.documentElement.classList.toggle("menu-locked", open);
+    (open ? closeBtn : openBtn).focus();
+  }
+
+  document.addEventListener("click", e => {
+    const target = e.target as Element;
+    if (target.closest(".menu-open")) setMenuOpen(true);
+    else if (target.closest(".menu-close")) setMenuOpen(false);
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") setMenuOpen(false);
+  });
+  // Leaving the phone layout with the menu open must not keep the page locked.
+  window.matchMedia("(min-width: 901px)").addEventListener("change", e => {
+    if (e.matches) setMenuOpen(false);
+  });
+  // A page reached from the open menu starts with it closed and scrolling unlocked.
+  document.addEventListener("astro:after-swap", () => {
+    document.documentElement.classList.remove("menu-locked");
+  });
+</script>

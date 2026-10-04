@@ -1,0 +1,220 @@
+---
+import { ClientRouter } from "astro:transitions";
+import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
+import { SITE } from "@/config";
+import { SOCIALS } from "@/constants";
+import { Font } from "astro:assets";
+import FigureDefs from "@/components/FigureDefs.astro";
+import type { Lang } from "@/data/nav";
+import { useTranslations } from "@/i18n/utils";
+import "@/styles/global.css";
+
+type Props = {
+  title?: string;
+  description?: string;
+  lang?: Lang;
+};
+
+const { title = SITE.title, description, lang = SITE.lang } = Astro.props;
+const t = useTranslations(lang);
+const metaDescription = description ?? t("meta.description");
+const canonicalURL = new URL(Astro.url.pathname, Astro.url);
+// screenshots of the front page, made by scripts/og-image.mjs
+const socialImageURL = new URL(
+  lang === "cs" ? "/og-cs.png" : "/og.png",
+  Astro.url
+);
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: SITE.author,
+  url: SITE.website,
+  image: new URL("/profile-transparent.png", SITE.website).href,
+  sameAs: SOCIALS.map(social => social.href),
+};
+---
+
+<!doctype html>
+<html
+  dir={SITE.dir}
+  lang={lang}
+  data-theme={SITE.lightAndDarkMode ? undefined : "light"}
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- General Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={metaDescription} />
+    <meta name="author" content={SITE.author} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <!-- preload only what the first paint needs; other weights load on demand -->
+    <Font
+      cssVariable="--font-fira-sans"
+      preload={[{ weight: 400, style: "normal" }]}
+    />
+    <Font
+      cssVariable="--font-signika-negative"
+      preload={[{ weight: 500 }, { weight: 700 }]}
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={socialImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={lang === "cs" ? "cs_CZ" : "en_US"} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={metaDescription} />
+    <meta property="twitter:image" content={socialImageURL} />
+
+    <!-- Google JSON-LD Structured data -->
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(structuredData)}
+    />
+
+    <meta name="theme-color" content="#00665c" />
+
+    {
+      // If PUBLIC_GOOGLE_SITE_VERIFICATION is set in the environment variable,
+      // include google-site-verification tag in the heading
+      // Learn more: https://support.google.com/webmasters/answer/9008080#meta_tag_verification&zippy=%2Chtml-tag
+      PUBLIC_GOOGLE_SITE_VERIFICATION && (
+        <meta
+          name="google-site-verification"
+          content={PUBLIC_GOOGLE_SITE_VERIFICATION}
+        />
+      )
+    }
+
+    <!-- Client-side navigation: prefetches pages on hover and swaps them without a full reload -->
+    <ClientRouter />
+
+    <!-- Minimal inline script to prevent FOUC - sets theme immediately.
+         With SITE.lightAndDarkMode off it always picks light, ignoring saved and system preferences. -->
+    <script is:inline define:vars={{ allowDark: SITE.lightAndDarkMode }}>
+      (function () {
+        const initialColorScheme = allowDark ? "" : "light"; // "light" | "dark"
+        const currentTheme = allowDark ? localStorage.getItem("theme") : null;
+
+        function getPreferTheme() {
+          if (currentTheme) return currentTheme;
+          if (initialColorScheme) return initialColorScheme;
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+
+        const themeValue = getPreferTheme();
+
+        // Set theme immediately to prevent flash
+        document.firstElementChild?.setAttribute("data-theme", themeValue);
+
+        // Export minimal API for external script
+        window.theme = {
+          themeValue: themeValue,
+          getTheme: () => window.theme.themeValue,
+          setTheme: val => {
+            window.theme.themeValue = val;
+          },
+        };
+      })();
+    </script>
+    <script is:inline>
+      (function () {
+        const currentParams = window.location.pathname
+          .split("/")
+          .filter(Boolean);
+        const isEnglish =
+          currentParams.length === 0 || currentParams[0] !== "cs";
+        const userLang = navigator.language || navigator.userLanguage;
+        const isCzechBrowser = userLang?.toLowerCase().startsWith("cs");
+
+        // Check if user has a preference saved
+        const savedLang = localStorage.getItem("lang");
+
+        // Czech visitors land on the Czech version: on the first visit when the browser is
+        // set to Czech, later whenever they last switched to Czech. Czech pages never
+        // redirect to English, so a direct link to /cs always works.
+        const wantsCzech = savedLang ? savedLang === "cs" : isCzechBrowser;
+        if (wantsCzech && isEnglish) {
+          const newPath = "/cs" + window.location.pathname;
+          window.location.href = newPath.replace("//", "/");
+        }
+
+        // Save language on switch; delegated so it survives client-side navigation
+        document.addEventListener("click", event => {
+          const langSwitch = event.target.closest("a[data-lang-switch]");
+          if (langSwitch)
+            localStorage.setItem("lang", langSwitch.dataset.langSwitch);
+        });
+      })();
+    </script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css"
+      integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <FigureDefs />
+    <script>
+      // The client router rebuilds <head> on every navigation and only keeps stylesheet
+      // <link>s, so the inline @font-face styles from <Font> would be removed and re-added.
+      // The browser then treats them as new fonts and briefly paints fallback text.
+      // Marking them as persistent keeps the already-loaded fonts in place.
+      document.addEventListener("astro:before-swap", event => {
+        const mark = (doc: Document) =>
+          [...doc.head.querySelectorAll("style")]
+            .filter(style => style.textContent?.includes("@font-face"))
+            .forEach((style, i) =>
+              style.setAttribute(
+                "data-astro-transition-persist",
+                `font-face-${i}`
+              )
+            );
+        mark(document);
+        mark(event.newDocument);
+      });
+
+      // Only the first-paint weights are preloaded. Once the page is idle, fetch the rest
+      // (italics, bolds, Czech characters) so later pages never wait for a new font style.
+      const warmFonts = () => {
+        const css = getComputedStyle(document.documentElement);
+        const families = ["--font-fira-sans", "--font-signika-negative"].map(
+          v => css.getPropertyValue(v).trim()
+        );
+        const text = "Aa ěščřžýáíéúůň";
+        for (const family of families.filter(Boolean)) {
+          for (const weight of [400, 500, 600, 700]) {
+            document.fonts.load(`${weight} 1em ${family}`, text);
+            document.fonts.load(`italic ${weight} 1em ${family}`, text);
+          }
+        }
+      };
+      if ("requestIdleCallback" in window) requestIdleCallback(warmFonts);
+      else setTimeout(warmFonts, 1500);
+    </script>
+    <slot />
+
+    <!-- Load full theme logic -->
+    {SITE.lightAndDarkMode && <script src="../scripts/theme.ts" />}
+  </body>
+</html>

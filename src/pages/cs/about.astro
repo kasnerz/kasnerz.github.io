@@ -1,0 +1,214 @@
+---
+import { Icon } from "astro-icon/components";
+import AboutGallery from "@/components/AboutGallery.astro";
+import ContactCta from "@/components/ContactCta.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import { SPOTS } from "@/data/figures";
+import { personalProjects } from "@/data/projects";
+import { useTranslations } from "@/i18n/utils";
+
+import SubpageLayout from "@/layouts/SubpageLayout.astro";
+
+const t = useTranslations("cs");
+---
+
+<SubpageLayout lang="cs" page="about">
+  <section id="about" class="app-prose mb-8 max-w-none prose-img:border-0">
+    <div class="intro">
+      <svg
+        class="spot"
+        viewBox="0 0 200 160"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <g class="ink" set:html={SPOTS.juggle} />
+      </svg>
+      <div>
+        <h2 class="intro-title">Pár slov o mně</h2>
+        <p>
+          Můj zájem o technologie a AI je jen jeden z prostředků, jak <b
+            >lépe poznávat svět</b
+          >, ve kterém – doufám – budu mít tu čest existovat něco kolem 4 000
+          týdnů. To není příliš, a tak je pro mě často těžké rozhodnout, čemu
+          věnovat čas. Baví mě toho až moc: poznávat lidi, číst knihy, psát
+          texty, cestovat, trekovat, lézt na stěně, jezdit na kole, poslouchat
+          hudbu, hrát na hudební nástroje, učit se nové věci... A stejně nejde
+          stihnout všechno! Snažím se proto žít i mimo práci naplno – a občas si
+          prostě jen tak užívat, že žiju ve skvělé době a na skvělém místě.
+        </p>
+      </div>
+    </div>
+
+    <AboutGallery class="mt-5" />
+
+    <p>Pár dalších náhodných faktů:</p>
+
+    <ul class="facts list-none pl-5">
+      <li class="my-2 flex items-start gap-2">
+        <Icon
+          name="mdi:human-female-female-child"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+        />
+        <span>Jsem šťastně ženatý a otcem malého dítěte.</span>
+      </li>
+      <li class="my-2 flex items-start gap-2">
+        <Icon
+          name="mdi:tea-outline"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+        />
+        <span
+          >Mám rád kvalitní sypané čaje – obzvlášť pu-erhy, darjeelingy a žluté
+          čaje.
+        </span>
+      </li>
+      <li class="my-2 flex items-start gap-2">
+        <Icon
+          name="tabler:thumb-up"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+        />
+        <span
+          >Cestuju rád punkově: nočními vlaky a busy, stopováním, se spaním pod
+          širákem, ...
+        </span>
+      </li>
+      <li class="my-2 flex items-start gap-2">
+        <Icon
+          name="tabler:book"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+        />
+        <span
+          >Kromě řady vědeckých článků a blogpostů přečtu za rok i kolem 30
+          knížek.
+        </span>
+      </li>
+
+      <li class="my-2 flex items-start gap-2">
+        <Icon
+          name="tabler:hand-love-you"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+        />
+        <span
+          >Rád poslouchám metal všeho druhu, nejradši mám progresivní, folkový a
+          symfonický.
+        </span>
+      </li>
+      <li class="my-2 flex items-start gap-2">
+        <Icon
+          name="mdi:hexagon-multiple-outline"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+        />
+        <span
+          >Byl jsem aktivní v řadě studentských organizací (BEST, X-Challenge,
+          ESN).
+        </span>
+      </li>
+      <li class="my-2 flex items-start gap-2">
+        <Icon
+          name="mdi:shoe-print"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+        />
+        <span
+          >Ušel jsem mimo jiné 100 km za 24 hodin, obešel dokola celou Prahu a
+          objel ČR na kole.
+        </span>
+      </li>
+      <li class="my-2 flex items-start gap-2">
+        <Icon
+          name="mdi:guitar-acoustic"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+        />
+        <span>Během doktorského studia jsem se naučil hrát na kytaru. </span>
+      </li>
+      <li class="my-2 flex items-start gap-2">
+        <Icon
+          name="mdi:linux-mint"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+        />
+        <span
+          >Můj operační systém je Linux Mint a nedokážu si představit používat
+          žádný jiný.
+        </span>
+      </li>
+      <li class="my-2 flex items-start gap-2">
+        <Icon
+          name="tabler:bike"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+        />
+        <span
+          >Po Praze se přepravuji nejčastěji vlakem, na sdílených kolech nebo
+          pěšky.
+        </span>
+      </li>
+    </ul>
+
+    <p>Tak co, sedneme si i lidsky?</p>
+
+    <ContactCta lang="cs" />
+
+    <h2>{t("about.projects")}</h2>
+    <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2">
+      {
+        personalProjects.map(project => (
+          <ProjectCard project={project} lang="cs" />
+        ))
+      }
+    </div>
+
+  </section>
+</SubpageLayout>
+
+<style>
+  /* laid out like the service steps on the consulting page */
+  .intro {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2rem);
+    padding: 1.25rem clamp(1rem, 3vw, 1.75rem);
+    border-radius: 14px;
+    background: color-mix(in oklab, var(--background), var(--accent) 7%);
+  }
+  .intro p {
+    margin: 0;
+  }
+  /* a soft green bar running along the whole list */
+  .facts {
+    position: relative;
+  }
+  .facts::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 5px;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--background), var(--accent) 30%);
+  }
+  .spot {
+    --sw: 3.5;
+    flex: none;
+    width: 128px;
+    height: auto;
+    color: var(--accent);
+  }
+  .intro-title {
+    margin: 0 0 0.35rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--accent-text);
+  }
+
+  @media (max-width: 640px) {
+    .intro {
+      gap: 0.9rem;
+      padding: 1rem;
+    }
+    .spot {
+      --sw: 4.4;
+      width: 84px;
+    }
+    .intro-title {
+      font-size: 1.15rem;
+    }
+  }
+</style>

@@ -1,0 +1,170 @@
+---
+import { Icon } from "astro-icon/components";
+import type { Article } from "../data/articles";
+import InterpolatedText from "./InterpolatedText.astro";
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+
+// arXiv has no icon set in astro-icon; it comes from the Academicons stylesheet
+function getIconForLink(type: string): string {
+  switch (type) {
+    case "arxiv":
+      return "ai ai-arxiv";
+    case "acl":
+      return "tabler:file-text";
+    case "code":
+      return "tabler:brand-github";
+    case "website":
+      return "tabler:home";
+    case "demo":
+      return "tabler:player-play";
+    case "poster":
+      return "tabler:photo";
+    case "pdf":
+      return "tabler:file-type-pdf";
+    default:
+      return "tabler:link";
+  }
+}
+
+// Map the keys to display labels
+const linkLabels: Record<string, string> = {
+  arxiv: "arXiv",
+  acl: "ACL Anthology",
+  code: "Code",
+  website: "Website",
+  demo: "Demo",
+  poster: "Poster",
+  pdf: "PDF",
+};
+
+const links = (Object.keys(linkLabels) as (keyof typeof linkLabels)[])
+  .filter(key => article[key as keyof Article])
+  .map(key => ({
+    type: key,
+    url: article[key as keyof Article] as string,
+    label: linkLabels[key],
+    icon: getIconForLink(key),
+  }));
+---
+
+<div
+  class="research-card group relative mb-8 flex flex-col overflow-hidden rounded-xl border border-foreground/20 bg-background shadow-sm"
+>
+  <div
+    class="flex flex-col gap-6 border-b border-border/50 bg-black/5 p-6 sm:flex-row sm:items-center dark:bg-white/5"
+  >
+    <div class="flex flex-1 flex-col justify-center">
+      <h3 class="mb-1 text-lg font-bold text-foreground sm:text-xl">
+        {article.title}
+      </h3>
+      <div class="text-sm text-foreground/80 italic">
+        <Icon
+          name="tabler:users"
+          class="mr-1 inline-block w-5 text-center text-accent/80"
+        />
+        {article.authors}
+      </div>
+      <div class="mb-2 text-sm text-foreground/80 italic">
+        <Icon
+          name="tabler:paperclip"
+          class="mr-1 inline-block w-5 text-center text-accent/80"
+        />
+        {article.venue}
+        {
+          article.award && (
+            <span class="ml-2 font-semibold text-accent">
+              <Icon
+                name="tabler:trophy"
+                class="mr-1 inline-block w-5 text-center"
+              />
+              {article.award}
+            </span>
+          )
+        }
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        {
+          links.map(link => (
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center rounded-md border border-accent/20 bg-accent/10 px-3 py-1 text-xs font-medium text-foreground hover:border-accent hover:text-accent dark:bg-black/20"
+            >
+              {link.icon.includes(":") ? (
+                <Icon name={link.icon} class="mr-2" />
+              ) : (
+                <i class={`${link.icon} mr-2`} />
+              )}{" "}
+              {link.label}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="image-trigger group/image h-32 w-32 shrink-0 cursor-zoom-in self-start overflow-hidden rounded-md border border-border/50 bg-white shadow-md hover:scale-105 sm:self-auto"
+      aria-label="View full image"
+    >
+      <img
+        src={`/papers/${article.preview}`}
+        alt={article.title}
+        class="h-full w-full object-cover object-center"
+        loading="lazy"
+      />
+    </button>
+  </div>
+
+  <div class="flex-grow p-5">
+    <div class="text-sm leading-relaxed text-foreground sm:text-base">
+      <InterpolatedText text={article.text} />
+    </div>
+  </div>
+
+  <dialog
+    class="zoom-dialog bg-transparent p-0 outline-none backdrop:bg-black/80"
+  >
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div
+        class="absolute inset-0 cursor-zoom-out"
+        onclick="this.closest('dialog').close()"
+      >
+      </div>
+      <img
+        src={`/papers/${article.img}`}
+        alt={article.title}
+        class="relative max-h-[90vh] max-w-[90vw] rounded-lg shadow-2xl ring-1 ring-white/10"
+        loading="lazy"
+      />
+    </div>
+  </dialog>
+</div>
+
+<script>
+  // Delegated to the document, so it keeps working after client-side navigation.
+  document.addEventListener("click", e => {
+    const target = e.target as Element;
+    const trigger = target.closest(".image-trigger");
+
+    if (trigger) {
+      e.preventDefault();
+      trigger
+        .closest(".research-card")
+        ?.querySelector<HTMLDialogElement>(".zoom-dialog")
+        ?.showModal();
+    } else if (
+      target instanceof HTMLDialogElement &&
+      target.classList.contains("zoom-dialog")
+    ) {
+      target.close();
+    }
+  });
+</script>

@@ -1,0 +1,169 @@
+---
+import SubpageLayout from "../layouts/SubpageLayout.astro";
+import ContactCta from "./ContactCta.astro";
+import { SPOTS } from "@/data/figures";
+
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+
+type Step = { art: keyof typeof SPOTS; title: string; text: string };
+type Copy = { intro: string; lead: string; steps: Step[]; outro: string };
+
+const copies: Record<"cs" | "en", Copy> = {
+  en: {
+    intro:
+      "Like doing things your own way? Have sensitive data you would rather not broadcast into the ether? Want your own AI solution without worrying about recurring token bills?",
+    lead: "I can guide you through the whole process of <b>deploying a local AI solution</b> built on open-weight AI models (such as Qwen, Gemma, DeepSeek, Nemotron, ...) and hardware running right on your premises (a GPU server, an AI workstation, ...).<p>This is what our collaboration can look like:</p>",
+    steps: [
+      {
+        art: "talk",
+        title: "Initial consultation",
+        text: "We will discuss how you currently use AI and whether deploying a local AI solution makes sense in your case. <b>The initial consultation is free</b>.",
+      },
+      {
+        art: "strategy",
+        title: "Analyzing your AI strategy",
+        text: "Over the following meetings, I will prepare a detailed proposal for your local AI solution: what hardware you will need, which models to deploy, and how to connect your existing services and tools to it all.",
+      },
+      {
+        art: "deploy",
+        title: "Deploying AI on your premises",
+        text: "I will help you put the whole proposal into operation. I will set up the inference server, connect your existing services to it, build supporting tools and write detailed documentation.",
+      },
+      {
+        art: "workshop",
+        title: "Tailored workshop",
+        text: "I will prepare technical training for your team on working with the local AI solution. We will go over its benefits, limitations and risks, and learn how to build the right processes around it.",
+      },
+      {
+        art: "upkeep",
+        title: "Maintenance",
+        text: "I will be available to upgrade or maintain your solution: model updates, hardware scaling or new tools.",
+      },
+    ],
+    outro: "Want to know more? Get in touch and we will talk it through.",
+  },
+  cs: {
+    intro:
+      "Rádi si řešíte věci po svém? Máte citlivá data, která nechcete vysílat do éteru? Chcete svoje vlastní AI řešení, u kterého nemusíte řešit pravidelné platby za tokeny?",
+    lead: "Dokážu Vás provést celým procesem <b>nasazení lokálního AI řešení</b> postaveného na otevřených AI modelech (jako Qwen, Gemma, DeepSeek, Nemotron, ...) a hardwaru běžícím přímo u Vás (GPU server, AI pracovní stanice, ...).<p>Takhle může vypadat naše spolupráce:</p>",
+    steps: [
+      {
+        art: "talk",
+        title: "Úvodní konzultace",
+        text: "Prodiskutujeme, jak v současnosti používáte AI a jestli dává ve Vašem případě smysl nasadit lokální AI řešení. <b>Úvodní konzultace je zdarma</b>.",
+      },
+      {
+        art: "strategy",
+        title: "Analýza Vaší AI strategie",
+        text: "Během dalších setkání Vám připravím podrobný návrh lokálního AI řešení: jaký hardware budete potřebovat, jaké modely nasadit a jak do toho všeho zapojit Vaše stávající služby a nástroje.",
+      },
+      {
+        art: "deploy",
+        title: "Nasazení AI lokálně u Vás",
+        text: "Pomohu Vám uvést celý návrh do provozu. Zprovozním inferenční server, napojím na něj existující služby, vytvořím pomocné nástroje a připravím podrobnou dokumentaci.",
+      },
+      {
+        art: "workshop",
+        title: "Workshop na míru",
+        text: "Připravím pro Váš tým technické školení pro práci s lokálním AI řešením. Vysvětlíme si výhody, omezení i rizika a naučíme se nad tímto řešením správně postavit procesy.",
+      },
+      {
+        art: "upkeep",
+        title: "Údržba",
+        text: "Budu k dispozici pro upgrade nebo údržbu Vašeho řešení: aktualizace modelů, škálování hardwaru nebo nové nástroje.",
+      },
+    ],
+    outro: "Zajímá Vás víc? Ozvěte se a probereme to spolu.",
+  },
+};
+const copy = copies[lang];
+---
+
+<SubpageLayout lang={lang} page="consulting">
+  <section class="mb-8">
+    <p class="mb-4">{copy.intro}</p>
+    <div class="lead" set:html={copy.lead} />
+  </section>
+
+  <ol class="steps">
+    {
+      copy.steps.map(step => (
+        <li class="step">
+          <svg
+            class="spot"
+            viewBox="0 0 200 160"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <g class="ink" set:html={SPOTS[step.art]} />
+          </svg>
+          <div>
+            <h2 class="step-title">{step.title}</h2>
+            <p set:html={step.text} />
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+
+  <section class="outro">
+    <p>{copy.outro}</p>
+    <ContactCta lang={lang} />
+  </section>
+</SubpageLayout>
+
+<style>
+  .lead :global(p) {
+    margin-top: 1rem;
+  }
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .step {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2rem);
+    padding: 1.25rem clamp(1rem, 3vw, 1.75rem);
+    border-radius: 14px;
+    background: color-mix(in oklab, var(--background), var(--accent) 7%);
+  }
+  .spot {
+    --sw: 3.5;
+    flex: none;
+    width: 128px;
+    height: auto;
+    color: var(--accent);
+  }
+  .outro {
+    margin-top: 2.25rem;
+  }
+  .outro p {
+    margin-bottom: 1rem;
+  }
+  .step-title {
+    margin: 0 0 0.35rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--accent-text);
+  }
+
+  @media (max-width: 640px) {
+    .step {
+      gap: 0.9rem;
+      padding: 1rem;
+    }
+    .spot {
+      --sw: 4.4;
+      width: 84px;
+    }
+    .step-title {
+      font-size: 1.15rem;
+    }
+  }
+</style>
