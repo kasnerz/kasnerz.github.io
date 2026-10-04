@@ -1,5 +1,6 @@
 ---
 import SubpageLayout from "../layouts/SubpageLayout.astro";
+import ContactCta from "./ContactCta.astro";
 import { SPOTS } from "@/data/figures";
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 const { lang } = Astro.props;
 
 type Step = { art: keyof typeof SPOTS; title: string; text: string };
-type Copy = { intro: string; lead: string; steps: Step[] };
+type Copy = { intro: string; lead: string; steps: Step[]; outro: string };
 
 const copies: Record<"cs" | "en", Copy> = {
   en: {
@@ -43,11 +44,12 @@ const copies: Record<"cs" | "en", Copy> = {
         text: "I will be available to upgrade or maintain your solution: model updates, hardware scaling or new tools.",
       },
     ],
+    outro: "Want to know more? Get in touch and we will talk it through.",
   },
   cs: {
     intro:
-      "Rádi si řešíte věci po svém? Máte citlivá data, která nechcete vysílat do éteru? Chcete svoje vlastní AI řešení, u kterého nemusíte řešit pravidelné platby za tokeny? ",
-    lead: "Dokážu vás provést celým procesem <b>nasazení lokálního AI řešení</b> postaveném na otevřených AI modelech (jako Qwen, Gemma, DeepSeek, Nemotron, ...) a hardware běžícím přímo u vás (GPU server, AI pracovní stanice, ...).<p>Takhle může vypadat naše spolupráce:</p>",
+      "Rádi si řešíte věci po svém? Máte citlivá data, která nechcete vysílat do éteru? Chcete svoje vlastní AI řešení, u kterého nemusíte řešit pravidelné platby za tokeny?",
+    lead: "Dokážu Vás provést celým procesem <b>nasazení lokálního AI řešení</b> postaveného na otevřených AI modelech (jako Qwen, Gemma, DeepSeek, Nemotron, ...) a hardwaru běžícím přímo u Vás (GPU server, AI pracovní stanice, ...).<p>Takhle může vypadat naše spolupráce:</p>",
     steps: [
       {
         art: "talk",
@@ -56,25 +58,26 @@ const copies: Record<"cs" | "en", Copy> = {
       },
       {
         art: "strategy",
-        title: "Analýza vaší AI strategie",
-        text: "Během dalších setkání vám připravím podrobný návrh lokálního AI řešení: jaký hardware budete potřebovat, jaké modely nasadit a jak do toho všeho zapojit vaše stávající služby a nástroje.",
+        title: "Analýza Vaší AI strategie",
+        text: "Během dalších setkání Vám připravím podrobný návrh lokálního AI řešení: jaký hardware budete potřebovat, jaké modely nasadit a jak do toho všeho zapojit Vaše stávající služby a nástroje.",
       },
       {
         art: "deploy",
-        title: "Nasazení AI lokálně u vás",
-        text: "Pomohu vám uvést celý návrh do provozu. Zprovozním inferenční server, napojím na něj existující služby, vytvořím pomocné nástroje a připravím podrobnou dokumentaci.",
+        title: "Nasazení AI lokálně u Vás",
+        text: "Pomohu Vám uvést celý návrh do provozu. Zprovozním inferenční server, napojím na něj existující služby, vytvořím pomocné nástroje a připravím podrobnou dokumentaci.",
       },
       {
         art: "workshop",
         title: "Workshop na míru",
-        text: "Připravím pro váš tým technické školení pro práci s lokálním AI řešením. Vysvětlíme si výhody, omezení i rizika, a naučíme se nad tímto řešením správně postavit procesy.",
+        text: "Připravím pro Váš tým technické školení pro práci s lokálním AI řešením. Vysvětlíme si výhody, omezení i rizika a naučíme se nad tímto řešením správně postavit procesy.",
       },
       {
         art: "upkeep",
         title: "Údržba",
-        text: "Budu k dispozici pro upgrade nebo údržbu vašeho řešení: aktualizace modelů, škálování hardware nebo nové nástroje.",
+        text: "Budu k dispozici pro upgrade nebo údržbu Vašeho řešení: aktualizace modelů, škálování hardwaru nebo nové nástroje.",
       },
     ],
+    outro: "Zajímá Vás víc? Ozvěte se a probereme to spolu.",
   },
 };
 const copy = copies[lang];
@@ -106,6 +109,11 @@ const copy = copies[lang];
       ))
     }
   </ol>
+
+  <section class="outro">
+    <p>{copy.outro}</p>
+    <ContactCta lang={lang} />
+  </section>
 </SubpageLayout>
 
 <style>
@@ -126,11 +134,17 @@ const copy = copies[lang];
     background: color-mix(in oklab, var(--background), var(--accent) 7%);
   }
   .spot {
-    --sw: 3;
+    --sw: 3.5;
     flex: none;
-    width: 168px;
+    width: 128px;
     height: auto;
     color: var(--accent);
+  }
+  .outro {
+    margin-top: 2.25rem;
+  }
+  .outro p {
+    margin-bottom: 1rem;
   }
   .step-title {
     margin: 0 0 0.35rem;
@@ -145,8 +159,8 @@ const copy = copies[lang];
       padding: 1rem;
     }
     .spot {
-      --sw: 3.6;
-      width: 104px;
+      --sw: 4.4;
+      width: 84px;
     }
     .step-title {
       font-size: 1.15rem;

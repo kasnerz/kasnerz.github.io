@@ -64,7 +64,7 @@ const copies: Record<"cs" | "en", Copy> = {
     formTitle: "Contact form",
   },
   cs: {
-    purpose: "S čím ti můžu pomoct?",
+    purpose: "S čím Vám mohu pomoct?",
     purposes: [
       "Konzultace",
       "Přednáška nebo workshop",
@@ -73,24 +73,24 @@ const copies: Record<"cs" | "en", Copy> = {
       "Jiný dotaz",
     ],
     name: "Jméno",
-    namePh: "Tvoje jméno",
+    namePh: "Vaše jméno",
     email: "E-mail",
     emailPh: "jmeno@domena.cz",
     company: "Firma / organizace",
     companyPh: "Firma s.r.o.",
     optional: "(nepovinné)",
     message: "Zpráva",
-    messagePh: "Popiš, s čím ti můžu pomoct.",
+    messagePh: "Popište, s čím Vám mohu pomoct.",
     send: "Odeslat zprávu",
-    note: "Kontaktovat mě můžeš také přímo. Klidně můžeš zůstat v anonymitě: e-mail vyplň, jen pokud chceš odpověď.",
+    note: "Kontaktovat mě můžete také přímo. Klidně můžete zůstat v anonymitě: e-mail vyplňte, jen pokud chcete odpověď.",
     success: "Díky, zpráva je na cestě ke mně!",
     errors: {
-      missing: "Napiš prosím zprávu.",
+      missing: "Napište prosím zprávu.",
       email: "Tahle e-mailová adresa nevypadá správně.",
-      bot: "Ověření proti robotům selhalo, zkus to prosím znovu.",
-      fail: "Něco se nepovedlo, zkus to prosím později.",
+      bot: "Ověření proti robotům selhalo, zkuste to prosím znovu.",
+      fail: "Něco se nepovedlo, zkuste to prosím později.",
     },
-    elsewhere: "Najdeš mě zde:",
+    elsewhere: "Najdete mě zde:",
     formTitle: "Kontaktní formulář",
   },
 };
@@ -101,6 +101,7 @@ const copy = copies[lang];
   lang={lang}
   title={t("tools.contact")}
   subtitle={t("contact.subtitle")}
+  art="contact"
 >
   <section class="elsewhere">
     <h2>{copy.elsewhere}</h2>

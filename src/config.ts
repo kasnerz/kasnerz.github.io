@@ -1,23 +1,8 @@
 export const SITE = {
-  website: "https://zdenekkasner.cz/", // replace this with your deployed domain
+  website: "https://zdenekkasner.cz/",
   author: "Zdeněk Kasner",
-  profile: "https://zdenekkasner.cz/",
-  desc: "Personal website of Zdeněk Kasner.",
   title: "Zdeněk Kasner",
-  ogImage: "astropaper-og.jpg",
   lightAndDarkMode: false, // dark mode is hidden for now; flip to bring the toggle back
-  postPerIndex: 4,
-  postPerPage: 4,
-  scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
-  showArchives: true,
-  showBackButton: true, // show back button in post detail
-  editPost: {
-    enabled: true,
-    text: "Edit page",
-    url: "https://github.com/kasnerz/zdenekkasner.cz/edit/main/",
-  },
-  dynamicOgImage: true,
-  dir: "ltr", // "rtl" | "auto"
-  lang: "en", // html lang code. Set this empty and default will be "en"
-  timezone: "	Europe/Prague", // Default global timezone (IANA format) https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  dir: "ltr",
+  lang: "en",
 } as const;

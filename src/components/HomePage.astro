@@ -24,13 +24,7 @@ const t = useTranslations(lang);
   <main id="main-content" class="home">
     <header class="hero">
       <div class="hero-text">
-        <div class="name-row">
-          {
-            /* hidden for now; the .tagline badge styles are kept below
-          <p class="tagline">{t("home.tagline")}</p> */
-          }
-          <h1>Zdeněk Kasner</h1>
-        </div>
+        <h1>Zdeněk Kasner</h1>
         <p class="lead">{t("home.lead")}</p>
         <a class="cta" href={lang === "cs" ? "/cs/contact" : "/contact"}>
           {t("home.cta")}
@@ -100,27 +94,6 @@ const t = useTranslations(lang);
     line-height: 1;
     letter-spacing: -0.01em;
   }
-  /* the tagline sits above the name as a small badge */
-  .name-row {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    row-gap: 0.9rem;
-  }
-  /* small caps drawn as letter-spaced capitals: the web font has no real small-caps glyphs;
-     the badge uses the same dark green as the button and language switch */
-  .tagline {
-    margin: 0;
-    padding: 0.32rem 0.45rem 0.32rem 0.58rem; /* letter-spacing trails the last letter */
-    border-radius: 6px;
-    background: rgb(0 60 54 / 0.28);
-    line-height: 1;
-    font-weight: 600;
-    font-size: clamp(0.72rem, 0.9vw, 0.8rem);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--mint);
-  }
   .lead {
     margin: 0.5rem 0 0;
     font-style: italic;
@@ -159,7 +132,7 @@ const t = useTranslations(lang);
     border-radius: 18px;
     background: rgb(0 60 54 / 0.28);
   }
-  /* small caps like the badge next to the name */
+  /* small caps drawn as letter-spaced capitals: the web font has no real small-caps glyphs */
   .help-title {
     margin: 0 0 1.5rem;
     font-weight: 600;
@@ -178,11 +151,11 @@ const t = useTranslations(lang);
   /* the tagline wraps to about the label's width: inline-size containment keeps it
      from widening .scene-text, stretch gives it that width, and the negative margins
      let it run a little past the label on each side; min-width is a floor so short
-     labels ("Učím") don't squeeze it into a column */
+     labels ("Člověk") don't squeeze it into a column */
   .home :global(.scene-tagline) {
     align-self: stretch;
     contain: inline-size;
-    min-width: 8.5em;
+    min-width: 9em;
     margin-inline: -1em;
     margin-top: -0.1rem;
     font-size: clamp(0.8rem, 1vw, 0.92rem);
@@ -201,12 +174,7 @@ const t = useTranslations(lang);
     .hero {
       grid-template-columns: 1fr;
       gap: 0.5rem;
-      margin-top: 0;
       text-align: center;
-    }
-    .name-row {
-      align-items: center;
-      row-gap: 0.6rem;
     }
     .portrait {
       order: -1;
@@ -231,6 +199,12 @@ const t = useTranslations(lang);
     }
     .home :global(.scene-tagline) {
       font-size: 0.8rem;
+    }
+  }
+  /* three columns get too tight for the taglines on the narrowest phones */
+  @media (max-width: 399px) {
+    .home :global(.home-nav) {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 </style>

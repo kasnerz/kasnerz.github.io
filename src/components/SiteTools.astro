@@ -18,13 +18,15 @@ const contactHref = lang === "cs" ? "/cs/contact" : "/contact";
 const onContact = Astro.url.pathname.replace(/\/$/, "") === contactHref;
 
 // The toggle shows both languages with the current one highlighted; clicking it
-// switches to the other one and keeps you on the same page.
+// switches to the other one and keeps you on the same page. A missing page has no
+// counterpart, so from there it goes to the other language's front page.
 const { pathname } = Astro.url;
 const target: Lang = lang === "en" ? "cs" : "en";
+const samePage = /^\/(cs\/)?404\/?$/.test(pathname) ? "/" : pathname;
 const targetPath =
   lang === "en"
-    ? `/cs${pathname === "/" ? "" : pathname}`
-    : pathname.replace(/^\/cs/, "") || "/";
+    ? `/cs${samePage === "/" ? "" : samePage}`
+    : samePage.replace(/^\/cs/, "") || "/";
 const targetName = target === "en" ? "English" : "Čeština";
 ---
 

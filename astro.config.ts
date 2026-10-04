@@ -1,16 +1,22 @@
+import { rename, rmdir } from "node:fs/promises";
+import type { AstroIntegration } from "astro";
 import { defineConfig, envField, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
-import remarkToc from "remark-toc";
-import remarkCollapse from "remark-collapse";
-import {
-  transformerNotationDiff,
-  transformerNotationHighlight,
-  transformerNotationWordHighlight,
-} from "@shikijs/transformers";
-import { transformerFileName } from "./src/utils/transformers/fileName";
 import { SITE } from "./src/config";
+
+// Cloudflare Pages answers a missing page with the nearest 404.html up the path, so
+// /cs/... needs a cs/404.html; Astro writes every 404 except the root one as 404/index.html.
+const czechNotFound: AstroIntegration = {
+  name: "czech-404",
+  hooks: {
+    "astro:build:done": async ({ dir }) => {
+      await rename(new URL("cs/404/index.html", dir), new URL("cs/404.html", dir));
+      await rmdir(new URL("cs/404/", dir));
+    },
+  },
+};
 
 // https://astro.build/config
 export default defineConfig({
@@ -24,7 +30,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: page => SITE.showArchives || !page.endsWith("/archives"),
+      filter: page => !/\/404\/?$/.test(page),
       i18n: {
         defaultLocale: "en",
         locales: {
@@ -38,35 +44,14 @@ export default defineConfig({
         tabler: ["*"], // Include all Tabler icons
       },
     }),
+    czechNotFound,
   ],
-  markdown: {
-    remarkPlugins: [remarkToc, [remarkCollapse, { test: "Table of contents" }]],
-    shikiConfig: {
-      // For more themes, visit https://shiki.style/themes
-      themes: { light: "min-light", dark: "night-owl" },
-      defaultColor: false,
-      wrap: false,
-      transformers: [
-        transformerFileName({ style: "v2", hideDot: false }),
-        transformerNotationHighlight(),
-        transformerNotationWordHighlight(),
-        transformerNotationDiff({ matchAlgorithm: "v3" }),
-      ],
-    },
-  },
   vite: {
     // eslint-disable-next-line
     // @ts-ignore
     // This will be fixed in Astro 6 with Vite 7 support
     // See: https://github.com/withastro/astro/issues/14030
     plugins: [tailwindcss()],
-    optimizeDeps: {
-      exclude: ["@resvg/resvg-js"],
-    },
-  },
-  image: {
-    responsiveStyles: true,
-    layout: "constrained",
   },
   env: {
     schema: {

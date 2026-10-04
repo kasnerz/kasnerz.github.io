@@ -10,6 +10,9 @@
  */
 import type { PageId } from "./nav";
 
+/** Pages with header art: the navigation sections, plus contact, which is outside it. */
+export type ArtId = PageId | "contact";
+
 const pivot = (x: number, y: number) =>
   `data-o style="transform-origin:${x}px ${y}px"`;
 
@@ -55,6 +58,24 @@ const sift = (s: {
       <g class="a-sift-recede" ${pivot(...s.centre)}>${s.sheet}</g>
     </g>
     <path class="a-sift" ${pivot(...s.shoulder)} d="${s.arm}"/>`;
+
+/*
+ * Juggling balls. Each ball is drawn at the origin and carried along the same oval,
+ * `toss`, by offset-path: fast through the low pass between the hands, slow near the
+ * top, so only one ball is ever low and the rest bunch above. The oval runs from the
+ * left hand under to the right one and back over the top; the hands sit 30° below its
+ * centre and rx:ry is 5:4, which is what fig-toss (figures.css) is timed for. The balls
+ * are an eighth of the 3.6s loop apart, starting with one in each hand; --d is where
+ * each rests while still. `ball` gives each ball's extra class and radius.
+ */
+const TOSS_REST = [0, 34.88, 45.93, 55.15, 63.44, 71.44, 79.72, 88.95];
+const juggle = (toss: string, ball: (i: number) => [string, number]) => `
+    <g style="--toss:path('${toss}')">${TOSS_REST.map((d, i) => {
+      const [cls, r] = ball(i);
+      return `
+      <circle class="a-toss ${cls}" r="${r}" style="--delay:${(i * -0.45).toFixed(2)}s;--d:${d}%"/>`;
+    }).join("")}
+    </g>`;
 
 /* Small figures, 48×48: navigation on every page. */
 export const SMALL: Record<PageId, string> = {
@@ -115,15 +136,12 @@ export const SMALL: Record<PageId, string> = {
     <path class="a-type" ${pivot(12.5, 35)} d="M12.5 35L15 25"/>
     <path class="a-type-r" ${pivot(35.5, 35)} d="M35.5 35L33 25"/>`,
   about: `
-    <path d="M22 44L35 13L41 24L44 20.5L48 27"/>
-    <path class="thin" d="M31.2 22L33.5 24L36 21.5L38.8 24"/>
-    <path d="M35 13V5"/>
-    <path class="solid a-flutter" ${pivot(35, 7)} d="M35 5L41 7L35 9Z"/>
-    <rect class="solid" x="2.5" y="16" width="8" height="12" rx="2.5" transform="rotate(8 6.5 22)"/>
-    <circle class="head" cx="15" cy="12" r="4.5"/>
-    <path d="M14 16.5L12 30M13.6 20L18 26L21.5 27"/>
-    <path class="a-leg1" ${pivot(12, 30)} d="M12 30L6 44"/>
-    <path class="a-leg2" ${pivot(12, 30)} d="M12 30L19 44"/>`,
+    <circle class="head" cx="24" cy="19.5" r="4.5"/>
+    <path d="M24 24V35M24 35L20 46M24 35L28 46"/>
+    <path d="M24 27.5L17 31L11 23.8M24 27.5L31 31L37 23.8"/>${juggle(
+      "M11.01 21A15 12 0 0 0 36.99 21A15 12 0 1 0 11.01 21",
+      i => (i % 2 ? ["thin", 2.4] : ["dot", 2.2])
+    )}`,
 };
 
 /*
@@ -169,7 +187,7 @@ export const PROPS: Record<PageId, string> = {
  * Big scenes, 240 wide with the ground at y=215: subpage header art.
  * Their figures stand on the top edge of the content card.
  */
-export const LARGE: Partial<Record<PageId, string>> = {
+export const LARGE: Partial<Record<ArtId, string>> = {
   consulting: `
     <path class="ground" d="M0 215H240"/>
     <g mask="url(#ko-cons-l)">
@@ -256,6 +274,15 @@ export const LARGE: Partial<Record<PageId, string>> = {
     <path d="M98 128L103 84M102 93L111 108L118 111"/>
     <path class="a-leg1" ${pivot(98, 128)} d="M98 128L92 154L88 181"/>
     <path class="a-leg2" ${pivot(98, 128)} d="M98 128L106 148L108 166"/>`,
+  contact: `
+    <path class="ground" d="M0 215H240"/>
+    <circle class="head" cx="80" cy="110" r="9"/>
+    <path d="M80 119V165M80 165L71 215M80 165L89 215M80 130L68 148L70 166M80 130L97 153"/>
+    <circle class="head" cx="160" cy="110" r="9"/>
+    <path d="M160 119V165M160 165L151 215M160 165L169 215M160 130L172 148L170 166M160 130L143 153"/>
+    <path class="a-shake" ${pivot(97, 153)} d="M97 153L121.5 146"/>
+    <path class="a-shake-r" ${pivot(143, 153)} d="M143 153L118.5 146"/>
+    <path class="thin" d="M113 135q7-4 14 0M113 157q7 4 14 0"/>`,
 };
 
 /*
@@ -327,6 +354,14 @@ export const SPOTS = {
     <g class="a-arm" ${pivot(94, 72)}>
       <g transform="rotate(32 94 72)"><path d="M94 72V48M91 32.6A8 8 0 1 0 97 32.6V41H91Z"/></g>
     </g>`,
+  /* the about page: juggling many things at once, see juggle() */
+  juggle: `
+    <circle class="head" cx="100" cy="70" r="9"/>
+    <path d="M100 79V116M100 116L91 152M100 116L109 152"/>
+    <path d="M100 88L78 100L57 74M100 88L122 100L143 74"/>${juggle(
+      "M56.70 68A50 40 0 0 0 143.30 68A50 40 0 1 0 56.70 68",
+      i => (i % 2 ? ["", 5] : ["dot", 5.5])
+    )}`,
 };
 
 /*
@@ -334,7 +369,7 @@ export const SPOTS = {
  * (in scene units) so that all of them come out about as tall as the consulting scene
  * (~155 units above the ground) and centred in their box.
  */
-export const LARGE_FIT: Partial<Record<PageId, { scale: number; cx: number }>> =
+export const LARGE_FIT: Partial<Record<ArtId, { scale: number; cx: number }>> =
   {
     consulting: { scale: 1.35, cx: 119 },
     teaching: { scale: 0.87, cx: 126 },
@@ -342,4 +377,5 @@ export const LARGE_FIT: Partial<Record<PageId, { scale: number; cx: number }>> =
     research: { scale: 1.2, cx: 125 },
     blog: { scale: 1.15, cx: 125 },
     about: { scale: 0.83, cx: 129 },
+    contact: { scale: 1.36, cx: 120 },
   };

@@ -16,12 +16,13 @@ const t = useTranslations(lang);
 
 <SubpageLayout lang={lang} page="projects">
   <section id="projects" class="mb-12">
+    <p class="mb-4">{t("projects.description")}</p>
     <p class="mb-8">
-      <InterpolatedText text={t("projects.description")}>
+      <InterpolatedText text={t("projects.more")}>
         <LinkButton
           slot="github"
           icon="tabler:brand-github"
-          href="https://github.com/kasnerz/">Github</LinkButton
+          href="https://github.com/kasnerz/">GitHub</LinkButton
         >
       </InterpolatedText>
     </p>

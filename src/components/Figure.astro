@@ -1,16 +1,21 @@
 ---
-import { SMALL, LARGE, LARGE_FIT, PROPS } from "@/data/figures";
-import type { PageId } from "@/data/nav";
+import { SMALL, LARGE, LARGE_FIT, PROPS, type ArtId } from "@/data/figures";
 
 interface Props {
-  id: PageId;
+  /** Only "large" has art for ids outside the navigation (contact). */
+  id: ArtId;
   /** small: 48×48 stickman; large: header scene; prop: 24×24 object only */
   size?: "small" | "large" | "prop";
   class?: string;
 }
 
 const { id, size = "small", class: className } = Astro.props;
-const art = { small: SMALL, large: LARGE, prop: PROPS }[size][id];
+const sets: Record<string, Partial<Record<ArtId, string>>> = {
+  small: SMALL,
+  large: LARGE,
+  prop: PROPS,
+};
+const art = sets[size][id];
 
 // Large scenes sit on the ground line (y=215) of a 240×187.5 box. A nested viewBox
 // scales each one to a common height; the stroke is divided by the same factor so

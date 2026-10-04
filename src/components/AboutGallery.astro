@@ -1,4 +1,10 @@
 ---
+interface Props {
+  class?: string;
+}
+
+const { class: className = "mt-8" } = Astro.props;
+
 const images = [
   { src: "/me/zk1.jpg", alt: "Zdeněk Kasner", credit: "adam&costey" },
   { src: "/me/zk2.jpg", alt: "Zdeněk Kasner" },
@@ -6,7 +12,7 @@ const images = [
 ];
 ---
 
-<div class="mt-8 mb-4 grid grid-cols-3 gap-2 sm:gap-4">
+<div class:list={[className, "mb-4 grid grid-cols-3 gap-2 sm:gap-4"]}>
   {
     images.map(image => (
       <div

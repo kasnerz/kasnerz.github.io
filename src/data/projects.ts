@@ -42,7 +42,7 @@ export const projects: Project[] = [
         url: "https://github.com/kasnerz/reffix",
         description: {
             en: "A Python CLI tool for improving the BibTeX list of references.",
-            cs: "Pythoní nástroj do příkazové řádky pro vylepšování BibTeX  referencí.",
+            cs: "Pythoní nástroj do příkazové řádky pro vylepšování BibTeX referencí.",
         },
         image: "/projects/reffix.png",
     },

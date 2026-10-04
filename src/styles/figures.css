@@ -41,6 +41,13 @@
 .ink .a-sift-away {
   opacity: 0;
 }
+/* juggling balls ride an oval (see SPOTS.juggle); they pause where they are when not pointed at */
+.ink .a-toss {
+  offset-path: var(--toss);
+  offset-rotate: 0deg;
+  offset-distance: var(--d);
+  animation: fig-toss 3.6s linear var(--delay) infinite paused;
+}
 .ext {
   width: 0.8em;
   height: 0.8em;
@@ -291,6 +298,15 @@ html[data-theme="dark"] .theme-icon-sun {
     --r: -7deg;
     animation: fig-sway 0.22s ease-in-out infinite alternate-reverse;
   }
+  /* both forearms swing up and down together, so the hands stay clasped */
+  .a-shake {
+    --r: -10deg;
+    animation: fig-sway 0.25s ease-in-out infinite alternate;
+  }
+  .a-shake-r {
+    --r: 10deg;
+    animation: fig-sway 0.25s ease-in-out infinite alternate;
+  }
   .a-point {
     --r: -10deg;
     animation: fig-sway 0.9s ease-in-out infinite alternate;
@@ -328,10 +344,6 @@ html[data-theme="dark"] .theme-icon-sun {
   .a-press {
     animation: fig-press 0.9s ease-in-out infinite;
   }
-  .a-flutter {
-    --r: 16deg;
-    animation: fig-sway 0.6s ease-in-out infinite alternate;
-  }
   .a-leg1 {
     --r: 12deg;
     animation: fig-sway 0.6s ease-in-out infinite alternate;
@@ -349,6 +361,9 @@ html[data-theme="dark"] .theme-icon-sun {
   }
   .a-spin {
     animation: fig-spin 2.4s linear infinite;
+  }
+  .a-toss {
+    animation-play-state: running;
   }
   .a-blink .dot {
     animation: fig-blink 0.9s steps(1) infinite;
@@ -534,6 +549,20 @@ html[data-theme="dark"] .theme-icon-sun {
 @keyframes fig-blink {
   50% {
     opacity: 0.25;
+  }
+}
+/* the first eighth of the loop is the quick pass between the hands, 34.88% of the oval;
+   the throw over the top slows near the apex */
+@keyframes fig-toss {
+  0% {
+    offset-distance: 0%;
+  }
+  12.5% {
+    offset-distance: 34.88%;
+    animation-timing-function: cubic-bezier(0.3, 0.4, 0.7, 0.6);
+  }
+  100% {
+    offset-distance: 100%;
   }
 }
 @keyframes fig-spin {

@@ -9,7 +9,7 @@ interface Props {
 
 const { article } = Astro.props;
 
-// Helper to determine icon class based on link type
+// arXiv has no icon set in astro-icon; it comes from the Academicons stylesheet
 function getIconForLink(type: string): string {
   switch (type) {
     case "arxiv":
@@ -50,9 +50,6 @@ const links = (Object.keys(linkLabels) as (keyof typeof linkLabels)[])
     label: linkLabels[key],
     icon: getIconForLink(key),
   }));
-
-// Function to replace HTML tags in the text description with spans/semantic tags that can be styled
-// Since the input `text` contains <i> tags, we can rely on InterpolatedText component or set:html
 ---
 
 <div

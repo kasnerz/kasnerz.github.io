@@ -3,15 +3,17 @@ import Layout from "./Layout.astro";
 import Header from "@/components/Header.astro";
 import Figure from "@/components/Figure.astro";
 import { SITE } from "@/config";
+import type { ArtId } from "@/data/figures";
 import { getNavItem, type Lang, type PageId } from "@/data/nav";
 
 interface Props {
   lang: Lang;
   /** The section this page belongs to; drives the title, heading, subtitle and header art. */
   page?: PageId;
-  /** Overrides for pages outside the navigation, such as 404. */
+  /** Overrides for pages outside the navigation, such as 404 and contact. */
   title?: string;
   subtitle?: string;
+  art?: ArtId;
 }
 
 const {
@@ -19,6 +21,7 @@ const {
   page,
   title: titleOverride,
   subtitle: subtitleOverride,
+  art = page,
 } = Astro.props;
 const item = page ? getNavItem(page) : undefined;
 const title = titleOverride ?? item?.label[lang] ?? "";
@@ -34,7 +37,7 @@ const subtitle = subtitleOverride ?? item?.subtitle?.[lang];
         <h1>{heading}</h1>
         {subtitle && <p class="stage-sub">{subtitle}</p>}
       </div>
-      {page && <Figure id={page} size="large" class="bigart" />}
+      {art && <Figure id={art} size="large" class="bigart" />}
     </div>
     <main id="main-content" class="page-card">
       <slot />

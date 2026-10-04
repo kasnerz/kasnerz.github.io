@@ -23,8 +23,5 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# pagefind
-
-public/pagefind
 # Cloudflare Wrangler local state
 .wrangler/

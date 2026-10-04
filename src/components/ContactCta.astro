@@ -1,0 +1,39 @@
+---
+import type { Lang } from "@/data/nav";
+import { useTranslations } from "@/i18n/utils";
+
+interface Props {
+  lang: Lang;
+  class?: string;
+}
+
+const { lang, class: className } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<a
+  class:list={["cta not-prose", className]}
+  href={lang === "cs" ? "/cs/contact" : "/contact"}
+>
+  {t("home.cta")}
+  <span aria-hidden="true">→</span>
+</a>
+
+<style>
+  /* the front page's button, tinted like the content boxes for a white background */
+  .cta {
+    display: inline-block;
+    padding: 0.6rem 1.25rem;
+    border-radius: 10px;
+    background: color-mix(in oklab, var(--background), var(--accent) 12%);
+    color: var(--accent-text);
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 1.15rem;
+    text-decoration: none;
+    transition: background-color 60ms linear;
+  }
+  .cta:hover {
+    background: color-mix(in oklab, var(--background), var(--accent) 20%);
+  }
+</style>

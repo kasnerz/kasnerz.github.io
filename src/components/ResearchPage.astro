@@ -16,8 +16,6 @@ const { lang } = Astro.props;
   </section>
 
   <section>
-    <div class="research-container">
-      {articles.map(article => <ResearchCard article={article} />)}
-    </div>
+    {articles.map(article => <ResearchCard article={article} />)}
   </section>
 </SubpageLayout>

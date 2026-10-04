@@ -286,7 +286,7 @@ export const teaching: TeachingItem[] = [
             cs: "09/2025",
         },
         description: {
-            en: "Internal lecture for Directorate-General for Translation (DGT).",
+            en: "Internal lecture for the Directorate-General for Translation (DGT).",
             cs: "Interní přednáška pro Directorate-General for Translation (DGT).",
         },
         type: "talk",
@@ -352,7 +352,7 @@ export const teaching: TeachingItem[] = [
         },
         description: {
             en: "I helped shape a course on large language models run by my colleagues from ÚFAL. I led some of the lectures and helped prepare practical assignments.",
-            cs: "Pomáhal jsem spolutvářet kurz o velkých jazykových modelech vedený kolegy z ÚFALu. Vedl jsem část přednášek a pomáhám s přípravou praktických úkolů.",
+            cs: "Pomáhal jsem spolutvářet kurz o velkých jazykových modelech vedený kolegy z ÚFALu. Vedl jsem část přednášek a pomáhal s přípravou praktických úkolů.",
         },
         image: "/lectures/cuni-en.png",
         category: "past",
@@ -370,8 +370,8 @@ export const teaching: TeachingItem[] = [
             cs: "Počítačová kreativita",
         },
         period: {
-            en: "since 2024",
-            cs: "od 2024",
+            en: "2024–2026",
+            cs: "2024–2026",
         },
         description: {
             en: "I led a workshop for primary and secondary schools at Charles University's Didaktikon centre where we practically explored how generative image and text models work.",
@@ -416,12 +416,12 @@ export const teaching: TeachingItem[] = [
             cs: "Statistické dialogové systémy",
         },
         period: {
-            en: "22/23 Winter-now",
-            cs: "ZS 22/23-teď",
+            en: "22/23 Winter – 25/26 Winter",
+            cs: "ZS 22/23 – ZS 25/26",
         },
         description: {
-            en: "In 22/23, I was helping with grading homework assignments. I regularly teach the lecture on natural language generation since then.",
-            cs: "V zimním semestru 22/23 jsem pomáhal s hodnocením domácích úkolů, od té doby pravidelně vedu přednášku o generování přirozeného jazyka.",
+            en: "In 22/23, I helped with grading homework assignments. After that, I regularly taught the lecture on natural language generation.",
+            cs: "V zimním semestru 22/23 jsem pomáhal s hodnocením domácích úkolů, poté jsem pravidelně vedl přednášku o generování přirozeného jazyka.",
         },
         image: "/lectures/cuni-en.png",
         category: "past",

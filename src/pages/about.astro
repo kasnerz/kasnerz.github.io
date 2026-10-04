@@ -1,7 +1,9 @@
 ---
 import { Icon } from "astro-icon/components";
 import AboutGallery from "@/components/AboutGallery.astro";
+import ContactCta from "@/components/ContactCta.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
+import { SPOTS } from "@/data/figures";
 import { personalProjects } from "@/data/projects";
 import { useTranslations } from "@/i18n/utils";
 
@@ -12,89 +14,135 @@ const t = useTranslations("en");
 
 <SubpageLayout lang="en" page="about">
   <section id="about" class="app-prose mb-8 max-w-none prose-img:border-0">
-    <AboutGallery />
+    <div class="intro">
+      <svg
+        class="spot"
+        viewBox="0 0 200 160"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <g class="ink" set:html={SPOTS.juggle} />
+      </svg>
+      <div>
+        <h2 class="intro-title">A few words about me</h2>
+        <p>
+          My interest in technology and AI is just one of the ways for me to <b
+            >understand the world better</b
+          > – a world in which, I hope, I will be able to spend something around 4,000
+          weeks. That is not much, so I often find it hard to decide what to spend
+          my time on. I enjoy way too many things: meeting people, reading books,
+          writing, traveling, trekking, climbing, cycling, playing and listening to
+          music, learning new things... No way to fit it all in! So I try to live
+          fully outside of work, too. And sometimes just enjoy the fact that I live
+          in a great time and a great place.
+        </p>
+      </div>
+    </div>
 
-    <p>A few random facts about me:</p>
+    <AboutGallery class="mt-5" />
 
-    <ul class="list-none pl-0">
-      <li class="my-2 flex -translate-x-1.5 items-start gap-2">
+    <p>A few more random facts:</p>
+
+    <ul class="facts list-none pl-5">
+      <li class="my-2 flex items-start gap-2">
         <Icon
-          name="mdi:heart"
-          class="text-skin-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+          name="mdi:human-female-female-child"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
         />
-        <span>I am happily married.</span>
+        <span>I am happily married and parenting a kid.</span>
       </li>
-
-      <li class="my-2 flex -translate-x-1.5 items-start gap-2">
-        <Icon
-          name="tabler:book"
-          class="text-skin-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
-        />
-        <span
-          >Besides a pile of papers and blog posts, I read around 30 books a
-          year.
-        </span>
-      </li>
-      <li class="my-2 flex -translate-x-1.5 items-start gap-2">
+      <li class="my-2 flex items-start gap-2">
         <Icon
           name="mdi:tea-outline"
-          class="text-skin-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
         />
         <span
           >I like quality loose-leaf teas – especially pu-erhs, darjeelings, and
           yellow teas.
         </span>
       </li>
-
-      <li class="my-2 flex -translate-x-1.5 items-start gap-2">
-        <Icon
-          name="tabler:hand-love-you"
-          class="text-skin-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
-        />
-        <span
-          >I listen to metal of all kinds, I like progressive, folk, and
-          symphonic the most.
-        </span>
-      </li>
-      <li class="my-2 flex -translate-x-1.5 items-start gap-2">
-        <Icon
-          name="mdi:guitar-acoustic"
-          class="text-skin-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
-        />
-        <span
-          >During my PhD studies, I learned to play the guitar quite well.</span
-        >
-      </li>
-      <li class="my-2 flex -translate-x-1.5 items-start gap-2">
-        <Icon
-          name="mdi:linux-mint"
-          class="text-skin-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
-        />
-        <span
-          >My operating system is Linux Mint and I am completely satisfied with
-          it.
-        </span>
-      </li>
-      <li class="my-2 flex -translate-x-1.5 items-start gap-2">
+      <li class="my-2 flex items-start gap-2">
         <Icon
           name="tabler:thumb-up"
-          class="text-skin-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
         />
         <span
           >I like punk traveling: night trains and buses, hitchhiking, outdoor
           sleepovers, ...
         </span>
       </li>
-      <li class="my-2 flex -translate-x-1.5 items-start gap-2">
+      <li class="my-2 flex items-start gap-2">
+        <Icon
+          name="tabler:book"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+        />
+        <span
+          >Besides plenty of research papers and blog posts, I read around 30
+          books a year.
+        </span>
+      </li>
+
+      <li class="my-2 flex items-start gap-2">
+        <Icon
+          name="tabler:hand-love-you"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+        />
+        <span
+          >I listen to metal of all kinds, I like progressive, folk, and
+          symphonic the most.
+        </span>
+      </li>
+      <li class="my-2 flex items-start gap-2">
+        <Icon
+          name="mdi:hexagon-multiple-outline"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+        />
+        <span
+          >I was active in several student/youth organizations (BEST,
+          X-Challenge, ESN).
+        </span>
+      </li>
+      <li class="my-2 flex items-start gap-2">
+        <Icon
+          name="mdi:shoe-print"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+        />
+        <span
+          >I've hiked 100 km in 24 hours, walked all around Prague, and cycled
+          around Czechia.
+        </span>
+      </li>
+      <li class="my-2 flex items-start gap-2">
+        <Icon
+          name="mdi:guitar-acoustic"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+        />
+        <span>I learned to play the guitar during my PhD studies.</span>
+      </li>
+      <li class="my-2 flex items-start gap-2">
+        <Icon
+          name="mdi:linux-mint"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+        />
+        <span
+          >My operating system is Linux Mint and I cannot imagine using any
+          other.
+        </span>
+      </li>
+      <li class="my-2 flex items-start gap-2">
         <Icon
           name="tabler:bike"
-          class="text-skin-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
+          class="text-accent inline-block h-[1.3em] w-[1.3em] flex-shrink-0 translate-y-1 align-text-bottom"
         />
         <span
           >In Prague, I mostly get around by train, shared bikes, or on foot.
         </span>
       </li>
     </ul>
+
+    <p>So, are we compatible?</p>
+
+    <ContactCta lang="en" />
 
     <h2>{t("about.projects")}</h2>
     <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2">
@@ -105,6 +153,61 @@ const t = useTranslations("en");
       }
     </div>
 
-    <slot />
   </section>
 </SubpageLayout>
+
+<style>
+  /* laid out like the service steps on the consulting page */
+  .intro {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2rem);
+    padding: 1.25rem clamp(1rem, 3vw, 1.75rem);
+    border-radius: 14px;
+    background: color-mix(in oklab, var(--background), var(--accent) 7%);
+  }
+  .intro p {
+    margin: 0;
+  }
+  /* a soft green bar running along the whole list */
+  .facts {
+    position: relative;
+  }
+  .facts::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 5px;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--background), var(--accent) 30%);
+  }
+  .spot {
+    --sw: 3.5;
+    flex: none;
+    width: 128px;
+    height: auto;
+    color: var(--accent);
+  }
+  .intro-title {
+    margin: 0 0 0.35rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--accent-text);
+  }
+
+  @media (max-width: 640px) {
+    .intro {
+      gap: 0.9rem;
+      padding: 1rem;
+    }
+    .spot {
+      --sw: 4.4;
+      width: 84px;
+    }
+    .intro-title {
+      font-size: 1.15rem;
+    }
+  }
+</style>
