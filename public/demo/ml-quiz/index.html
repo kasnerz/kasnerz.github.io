@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kvíz strojového učení</title>
+    <!-- Pico.css v2 — classless, dark-mode aware -->
+    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&family=Source+Sans+3:ital,opsz,wght@0,9..46,300..900;1,9..46,300..900&display=swap"
+        rel="stylesheet">
+    <!-- Design tokens -->
+    <style>
+/* ============================================================
+   Design tokens & Pico v2 theme overrides
+   Computational Creativity Web App
+   ============================================================ */
+
+/* --- Custom properties: light mode (default) --- */
+:root {
+    /* Fonts */
+    --font-display: 'Patrick Hand SC', 'Comic Sans MS', cursive;
+    --font-body: 'Source Sans 3', 'Source Sans Pro', system-ui, sans-serif;
+
+    /* Palette */
+    --neutral-bg: #faf7f2;
+    --neutral-surface: #f0ebe0;
+    --neutral-border: #d6cfc4;
+    --neutral-text: #1c1916;
+    --neutral-muted: #7a7268;
+    --accent: #e54d1a;
+    --accent-deep: #be3908;
+    --accent-subtle: #fdeae2;
+    --success: #2d8b5c;
+    --success-subtle: #dff3ea;
+    --error: #c0392b;
+    --error-subtle: #fde8e6;
+
+    /* Spacing (4pt base) */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 40px;
+    --space-2xl: 64px;
+
+    /* Radius */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-full: 9999px;
+
+    /* === Pico v2 variable overrides === */
+    --pico-font-family-sans-serif: var(--font-body);
+    --pico-color: var(--neutral-text);
+    --pico-background-color: var(--neutral-bg);
+    --pico-muted-color: var(--neutral-muted);
+    --pico-muted-border-color: var(--neutral-border);
+    --pico-primary: var(--accent);
+    --pico-primary-background: var(--accent);
+    --pico-primary-hover: var(--accent-deep);
+    --pico-primary-hover-background: var(--accent-deep);
+    --pico-primary-focus: rgba(229, 77, 26, 0.25);
+    --pico-primary-inverse: #ffffff;
+    --pico-border-radius: var(--radius-md);
+    --pico-card-background-color: var(--neutral-surface);
+    --pico-card-border-color: var(--neutral-border);
+    --pico-card-sectioning-background-color: var(--neutral-surface);
+    --pico-form-element-background-color: var(--neutral-bg);
+    --pico-form-element-border-color: var(--neutral-border);
+    --pico-form-element-focus-color: var(--accent);
+    --pico-form-element-placeholder-color: var(--neutral-muted);
+}
+
+/* --- Dark mode overrides --- */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --neutral-bg: #1a1714;
+        --neutral-surface: #241f1a;
+        --neutral-border: #3a342c;
+        --neutral-text: #f5f1ea;
+        --neutral-muted: #9e9082;
+        --accent: #f06030;
+        --accent-deep: #e54d1a;
+        --accent-subtle: #3d1a09;
+    }
+}
+
+/* --- Base typography --- */
+body {
+    font-family: var(--font-body);
+    background-color: var(--neutral-bg);
+    color: var(--neutral-text);
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    color: var(--neutral-text);
+}
+
+/* --- Shared utilities --- */
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+}
+
+/* Page-level header block (used on imgen, textgen, etc.) */
+.page-header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.page-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    margin-bottom: var(--space-sm);
+}
+
+.page-header p {
+    color: var(--neutral-muted);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* Destructive action button */
+.delete-btn {
+    background-color: var(--error);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-full);
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease-out;
+    flex-shrink: 0;
+}
+
+.delete-btn:hover {
+    background-color: #a12422;
+}
+
+/* --- Common layout utilities --- */
+
+.back-link {
+    text-align: center;
+    margin-top: var(--space-xl);
+}
+
+.back-link a {
+    color: var(--neutral-muted);
+    font-size: 1rem;
+    text-decoration: none;
+    transition: color 0.15s ease-out;
+}
+
+.back-link a:hover {
+    color: var(--neutral-text);
+}
+
+.no-content {
+    text-align: center;
+    color: var(--neutral-muted);
+    font-style: italic;
+    padding: var(--space-2xl) var(--space-md);
+}
+    </style>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        /* --- Two-column layout --- */
+        .quiz-container {
+            height: 100vh;
+            display: flex;
+        }
+
+        /* --- Image panel --- */
+        .image-panel {
+            flex: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-xl);
+            background: var(--neutral-bg);
+        }
+
+        .image-frame {
+            position: relative;
+            width: 100%;
+            max-width: 560px;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            border-radius: calc(var(--radius-lg) - 1.5px);
+        }
+
+        .image-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-md);
+            color: var(--neutral-muted);
+            text-align: center;
+            padding: var(--space-xl);
+        }
+
+        .image-placeholder svg {
+            opacity: 0.4;
+        }
+
+        .image-placeholder p {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        /* --- Controls panel --- */
+        .controls-panel {
+            flex: 1;
+            min-width: 280px;
+            max-width: 380px;
+            padding: var(--space-lg);
+            background: var(--neutral-surface);
+            border-left: 1.5px solid var(--neutral-border);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: var(--space-md);
+            overflow-y: auto;
+        }
+
+        /* Inner spacer pushes content to vertical center when it fits */
+        .controls-panel::before,
+        .controls-panel::after {
+            content: '';
+            flex: 1;
+        }
+
+        /* --- Mode selector --- */
+        .mode-selector {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .mode-btn {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+            padding: 10px var(--space-md);
+            border: 1.5px solid var(--neutral-border);
+            border-radius: var(--radius-md);
+            background: var(--neutral-bg);
+            color: var(--neutral-text);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: border-color 0.15s ease-out, background 0.15s ease-out, color 0.15s ease-out;
+            min-height: 44px;
+        }
+
+        .mode-btn:hover:not(.active) {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .mode-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        /* --- Progress chip --- */
+        .progress-chip {
+            text-align: center;
+            padding: var(--space-sm) var(--space-md);
+            background: var(--neutral-bg);
+            border: 1.5px solid var(--neutral-border);
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            color: var(--neutral-muted);
+            font-weight: 600;
+        }
+
+        /* --- Loading spinner --- */
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: var(--space-md) 0;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--neutral-border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .spinner {
+                animation: none;
+                border-top-color: var(--accent);
+            }
+        }
+
+        .loading-spinner p {
+            margin: var(--space-xs) 0 0;
+            font-size: 0.9rem;
+            color: var(--neutral-muted);
+        }
+
+        /* --- Question --- */
+        .quiz-question {
+            text-align: center;
+            font-size: 1rem;
+            color: var(--neutral-muted);
+            margin: 0;
+        }
+
+        /* --- Answer buttons --- */
+        #answer-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .answer-btn {
+            width: 100%;
+            padding: var(--space-md) var(--space-lg);
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 400;
+            text-align: center;
+            background: var(--neutral-bg);
+            color: var(--neutral-text);
+            border: 1.5px solid var(--neutral-border);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: border-color 0.15s ease-out, transform 0.1s ease-out, background 0.15s ease-out, color 0.15s ease-out;
+            min-height: 56px;
+        }
+
+        .answer-btn:hover:not(:disabled) {
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .answer-btn.correct {
+            background: var(--success-subtle);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .answer-btn.incorrect {
+            background: var(--error-subtle);
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        /* --- Navigation buttons --- */
+        .navigation-controls {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: center;
+        }
+
+        .btn-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: 10px var(--space-md);
+            border: 1.5px solid var(--neutral-border);
+            border-radius: var(--radius-md);
+            background: var(--neutral-bg);
+            color: var(--neutral-text);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: border-color 0.15s ease-out, color 0.15s ease-out;
+            min-height: 40px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        /* --- Results dialog --- */
+        dialog {
+            border: 1.5px solid var(--neutral-border);
+            border-radius: var(--radius-lg);
+            padding: 0;
+            background: var(--neutral-surface);
+            color: var(--neutral-text);
+            max-width: 400px;
+            width: 90vw;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+        }
+
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .dialog-article {
+            padding: var(--space-xl);
+        }
+
+        .dialog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .dialog-header h2 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .dialog-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--neutral-muted);
+            line-height: 1;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            transition: color 0.15s;
+        }
+
+        .dialog-close:hover {
+            color: var(--neutral-text);
+        }
+
+        .dialog-body {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .dialog-mode-label {
+            font-size: 0.9rem;
+            color: var(--neutral-muted);
+            margin-bottom: var(--space-md);
+        }
+
+        .accuracy-display {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+
+        .accuracy-label {
+            font-size: 0.95rem;
+            color: var(--neutral-muted);
+            margin-bottom: var(--space-lg);
+        }
+
+        .dialog-stats p {
+            margin: var(--space-xs) 0;
+            font-size: 0.95rem;
+        }
+
+        .dialog-footer {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: flex-end;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 10px var(--space-lg);
+            font-family: var(--font-display);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.15s ease-out;
+            min-height: 40px;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-deep);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            background: var(--neutral-bg);
+            color: var(--neutral-text);
+            border: 1.5px solid var(--neutral-border);
+            border-radius: var(--radius-md);
+            padding: 10px var(--space-lg);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: border-color 0.15s ease-out, color 0.15s ease-out;
+            min-height: 40px;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* --- Responsive: stack on small screens --- */
+        @media (max-width: 640px) {
+            .quiz-container {
+                flex-direction: column;
+                height: auto;
+                overflow: auto;
+            }
+
+            body {
+                overflow: auto;
+            }
+
+            .image-panel {
+                padding: var(--space-lg);
+                flex: none;
+            }
+
+            .image-frame {
+                max-width: 100%;
+            }
+
+            .controls-panel {
+                flex: none;
+                max-width: 100%;
+                border-left: none;
+                border-top: 1.5px solid var(--neutral-border);
+                padding: var(--space-lg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="quiz-container">
+        <!-- Image Panel -->
+        <div class="image-panel">
+            <div class="image-frame">
+                <img id="quiz-image" src="" alt="Quiz Image" style="display: none;">
+                <div id="image-placeholder" class="image-placeholder">
+                    <!-- Lucide: image -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
+                        <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                        <circle cx="9" cy="9" r="2" />
+                        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                    </svg>
+                    <p>Vyberte mód pro začátek kvízu</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls Panel -->
+        <div class="controls-panel">
+
+            <div class="mode-selector">
+                <button id="train-mode-btn" class="mode-btn">
+                    <!-- Lucide: book-open -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                    </svg>
+                    Trénování
+                </button>
+                <button id="test-mode-btn" class="mode-btn">
+                    <!-- Lucide: circle-check -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="m9 12 2 2 4-4" />
+                    </svg>
+                    Testování
+                </button>
+            </div>
+
+            <div class="progress-chip">
+                Příklad <span id="current-image">-</span> / <span id="total-images">-</span>
+            </div>
+
+            <div class="loading-spinner" id="loading-spinner">
+                <div class="spinner" role="status" aria-label="Načítání obrázků..."></div>
+                <p>Načítání obrázků...</p>
+            </div>
+
+            <p class="quiz-question">Do které třídy patří tento obrázek?</p>
+
+            <div id="answer-buttons" style="display: none;">
+                <!-- Answer buttons will be populated by JavaScript -->
+            </div>
+
+            <div class="navigation-controls">
+                <button id="prev-btn" class="btn-nav" disabled>
+                    <!-- Lucide: chevron-left -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
+                        <path d="m15 18-6-6 6-6" />
+                    </svg>
+                    Předchozí
+                </button>
+                <button id="next-btn" class="btn-nav" disabled>
+                    Další
+                    <!-- Lucide: chevron-right -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
+                        <path d="m9 18 6-6-6-6" />
+                    </svg>
+                </button>
+                <button id="restart-btn" class="btn-nav" disabled>
+                    <!-- Lucide: rotate-ccw -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                        <path d="M3 3v5h5" />
+                    </svg>
+                    Znovu
+                </button>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- Results dialog -->
+    <dialog id="resultsDialog">
+        <div class="dialog-article">
+            <div class="dialog-header">
+                <h2>Vyhodnocení</h2>
+                <button class="dialog-close" id="close-results-dialog" aria-label="Zavřít">×</button>
+            </div>
+            <div class="dialog-body">
+                <p class="dialog-mode-label" id="modal-mode-label"></p>
+                <div class="accuracy-display" id="accuracy-percentage"></div>
+                <p class="accuracy-label">úspěšnost</p>
+                <div class="dialog-stats">
+                    <p><strong>Správné odpovědi:</strong> <span id="correct-answers"></span></p>
+                    <p><strong>Celkem otázek:</strong> <span id="total-questions"></span></p>
+                </div>
+            </div>
+            <div class="dialog-footer">
+                <button class="btn-secondary" id="close-results-btn">Zavřít</button>
+                <button class="btn-primary" id="restart-from-modal">
+                    <!-- Lucide: rotate-ccw -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                        <path d="M3 3v5h5" />
+                    </svg>
+                    Znovu
+                </button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            let quizConfig = null;
+            let currentMode = null;
+            let currentImageIndex = 0;
+            let imageList = [];
+            let answerSelected = false;
+            let hostPrefix = "";
+            let correctAnswers = 0;
+            let totalQuestions = 0;
+            let userAnswers = {}; // Track answers per image
+
+            // JS Translations
+            const TRANSLATIONS = {
+                loading_images: "Načítání obrázků...",
+                no_images: "Žádné obrázky pro mód",
+                quiz_loaded: "Kvíz načten! Vyberte odpověď pro obrázek.",
+                error_loading: "Chyba při načítání obrázků pro mód",
+                correct: "Správně! Výborně.",
+                incorrect: "Špatně. Správná odpověď je zvýrazněna zeleně.",
+                mode_train: "Trénování",
+                mode_test: "Testování",
+                modal_train_label: "Úspěšnost algoritmu při trénování",
+                modal_test_label: "Úspěšnost algoritmu při testování"
+            };
+
+            // Static replacement for the Flask API (quiz_config.json + img/ listing)
+            const QUIZ_CONFIG = {
+                answer_options: ["Blip", "Cink", "Tik"],
+                train_answers: {
+                    "1.png": 0, "2.png": 1, "3.png": 0, "4.png": 1, "5.png": 2,
+                    "6.png": 1, "7.png": 0, "8.png": 2, "9.png": 0, "10.png": 1
+                },
+                test_answers: {
+                    "1.png": 1, "2.png": 0, "3.png": 0, "4.png": 2, "5.png": 1, "6.png": 0
+                }
+            };
+
+            function numericSort(images) {
+                return images.slice().sort(function (a, b) {
+                    return parseInt(a, 10) - parseInt(b, 10);
+                });
+            }
+
+            // Load quiz configuration
+            function loadQuizConfig() {
+                return $.Deferred().resolve(QUIZ_CONFIG).promise();
+            }
+
+            // Load available images for current mode
+            function loadImageList(mode) {
+                const answers = mode === 'train' ? QUIZ_CONFIG.train_answers : QUIZ_CONFIG.test_answers;
+                return $.Deferred().resolve({ images: numericSort(Object.keys(answers)) }).promise();
+            }
+
+            // Initialize quiz with mode
+            function initializeQuiz(mode) {
+                currentMode = mode;
+                currentImageIndex = 0;
+                answerSelected = false;
+                correctAnswers = 0;
+                totalQuestions = 0;
+                userAnswers = {};
+
+                $('#loading-spinner').show();
+                showStatus(TRANSLATIONS.loading_images, 'info');
+
+                // Update mode display
+                const modeText = mode === 'train' ? TRANSLATIONS.mode_train : TRANSLATIONS.mode_test;
+                $('#current-mode').text(modeText);
+
+                // Load image list for this mode
+                loadImageList(mode).then(function (response) {
+                    imageList = response.images;
+                    $('#total-images').text(imageList.length);
+
+                    if (imageList.length === 0) {
+                        showStatus(TRANSLATIONS.no_images + ' ' + mode + '.', 'error');
+                        $('#loading-spinner').hide();
+                        return;
+                    }
+
+                    // Show first image
+                    showCurrentImage();
+                    updateNavigationButtons();
+                    setupAnswerButtons();
+
+                    $('#answer-buttons').show();
+                    $('#loading-spinner').hide();
+                    showStatus(TRANSLATIONS.quiz_loaded, 'info');
+
+                }).catch(function (error) {
+                    console.error('Error loading images:', error);
+                    showStatus(TRANSLATIONS.error_loading + ' ' + mode + '.', 'error');
+                    $('#loading-spinner').hide();
+                });
+            }
+
+            // Show current image
+            function showCurrentImage() {
+                if (imageList.length === 0) return;
+
+                const imageName = imageList[currentImageIndex];
+                const imageUrl = hostPrefix + 'img/' + currentMode + '/' + imageName;
+
+                $('#quiz-image').attr('src', imageUrl).show();
+                $('#image-placeholder').hide();
+                $('#current-image').text(currentImageIndex + 1);
+
+                // Check if this image was already answered
+                answerSelected = userAnswers.hasOwnProperty(imageName);
+
+                resetAnswerButtons();
+
+                // If already answered, show the previous answer
+                if (answerSelected) {
+                    const selectedIndex = userAnswers[imageName];
+                    const answers = currentMode === 'train' ? quizConfig.train_answers : quizConfig.test_answers;
+                    const correctIndex = answers[imageName];
+
+                    $('.answer-btn').each(function (index) {
+                        const button = $(this);
+                        if (index === correctIndex) {
+                            button.addClass('correct');
+                        } else if (index === selectedIndex && index !== correctIndex) {
+                            button.addClass('incorrect');
+                        }
+                    });
+                }
+            }
+
+            // Setup answer buttons
+            function setupAnswerButtons() {
+                if (!quizConfig) return;
+
+                const buttonContainer = $('#answer-buttons');
+                buttonContainer.empty();
+
+                quizConfig.answer_options.forEach(function (option, index) {
+                    const button = $('<button>')
+                        .addClass('answer-btn')
+                        .attr('data-answer', index)
+                        .text(option);
+
+                    button.click(function () {
+                        selectAnswer(index);
+                    });
+
+                    buttonContainer.append(button);
+                });
+            }
+
+            // Reset answer button styles
+            function resetAnswerButtons() {
+                $('.answer-btn').removeClass('correct incorrect');
+            }
+
+            // Handle answer selection
+            function selectAnswer(selectedIndex) {
+                if (answerSelected || !quizConfig || imageList.length === 0) return;
+
+                answerSelected = true;
+                const imageName = imageList[currentImageIndex];
+                const answers = currentMode === 'train' ? quizConfig.train_answers : quizConfig.test_answers;
+                const correctIndex = answers[imageName];
+
+                // Track this answer if not already answered
+                if (!userAnswers.hasOwnProperty(imageName)) {
+                    totalQuestions++;
+                    if (selectedIndex === correctIndex) {
+                        correctAnswers++;
+                    }
+                    userAnswers[imageName] = selectedIndex;
+                }
+
+                // Update button styles
+                $('.answer-btn').each(function (index) {
+                    const button = $(this);
+
+                    if (index === correctIndex) {
+                        button.addClass('correct');
+                    } else if (index === selectedIndex && index !== correctIndex) {
+                        button.addClass('incorrect');
+                    }
+                });
+
+                // Update status
+                if (selectedIndex === correctIndex) {
+                    showStatus(TRANSLATIONS.correct, 'success');
+                } else {
+                    showStatus(TRANSLATIONS.incorrect, 'error');
+                }
+
+                // Check if this is the last question and show results modal
+                if (currentImageIndex === imageList.length - 1) {
+                    setTimeout(function () {
+                        showResultsModal();
+                    }, 1500); // Delay to let user see the result
+                }
+            }
+
+            // Update navigation buttons
+            function updateNavigationButtons() {
+                $('#prev-btn').prop('disabled', currentImageIndex === 0);
+                $('#next-btn').prop('disabled', currentImageIndex === imageList.length - 1);
+                $('#restart-btn').prop('disabled', imageList.length === 0);
+            }
+
+            // Show results dialog
+            function showResultsModal() {
+                const accuracy = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+
+                $('#accuracy-percentage').text(accuracy + '%');
+                $('#correct-answers').text(correctAnswers);
+                $('#total-questions').text(totalQuestions);
+
+                if (currentMode === 'train') {
+                    $('#modal-mode-label').text(TRANSLATIONS.modal_train_label);
+                } else {
+                    $('#modal-mode-label').text(TRANSLATIONS.modal_test_label);
+                }
+
+                document.getElementById('resultsDialog').showModal();
+            }
+
+            // Helper: show status message (no-op — color feedback on buttons is sufficient)
+            function showStatus(message, type) { }
+
+            // Event handlers
+            $('#train-mode-btn').click(function () {
+                initializeQuiz('train');
+                $('.mode-btn').removeClass('active');
+                $(this).addClass('active');
+            });
+
+            $('#test-mode-btn').click(function () {
+                initializeQuiz('test');
+                $('.mode-btn').removeClass('active');
+                $(this).addClass('active');
+            });
+
+            $('#prev-btn').click(function () {
+                if (currentImageIndex > 0) {
+                    currentImageIndex--;
+                    showCurrentImage();
+                    updateNavigationButtons();
+                }
+            });
+
+            $('#next-btn').click(function () {
+                if (currentImageIndex < imageList.length - 1) {
+                    currentImageIndex++;
+                    showCurrentImage();
+                    updateNavigationButtons();
+                }
+            });
+
+            $('#restart-btn').click(function () {
+                if (currentMode) {
+                    initializeQuiz(currentMode);
+                }
+            });
+
+            function closeResultsDialog() {
+                document.getElementById('resultsDialog').close();
+            }
+
+            $('#close-results-btn, #close-results-dialog').click(closeResultsDialog);
+
+            $('#restart-from-modal').click(function () {
+                closeResultsDialog();
+                if (currentMode) {
+                    initializeQuiz(currentMode);
+                }
+            });
+
+            // Initialize
+            loadQuizConfig().then(function (config) {
+                quizConfig = config;
+                $('#train-mode-btn').addClass('active');
+                initializeQuiz('train');
+            }).catch(function (error) {
+                console.error('Error loading quiz config:', error);
+                showStatus('Error loading quiz configuration.', 'error');
+            });
+        });
+    </script>
+</body>
+
+</html>
