@@ -80,18 +80,18 @@ const juggle = (toss: string, ball: (i: number) => [string, number]) => `
 /* Small figures, 48×48: navigation on every page. */
 export const SMALL: Record<PageId, string> = {
   consulting: `
-    <rect x="27" y="19.5" width="15" height="25.5" rx="1.5"/>
-    <circle cx="34.5" cy="25.5" r="2"/>
-    <path class="thin" d="M31 32H38M31 35.5H38"/>
-    <g class="a-blink"><circle class="dot" cx="38.5" cy="40.5" r="0.9"/></g>
-    <g class="a-quack" ${pivot(32, 18)}>
-      <path class="solid" d="M42.2 18.2H33.5Q29.4 18.2 29.4 12.4Q32 14.9 35.4 14.3Q39 13.6 41.5 15Q42.7 16.4 42.2 18.2Z"/>
-      <circle class="solid" cx="39.6" cy="11.6" r="3.2"/>
-      <path class="thin" d="M42.7 11.3L44.3 12.1L42.7 12.8"/>
-    </g>
-    <circle class="head" cx="18.5" cy="13" r="4.5"/>
-    <path d="M17.3 17.4L12 31M12 31L7 45M12 31L16.5 45M15.7 21.5L10 25L6.5 28.5"/>
-    <path class="a-press" d="M15.7 21.5L22.5 25.5L31.5 25.5"/>`,
+    <rect x="32" y="3.5" width="12" height="7" rx="1.5"/>
+    <path class="thin" d="M38 10.5V13.5"/>
+    <path d="M38 13.5L44 19.5L38 25.5L32 19.5Z"/>
+    <path class="thin" d="M38 25.5V28.5"/>
+    <rect class="thin" x="32" y="28.5" width="12" height="8" rx="1.5" stroke-dasharray="2 2"/>
+    <path class="thin" d="M38 36.5V39.5"/>
+    <rect x="32" y="39.5" width="12" height="6" rx="1.5"/>
+    <circle class="head" cx="8" cy="12.5" r="4.5"/>
+    <path d="M8 17V31M8 31L4.5 45.5M8 31L11.5 45.5"/>
+    <path d="M8 21L13 24.5L18 30.5M8 21L11.5 30.5L18 34.5"/>
+    <rect class="a-slide" style="--dx:14px" x="18" y="28.5" width="12" height="8" rx="1.5"/>
+    <path class="thin a-spark" d="M31 26.5l0.8-1.8M31 38.5l0.8 1.8"/>`,
   teaching: `
     <g mask="url(#ko-teach-s)">
       <rect x="10" y="3" width="35" height="22" rx="1.5"/>
@@ -190,24 +190,20 @@ export const PROPS: Record<PageId, string> = {
 export const LARGE: Partial<Record<ArtId, string>> = {
   consulting: `
     <path class="ground" d="M0 215H240"/>
-    <g mask="url(#ko-cons-l)">
-      <rect x="124" y="133" width="50" height="82" rx="4"/>
-      <path class="thin" d="M136 196H162M136 201H162M136 206H162"/>
-      <rect class="thin" x="134" y="165" width="30" height="7" rx="1.5"/>
-      <rect class="thin" x="134" y="177" width="30" height="7" rx="1.5"/>
-      <g class="a-blink"><circle class="dot" cx="165" cy="150" r="1.8"/></g>
-    </g>
-    <circle cx="149" cy="150" r="4.5"/>
-    <g class="a-quack" ${pivot(146, 131.2)}>
-      <g mask="url(#ko-duck-l)">
-        <path class="solid" d="M146 131.2H155.75Q161.75 131.2 161.98 126.18Q161.75 123.4 158.75 123.03Q153.5 125.43 148.63 124.68Q145.63 124.15 143.38 122.65Q141.95 122.2 141.95 123.93Q142.1 128.05 143.75 129.93Q144.73 131.2 146 131.2Z"/>
-        <circle class="solid" cx="157" cy="119.6" r="5.3"/>
-      </g>
-      <path class="solid" d="M161.8 119.6Q166.1 120 166.4 121.2Q165.8 122.4 161.8 122.2Z"/>
-    </g>
-    <circle class="head" cx="100" cy="113.7" r="9"/>
-    <path d="M96.7 122.1L80 165M80 165L68 215M80 165L93 215M92.7 132.4L74 146L62 159"/>
-    <path class="a-press" style="--dx:-5px" d="M92.7 132.4L114 145L143 150"/>`,
+    <rect x="140" y="73" width="32" height="18" rx="3"/>
+    <path class="thin" d="M156 91V106M152.5 102.5L156 106L159.5 102.5"/>
+    <path d="M156 108L171 122L156 136L141 122Z"/>
+    <path class="thin" d="M171 122H184M180.5 118.5L184 122L180.5 125.5"/>
+    <rect x="186" y="113" width="26" height="18" rx="3"/>
+    <path class="thin" d="M156 136V151M152.5 147.5L156 151L159.5 147.5"/>
+    <rect class="thin" x="140" y="153" width="32" height="20" rx="3" stroke-dasharray="4 4"/>
+    <path class="thin" d="M156 173V188M152.5 184.5L156 188L159.5 184.5"/>
+    <rect x="140" y="190" width="32" height="18" rx="3"/>
+    <circle class="head" cx="66" cy="110" r="9"/>
+    <path d="M66 119V165M66 165L57 215M66 165L75 215"/>
+    <path d="M66 130L84 139L102 157M66 130L78 158L102 169"/>
+    <rect class="a-slide" style="--dx:38px" x="102" y="153" width="32" height="20" rx="3"/>
+    <path class="thin a-spark" d="M136 150l2-4M136 176l2 4"/>`,
   teaching: `
     <path class="ground" d="M0 215H240"/>
     <g mask="url(#ko-teach-l)">
@@ -366,12 +362,12 @@ export const SPOTS = {
 
 /*
  * The scenes are drawn at different heights. Each gets a scale and a horizontal centre
- * (in scene units) so that all of them come out about as tall as the consulting scene
- * (~155 units above the ground) and centred in their box.
+ * (in scene units) so that all of them come out about 155 units tall above the ground
+ * and centred in their box.
  */
 export const LARGE_FIT: Partial<Record<ArtId, { scale: number; cx: number }>> =
   {
-    consulting: { scale: 1.35, cx: 119 },
+    consulting: { scale: 1.09, cx: 134 },
     teaching: { scale: 0.87, cx: 126 },
     projects: { scale: 1.36, cx: 160 },
     research: { scale: 1.2, cx: 125 },
