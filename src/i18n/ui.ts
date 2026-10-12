@@ -45,7 +45,7 @@ export const ui = {
         "menu.label": "Menu",
         "tools.theme": "Přepnout světlý a tmavý režim",
         "tools.contact": "Propojme se",
-        "contact.subtitle": "Pracovně nebo jen tak",
+        "contact.subtitle": "Pracovně nebo osobně",
         "404.title": "Stránka nenalezena",
         "404.button": "Zpět domů",
         "projects.description": "Během své práce tvořím software, který mi ji usnadňuje. Zde jsou ukázky několika open-source projektů, které jsem vyvinul pro výzkum a výuku.",
