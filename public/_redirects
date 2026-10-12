@@ -1,0 +1,3 @@
+# Slides moved from /slides/ (GitHub project page under this domain) to their own subdomain.
+/slides     https://slides.zdenekkasner.cz/          301
+/slides/*   https://slides.zdenekkasner.cz/:splat    301

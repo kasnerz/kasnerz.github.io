@@ -77,7 +77,7 @@ export const teaching: TeachingItem[] = [
             },
             {
                 label: "slides",
-                url: "/slides/public/ctu/",
+                url: "https://slides.zdenekkasner.cz/public/ctu/",
                 type: "materials",
             },
         ],
@@ -123,7 +123,7 @@ export const teaching: TeachingItem[] = [
         links: [
             {
                 label: "",
-                url: "/slides/talks/ai-bootcamp-lokalni-modely/",
+                url: "https://slides.zdenekkasner.cz/talks/ai-bootcamp-lokalni-modely/",
                 type: "materials",
             },
             {
@@ -151,7 +151,7 @@ export const teaching: TeachingItem[] = [
         links: [
             {
                 label: "",
-                url: "/slides/talks/ai-bootcamp-benchmarks/",
+                url: "https://slides.zdenekkasner.cz/talks/ai-bootcamp-benchmarks/",
                 type: "materials",
             },
             {
