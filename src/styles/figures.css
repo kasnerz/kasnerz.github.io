@@ -41,12 +41,22 @@
 .ink .a-sift-away {
   opacity: 0;
 }
-/* juggling balls ride an oval (see SPOTS.juggle); they pause where they are when not pointed at */
-.ink .a-toss {
-  offset-path: var(--toss);
-  offset-rotate: 0deg;
-  offset-distance: var(--d);
-  animation: fig-toss 3.6s linear var(--delay) infinite paused;
+/* the juggler (see juggle() in figures.ts): four 0.35s beats to the loop, and every part
+   starts --b beats in. It pauses where it is when not pointed at. */
+.ink .a-jug {
+  animation: fig-jug 1.4s linear calc(var(--b) * -0.35s) infinite paused;
+}
+.ink .a-jug-held {
+  opacity: 0;
+  animation: fig-jug-held 1.4s step-end calc(var(--b) * -0.35s) infinite paused;
+}
+.ink .a-jug-fly {
+  animation:
+    fig-jug-fly-x 1.4s linear calc(var(--b) * -0.35s) infinite paused,
+    fig-jug-fly-show 1.4s step-end calc(var(--b) * -0.35s) infinite paused;
+}
+.ink .a-jug-fly-y {
+  animation: fig-jug-fly-y 1.4s calc(var(--b) * -0.35s) infinite paused;
 }
 .ext {
   width: 0.8em;
@@ -354,7 +364,7 @@ html[data-theme="dark"] .theme-icon-sun {
   .a-spin {
     animation: fig-spin 2.4s linear infinite;
   }
-  .a-toss {
+  [class*="a-jug"] {
     animation-play-state: running;
   }
   .a-blink .dot {
@@ -532,18 +542,68 @@ html[data-theme="dark"] .theme-icon-sun {
     opacity: 0.25;
   }
 }
-/* the first eighth of the loop is the quick pass between the hands, 34.88% of the oval;
-   the throw over the top slows near the apex */
-@keyframes fig-toss {
-  0% {
-    offset-distance: 0%;
+/* an arm part goes through its eight poses, --a0 to --a7, half a beat apart */
+@keyframes fig-jug {
+  0%,
+  100% {
+    transform: rotate(var(--a0));
   }
   12.5% {
-    offset-distance: 34.88%;
-    animation-timing-function: cubic-bezier(0.3, 0.4, 0.7, 0.6);
+    transform: rotate(var(--a1));
   }
+  25% {
+    transform: rotate(var(--a2));
+  }
+  37.5% {
+    transform: rotate(var(--a3));
+  }
+  50% {
+    transform: rotate(var(--a4));
+  }
+  62.5% {
+    transform: rotate(var(--a5));
+  }
+  75% {
+    transform: rotate(var(--a6));
+  }
+  87.5% {
+    transform: rotate(var(--a7));
+  }
+}
+/* a ball is thrown at the start of its loop and caught three beats in; it is in the
+   hand for the last beat */
+@keyframes fig-jug-held {
+  75% {
+    opacity: 1;
+  }
+}
+@keyframes fig-jug-fly-show {
+  75% {
+    opacity: 0;
+  }
+}
+@keyframes fig-jug-fly-x {
+  0% {
+    transform: translateX(var(--x0));
+  }
+  75%,
   100% {
-    offset-distance: 100%;
+    transform: translateX(var(--x1));
+  }
+}
+/* as under gravity: quadratic ease-out to the top, ease-in down */
+@keyframes fig-jug-fly-y {
+  0% {
+    transform: translateY(var(--y0));
+    animation-timing-function: cubic-bezier(0.33, 0.67, 0.67, 1);
+  }
+  37.5% {
+    transform: translateY(var(--ya));
+    animation-timing-function: cubic-bezier(0.33, 0, 0.67, 0.33);
+  }
+  75%,
+  100% {
+    transform: translateY(var(--y1));
   }
 }
 @keyframes fig-spin {
@@ -552,7 +612,11 @@ html[data-theme="dark"] .theme-icon-sun {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ink * {
+  .ink :not([class*="a-jug"]) {
     animation: none !important;
+  }
+  /* the juggler is placed by its animations, so it is held still on their first frame */
+  .ink [class*="a-jug"] {
+    animation-play-state: paused !important;
   }
 }

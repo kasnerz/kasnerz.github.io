@@ -13,8 +13,8 @@ import type { PageId } from "./nav";
 /** Pages with header art: the navigation sections, plus contact, which is outside it. */
 export type ArtId = PageId | "contact";
 
-const pivot = (x: number, y: number) =>
-  `data-o style="transform-origin:${x}px ${y}px"`;
+const pivot = (x: number, y: number, style = "") =>
+  `data-o style="transform-origin:${x}px ${y}px;${style}"`;
 
 const rays = (cx: number, cy: number, r1: number, r2: number) =>
   Array.from({ length: 8 }, (_, i) => {
@@ -60,38 +60,106 @@ const sift = (s: {
     <path class="a-sift" ${pivot(...s.shoulder)} d="${s.arm}"/>`;
 
 /*
- * Juggling balls. Each ball is drawn at the origin and carried along the same oval,
- * `toss`, by offset-path: fast through the low pass between the hands, slow near the
- * top, so only one ball is ever low and the rest bunch above. The oval runs from the
- * left hand under to the right one and back over the top; the hands sit 30° below its
- * centre and rx:ry is 5:4, which is what fig-toss (figures.css) is timed for. The balls
- * are an eighth of the 3.6s loop apart, starting with one in each hand; --d is where
- * each rests while still. `ball` gives each ball's extra class and radius.
+ * Juggling: a four-ball fountain. Each hand keeps two balls, throwing up on the inside,
+ * catching on the outside and carrying the ball down and in to throw it again, so each
+ * ball goes round its own upright oval: per hand one wide and high, one narrow and low.
+ * The loop is four beats. A hand throws every other beat and the right one is a beat
+ * behind the left, so on every beat one hand throws and the other catches. The loop
+ * starts JUGGLE_START beats in, which is also where it rests while still.
+ *
+ * The arms are drawn from the left one, `arm` (shoulder, elbow, hand); the right is its
+ * mirror image. They bend at the shoulder and the elbow through JUGGLE_ARM, one pose per
+ * half beat starting at the throw of the high ball, worked out for the spot scene's arm
+ * and close enough for the small one's. A ball in hand is drawn in the forearm, so it
+ * moves with it. At the throw it is swapped for a copy that flies from where the hand
+ * let go of it to where the hand will be at the catch, three beats later: across at a
+ * steady speed, up slowing and down speeding up (fig-jug-fly-*, figures.css). `--b` is
+ * how many beats into its own loop each part starts. `balls` gives the high and the low
+ * ball's class, radius and rise.
  */
-const TOSS_REST = [0, 34.88, 45.93, 55.15, 63.44, 71.44, 79.72, 88.95];
-const juggle = (toss: string, ball: (i: number) => [string, number]) => `
-    <g style="--toss:path('${toss}')">${TOSS_REST.map((d, i) => {
-      const [cls, r] = ball(i);
-      return `
-      <circle class="a-toss ${cls}" r="${r}" style="--delay:${(i * -0.45).toFixed(2)}s;--d:${d}%"/>`;
-    }).join("")}
+const JUGGLE_START = 0.8;
+const JUGGLE_ARM: Pt[] = [
+  [-12.3, 49.4],
+  [4.1, 20.6],
+  [0.4, 8.1],
+  [-19.7, 31.3],
+  [-10.4, 38.1],
+  [8.6, 6.6],
+  [8.5, -9.5],
+  [-20.6, 29.7],
+];
+const turn = ([x, y]: Pt, [cx, cy]: Pt, deg: number): Pt => {
+  const a = (deg * Math.PI) / 180;
+  const [c, s] = [Math.cos(a), Math.sin(a)];
+  return [cx + (x - cx) * c - (y - cy) * s, cy + (x - cx) * s + (y - cy) * c];
+};
+const juggle = (arm: [Pt, Pt, Pt], balls: [string, number, number][]) =>
+  [1, -1]
+    .map(side => {
+      const [S, E, H] = arm.map(
+        ([x, y]): Pt => [side > 0 ? x : 2 * arm[0][0] - x, y]
+      );
+      const pose = JUGGLE_ARM.map(([u, f]) => [u * side, f * side]);
+      const angles = (k: number) =>
+        pose.map((p, i) => `--a${i}:${p[k]}deg`).join(";");
+      const armB = (JUGGLE_START + (side > 0 ? 0 : 3)) % 4;
+      const f = (v: number) => v.toFixed(2);
+      let held = "";
+      let fly = "";
+      balls.forEach(([cls, r, rise], j) => {
+        // the poses it is thrown and caught in
+        const [up, down] = j ? [4, 2] : [0, 6];
+        const at = (i: number) =>
+          turn(turn([H[0], H[1] - r], E, pose[i][1]), S, pose[i][0]);
+        const [[x0, y0], [x1, y1]] = [at(up), at(down)];
+        const b = (armB + up / 2) % 4;
+        held += `
+        <circle class="a-jug-held ${cls}" cx="${H[0]}" cy="${+(H[1] - r).toFixed(2)}" r="${r}" style="--b:${b}"/>`;
+        fly += `
+    <g class="a-jug-fly" style="--b:${b};--x0:${f(x0)}px;--x1:${f(x1)}px;--y0:${f(y0)}px;--ya:${f(y0 - rise)}px;--y1:${f(y1)}px">
+      <circle class="a-jug-fly-y ${cls}" r="${r}"/>
     </g>`;
+      });
+      return `
+    <g class="a-jug" ${pivot(...S, `--b:${armB};${angles(0)}`)}>
+      <path d="M${S[0]} ${S[1]}L${E[0]} ${E[1]}"/>
+      <g class="a-jug" ${pivot(...E, angles(1))}>
+        <path d="M${E[0]} ${E[1]}L${H[0]} ${H[1]}"/>${held}
+      </g>
+    </g>${fly}`;
+    })
+    .join("");
+
+/*
+ * Two people talking over coffee, in the spot scenes' frame (200×160, ground at y=152):
+ * the first consulting step, and the consulting page's header scene.
+ */
+const TALK = `
+    <path d="M38 98V152M38 121H62M58 121V152"/>
+    <path d="M162 98V152M162 121H138M142 121V152"/>
+    <path d="M84 110H116M100 110V152"/>
+    <path d="M88 110v-8h8v8M104 110v-8h8v8"/>
+    <path class="thin a-steam" d="M92 98q-2.5-3.5 0-7M108 98q2.5-3.5 0-7"/>
+    <circle class="head" cx="48" cy="63" r="9"/>
+    <path d="M48 72V117M48 117H76V152M48 83L60 101L74 106"/>
+    <path class="a-arm" ${pivot(48, 83)} d="M48 83L64 96L80 88"/>
+    <circle class="head" cx="152" cy="63" r="9"/>
+    <path d="M152 72V117M152 117H124V152M152 83L138 100L146 75"/>
+    <path class="thin" d="M66 14H100Q108 14 108 22V30Q108 38 100 38H74L62 48L67 38Q60 37 60 30V22Q60 14 66 14Z"/>
+    <g class="a-dots"><circle class="dot" cx="73" cy="26" r="2.3"/><circle class="dot" cx="84" cy="26" r="2.3"/><circle class="dot" cx="95" cy="26" r="2.3"/></g>
+    <path d="M136 28q0-7 7-7t7 7q0 4.5-7 6.5v4"/><circle class="dot" cx="143" cy="45" r="1.9"/>`;
 
 /* Small figures, 48×48: navigation on every page. */
 export const SMALL: Record<PageId, string> = {
+  /* talking over a coffee: the talk spot's left half, on its own */
   consulting: `
-    <rect x="32" y="3.5" width="12" height="7" rx="1.5"/>
-    <path class="thin" d="M38 10.5V13.5"/>
-    <path d="M38 13.5L44 19.5L38 25.5L32 19.5Z"/>
-    <path class="thin" d="M38 25.5V28.5"/>
-    <rect class="thin" x="32" y="28.5" width="12" height="8" rx="1.5" stroke-dasharray="2 2"/>
-    <path class="thin" d="M38 36.5V39.5"/>
-    <rect x="32" y="39.5" width="12" height="6" rx="1.5"/>
-    <circle class="head" cx="8" cy="12.5" r="4.5"/>
-    <path d="M8 17V31M8 31L4.5 45.5M8 31L11.5 45.5"/>
-    <path d="M8 21L13 24.5L18 30.5M8 21L11.5 30.5L18 34.5"/>
-    <rect class="a-slide" style="--dx:14px" x="18" y="28.5" width="12" height="8" rx="1.5"/>
-    <path class="thin a-spark" d="M31 26.5l0.8-1.8M31 38.5l0.8 1.8"/>`,
+    <path d="M10 24V45.5M10 34.5H20M19 34.5V45.5"/>
+    <circle class="head" cx="16" cy="14" r="4.5"/>
+    <path d="M16 18.5V32.5M16 32.5H29V45.5M16 22.5L21 29L26 24.5"/>
+    <path d="M26.5 21.5V26.5H31.5V21.5"/>
+    <path class="thin a-steam" d="M28 19.5q-1-1.5 0-3M30 19.5q1-1.5 0-3"/>
+    <path class="thin" d="M33.5 2H37.5A5.5 5.5 0 0 1 37.5 13H33.5A5.5 5.5 0 0 1 29.29 11.04L22 12L28.08 6.54A5.5 5.5 0 0 1 33.5 2Z"/>
+    <g class="a-dots"><circle class="dot" cx="32" cy="7.5" r="1.2"/><circle class="dot" cx="35.5" cy="7.5" r="1.2"/><circle class="dot" cx="39" cy="7.5" r="1.2"/></g>`,
   teaching: `
     <g mask="url(#ko-teach-s)">
       <rect x="10" y="3" width="35" height="22" rx="1.5"/>
@@ -137,10 +205,16 @@ export const SMALL: Record<PageId, string> = {
     <path class="a-type-r" ${pivot(35.5, 35)} d="M35.5 35L33 25"/>`,
   about: `
     <circle class="head" cx="24" cy="19.5" r="4.5"/>
-    <path d="M24 24V35M24 35L20 46M24 35L28 46"/>
-    <path d="M24 27.5L17 31L11 23.8M24 27.5L31 31L37 23.8"/>${juggle(
-      "M11.01 21A15 12 0 0 0 36.99 21A15 12 0 1 0 11.01 21",
-      i => (i % 2 ? ["thin", 2.4] : ["dot", 2.2])
+    <path d="M24 24V35M24 35L20 46M24 35L28 46"/>${juggle(
+      [
+        [24, 27.5],
+        [15.5, 31.5],
+        [8.5, 24],
+      ],
+      [
+        ["dot", 2.2, 14],
+        ["thin", 2.4, 10],
+      ]
     )}`,
 };
 
@@ -151,11 +225,8 @@ export const SMALL: Record<PageId, string> = {
  */
 export const PROPS: Record<PageId, string> = {
   consulting: `
-    <rect x="2.5" y="1.5" width="9" height="4.5" rx="1"/>
-    <path d="M7 6V8M7 8L10.5 11.5L7 15L3.5 11.5Z"/>
-    <path d="M10.5 11.5H14.5M7 15V17.5"/>
-    <rect x="14.5" y="9" width="7.5" height="5" rx="1"/>
-    <rect class="thin" x="2.5" y="17.5" width="9" height="5" rx="1" stroke-dasharray="1.8 1.5"/>`,
+    <path d="M8.5 4H15.5A6 6 0 0 1 15.5 16H8.5A6 6 0 0 1 7.46 15.91L3 20.5L3.9 13.86A6 6 0 0 1 8.5 4Z"/>
+    <g class="a-dots"><circle class="dot" cx="8" cy="10" r="1.3"/><circle class="dot" cx="12" cy="10" r="1.3"/><circle class="dot" cx="16" cy="10" r="1.3"/></g>`,
   teaching: `
     <rect x="2.5" y="3" width="19" height="13" rx="1"/>
     <path class="thin" d="M9 7H18M9 10H18M9 13H15"/>
@@ -188,22 +259,10 @@ export const PROPS: Record<PageId, string> = {
  * Their figures stand on the top edge of the content card.
  */
 export const LARGE: Partial<Record<ArtId, string>> = {
+  /* the talk spot, moved onto this ground */
   consulting: `
     <path class="ground" d="M0 215H240"/>
-    <rect x="140" y="73" width="32" height="18" rx="3"/>
-    <path class="thin" d="M156 91V106M152.5 102.5L156 106L159.5 102.5"/>
-    <path d="M156 108L171 122L156 136L141 122Z"/>
-    <path class="thin" d="M171 122H184M180.5 118.5L184 122L180.5 125.5"/>
-    <rect x="186" y="113" width="26" height="18" rx="3"/>
-    <path class="thin" d="M156 136V151M152.5 147.5L156 151L159.5 147.5"/>
-    <rect class="thin" x="140" y="153" width="32" height="20" rx="3" stroke-dasharray="4 4"/>
-    <path class="thin" d="M156 173V188M152.5 184.5L156 188L159.5 184.5"/>
-    <rect x="140" y="190" width="32" height="18" rx="3"/>
-    <circle class="head" cx="66" cy="110" r="9"/>
-    <path d="M66 119V165M66 165L57 215M66 165L75 215"/>
-    <path d="M66 130L84 139L102 157M66 130L78 158L102 169"/>
-    <rect class="a-slide" style="--dx:38px" x="102" y="153" width="32" height="20" rx="3"/>
-    <path class="thin a-spark" d="M136 150l2-4M136 176l2 4"/>`,
+    <g transform="translate(20 63)">${TALK}</g>`,
   teaching: `
     <path class="ground" d="M0 215H240"/>
     <g mask="url(#ko-teach-l)">
@@ -286,20 +345,7 @@ export const LARGE: Partial<Record<ArtId, string>> = {
  * consulting page. Figures use the big scenes' proportions (head r=9, 46-unit torso).
  */
 export const SPOTS = {
-  talk: `
-    <path d="M38 98V152M38 121H62M58 121V152"/>
-    <path d="M162 98V152M162 121H138M142 121V152"/>
-    <path d="M84 110H116M100 110V152"/>
-    <path d="M88 110v-8h8v8M104 110v-8h8v8"/>
-    <path class="thin a-steam" d="M92 98q-2.5-3.5 0-7M108 98q2.5-3.5 0-7"/>
-    <circle class="head" cx="48" cy="63" r="9"/>
-    <path d="M48 72V117M48 117H76V152M48 83L60 101L74 106"/>
-    <path class="a-arm" ${pivot(48, 83)} d="M48 83L64 96L80 88"/>
-    <circle class="head" cx="152" cy="63" r="9"/>
-    <path d="M152 72V117M152 117H124V152M152 83L138 100L146 75"/>
-    <path class="thin" d="M66 14H100Q108 14 108 22V30Q108 38 100 38H74L62 48L67 38Q60 37 60 30V22Q60 14 66 14Z"/>
-    <g class="a-dots"><circle class="dot" cx="73" cy="26" r="2.3"/><circle class="dot" cx="84" cy="26" r="2.3"/><circle class="dot" cx="95" cy="26" r="2.3"/></g>
-    <path d="M136 28q0-7 7-7t7 7q0 4.5-7 6.5v4"/><circle class="dot" cx="143" cy="45" r="1.9"/>`,
+  talk: TALK,
   strategy: `
     <rect x="120" y="10" width="32" height="18" rx="3"/>
     <path class="thin" d="M136 28V43M132.5 39.5L136 43L139.5 39.5"/>
@@ -353,10 +399,16 @@ export const SPOTS = {
   /* the about page: juggling many things at once, see juggle() */
   juggle: `
     <circle class="head" cx="100" cy="70" r="9"/>
-    <path d="M100 79V116M100 116L91 152M100 116L109 152"/>
-    <path d="M100 88L78 100L57 74M100 88L122 100L143 74"/>${juggle(
-      "M56.70 68A50 40 0 0 0 143.30 68A50 40 0 1 0 56.70 68",
-      i => (i % 2 ? ["", 5] : ["dot", 5.5])
+    <path d="M100 79V116M100 116L91 152M100 116L109 152"/>${juggle(
+      [
+        [100, 88],
+        [78, 100],
+        [57, 74],
+      ],
+      [
+        ["dot", 5.5, 44],
+        ["", 5, 30],
+      ]
     )}`,
 };
 
@@ -367,7 +419,7 @@ export const SPOTS = {
  */
 export const LARGE_FIT: Partial<Record<ArtId, { scale: number; cx: number }>> =
   {
-    consulting: { scale: 1.09, cx: 134 },
+    consulting: { scale: 1.12, cx: 120 },
     teaching: { scale: 0.87, cx: 126 },
     projects: { scale: 1.36, cx: 160 },
     research: { scale: 1.2, cx: 125 },
