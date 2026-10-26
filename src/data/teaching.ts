@@ -107,6 +107,29 @@ export const teaching: TeachingItem[] = [
     },
     {
         title: {
+            en: "Jazykové modely – základ dnešního AI",
+            cs: "Jazykové modely – základ dnešního AI",
+        },
+        period: {
+            en: "10/2026",
+            cs: "10/2026",
+        },
+        description: {
+            en: "Talk at the Informatics Evenings series at FIT CTU on basics of LLMs.",
+            cs: "Přednáška v cyklu Informatické večery na FIT ČVUT o principech jazykových modelů.",
+        },
+        type: "talk",
+        category: "talks",
+        links: [
+            {
+                label: "",
+                url: "https://fit.cvut.cz/cs/zivot-na-fit/aktualne/udalosti/26017-informaticky-vecer-jazykove-modely-zaklad-dnesniho-ai",
+                type: "website",
+            },
+        ],
+    },
+    {
+        title: {
             en: "Lokální AI: Reality check",
             cs: "Lokální AI: Reality check",
         },
