@@ -126,6 +126,11 @@ export const teaching: TeachingItem[] = [
                 url: "https://fit.cvut.cz/cs/zivot-na-fit/aktualne/udalosti/26017-informaticky-vecer-jazykove-modely-zaklad-dnesniho-ai",
                 type: "website",
             },
+            {
+                label: "",
+                url: "https://www.youtube.com/watch?v=H0jR6Q2Aj5g",
+                type: "youtube",
+            },
         ],
     },
     {
