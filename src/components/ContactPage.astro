@@ -30,7 +30,13 @@ type Copy = {
   errors: Record<string, string>;
   elsewhere: string;
   formTitle: string;
+  businessTitle: string;
+  business: string;
+  businessId: string;
+  vat: string;
 };
+
+const ICO = "06845762";
 
 const copies: Record<"cs" | "en", Copy> = {
   en: {
@@ -62,6 +68,11 @@ const copies: Record<"cs" | "en", Copy> = {
     },
     elsewhere: "You can find me here:",
     formTitle: "Contact form",
+    businessTitle: "Business details",
+    business:
+      "I am a self-employed person operating under the Czech Trade Licensing Act.",
+    businessId: "Company ID (IČO)",
+    vat: "I am not a VAT payer.",
   },
   cs: {
     purpose: "S čím Vám mohu pomoct?",
@@ -92,6 +103,10 @@ const copies: Record<"cs" | "en", Copy> = {
     },
     elsewhere: "Najdete mě zde:",
     formTitle: "Kontaktní formulář",
+    businessTitle: "Fakturační údaje",
+    business: "Jsem fyzická osoba podnikající dle živnostenského zákona.",
+    businessId: "IČO",
+    vat: "Nejsem plátce DPH.",
   },
 };
 const copy = copies[lang];
@@ -130,6 +145,20 @@ const copy = copies[lang];
         ))
       }
     </ul>
+  </section>
+
+  <section class="business">
+    <h2>{copy.businessTitle}</h2>
+    <p>
+      {copy.business}
+      {copy.businessId}:{" "}
+      <a
+        class="link"
+        href={`https://ares.gov.cz/ekonomicke-subjekty/ros/${ICO}`}
+        >{ICO}</a
+      >.
+      {copy.vat}
+    </p>
   </section>
 
   <section class="write">
@@ -365,13 +394,27 @@ const copy = copies[lang];
     color: var(--text-muted);
   }
 
-  .write {
+  .write,
+  .business {
     margin-top: 2.5rem;
     padding-top: 2rem;
     border-top: 1px solid var(--border);
   }
+  .business p {
+    margin: 0;
+    max-width: 38rem;
+  }
+  .link {
+    color: var(--accent-text);
+    text-decoration: underline dashed;
+    text-underline-offset: 4px;
+  }
+  .link:hover {
+    color: var(--accent);
+  }
   .elsewhere h2,
-  .write h2 {
+  .write h2,
+  .business h2 {
     margin: 0 0 1.25rem;
     font-size: 1.35rem;
     font-weight: 600;
