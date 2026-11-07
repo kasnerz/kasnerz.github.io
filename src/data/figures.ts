@@ -155,10 +155,10 @@ export const SMALL: Record<PageId, string> = {
   consulting: `
     <rect x="1.5" y="4" width="29" height="21" rx="1.5"/>
     <path d="M16 25V30M11 30.5H21"/>
-    <path class="thin" d="M10.5 11.5V17.5M21.5 11.5V17.5M21.5 11.5L10.5 17.5"/>
-    <rect x="6" y="17.5" width="9" height="4" rx="0.8"/><rect x="17" y="17.5" width="9" height="4" rx="0.8"/>
-    <rect x="6" y="7.5" width="9" height="4" rx="0.8"/><rect x="17" y="7.5" width="9" height="4" rx="0.8"/>
-    <g class="a-blink"><rect class="dot" x="17" y="7.5" width="9" height="4" rx="0.8"/></g>
+    <path class="thin" d="M10.5 10.5V18.5M21.5 10.5V18.5M21.5 10.5L10.5 18.5"/>
+    <rect class="dot" x="7" y="18" width="7" height="3" rx="0.6"/><rect class="dot" x="18" y="18" width="7" height="3" rx="0.6"/>
+    <rect class="dot" x="7" y="8" width="7" height="3" rx="0.6"/>
+    <g class="a-blink"><rect class="dot" x="18" y="8" width="7" height="3" rx="0.6"/></g>
     <circle class="head" cx="39.5" cy="16" r="4.5"/>
     <path d="M39.5 20.5V33M39.5 33L35.5 45.5M39.5 33L43.5 45.5M39.5 24L43 29.5L41 33.5"/>
     <path class="a-point" ${pivot(39.5, 24, "--r:18deg")} d="M39.5 24L35 19.5L32 14"/>`,
