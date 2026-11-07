@@ -1,0 +1,316 @@
+---
+import { Icon } from "astro-icon/components";
+
+/*
+ * What the assessment and the deployment deal with, one area after another. The second
+ * one lays out the four ways to run AI models, from the most of the operation in Your
+ * hands to the least. Their icons are line art in the stickman figures' style (48×48,
+ * src/styles/figures.css).
+ */
+const tiers = [
+  {
+    title: "Plně lokálně",
+    text: "Modely běží na hardwaru, který vlastníte, ve Vaší síti. Data neopouštějí budovu a provoz funguje i bez internetu.",
+    // a server inside a house
+    icon: `
+      <path d="M6 22L24 7L42 22"/>
+      <path d="M10 19V42H38V19"/>
+      <rect x="17" y="23" width="14" height="16" rx="1.5"/>
+      <path class="thin" d="M17 28.3H31M17 33.6H31"/>
+      <circle class="dot" cx="20.5" cy="25.7" r="1"/><circle class="dot" cx="20.5" cy="31" r="1"/><circle class="dot" cx="20.5" cy="36.3" r="1"/>`,
+  },
+  {
+    title: "Pronajatý výpočetní výkon",
+    text: "Otevřené modely na pronajatém GPU serveru, třeba v českém datacentru. Hardware nekupujete, ale server máte jen pro sebe.",
+    // a server with a rental tag
+    icon: `
+      <rect x="6" y="8" width="20" height="32" rx="2"/>
+      <path class="thin" d="M6 18.7H26M6 29.3H26"/>
+      <circle class="dot" cx="10.5" cy="13.3" r="1.2"/><circle class="dot" cx="10.5" cy="24" r="1.2"/><circle class="dot" cx="10.5" cy="34.7" r="1.2"/>
+      <path class="thin" d="M26 13C33 13 37 16 37 21.5"/>
+      <path d="M32 20H42V31L37 36L32 31Z"/>
+      <circle class="thin" cx="37" cy="24.5" r="1.6"/>`,
+  },
+  {
+    title: "Otevřené modely s platbou za tokeny",
+    text: "Otevřené modely přes API poskytovatele, platíte jen za spotřebu. Kdykoli můžete přejít k jinému poskytovateli nebo k sobě.",
+    // a cloud fed by a coin
+    icon: `
+      <path d="M13 27H35A6.5 6.5 0 0 0 35.8 14.05A10 10 0 0 0 16.6 12.5A7.25 7.25 0 0 0 13 27Z"/>
+      <path class="thin" d="M24 31.5V28M21 30.5L24 27.5L27 30.5"/>
+      <circle cx="24" cy="39" r="6"/>
+      <path class="thin" d="M24 36V42"/>`,
+  },
+  {
+    title: "Komerční služba se zárukami",
+    text: "Firemní verze komerčních služeb se smlouvou o zpracování dat a se zárukou, že na Vašich datech nebudou trénovat.",
+    // a cloud and a shield with a tick
+    icon: `
+      <path d="M6 20H20A4.5 4.5 0 0 0 20.5 11.03A7 7 0 0 0 7.2 10.6A5 5 0 0 0 6 20Z"/>
+      <path d="M34 17L44 20.5V28C44 34.5 39.5 38.7 34 41C28.5 38.7 24 34.5 24 28V20.5Z"/>
+      <path class="thin" d="M29.5 28.5L32.8 31.8L38.5 25.5"/>`,
+  },
+];
+
+const topics = [
+  {
+    id: "data",
+    title: "Data",
+    icon: "tabler:database",
+    text: "Projdeme, jaká data máte a kde leží: dokumenty, databáze, e-maily, skeny. Navrhnu, jak je převést do formátu, se kterým modely umí pracovat, a jak je udržovat aktuální.",
+  },
+  {
+    id: "typy-provozu",
+    title: "Typ provozu",
+    icon: "tabler:route",
+    text: "Lokální AI má několik podob. Podle citlivosti dat, Vašich povinností (GDPR, AI Act, zákon o kybernetické bezpečnosti), objemu a rozpočtu doporučím, která se Vám hodí. Často to bývá kombinace.",
+    tiers: true,
+  },
+  {
+    id: "modely",
+    title: "Modely, hardware a škálování",
+    icon: "tabler:cpu",
+    text: "Vybereme otevřené modely pro Vaše úlohy a vyzkoušíme je na Vašich datech. Spočítám, jaký hardware potřebují pro požadovanou kvalitu a objem a jak to vychází proti platbám za API. Ukážu i cestu dál: jak řešení rozšířit, až poroste objem nebo vyjdou silnější modely.",
+  },
+  {
+    id: "software",
+    title: "Software",
+    icon: "tabler:apps",
+    text: "Navrhnu, co poběží nad modely: inferenční server, rozhraní pro Vaše zaměstnance, napojení na stávající systémy a nástroje pro konkrétní úlohy, například vyhledávání ve Vašich dokumentech.",
+  },
+  {
+    id: "bezpecnost",
+    title: "Bezpečnost a údržba",
+    icon: "tabler:shield-check",
+    text: "Kdo bude mít k modelům přístup, co se bude zaznamenávat a jak řešení chránit. Domluvíme se, jak budou probíhat aktualizace modelů a kdo se o řešení postará, a vše sepíšu do dokumentace.",
+  },
+];
+---
+
+<section class="section" aria-labelledby="spolu">
+  <h2 id="spolu" class="title">Co budeme spolu řešit?</h2>
+  <p class="lead">
+    Během posouzení projdeme pět oblastí. Na jejich závěrech pak stavíme návrh
+    řešení i samotné nasazení.
+  </p>
+
+  <ol class="topics">
+    {
+      topics.map(topic => (
+        <li class="topic">
+          <span class="mark" aria-hidden="true">
+            <Icon name={topic.icon} />
+          </span>
+          <div class="body">
+            <h3 id={topic.id} class="topic-title">
+              {topic.title}
+            </h3>
+            <p class="topic-text">{topic.text}</p>
+            {topic.tiers && (
+              <ol class="tiers">
+                {tiers.map((tier, i) => (
+                  <li class="tier">
+                    <svg
+                      class="icon"
+                      viewBox="0 0 48 48"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <g class="ink" set:html={tier.icon} />
+                    </svg>
+                    <h4 class="name">{tier.title}</h4>
+                    <p class="text">{tier.text}</p>
+                    <p class="own">
+                      <span>Vlastní provoz</span>
+                      <span
+                        class="pips"
+                        role="img"
+                        aria-label={`${tiers.length - i} ze ${tiers.length}`}
+                      >
+                        {tiers.map((_, j) => (
+                          <span
+                            class="pip"
+                            data-on={j < tiers.length - i || undefined}
+                          />
+                        ))}
+                      </span>
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            )}
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  .section {
+    margin-block: 3.5rem;
+  }
+  .title {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--accent-text);
+    text-wrap: balance;
+  }
+  .lead {
+    margin-bottom: 1.75rem;
+    text-wrap: pretty;
+  }
+
+  /* one area after another, an icon on a line running down the left */
+  .topic {
+    --mark: 2.75rem;
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--mark) minmax(0, 1fr);
+    column-gap: 1.1rem;
+    padding-bottom: 2rem;
+  }
+  .topic:last-child {
+    padding-bottom: 0;
+  }
+  .topic:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: var(--mark);
+    bottom: 0;
+    left: calc(var(--mark) / 2 - 1px);
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.35;
+  }
+  .mark {
+    display: grid;
+    place-items: center;
+    width: var(--mark);
+    height: var(--mark);
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--background);
+  }
+  .mark :global(svg) {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+  .body {
+    padding-top: 0.55rem;
+  }
+  .topic-title {
+    margin: 0 0 0.4rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--accent-text);
+    scroll-margin-top: 5rem;
+  }
+  .topic-text {
+    max-width: 65ch;
+    text-wrap: pretty;
+  }
+
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.1rem;
+  }
+  .tier {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1rem 0.9rem;
+    border-radius: 14px;
+    background: color-mix(in oklab, var(--background), var(--accent) 7%);
+  }
+  .icon {
+    --sw: 2.1;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 0.55rem;
+    color: var(--accent-text);
+  }
+  .name {
+    margin: 0 0 0.35rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--accent-text);
+    text-wrap: balance;
+  }
+  .text {
+    margin: 0 0 0.9rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    text-wrap: pretty;
+  }
+
+  /* how much of the operation stays with You, falling from left to right */
+  .own {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin: auto 0 0;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+  }
+  .pips {
+    display: flex;
+    gap: 0.25rem;
+  }
+  .pip {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent);
+  }
+  .pip[data-on] {
+    background: var(--accent);
+  }
+
+  @media (max-width: 900px) {
+    .tiers {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 560px) {
+    .section {
+      margin-block: 2.75rem;
+    }
+    .topic {
+      --mark: 2.25rem;
+      column-gap: 0.8rem;
+    }
+    .mark :global(svg) {
+      width: 1.15rem;
+      height: 1.15rem;
+    }
+    .body {
+      padding-top: 0.3rem;
+    }
+    /* the cards take the full width, over the line under the icon column */
+    .tiers {
+      position: relative;
+      z-index: 1;
+      grid-template-columns: minmax(0, 1fr);
+      margin-left: calc(-1 * (var(--mark) + 0.8rem));
+    }
+    .tier {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      column-gap: 0.9rem;
+      padding: 1rem;
+    }
+    .icon {
+      grid-row: 1 / span 3;
+      width: 2.6rem;
+      height: 2.6rem;
+    }
+  }
+</style>

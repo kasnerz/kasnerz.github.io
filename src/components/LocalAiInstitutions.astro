@@ -1,0 +1,364 @@
+---
+import { Icon } from "astro-icon/components";
+import data from "@/data/local-ai-uses.json";
+
+type Reason = keyof typeof data.reasons;
+
+const REASON_ICONS: Record<Reason, string> = {
+  secrecy: "tabler:lock",
+  offline: "tabler:wifi-off",
+  volume: "tabler:coins",
+  unfiltered: "tabler:message-off",
+  audit: "tabler:clipboard-check",
+};
+
+const uses = data.groups.flatMap(group => group.uses);
+
+const collator = new Intl.Collator("cs");
+const institutions = [...data.institutions].sort((a, b) =>
+  collator.compare(a.label.cs, b.label.cs)
+);
+
+/** The task from the overview above that an institution's row refers to. */
+function useFor(id: string) {
+  const use = uses.find(candidate => candidate.id === id);
+  if (!use) throw new Error(`Unknown task "${id}" in local-ai-uses.json.`);
+  return use;
+}
+---
+
+<section class="section" aria-labelledby="institutions-title" data-institutions>
+  <h2 id="institutions-title" class="title">
+    Jak může lokální AI pomoci ve vaší firmě/instituci?
+  </h2>
+  <p class="lead">
+    AI může zjednodušit procesy a zvýšit efektivitu zaměstnanců ve vaší firmě
+    nebo instituci. Lokální nasazení modelů pak zajistí, že AI poběží offline,
+    zdarma a bez externích závislostí. Vaše data a data vašich zákazníků navíc
+    zůstanou soukromá.
+  </p>
+
+  <div class="box">
+    <div
+      class="tabs"
+      role="tablist"
+      aria-label="Typ organizace"
+      aria-orientation="vertical"
+      data-institution-tabs
+    >
+      {
+        institutions.map((institution, i) => (
+          <button
+            class="tab"
+            type="button"
+            role="tab"
+            id={`institution-tab-${institution.id}`}
+            aria-controls={`institution-${institution.id}`}
+            aria-selected={i === 0 ? "true" : "false"}
+            tabindex={i === 0 ? 0 : -1}
+          >
+            <Icon name={institution.icon} aria-hidden="true" />
+            {institution.label.cs}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="stack" data-institution-stack>
+      {
+        institutions.map((institution, i) => (
+          <div
+            class="panel"
+            role="tabpanel"
+            id={`institution-${institution.id}`}
+            aria-labelledby={`institution-tab-${institution.id}`}
+            data-active={i === 0 || undefined}
+            data-institution-panel
+          >
+            <h3 class="name">{institution.label.cs}</h3>
+            <p class="why">{institution.why.cs}</p>
+            <ul class="reasons" aria-label="Proč lokálně">
+              {institution.reasons.map(reason => (
+                <li class="reason">
+                  <Icon
+                    name={REASON_ICONS[reason as Reason]}
+                    aria-hidden="true"
+                  />
+                  {data.reasons[reason as Reason].label.cs}
+                </li>
+              ))}
+            </ul>
+            <ul class="tasks">
+              {institution.tasks.map(task => {
+                const use = useFor(task.use);
+                return (
+                  <li class="task">
+                    <Icon name={use.icon} aria-hidden="true" />
+                    <a class="task-use" href={`#use-${use.id}`}>
+                      {use.label.cs}
+                    </a>
+                    <span class="task-what">{task.what.cs}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <noscript>
+    <style is:inline>
+      [data-institution-tabs] {
+        display: none !important;
+      }
+      [data-institution-stack] {
+        display: block !important;
+      }
+      [data-institution-panel] {
+        display: block !important;
+        visibility: visible !important;
+        margin-bottom: 2rem;
+      }
+    </style>
+  </noscript>
+</section>
+
+<style>
+  .section {
+    margin-block: 3.5rem;
+  }
+  .title {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--accent-text);
+    text-wrap: balance;
+  }
+  .lead {
+    margin-bottom: 1.5rem;
+    text-wrap: pretty;
+  }
+
+  .box {
+    display: grid;
+    grid-template-columns: 13.5rem minmax(0, 1fr);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 0.6rem;
+    background: color-mix(in oklab, var(--background), var(--accent) 7%);
+  }
+  .tab {
+    display: flex;
+    /* the rail runs the box's full height, whatever the tallest panel makes that */
+    flex: 1;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.35rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    text-align: left;
+    transition:
+      background-color 60ms linear,
+      color 60ms linear;
+  }
+  .tab :global(svg) {
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    color: var(--accent-text);
+  }
+  .tab:hover {
+    background: color-mix(in oklab, var(--background), var(--accent) 16%);
+  }
+  .tab[aria-selected="true"] {
+    background: var(--accent);
+    color: var(--background);
+  }
+  .tab[aria-selected="true"] :global(svg) {
+    color: var(--background);
+  }
+
+  /* All panels share one cell, so the box keeps the tallest one's height and nothing below
+     it moves when the selection changes. */
+  .stack {
+    display: grid;
+  }
+  .panel {
+    grid-area: 1 / 1;
+    visibility: hidden;
+    padding: 1.25rem 1.5rem 0.8rem;
+  }
+  .panel[data-active] {
+    visibility: visible;
+  }
+
+  .name {
+    margin: 0 0 0.4rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--accent-text);
+  }
+  .why {
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.4;
+    text-wrap: pretty;
+  }
+  .reasons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.9rem;
+    margin: 0.6rem 0 0;
+  }
+  .reason {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--accent-text);
+  }
+  .reason :global(svg) {
+    flex: none;
+    width: 1.05em;
+    height: 1.05em;
+  }
+
+  .tasks {
+    margin: 1rem 0 0;
+  }
+  .task {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 0.65rem;
+    padding-block: 0.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.95rem;
+    line-height: 1.35;
+    text-wrap: pretty;
+  }
+  .task :global(svg) {
+    grid-row: 1 / span 2;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-top: 0.1rem;
+    color: var(--accent-text);
+  }
+  .task-what {
+    grid-column: 2;
+  }
+  .task-use {
+    grid-column: 2;
+    width: fit-content;
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklab, var(--accent), transparent 55%);
+    text-underline-offset: 2px;
+    transition: color 60ms linear;
+  }
+  .task-use:hover {
+    color: var(--accent-text);
+    text-decoration-color: currentColor;
+  }
+
+  @media (max-width: 720px) {
+    .section {
+      margin-block: 2.75rem;
+    }
+    .box {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    /* Chips above the panel. Only the content below them moves, so here each panel can
+       take just the height it needs. */
+    .tabs {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      padding: 0.6rem;
+    }
+    .tab {
+      flex: none;
+      min-height: 2.25rem;
+      padding: 0.25rem 0.6rem 0.25rem 0.5rem;
+      background: var(--background);
+      font-size: 0.9rem;
+    }
+    .stack {
+      display: block;
+    }
+    .panel {
+      display: none;
+      padding: 1rem 1rem 1.1rem;
+    }
+    .panel[data-active] {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  // Delegated to the document, so it keeps working after client-side navigation swaps the
+  // page. Without JS every institution is listed in turn (see the noscript styles).
+  function select(tab: HTMLElement) {
+    const section = tab.closest("[data-institutions]");
+    if (!section) return;
+    section.querySelectorAll<HTMLElement>('[role="tab"]').forEach(other => {
+      const selected = other === tab;
+      other.setAttribute("aria-selected", String(selected));
+      other.tabIndex = selected ? 0 : -1;
+    });
+    const panelId = tab.getAttribute("aria-controls");
+    section
+      .querySelectorAll<HTMLElement>('[role="tabpanel"]')
+      .forEach(panel => {
+        panel.toggleAttribute("data-active", panel.id === panelId);
+      });
+  }
+
+  const tabFrom = (target: EventTarget | null) =>
+    target instanceof Element
+      ? target.closest<HTMLElement>('[data-institutions] [role="tab"]')
+      : null;
+
+  document.addEventListener("click", e => {
+    const tab = tabFrom(e.target);
+    if (tab) select(tab);
+  });
+
+  // The tabs are a column on wide screens and wrap in rows on phones, so both arrow axes
+  // move through them.
+  document.addEventListener("keydown", e => {
+    const tab = tabFrom(e.target);
+    if (!tab) return;
+    const tabs = [
+      ...(tab.parentElement?.querySelectorAll<HTMLElement>('[role="tab"]') ??
+        []),
+    ];
+    const i = tabs.indexOf(tab);
+    const next = {
+      ArrowDown: tabs[(i + 1) % tabs.length],
+      ArrowRight: tabs[(i + 1) % tabs.length],
+      ArrowUp: tabs[(i - 1 + tabs.length) % tabs.length],
+      ArrowLeft: tabs[(i - 1 + tabs.length) % tabs.length],
+      Home: tabs[0],
+      End: tabs[tabs.length - 1],
+    }[e.key];
+    if (!next) return;
+    e.preventDefault();
+    select(next);
+    next.focus();
+  });
+</script>

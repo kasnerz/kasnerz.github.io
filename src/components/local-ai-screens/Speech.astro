@@ -1,0 +1,138 @@
+---
+// A made-up but fixed recording, so the waveform looks the same on every build. It has short
+// pauses between the sentences, like the transcript below it.
+const BAR_COUNT = 72;
+const PLAYED = 40;
+const BARS = Array.from({ length: BAR_COUNT }, (_, i) => {
+  const voice = Math.abs(
+    Math.sin(i * 0.9) * 0.55 + Math.sin(i * 0.31 + 1) * 0.45
+  );
+  const height = i % 18 > 15 ? 0.06 : 0.14 + voice * 0.86;
+  return Number((height * 20).toFixed(2));
+});
+
+// The row that is highlighted is the one at the waveform's playback position.
+const LINES = [
+  { time: "00:12", text: "Bolí vás to víc při nádechu, nebo při chůzi?" },
+  {
+    time: "00:16",
+    text: "Hlavně do schodů, a poslední dva dny i v noci.",
+    current: true,
+  },
+  { time: "00:21", text: "Berete teď nějaké léky?", optional: true },
+  { time: "00:23", text: "Jen něco na tlak, jednou denně.", optional: true },
+];
+---
+
+<div class="speech">
+  <svg
+    class="wave"
+    viewBox={`0 0 ${BAR_COUNT} 20`}
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    {
+      BARS.map((height, i) => (
+        <rect
+          x={i + 0.15}
+          y={10 - height / 2}
+          width="0.7"
+          height={height}
+          data-played={i < PLAYED || undefined}
+        />
+      ))
+    }
+  </svg>
+
+  <ol class="transcript">
+    {
+      LINES.map(line => (
+        <li
+          class="line"
+          data-current={line.current}
+          data-optional={line.optional || undefined}
+        >
+          <time class="time">{line.time}</time>
+          {line.text}
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<style>
+  .speech {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    padding: 0.75rem 0.9rem;
+  }
+  .wave {
+    flex: none;
+    width: 100%;
+    height: 5.5rem;
+    margin-bottom: 0.65rem;
+  }
+  .wave rect {
+    fill: color-mix(in oklab, var(--background), var(--accent) 30%);
+  }
+  .wave rect[data-played] {
+    fill: var(--accent);
+  }
+
+  .transcript {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .line {
+    display: grid;
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    padding: 0.35rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  .line[data-current] {
+    background: var(--screen-mark);
+  }
+  .time {
+    color: var(--screen-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .line[data-current] .time {
+    color: inherit;
+  }
+
+  @container (max-width: 38rem) {
+    .wave {
+      height: 3.5rem;
+      margin-bottom: 0.35rem;
+    }
+    .line {
+      padding-block: 0.15rem;
+      font-size: 0.875rem;
+    }
+  }
+
+  /* Narrow: one exchange under a lower waveform. */
+  @container (max-width: 30rem) {
+    .speech {
+      padding-block: 0.5rem;
+    }
+    .wave {
+      height: 3rem;
+    }
+    .line[data-optional] {
+      display: none;
+    }
+    .line {
+      padding-block: 0.25rem;
+    }
+  }
+</style>

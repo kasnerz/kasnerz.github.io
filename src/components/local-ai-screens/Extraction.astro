@@ -1,0 +1,202 @@
+---
+import { Icon } from "astro-icon/components";
+
+const FIELDS = [
+  { name: "Dodavatel", value: "Elektro Novák s.r.o." },
+  { name: "IČO", value: "12345678" },
+  { name: "Variabilní symbol", value: "20261184" },
+  { name: "Splatnost", value: "14. 12. 2026" },
+  { name: "Částka", value: "48 400,00 Kč" },
+];
+---
+
+<div class="extraction">
+  <div class="scan">
+    <div class="page">
+      <p class="page-title">Faktura č. 2026/1184</p>
+      <p class="line"><mark>Elektro Novák s.r.o.</mark></p>
+      <p class="line">IČO: <mark>12345678</mark></p>
+      <p class="line">VS: <mark>20261184</mark></p>
+      <p class="line">Splatnost: <mark>14. 12. 2026</mark></p>
+      <table class="items" data-optional>
+        <tbody>
+          <tr><td>Montáž rozvaděče</td><td>28 000,00</td></tr>
+          <tr><td>Materiál</td><td>12 000,00</td></tr>
+          <tr><td>DPH 21 %</td><td>8 400,00</td></tr>
+        </tbody>
+      </table>
+      <p class="total">Celkem: <mark>48 400,00 Kč</mark></p>
+    </div>
+  </div>
+
+  <div class="flow" aria-hidden="true">
+    <Icon name="tabler:arrow-right" />
+  </div>
+
+  <div class="output">
+    <p class="file">
+      <Icon name="tabler:file-spreadsheet" aria-hidden="true" />
+      <span class="file-full">faktury_2026.xlsx</span>
+      <span class="file-short">faktura_1184.pdf</span>
+    </p>
+    <dl class="fields">
+      {
+        FIELDS.map(field => (
+          <div class="field">
+            <dt>{field.name}</dt>
+            <dd>{field.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</div>
+
+<style>
+  .extraction {
+    display: grid;
+    flex: 1;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.15fr);
+    column-gap: 0.75rem;
+    min-height: 0;
+  }
+
+  .scan {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    background: color-mix(in oklab, var(--background), var(--accent) 7%);
+  }
+  .page {
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--background);
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+  .page-title {
+    margin: 0 0 0.3rem;
+    font-weight: 700;
+  }
+  .line {
+    margin: 0;
+  }
+  .items {
+    width: 100%;
+    margin-block: 0.4rem;
+    border-collapse: collapse;
+    color: var(--screen-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .items td {
+    padding: 0;
+  }
+  .items td:last-child {
+    text-align: right;
+    white-space: nowrap;
+  }
+  .total {
+    margin: 0;
+    font-weight: 600;
+    text-align: right;
+  }
+  mark {
+    padding: 0 0.2em;
+    border-radius: 3px;
+    background: var(--screen-mark);
+    color: inherit;
+    white-space: nowrap;
+  }
+
+  .flow {
+    align-self: center;
+    color: color-mix(in oklab, var(--background), var(--accent) 55%);
+  }
+  .flow :global(svg) {
+    display: block;
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  .output {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.75rem 0.9rem 0.75rem 0;
+  }
+  .file {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+    margin: 0 0 0.4rem;
+    color: var(--screen-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .file :global(svg) {
+    flex: none;
+    width: 1.2em;
+    height: 1.2em;
+    color: var(--accent-text);
+  }
+  .file-short {
+    display: none;
+  }
+  .fields {
+    margin: 0;
+  }
+  .field {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 0.75rem;
+    padding-block: 0.4rem;
+    border-top: 1px solid var(--border);
+  }
+  .field dt {
+    color: var(--screen-muted);
+  }
+  .field dd {
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+    text-align: right;
+  }
+
+  @container (max-width: 38rem) {
+    .items[data-optional] {
+      display: none;
+    }
+    .field {
+      padding-block: 0.25rem;
+    }
+    .scan {
+      padding: 0.5rem;
+    }
+    .page {
+      padding: 0.45rem 0.55rem;
+    }
+  }
+
+  /* Narrow: the extracted fields alone, under the name of the file they came from. */
+  @container (max-width: 30rem) {
+    .extraction {
+      display: block;
+    }
+    .scan,
+    .flow,
+    .file-full {
+      display: none;
+    }
+    .file-short {
+      display: inline;
+    }
+    .output {
+      padding: 0.5rem 0.9rem;
+    }
+    .field {
+      padding-block: 0.2rem;
+    }
+  }
+</style>

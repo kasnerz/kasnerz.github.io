@@ -1,0 +1,181 @@
+---
+// A tray of flanges, as a camera over the production line sees it. One of them is cracked.
+const COLUMNS = [50, 150, 250, 350];
+const ROWS = [50, 150, 250];
+const PARTS = ROWS.flatMap(cy => COLUMNS.map(cx => ({ cx, cy })));
+const BOLT_COUNT = 6;
+const BOLT_RADIUS = 27;
+
+const bolts = (part: { cx: number; cy: number }) =>
+  Array.from({ length: BOLT_COUNT }, (_, i) => {
+    const angle = (i * 2 * Math.PI) / BOLT_COUNT;
+    return {
+      cx: Number((part.cx + Math.cos(angle) * BOLT_RADIUS).toFixed(2)),
+      cy: Number((part.cy + Math.sin(angle) * BOLT_RADIUS).toFixed(2)),
+    };
+  });
+---
+
+<div class="vision">
+  <div class="camera">
+    <div class="picture">
+      <svg
+        class="frame"
+        viewBox="0 0 400 300"
+        role="img"
+        aria-label="Snímek dvanácti přírub na paletě. Třetí příruba ve druhé řadě je označená rámečkem a má prasklinu."
+      >
+        {
+          PARTS.map(part => (
+            <g class="part">
+              <circle cx={part.cx} cy={part.cy} r="40" />
+              <circle cx={part.cx} cy={part.cy} r="15" />
+              {bolts(part).map(bolt => (
+                <circle class="bolt" cx={bolt.cx} cy={bolt.cy} r="3" />
+              ))}
+            </g>
+          ))
+        }
+        <path class="crack" d="M246 111 l6 7 l-5 6 l9 9 l-3 3"></path>
+        <rect class="box" x="202" y="102" width="96" height="96" rx="2"></rect>
+        <g class="tag">
+          <rect x="201" y="76" width="54" height="26" rx="2"></rect>
+          <text x="228" y="95">vada</text>
+        </g>
+      </svg>
+    </div>
+    <p class="caption">Linka L2, snímek 418</p>
+  </div>
+
+  <div class="chat">
+    <p class="question">Najdi na snímku vadné kusy.</p>
+    <p class="answer">
+      Třetí díl ve druhé řadě má prasklý okraj. Ostatní díly jsou
+      v&nbsp;pořádku.
+    </p>
+  </div>
+</div>
+
+<style>
+  .vision {
+    display: grid;
+    flex: 1;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .camera {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 0.6rem 0.75rem 0.45rem;
+    background: color-mix(in oklab, var(--background), var(--accent) 13%);
+  }
+  /* The drawing is taken out of the flow, so it fits whatever room the panel has left
+     instead of deciding the panel's height. */
+  .picture {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+  }
+  .frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .part circle {
+    fill: var(--background);
+    stroke: var(--screen-muted);
+    stroke-width: 1.5;
+  }
+  .part .bolt {
+    fill: var(--screen-muted);
+    stroke: none;
+  }
+  .crack {
+    fill: none;
+    stroke: var(--foreground);
+    stroke-width: 3;
+    stroke-linejoin: bevel;
+  }
+  .box {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 3;
+  }
+  .tag rect {
+    fill: var(--accent);
+  }
+  .tag text {
+    fill: var(--background);
+    font-size: 17px;
+    font-weight: 600;
+    text-anchor: middle;
+  }
+  .caption {
+    flex: none;
+    margin: 0.3rem 0 0;
+    font-size: 0.8rem;
+  }
+
+  .chat {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.75rem 0.9rem;
+  }
+  .question {
+    align-self: flex-end;
+    max-width: 90%;
+    margin: 0 0 0.65rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: 10px 10px 2px;
+    background: var(--accent);
+    color: var(--background);
+  }
+  .answer {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  @container (max-width: 38rem) {
+    .chat {
+      padding: 0.5rem 0.7rem;
+    }
+    .question,
+    .answer {
+      font-size: 0.875rem;
+    }
+    .question {
+      margin-bottom: 0.4rem;
+    }
+    .caption {
+      display: none;
+    }
+    .camera {
+      padding: 0.45rem 0.5rem;
+    }
+  }
+
+  /* Narrow: the picture over the answer, which says what the question was after. */
+  @container (max-width: 30rem) {
+    .vision {
+      display: flex;
+      flex-direction: column;
+    }
+    .camera {
+      flex: 1;
+      padding: 0.35rem 0.5rem;
+    }
+    .tag,
+    .question {
+      display: none;
+    }
+    .chat {
+      flex: none;
+      padding: 0.4rem 0.9rem;
+    }
+  }
+</style>

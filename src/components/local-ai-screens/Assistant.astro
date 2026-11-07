@@ -1,0 +1,176 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div class="assistant">
+  <div class="chat">
+    <p class="question">Kolik dnů dovolené si můžu převést do dalšího roku?</p>
+    <p class="answer">
+      Podle směrnice S-12/2026 si můžete převést nejvýše 5&nbsp;dnů. Žádost
+      podejte vedoucímu do&nbsp;30.&nbsp;listopadu.
+    </p>
+    <p class="citation">
+      <Icon name="tabler:file-text" aria-hidden="true" />
+      Směrnice S-12/2026, čl. 4
+    </p>
+    <div class="composer" aria-hidden="true">
+      Napište dotaz
+      <Icon name="tabler:send" />
+    </div>
+  </div>
+
+  <div class="document">
+    <p class="document-source">Směrnice S-12/2026, str. 7</p>
+    <p class="document-title">Čl. 4 Převod dovolené</p>
+    <ol class="clauses">
+      <li>
+        Zaměstnanec si může převést <mark>nejvýše 5&nbsp;dnů</mark> nevyčerpané dovolené
+        do následujícího kalendářního roku.
+      </li>
+      <li>
+        Žádost podává vedoucímu nejpozději <mark
+          >do&nbsp;30.&nbsp;listopadu</mark
+        >.
+      </li>
+      <li>O žádosti rozhodne personální oddělení do 10 pracovních dnů.</li>
+    </ol>
+  </div>
+</div>
+
+<style>
+  .assistant {
+    display: grid;
+    flex: 1;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+
+  .chat {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 0.9rem;
+  }
+  .question {
+    align-self: flex-end;
+    max-width: 85%;
+    margin: 0 0 0.65rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: 10px 10px 2px;
+    background: var(--accent);
+    color: var(--background);
+  }
+  .answer {
+    margin: 0 0 0.45rem;
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+  .citation {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    width: fit-content;
+    margin: 0;
+    padding: 0.1rem 0.5rem 0.1rem 0.35rem;
+    border-radius: 6px;
+    background: color-mix(in oklab, var(--background), var(--accent) 13%);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .citation :global(svg) {
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    color: var(--accent-text);
+  }
+  .composer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding: 0.3rem 0.4rem 0.3rem 0.65rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--screen-muted);
+    font-size: 0.875rem;
+  }
+  .composer :global(svg) {
+    width: 1.1rem;
+    height: 1.1rem;
+    color: var(--accent-text);
+  }
+
+  .document {
+    padding: 0.75rem 0.9rem;
+    background: color-mix(in oklab, var(--background), var(--accent) 7%);
+  }
+  .document-source {
+    margin: 0 0 0.45rem;
+    color: var(--screen-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .document-title {
+    margin: 0 0 0.45rem;
+    font-family: var(--font-head);
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--accent-text);
+  }
+  .clauses {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: clause;
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+  .clauses li {
+    position: relative;
+    margin-bottom: 0.35rem;
+    padding-left: 1.75rem;
+    counter-increment: clause;
+  }
+  .clauses li::before {
+    content: "4." counter(clause);
+    position: absolute;
+    left: 0;
+    color: var(--screen-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  mark {
+    padding: 0 0.2em;
+    border-radius: 3px;
+    background: var(--screen-mark);
+    color: inherit;
+    white-space: nowrap;
+  }
+
+  @container (max-width: 38rem) {
+    .document-source,
+    .clauses li:last-child {
+      display: none;
+    }
+  }
+
+  /* Narrow: the conversation alone. The citation still points to the source. */
+  @container (max-width: 30rem) {
+    .assistant {
+      display: block;
+    }
+    .document,
+    .composer {
+      display: none;
+    }
+    .chat {
+      padding-block: 0.5rem;
+    }
+    .question {
+      margin-bottom: 0.45rem;
+      font-size: 0.875rem;
+    }
+    .answer {
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+  }
+</style>

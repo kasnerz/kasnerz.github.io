@@ -1,0 +1,165 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div class="translation">
+  <div class="columns">
+    <p class="language">Angličtina</p>
+    <p class="language language-target">
+      <Icon name="tabler:arrow-right" aria-hidden="true" />
+      Čeština
+    </p>
+
+    <p class="source" lang="en">
+      Disconnect the machine from the <mark>power supply</mark> before removing the
+      <mark>guard</mark>.
+    </p>
+    <p class="target">
+      Před sejmutím <mark>krytu</mark> odpojte stroj od <mark>napájení</mark>.
+    </p>
+
+    <p class="source" lang="en" data-optional>
+      Refit the <mark>guard</mark> before restarting the machine.
+    </p>
+    <p class="target" data-optional>
+      Před opětovným spuštěním stroje nasaďte <mark>kryt</mark> zpět.
+    </p>
+  </div>
+
+  <div class="glossary">
+    <span class="glossary-name">
+      <Icon name="tabler:book-2" aria-hidden="true" />
+      Váš slovník
+    </span>
+    <span class="term"><span lang="en">guard</span> → kryt</span>
+    <span class="term"><span lang="en">power supply</span> → napájení</span>
+  </div>
+</div>
+
+<style>
+  .translation {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    padding: 0.75rem 0.9rem;
+  }
+  .columns {
+    display: grid;
+    flex: 1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: min-content;
+    gap: 0.6rem 1.75rem;
+    align-content: center;
+  }
+  .language {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+    margin: 0;
+    color: var(--screen-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .language :global(svg) {
+    flex: none;
+    width: 1.2em;
+    height: 1.2em;
+    color: var(--accent-text);
+  }
+  .source,
+  .target {
+    margin: 0;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--border);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .target {
+    font-weight: 500;
+  }
+  mark {
+    padding: 0 0.2em;
+    border-radius: 3px;
+    background: var(--screen-mark);
+    color: inherit;
+    white-space: nowrap;
+  }
+
+  .glossary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.75rem;
+    align-items: center;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+  }
+  .glossary-name {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    color: var(--screen-muted);
+    font-weight: 500;
+  }
+  .glossary-name :global(svg) {
+    flex: none;
+    width: 1.2em;
+    height: 1.2em;
+    color: var(--accent-text);
+  }
+  .term {
+    padding: 0.05rem 0.45rem;
+    border-radius: 6px;
+    background: color-mix(in oklab, var(--background), var(--accent) 13%);
+    font-weight: 500;
+  }
+
+  @container (max-width: 38rem) {
+    .source,
+    .target {
+      padding-top: 0.4rem;
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+    .columns {
+      row-gap: 0.4rem;
+    }
+    .source[data-optional],
+    .target[data-optional] {
+      display: none;
+    }
+  }
+
+  /* Narrow: the translation goes under its original. */
+  @container (max-width: 30rem) {
+    .translation {
+      padding-block: 0.5rem;
+    }
+    .columns {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      justify-content: center;
+    }
+    .language {
+      display: none;
+    }
+    .source {
+      padding-top: 0;
+      border-top: 0;
+      color: var(--screen-muted);
+    }
+    .target {
+      padding-top: 0.35rem;
+    }
+    .glossary-name {
+      display: none;
+    }
+  }
+  @container (max-width: 20rem) {
+    .term:last-child {
+      display: none;
+    }
+  }
+</style>

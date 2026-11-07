@@ -1,6 +1,9 @@
 ---
 import SubpageLayout from "../layouts/SubpageLayout.astro";
 import ContactCta from "./ContactCta.astro";
+import LocalAiInstitutions from "./LocalAiInstitutions.astro";
+import LocalAiScope from "./LocalAiScope.astro";
+import LocalAiUses from "./LocalAiUses.astro";
 import { SPOTS } from "@/data/figures";
 
 interface Props {
@@ -10,89 +13,99 @@ interface Props {
 const { lang } = Astro.props;
 
 type Step = { art: keyof typeof SPOTS; title: string; text: string };
-type Copy = { intro: string; lead: string; steps: Step[]; outro: string };
+type Copy = { lead: string; steps: Step[]; outro: string };
 
 const copies: Record<"cs" | "en", Copy> = {
   en: {
-    intro:
-      "Like doing things your own way? Have sensitive data you would rather not broadcast into the ether? Want your own AI solution without worrying about recurring token bills?",
     lead: "I can guide you through the whole process of <b>deploying a local AI solution</b> built on open-weight AI models (such as Qwen, Gemma, DeepSeek, Nemotron, ...) and hardware running right on your premises (a GPU server, an AI workstation, ...).<p>This is what our collaboration can look like:</p>",
     steps: [
       {
         art: "talk",
         title: "Initial consultation",
-        text: "We will discuss how you currently use AI and whether deploying a local AI solution makes sense in your case. <b>The initial consultation is free</b>.",
+        text: "We discuss how you use AI today and whether a local solution makes sense. <b>Free of charge.</b>",
       },
       {
         art: "strategy",
         title: "Analyzing your AI strategy",
-        text: "Over the following meetings, I will prepare a detailed proposal for your local AI solution: what hardware you will need, which models to deploy, and how to connect your existing services and tools to it all.",
+        text: "Over a few meetings I prepare a proposal: hardware, models and how your tools plug in.",
       },
       {
         art: "deploy",
-        title: "Deploying AI on your premises",
-        text: "I will help you put the whole proposal into operation. I will set up the inference server, connect your existing services to it, build supporting tools and write detailed documentation.",
+        title: "Deployment on your premises",
+        text: "I set up the inference server, connect your services and write the documentation.",
       },
       {
         art: "workshop",
         title: "Tailored workshop",
-        text: "I will prepare technical training for your team on working with the local AI solution. We will go over its benefits, limitations and risks, and learn how to build the right processes around it.",
+        text: "I train your team to work with the solution, its limits and risks included.",
       },
       {
         art: "upkeep",
         title: "Maintenance",
-        text: "I will be available to upgrade or maintain your solution: model updates, hardware scaling or new tools.",
+        text: "Model updates, hardware scaling or new tools.",
       },
     ],
     outro: "Want to know more? Get in touch and we will talk it through.",
   },
   cs: {
-    intro:
-      "Rádi si řešíte věci po svém? Máte citlivá data, která nechcete vysílat do éteru? Chcete svoje vlastní AI řešení, u kterého nemusíte řešit pravidelné platby za tokeny?",
-    lead: "Dokážu Vás provést celým procesem <b>nasazení lokálního AI řešení</b> postaveného na otevřených AI modelech (jako Qwen, Gemma, DeepSeek, Nemotron, ...) a hardwaru běžícím přímo u Vás (GPU server, AI pracovní stanice, ...).<p>Takhle může vypadat naše spolupráce:</p>",
+    lead: "Dokážu Vás provést celým procesem <b>nasazení lokálního AI řešení</b> postaveného na otevřených AI modelech (jako Qwen, Gemma, DeepSeek, Nemotron, ...) a hardwaru běžícím přímo u Vás (GPU server, AI pracovní stanice, ...).<p>Začínáme posouzením připravenosti: po sérii konzultací budete vědět, jestli se Vám lokální AI vyplatí, v jaké podobě a za kolik.</p>",
     steps: [
       {
         art: "talk",
         title: "Úvodní konzultace",
-        text: "Prodiskutujeme, jak v současnosti používáte AI a jestli dává ve Vašem případě smysl nasadit lokální AI řešení. <b>Úvodní konzultace je zdarma</b>.",
+        text: "Probereme, jak dnes používáte AI a jestli má lokální řešení smysl. <b>Zdarma.</b>",
       },
       {
         art: "strategy",
-        title: "Analýza Vaší AI strategie",
-        text: "Během dalších setkání Vám připravím podrobný návrh lokálního AI řešení: jaký hardware budete potřebovat, jaké modely nasadit a jak do toho všeho zapojit Vaše stávající služby a nástroje.",
+        title: "Posouzení připravenosti",
+        text: "1–3 týdny konzultací za pevnou cenu. Výsledkem je návrh hardwaru, modelů a napojení Vašich nástrojů.",
       },
       {
         art: "deploy",
-        title: "Nasazení AI lokálně u Vás",
-        text: "Pomohu Vám uvést celý návrh do provozu. Zprovozním inferenční server, napojím na něj existující služby, vytvořím pomocné nástroje a připravím podrobnou dokumentaci.",
+        title: "Nasazení u Vás",
+        text: "Zprovozním inferenční server, napojím Vaše služby a připravím dokumentaci.",
       },
       {
         art: "workshop",
         title: "Workshop na míru",
-        text: "Připravím pro Váš tým technické školení pro práci s lokálním AI řešením. Vysvětlíme si výhody, omezení i rizika a naučíme se nad tímto řešením správně postavit procesy.",
+        text: "Naučím Váš tým s řešením pracovat, včetně jeho omezení a rizik.",
       },
       {
         art: "upkeep",
         title: "Údržba",
-        text: "Budu k dispozici pro upgrade nebo údržbu Vašeho řešení: aktualizace modelů, škálování hardwaru nebo nové nástroje.",
+        text: "Aktualizace modelů, škálování hardwaru nebo nové nástroje.",
       },
     ],
     outro: "Zajímá Vás víc? Ozvěte se a probereme to spolu.",
   },
 };
 const copy = copies[lang];
+// The assessment details and the sections above the steps are Czech-only for now.
+const expanded = lang === "cs";
+const StepHeading = expanded ? "h3" : "h2";
+
+const why =
+  'Přicházím z akademického prostředí a výzkumu jazykových modelů. S lokálními modely mám praktické zkušenosti a píšu o nich na <a href="https://lokalni.ai">Lokální.AI</a>. AI modely používám každý den při vlastní práci.';
+// The assessment's indicative price, hidden for now. Flip to show it under "Proč já".
+const SHOW_PRICE = false;
 ---
 
 <SubpageLayout lang={lang} page="consulting">
-  <section class="mb-8">
-    <!-- <p class="mb-4">{copy.intro}</p> -->
+  <section class="mb-8" aria-labelledby={expanded ? "nasazeni" : undefined}>
+    {
+      expanded && (
+        <h2 id="nasazeni" class="section-title">
+          Od posouzení po provoz
+        </h2>
+      )
+    }
     <div class="lead" set:html={copy.lead} />
   </section>
 
-  <ol class="steps">
+  <ol class="timeline">
     {
-      copy.steps.map(step => (
-        <li class="step">
+      copy.steps.map((step, i) => (
+        <li class="tl-step">
           <svg
             class="spot"
             viewBox="0 0 200 160"
@@ -101,8 +114,11 @@ const copy = copies[lang];
           >
             <g class="ink" set:html={SPOTS[step.art]} />
           </svg>
-          <div>
-            <h2 class="step-title">{step.title}</h2>
+          <span class="tl-mark" aria-hidden="true">
+            <span class="tl-num">{i + 1}</span>
+          </span>
+          <div class="tl-body">
+            <StepHeading class="step-title">{step.title}</StepHeading>
             <p set:html={step.text} />
           </div>
         </li>
@@ -110,60 +126,229 @@ const copy = copies[lang];
     }
   </ol>
 
-  <section class="outro">
-    <p>{copy.outro}</p>
-    <ContactCta lang={lang} />
-  </section>
+  {
+    expanded ? (
+      <>
+        <LocalAiUses />
+        <LocalAiInstitutions />
+        <LocalAiScope />
+
+        <section class="closing" aria-labelledby="why-title">
+          <h2 id="why-title" class="section-title">
+            Proč já?
+          </h2>
+          <p class="why" set:html={why} />
+          {SHOW_PRICE && (
+            <aside class="price" aria-label="Orientační cena posouzení">
+              <p class="price-label">Orientační cena posouzení</p>
+              <p class="price-value">90 000–190 000&nbsp;Kč</p>
+              <p class="price-note">
+                Bez DPH, podle velikosti organizace a počtu úloh. Pevnou částku
+                potvrdíme po první konzultaci.
+              </p>
+            </aside>
+          )}
+          <ContactCta lang="cs" class="cta-dark" />
+        </section>
+      </>
+    ) : (
+      <section class="outro">
+        <p>{copy.outro}</p>
+        <ContactCta lang={lang} />
+      </section>
+    )
+  }
 </SubpageLayout>
 
 <style>
+  .section-title {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--accent-text);
+  }
   .lead :global(p) {
     margin-top: 1rem;
   }
-  .steps {
+  /* ---------- the five steps, left to right ---------- */
+  .timeline {
+    --gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--gap);
+    text-align: center;
+  }
+  .tl-step {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-  }
-  .step {
-    display: flex;
     align-items: center;
-    gap: clamp(1rem, 3vw, 2rem);
-    padding: 1.25rem clamp(1rem, 3vw, 1.75rem);
-    border-radius: 14px;
-    background: color-mix(in oklab, var(--background), var(--accent) 7%);
   }
-  .spot {
-    --sw: 3.5;
-    flex: none;
-    width: 128px;
+  .tl-step .spot {
+    --sw: 4;
+    width: 100%;
+    max-width: 112px;
     height: auto;
     color: var(--accent);
   }
+  /* the numbered stop, and the line running through all of them */
+  .tl-mark {
+    position: relative;
+    align-self: stretch;
+    display: flex;
+    justify-content: center;
+    margin: 0.6rem 0 0.75rem;
+  }
+  .tl-mark::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: calc(var(--gap) / -2);
+    right: calc(var(--gap) / -2);
+    height: 2px;
+    margin-top: -1px;
+    background: var(--accent);
+    opacity: 0.35;
+  }
+  .tl-step:first-child .tl-mark::before {
+    left: 50%;
+  }
+  .tl-step:last-child .tl-mark::before {
+    right: 50%;
+  }
+  .tl-num {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--background);
+    font-family: var(--font-head);
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+  .step-title {
+    margin: 0 0 0.3rem;
+    font-size: 1.08rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--accent-text);
+    text-wrap: balance;
+  }
+  .tl-body p {
+    font-size: 0.92rem;
+    line-height: 1.4;
+    text-wrap: pretty;
+  }
+
+  .why :global(a) {
+    color: var(--accent-text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* ---------- why me, and the button ---------- */
+  .closing {
+    margin-top: 3.5rem;
+  }
+  .closing :global(.cta-dark) {
+    background: var(--accent);
+    color: var(--background);
+  }
+  .closing :global(.cta-dark:hover) {
+    background: color-mix(in oklab, var(--accent), var(--foreground) 22%);
+  }
+  .why {
+    margin: 0 0 1.25rem;
+    text-wrap: pretty;
+  }
+  .price {
+    margin-bottom: 1.25rem;
+    padding: 1.25rem 1.5rem 1.4rem;
+    border-radius: 14px;
+    background: color-mix(in oklab, var(--background), var(--accent) 12%);
+  }
+  .price-label {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+  .price-value {
+    margin: 0.1rem 0 0.4rem;
+    font-family: var(--font-head);
+    font-size: clamp(1.6rem, 3.4vw, 1.9rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--accent-text);
+  }
+  .price-note {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    text-wrap: pretty;
+  }
+
   .outro {
     margin-top: 2.25rem;
   }
   .outro p {
     margin-bottom: 1rem;
   }
-  .step-title {
-    margin: 0 0 0.35rem;
-    font-size: 1.35rem;
-    font-weight: 600;
-    color: var(--accent-text);
-  }
 
-  @media (max-width: 640px) {
-    .step {
-      gap: 0.9rem;
-      padding: 1rem;
+  /* ---------- narrower screens ---------- */
+  @media (max-width: 820px) {
+    /* the steps run down instead, each beside its picture */
+    .timeline {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+      text-align: left;
     }
-    .spot {
+    .tl-step {
+      display: grid;
+      grid-template-columns: 1.9rem 84px minmax(0, 1fr);
+      column-gap: 0.9rem;
+      align-items: start;
+      padding-bottom: 1.25rem;
+    }
+    .tl-step .spot {
       --sw: 4.4;
-      width: 84px;
+      grid-column: 2;
+      grid-row: 1;
     }
-    .step-title {
-      font-size: 1.15rem;
+    .tl-mark {
+      grid-column: 1;
+      grid-row: 1;
+      align-self: stretch;
+      margin: 0;
+    }
+    .tl-mark::before {
+      top: 0;
+      bottom: -1.25rem;
+      left: 50%;
+      right: auto;
+      width: 2px;
+      height: auto;
+      margin: 0 0 0 -1px;
+    }
+    .tl-step:first-child .tl-mark::before {
+      top: 0.95rem;
+      left: 50%;
+    }
+    .tl-step:last-child .tl-mark::before {
+      bottom: auto;
+      height: 0.95rem;
+      right: auto;
+    }
+    .tl-body {
+      grid-column: 3;
+      grid-row: 1;
+      padding-top: 0.2rem;
+    }
+  }
+  @media (max-width: 640px) {
+    .price {
+      padding: 1.1rem 1.1rem 1.2rem;
     }
   }
 </style>

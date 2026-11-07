@@ -1,0 +1,628 @@
+{
+  "reasons": {
+    "secrecy": { "label": { "cs": "Citlivá data" } },
+    "offline": { "label": { "cs": "Bez internetu" } },
+    "volume": { "label": { "cs": "Velké objemy" } },
+    "unfiltered": { "label": { "cs": "Bez odmítání" } },
+    "audit": { "label": { "cs": "Audit" } }
+  },
+  "hardware": {
+    "1": { "label": { "cs": "nízká" } },
+    "2": { "label": { "cs": "střední" } },
+    "3": { "label": { "cs": "vysoká" } }
+  },
+  "czech": {
+    "easy": { "label": { "cs": "snadná" } },
+    "medium": { "label": { "cs": "středně náročná" } },
+    "hard": { "label": { "cs": "náročná" } },
+    "none": { "label": { "cs": "nerozhoduje" } }
+  },
+  "groups": [
+    {
+      "id": "reads",
+      "label": { "cs": "Čte" },
+      "uses": [
+        {
+          "id": "triage",
+          "icon": "tabler:arrows-split-2",
+          "label": { "cs": "Třídění a směrování" },
+          "short": { "cs": "Třídění" },
+          "what": {
+            "cs": "Roztřídí došlou poštu a pošle ji správnému člověku."
+          },
+          "hardware": 2,
+          "czech": "easy"
+        },
+        {
+          "id": "extraction",
+          "icon": "tabler:table-import",
+          "label": { "cs": "Extrakce dat" },
+          "short": { "cs": "Data" },
+          "what": { "cs": "Z faktur, smluv a skenů vytáhne údaje do tabulky." },
+          "hardware": 2,
+          "czech": "easy"
+        },
+        {
+          "id": "proofreading",
+          "icon": "tabler:text-spellcheck",
+          "label": { "cs": "Kontrola textu" },
+          "short": { "cs": "Kontrola" },
+          "what": { "cs": "Najde chyby, nejasné věty a rozpory v dokumentu." },
+          "hardware": 2,
+          "czech": "medium"
+        }
+      ]
+    },
+    {
+      "id": "writes",
+      "label": { "cs": "Píše" },
+      "uses": [
+        {
+          "id": "translation",
+          "icon": "tabler:language",
+          "label": { "cs": "Překlad" },
+          "short": { "cs": "Překlad" },
+          "what": { "cs": "Přeloží text a drží se Vaší terminologie." },
+          "hardware": 2,
+          "czech": "easy"
+        },
+        {
+          "id": "summaries",
+          "icon": "tabler:list-details",
+          "label": { "cs": "Shrnutí a popisy" },
+          "short": { "cs": "Shrnutí" },
+          "what": {
+            "cs": "Zkrátí dlouhý spis na pár odstavců nebo popíše položku v katalogu."
+          },
+          "hardware": 2,
+          "czech": "hard"
+        },
+        {
+          "id": "reports",
+          "icon": "tabler:report-analytics",
+          "label": { "cs": "Automatické reporty" },
+          "short": { "cs": "Reporty" },
+          "what": { "cs": "Z tabulek a databází sepíše pravidelnou zprávu." },
+          "hardware": 3,
+          "czech": "medium"
+        },
+        {
+          "id": "drafting",
+          "icon": "tabler:file-pencil",
+          "label": { "cs": "Návrhy dokumentů" },
+          "short": { "cs": "Dokumenty" },
+          "what": {
+            "cs": "Připraví první verzi dokumentu podle Vašich vzorů."
+          },
+          "hardware": 3,
+          "czech": "hard"
+        }
+      ]
+    },
+    {
+      "id": "advises",
+      "label": { "cs": "Radí" },
+      "uses": [
+        {
+          "id": "assistant",
+          "icon": "tabler:message-chatbot",
+          "label": { "cs": "Interní asistent" },
+          "short": { "cs": "Asistent" },
+          "what": {
+            "cs": "Odpovídá zaměstnancům z Vašich dokumentů a uvádí zdroj."
+          },
+          "hardware": 3,
+          "czech": "medium"
+        },
+        {
+          "id": "coding",
+          "icon": "tabler:code",
+          "label": { "cs": "Kódovací agent" },
+          "short": { "cs": "Kód" },
+          "what": { "cs": "Píše a upravuje kód přímo ve Vašem repozitáři." },
+          "hardware": 3,
+          "czech": "none"
+        }
+      ]
+    },
+    {
+      "id": "hears",
+      "label": { "cs": "Slyší" },
+      "uses": [
+        {
+          "id": "speech",
+          "icon": "tabler:microphone",
+          "label": { "cs": "Přepis řeči" },
+          "short": { "cs": "Přepis" },
+          "what": { "cs": "Převede nahrávku na text." },
+          "hardware": 1,
+          "czech": "medium"
+        }
+      ]
+    },
+    {
+      "id": "sees",
+      "label": { "cs": "Vidí" },
+      "uses": [
+        {
+          "id": "vision",
+          "icon": "tabler:eye",
+          "label": { "cs": "Rozpoznávání obrazu" },
+          "short": { "cs": "Obraz" },
+          "what": {
+            "cs": "Popíše, co je na fotce nebo videu, a najde, co hledáte."
+          },
+          "hardware": 2,
+          "czech": "medium"
+        }
+      ]
+    },
+    {
+      "id": "draws",
+      "label": { "cs": "Kreslí" },
+      "uses": [
+        {
+          "id": "image-generation",
+          "icon": "tabler:palette",
+          "label": { "cs": "Generování grafiky" },
+          "short": { "cs": "Grafika" },
+          "what": {
+            "cs": "Podle zadání vytvoří ilustraci, ikonu nebo vizualizaci výrobku."
+          },
+          "hardware": 2,
+          "czech": "none"
+        }
+      ]
+    }
+  ],
+  "institutions": [
+    {
+      "id": "bank",
+      "label": { "cs": "Banka" },
+      "icon": "tabler:building-bank",
+      "why": {
+        "cs": "Banku váže bankovní tajemství a pravidla DORA pro externí ICT služby. Při milionech dokumentů může vlastní hardware vyjít levněji než platba za tokeny."
+      },
+      "reasons": ["secrecy", "audit", "volume"],
+      "tasks": [
+        {
+          "use": "extraction",
+          "what": {
+            "cs": "Převede výpisy, doklady totožnosti a výkazy firem na data pro KYC a AML."
+          }
+        },
+        {
+          "use": "reports",
+          "what": {
+            "cs": "Z čísel sepíše rizikové reporty a komentáře pro vedení. Pevná verze modelu umožní výstupy zpětně dohledat."
+          }
+        },
+        {
+          "use": "assistant",
+          "what": {
+            "cs": "Odpovídá poradcům z interních směrnic a produktových podmínek."
+          }
+        },
+        {
+          "use": "coding",
+          "what": {
+            "cs": "Pomáhá vývojářům s jádrovými systémy. Zdrojový kód přitom zůstává v bance."
+          }
+        },
+        {
+          "use": "speech",
+          "what": {
+            "cs": "Přepíše hovory z call centra a v přepisu označí odchylky od povinného skriptu."
+          }
+        }
+      ]
+    },
+    {
+      "id": "law",
+      "label": { "cs": "Advokátní kancelář" },
+      "icon": "tabler:scale",
+      "why": {
+        "cs": "Advokátní mlčenlivost se týká celého spisu. Když model běží v kanceláři, dokumenty z ní neodejdou."
+      },
+      "reasons": ["secrecy"],
+      "tasks": [
+        {
+          "use": "triage",
+          "what": {
+            "cs": "Přiřadí došlou poštu a datové schránky ke správnému spisu a vypíše z nich lhůty."
+          }
+        },
+        {
+          "use": "extraction",
+          "what": {
+            "cs": "Při due diligence vytáhne z datové místnosti klíčová ustanovení smluv."
+          }
+        },
+        {
+          "use": "proofreading",
+          "what": {
+            "cs": "Porovná smlouvu s Vašimi standardy a označí odchylky."
+          }
+        },
+        {
+          "use": "drafting",
+          "what": {
+            "cs": "Připraví první verzi smlouvy nebo podání podle Vašich vzorů."
+          }
+        },
+        {
+          "use": "assistant",
+          "what": {
+            "cs": "Hledá v judikatuře a vlastních podáních a u odpovědi uvede zdroj."
+          }
+        }
+      ]
+    },
+    {
+      "id": "hospital",
+      "label": { "cs": "Nemocnice" },
+      "icon": "tabler:building-hospital",
+      "why": {
+        "cs": "Zdravotní údaje patří podle GDPR do zvláštní kategorie osobních údajů. Model běží na serverech nemocnice a každý výstup kontroluje lékař."
+      },
+      "reasons": ["secrecy"],
+      "tasks": [
+        {
+          "use": "extraction",
+          "what": {
+            "cs": "Z dokumentace navrhne kódy diagnóz a výkonů pro vykazování pojišťovnám."
+          }
+        },
+        {
+          "use": "translation",
+          "what": {
+            "cs": "Přeloží zprávy a pokyny pro pacienty, kteří nemluví česky."
+          }
+        },
+        {
+          "use": "summaries",
+          "what": {
+            "cs": "Z karty pacienta připraví návrh propouštěcí zprávy s odkazy na zdroje."
+          }
+        },
+        {
+          "use": "assistant",
+          "what": {
+            "cs": "Odpovídá personálu z hygienických pravidel, lékové příručky a interních postupů."
+          }
+        },
+        {
+          "use": "speech",
+          "what": {
+            "cs": "Z nahrávky vyšetření připraví strukturovaný záznam ke schválení lékařem."
+          }
+        }
+      ]
+    },
+    {
+      "id": "pharma",
+      "label": { "cs": "Farmacie" },
+      "icon": "tabler:pill",
+      "why": {
+        "cs": "Validace podle GxP vyžaduje kontrolovanou verzi modelu a dohledatelné výstupy. Složení léků a výsledky studií jsou navíc obchodní tajemství."
+      },
+      "reasons": ["audit", "secrecy"],
+      "tasks": [
+        {
+          "use": "triage",
+          "what": {
+            "cs": "V e-mailech a záznamech z call centra pozná hlášení nežádoucích účinků a předá je farmakovigilanci."
+          }
+        },
+        {
+          "use": "translation",
+          "what": {
+            "cs": "Přeloží dokumentaci a příbalové informace s jednotnou terminologií."
+          }
+        },
+        {
+          "use": "reports",
+          "what": {
+            "cs": "Z dat laboratorního systému sepíše souhrn šarže nebo studie."
+          }
+        },
+        {
+          "use": "drafting",
+          "what": {
+            "cs": "Připraví návrhy SOP, zpráv o odchylkách a nápravných opatření."
+          }
+        }
+      ]
+    },
+    {
+      "id": "defense",
+      "label": { "cs": "Armáda a obrana" },
+      "icon": "tabler:shield",
+      "why": {
+        "cs": "Do utajované nebo izolované sítě se cloudová služba nedostane. Otevřený model stačí jednou prověřit a bezpečně přenést dovnitř."
+      },
+      "reasons": ["offline", "secrecy"],
+      "tasks": [
+        {
+          "use": "extraction",
+          "what": {
+            "cs": "Z rozsáhlých zadávacích dokumentací vypíše požadavky do tabulky shody."
+          }
+        },
+        {
+          "use": "translation",
+          "what": {
+            "cs": "Přeloží otevřené zdroje z ruštiny nebo ukrajinštiny. Dotazy neprozradí, co analytiky zajímá."
+          }
+        },
+        {
+          "use": "reports",
+          "what": {
+            "cs": "Z logistických tabulek sepíše standardizované hlášení."
+          }
+        },
+        {
+          "use": "assistant",
+          "what": {
+            "cs": "Odpovídá z předpisů, doktrín a rozkazů přímo v izolované síti."
+          }
+        },
+        {
+          "use": "vision",
+          "what": {
+            "cs": "Na dronu nebo terénním počítači popíše scénu i bez spojení."
+          }
+        }
+      ]
+    },
+    {
+      "id": "government",
+      "label": { "cs": "Úřad" },
+      "icon": "tabler:building-community",
+      "why": {
+        "cs": "Úřady pracují s údaji občanů a mnohé spadají pod zákon o kybernetické bezpečnosti. Ve vlastním provozu víte, kde data jsou a kdo k nim má přístup."
+      },
+      "reasons": ["secrecy"],
+      "tasks": [
+        {
+          "use": "triage",
+          "what": {
+            "cs": "Roztřídí datové schránky a e-podatelnu a předá podání správnému odboru."
+          }
+        },
+        {
+          "use": "proofreading",
+          "what": {
+            "cs": "V návrzích předpisů zkontroluje vnitřní odkazy a terminologii."
+          }
+        },
+        {
+          "use": "drafting",
+          "what": { "cs": "Přepíše úřední dopisy do srozumitelné češtiny." }
+        },
+        {
+          "use": "assistant",
+          "what": { "cs": "Odpovídá úředníkům ze spisů a směrnic." }
+        },
+        {
+          "use": "speech",
+          "what": { "cs": "Přepíše jednání komise a připraví návrh zápisu." }
+        }
+      ]
+    },
+    {
+      "id": "police",
+      "label": { "cs": "Policie" },
+      "icon": "tabler:fingerprint",
+      "why": {
+        "cs": "Živé vyšetřování a důkazy musí zůstat v kontrolovaném prostředí. Model navíc nesmí odmítat text o násilí nebo trestné činnosti."
+      },
+      "reasons": ["secrecy", "unfiltered"],
+      "tasks": [
+        {
+          "use": "extraction",
+          "what": {
+            "cs": "V datech ze zabavených zařízení vyhledá osoby, čísla a vzájemné vazby."
+          }
+        },
+        {
+          "use": "translation",
+          "what": { "cs": "Přeloží zabavené chaty a e-maily z cizích jazyků." }
+        },
+        {
+          "use": "summaries",
+          "what": { "cs": "Shrne trestní spis a sestaví časovou osu událostí." }
+        },
+        {
+          "use": "speech",
+          "what": { "cs": "Přepíše výslechy do textu." }
+        },
+        {
+          "use": "vision",
+          "what": {
+            "cs": "Prohledá fotografie a videa ze zabavených zařízení podle textového popisu."
+          }
+        }
+      ]
+    },
+    {
+      "id": "manufacturing",
+      "label": { "cs": "Výrobní podnik" },
+      "icon": "tabler:building-factory-2",
+      "why": {
+        "cs": "Výroba musí běžet i při výpadku internetu a konstrukční data jsou obchodní tajemství."
+      },
+      "reasons": ["offline", "secrecy"],
+      "tasks": [
+        {
+          "use": "reports",
+          "what": {
+            "cs": "Z výrobního systému sepíše předávku směny a vysvětlení prostojů."
+          }
+        },
+        {
+          "use": "assistant",
+          "what": {
+            "cs": "Technikům odpovídá z manuálů a historie závad, i ve více jazycích."
+          }
+        },
+        {
+          "use": "speech",
+          "what": {
+            "cs": "Přepíše rozhovory se zkušenými techniky, aby jejich znalosti zůstaly ve firmě."
+          }
+        },
+        {
+          "use": "vision",
+          "what": { "cs": "Na snímcích z linky označí vadné kusy." }
+        },
+        {
+          "use": "image-generation",
+          "what": {
+            "cs": "Vizualizuje nové výrobky ještě před jejich představením."
+          }
+        }
+      ]
+    },
+    {
+      "id": "energy",
+      "label": { "cs": "Energetika" },
+      "icon": "tabler:bolt",
+      "why": {
+        "cs": "Provozní sítě bývají oddělené od internetu a dokumentace k jaderným zařízením je citlivá."
+      },
+      "reasons": ["offline", "secrecy"],
+      "tasks": [
+        {
+          "use": "extraction",
+          "what": {
+            "cs": "Z licenční a bezpečnostní dokumentace vypíše požadavky a jejich vzájemné vazby."
+          }
+        },
+        {
+          "use": "translation",
+          "what": {
+            "cs": "Přeloží dokumentaci zahraničních dodavatelů v uzavřené síti."
+          }
+        },
+        {
+          "use": "reports",
+          "what": { "cs": "Z provozních dat sepíše zprávu o poruše." }
+        },
+        {
+          "use": "assistant",
+          "what": {
+            "cs": "Dispečerům vyhledá správný postup přímo v izolované síti."
+          }
+        },
+        {
+          "use": "vision",
+          "what": { "cs": "Na snímcích z dronu označí poškozené vedení." }
+        }
+      ]
+    },
+    {
+      "id": "accounting",
+      "label": { "cs": "Účetní kancelář" },
+      "icon": "tabler:calculator",
+      "why": {
+        "cs": "Účetní a daňoví poradci vidí do financí svých klientů a málokdy mají vlastní IT oddělení. Malý tým vystačí s jedním počítačem v kanceláři."
+      },
+      "reasons": ["secrecy"],
+      "tasks": [
+        {
+          "use": "triage",
+          "what": { "cs": "Roztřídí doklady od klientů podle firmy a období." }
+        },
+        {
+          "use": "extraction",
+          "what": {
+            "cs": "Z faktur a bankovních výpisů vytáhne údaje a navrhne zaúčtování."
+          }
+        },
+        {
+          "use": "drafting",
+          "what": { "cs": "Připraví návrh odpovědi finančnímu úřadu." }
+        },
+        {
+          "use": "assistant",
+          "what": {
+            "cs": "Odpovídá z daňových předpisů a interních postupů s odkazem na zdroj."
+          }
+        }
+      ]
+    },
+    {
+      "id": "archive",
+      "label": { "cs": "Archiv a knihovna" },
+      "icon": "tabler:archive",
+      "why": {
+        "cs": "Při milionech stran by platba za tokeny vyšla draho. Fondy navíc často obsahují osobní údaje a díla chráněná autorským právem."
+      },
+      "reasons": ["volume", "secrecy"],
+      "tasks": [
+        {
+          "use": "extraction",
+          "what": { "cs": "Ze skenů a rukopisů vytvoří prohledávatelný text." }
+        },
+        {
+          "use": "translation",
+          "what": {
+            "cs": "Přeloží cizojazyčné dokumenty, například staré německé spisy."
+          }
+        },
+        {
+          "use": "summaries",
+          "what": {
+            "cs": "Ke každému dokumentu připraví popis a metadata pro katalog."
+          }
+        },
+        {
+          "use": "assistant",
+          "what": { "cs": "Odpovídá badatelům z fondů a uvádí signaturu." }
+        },
+        {
+          "use": "speech",
+          "what": {
+            "cs": "Přepíše archivní nahrávky a rozhovory, aby v nich šlo hledat."
+          }
+        }
+      ]
+    },
+    {
+      "id": "software",
+      "label": { "cs": "Softwarová firma" },
+      "icon": "tabler:code",
+      "why": {
+        "cs": "Zdrojový kód často váže NDA s klientem a účty za API rostou s objemem. Při penetračních testech navíc cloudové modely útočný kód často odmítají."
+      },
+      "reasons": ["secrecy", "volume", "unfiltered"],
+      "tasks": [
+        {
+          "use": "triage",
+          "what": {
+            "cs": "Roztřídí tikety od zákazníků a předá je správnému týmu."
+          }
+        },
+        {
+          "use": "reports",
+          "what": { "cs": "Z logů sepíše zprávu o bezpečnostním incidentu." }
+        },
+        {
+          "use": "assistant",
+          "what": { "cs": "Odpovídá z interní dokumentace a wiki." }
+        },
+        {
+          "use": "coding",
+          "what": {
+            "cs": "Píše a opravuje kód na vlastních GPU, včetně útočného kódu pro penetrační testy."
+          }
+        },
+        {
+          "use": "image-generation",
+          "what": { "cs": "Vytvoří makety a ikony pro nevydané produkty." }
+        }
+      ]
+    }
+  ]
+}

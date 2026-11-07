@@ -107,6 +107,34 @@ export const teaching: TeachingItem[] = [
     },
     {
         title: {
+            en: "Jak si spustit vlastní AI?",
+            cs: "Jak si spustit vlastní AI?",
+        },
+        period: {
+            en: "11/2026",
+            cs: "11/2026",
+        },
+        description: {
+            en: "Talk for schools at AI for Talents, part of the Dny.AI event, on running an AI assistant on your own computer.",
+            cs: "Přednáška pro školy na akci AI for Talents v rámci Dny.AI o tom, jak si spustit AI asistenta na vlastním počítači.",
+        },
+        type: "talk",
+        category: "talks",
+        links: [
+            {
+                label: "",
+                url: "https://slides.zdenekkasner.cz/talks/ai4talents-vlastni-ai/",
+                type: "materials",
+            },
+            {
+                label: "Dny.AI",
+                url: "https://dny.ai/program/ai-4-talents",
+                type: "website",
+            },
+        ],
+    },
+    {
+        title: {
             en: "Jazykové modely – základ dnešního AI",
             cs: "Jazykové modely – základ dnešního AI",
         },

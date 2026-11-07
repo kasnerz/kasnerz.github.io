@@ -28,15 +28,15 @@ export interface NavItem {
 export const NAV: NavItem[] = [
   {
     id: "consulting",
-    label: { en: "Consultant", cs: "Konzultant" },
-    heading: { en: "I analyze and deploy", cs: "Analyzuji a nasazuji" },
+    label: { en: "Consultant", cs: "AI expert" },
+    heading: { en: "I build solutions", cs: "Stavím řešení" },
     tagline: {
       en: "on deploying local AI models",
-      cs: "nasazení lokálních AI modelů",
+      cs: "nasazuji lokální AI modely",
     },
     subtitle: {
-      en: "Local AI solutions.",
-      cs: "Lokální AI řešení.",
+      en: "On open-weight AI models.",
+      cs: "Na otevřených AI modelech.",
     },
     path: "/consulting",
   },

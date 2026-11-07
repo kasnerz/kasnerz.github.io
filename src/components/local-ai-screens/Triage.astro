@@ -1,0 +1,242 @@
+---
+import { Icon } from "astro-icon/components";
+
+// `to` is the row of the department, so the routes cross the way real post does. The third
+// message drops out where the screen is narrow.
+const MESSAGES = [
+  {
+    subject: "Faktura č. 2026/1184",
+    note: "Elektro Novák s.r.o.",
+    score: "99 %",
+    department: "Účtárna",
+    icon: "tabler:receipt",
+    to: 3,
+  },
+  {
+    subject: "Žádost o nahlédnutí do spisu",
+    note: "sp. zn. OV 412/2026",
+    score: "98 %",
+    department: "Právní odbor",
+    icon: "tabler:scale",
+    to: 1,
+  },
+  {
+    subject: "Kdy se zapisují děti do školky?",
+    note: "dotaz z webového formuláře",
+    score: "97 %",
+    department: "Odbor školství",
+    icon: "tabler:school",
+    to: 2,
+  },
+  {
+    subject: "Hluk ze stavby v Lipové ulici",
+    note: "stavební úřad, nebo životní prostředí?",
+    score: "58 %",
+    department: "Ke kontrole",
+    icon: "tabler:user-question",
+    to: 4,
+    unsure: true,
+  },
+];
+
+/** The middle of a row, in the units of the routes' viewBox. */
+const rowCentre = (row: number) => (row - 0.5) * 100;
+---
+
+<div class="routes">
+  <span class="heading heading-from">Doručená pošta</span>
+  <span class="heading heading-to">Kam to patří</span>
+
+  <svg
+    class="lines"
+    viewBox="0 0 100 400"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    {
+      MESSAGES.map((message, i) => {
+        const from = rowCentre(i + 1);
+        const to = rowCentre(message.to);
+        return (
+          <path
+            d={`M0 ${from} C50 ${from} 50 ${to} 100 ${to}`}
+            data-unsure={message.unsure}
+            vector-effect="non-scaling-stroke"
+          />
+        );
+      })
+    }
+  </svg>
+
+  <ul class="messages">
+    {
+      MESSAGES.map((message, i) => (
+        <li class="row" data-optional={i === 2 || undefined}>
+          <div class="message" style={`--row: ${i + 2}`}>
+            <p class="subject">{message.subject}</p>
+            <p class="note">{message.note}</p>
+            <span class="score" data-unsure={message.unsure}>
+              {message.score}
+            </span>
+          </div>
+          <span
+            class="department"
+            style={`--row: ${message.to + 1}`}
+            data-unsure={message.unsure}
+          >
+            <Icon name={message.icon} aria-hidden="true" />
+            {message.department}
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .routes {
+    position: relative;
+    display: grid;
+    flex: 1;
+    grid-template-rows: auto repeat(4, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr) clamp(3rem, 12cqi, 5.5rem) 9.25rem;
+    padding: 0.5rem 0.9rem 0.6rem;
+  }
+  .heading {
+    grid-row: 1;
+    padding-bottom: 0.3rem;
+    color: var(--screen-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .heading-from {
+    grid-column: 1;
+  }
+  .heading-to {
+    grid-column: 3;
+  }
+
+  /* Positioned within its grid area, so the drawing fills the rows without sizing them. */
+  .lines {
+    position: absolute;
+    grid-row: 2 / -1;
+    grid-column: 2 / 3;
+    width: 100%;
+    height: 100%;
+  }
+  .lines path {
+    fill: none;
+    stroke: color-mix(in oklab, var(--background), var(--accent) 55%);
+    stroke-width: 1.5px;
+  }
+  .lines path[data-unsure] {
+    stroke-dasharray: 4 4;
+  }
+
+  /* The list's items place themselves straight into the grid above. */
+  .messages,
+  .row {
+    display: contents;
+  }
+
+  .message {
+    display: grid;
+    grid-row: var(--row);
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-column: 1;
+    column-gap: 0.75rem;
+    align-content: center;
+    align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .subject {
+    margin: 0;
+    font-weight: 500;
+  }
+  .note {
+    grid-row: 2;
+    margin: 0;
+    color: var(--screen-muted);
+    font-size: 0.8rem;
+  }
+  .score {
+    grid-row: 1 / span 2;
+    grid-column: 2;
+    font-size: 0.95rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: var(--accent-text);
+    white-space: nowrap;
+  }
+  .score[data-unsure] {
+    color: var(--screen-muted);
+  }
+
+  .department {
+    display: flex;
+    grid-row: var(--row);
+    grid-column: 3;
+    gap: 0.4rem;
+    align-items: center;
+    align-self: center;
+    padding: 0.3rem 0.55rem;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: color-mix(in oklab, var(--background), var(--accent) 13%);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  .department[data-unsure] {
+    border: 1px dashed color-mix(in oklab, var(--background), var(--accent) 55%);
+    background: none;
+  }
+  .department :global(svg) {
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    color: var(--accent-text);
+  }
+
+  /* Too narrow for the routes: each message simply says where it went. */
+  @container (max-width: 30rem) {
+    .routes {
+      display: block;
+      padding-block: 0.15rem 0.3rem;
+    }
+    .messages {
+      display: block;
+    }
+    .row {
+      display: block;
+      padding-block: 0.4rem;
+    }
+    .heading,
+    .lines,
+    .note,
+    .row[data-optional] {
+      display: none;
+    }
+    .row + .row {
+      border-top: 1px solid var(--border);
+    }
+    .message {
+      border-top: 0;
+    }
+    .department {
+      width: fit-content;
+      margin-top: 0.25rem;
+      padding: 0.1rem 0.45rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  /* The smallest phones: tighter, so that all three messages still fit. */
+  @container (max-width: 15rem) {
+    .subject {
+      font-size: 0.8rem;
+    }
+    .row {
+      padding-block: 0.25rem;
+    }
+  }
+</style>

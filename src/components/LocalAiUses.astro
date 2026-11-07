@@ -1,0 +1,712 @@
+---
+import { Icon } from "astro-icon/components";
+import data from "@/data/local-ai-uses.json";
+import { modelFor } from "@/data/local-ai-models";
+import Assistant from "./local-ai-screens/Assistant.astro";
+import Coding from "./local-ai-screens/Coding.astro";
+import Drafting from "./local-ai-screens/Drafting.astro";
+import Extraction from "./local-ai-screens/Extraction.astro";
+import Graphics from "./local-ai-screens/Graphics.astro";
+import Proofreading from "./local-ai-screens/Proofreading.astro";
+import Reports from "./local-ai-screens/Reports.astro";
+import Speech from "./local-ai-screens/Speech.astro";
+import Summaries from "./local-ai-screens/Summaries.astro";
+import Translation from "./local-ai-screens/Translation.astro";
+import Triage from "./local-ai-screens/Triage.astro";
+import Vision from "./local-ai-screens/Vision.astro";
+
+type Czech = keyof typeof data.czech;
+type Hardware = keyof typeof data.hardware;
+
+/** The illustration on each task's screen, by the task's id. */
+const SCREENS: Record<string, typeof Triage> = {
+  assistant: Assistant,
+  coding: Coding,
+  drafting: Drafting,
+  extraction: Extraction,
+  "image-generation": Graphics,
+  proofreading: Proofreading,
+  reports: Reports,
+  speech: Speech,
+  summaries: Summaries,
+  translation: Translation,
+  triage: Triage,
+  vision: Vision,
+};
+
+function screenFor(taskId: string) {
+  const screen = SCREENS[taskId];
+  if (!screen) throw new Error(`No screen set for "${taskId}" in SCREENS.`);
+  return screen;
+}
+
+const cards = data.groups
+  .flatMap(group => group.uses)
+  .sort((a, b) => a.short.cs.localeCompare(b.short.cs, "cs"))
+  .map(use => ({
+    use,
+    model: modelFor(use.id),
+    Screen: screenFor(use.id),
+  }));
+
+/** Where a card starts out: the first on top, its neighbours peeking out behind it. */
+function initialPosition(index: number) {
+  if (index === 0) return "active";
+  if (index === 1) return "next";
+  return index === cards.length - 1 ? "prev" : "after";
+}
+---
+
+<section class="section" aria-labelledby="uses-title" data-uses>
+  <h2 id="uses-title" class="title">Na co nasadit lokální AI modely?</h2>
+  <p class="lead">
+    Otevřené modely dnes zvládnou šest druhů práce: čtou, píší, radí, slyší,
+    vidí a kreslí. Prolistujte si dvanáct konkrétních úloh a podívejte se, jaký
+    hardware na každou orientačně stačí. Přesný odhad závisí na objemu dat a
+    počtu uživatelů.
+  </p>
+
+  <div class="tabs" role="tablist" aria-label="Úlohy" data-uses-controls>
+    {
+      cards.map(({ use }, i) => (
+        <button
+          class="tab"
+          type="button"
+          role="tab"
+          id={`use-tab-${use.id}`}
+          aria-controls={`use-${use.id}`}
+          aria-selected={i === 0 ? "true" : "false"}
+          title={use.label.cs}
+          tabindex={i === 0 ? 0 : -1}
+        >
+          <Icon name={use.icon} aria-hidden="true" />
+          {use.short.cs}
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="carousel">
+    <div class="stage" data-uses-stage>
+      {
+        cards.map(({ use, model, Screen }, i) => (
+          <article
+            class="card"
+            role="tabpanel"
+            id={`use-${use.id}`}
+            aria-labelledby={`use-tab-${use.id}`}
+            aria-hidden={i === 0 ? undefined : "true"}
+            data-pos={initialPosition(i)}
+            data-uses-card
+          >
+            <div class="screen">
+              <div class="display">
+                <Screen />
+              </div>
+            </div>
+            <div class="body">
+              <h3 class="name">{use.label.cs}</h3>
+              <p class="what">{use.what.cs}</p>
+              <dl class="specs">
+                <div class="spec">
+                  <dt class="spec-label">
+                    <Icon name="tabler:cpu" aria-hidden="true" />
+                    Hardwarová náročnost
+                  </dt>
+                  <dd class="spec-value">
+                    {data.hardware[String(use.hardware) as Hardware].label.cs}
+                  </dd>
+                </div>
+                <div class="spec">
+                  <dt class="spec-label">
+                    <Icon name="tabler:abc" aria-hidden="true" />
+                    Čeština
+                  </dt>
+                  <dd class="spec-value">
+                    {data.czech[use.czech as Czech].label.cs}
+                  </dd>
+                </div>
+                <div class="spec">
+                  <dt class="spec-label">
+                    <Icon name="tabler:brain" aria-hidden="true" />
+                    Příklad modelu
+                  </dt>
+                  <dd class="spec-value">
+                    <a
+                      class="repo"
+                      href={model.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={`${model.owner}/${model.name} na Hugging Face`}
+                    >
+                      <span class="owner">{model.owner}/</span>
+                      <span class="model">{model.name}</span>
+                    </a>
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+    <button
+      class="arrow arrow-prev"
+      type="button"
+      aria-label="Předchozí úloha"
+      data-step="-1"
+      data-uses-controls
+    >
+      <Icon name="tabler:chevron-left" aria-hidden="true" />
+    </button>
+    <button
+      class="arrow arrow-next"
+      type="button"
+      aria-label="Další úloha"
+      data-step="1"
+      data-uses-controls
+    >
+      <Icon name="tabler:chevron-right" aria-hidden="true" />
+    </button>
+  </div>
+
+  <noscript>
+    <style is:inline>
+      [data-uses-controls] {
+        display: none !important;
+      }
+      [data-uses-stage] {
+        display: block !important;
+      }
+      [data-uses-card] {
+        visibility: visible !important;
+        opacity: 1 !important;
+        transform: none !important;
+        width: auto !important;
+        margin-bottom: 0.75rem;
+      }
+      [data-uses-card] > * {
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+    </style>
+  </noscript>
+</section>
+
+<style>
+  .section {
+    margin-block: 3.5rem;
+  }
+  .title {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--accent-text);
+    text-wrap: balance;
+  }
+  .lead {
+    margin-bottom: 1.25rem;
+    text-wrap: pretty;
+  }
+
+  /* The quick toggles: one row, which slides sideways when it doesn't fit. The automatic
+     margins centre it when it does, and unlike centring the flex items they don't cut off
+     the start of the row when it overflows. */
+  .tabs {
+    position: relative;
+    display: flex;
+    gap: 0.1rem;
+    margin-bottom: 1.1rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .tab {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    gap: 0.15rem;
+    align-items: center;
+    justify-content: center;
+    min-width: 4.1rem;
+    padding: 0.4rem 0.3rem 0.3rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.15;
+    transition:
+      background-color 60ms linear,
+      color 60ms linear;
+  }
+  .tab:first-child {
+    margin-left: auto;
+  }
+  .tab:last-child {
+    margin-right: auto;
+  }
+  .tab :global(svg) {
+    width: 1.6rem;
+    height: 1.6rem;
+    color: var(--accent-text);
+  }
+  .tab[aria-selected="true"] :global(svg) {
+    color: var(--background);
+  }
+  .tab:hover {
+    background: color-mix(in oklab, var(--background), var(--accent) 14%);
+  }
+  .tab[aria-selected="true"] {
+    background: var(--accent);
+    color: var(--background);
+  }
+
+  .carousel {
+    position: relative;
+  }
+  /* All cards share one cell, so the stage keeps the tallest one's height. The active card
+     leaves room at its sides for its neighbours, which reach exactly to the stage's edges. */
+  .stage {
+    --card-width: 88%;
+    --peek-shift: 6.8%;
+    --peek-scale: 0.92;
+    display: grid;
+    justify-items: center;
+    isolation: isolate;
+    touch-action: pan-y;
+  }
+  .card {
+    --screen-muted: color-mix(
+      in oklab,
+      var(--foreground) 72%,
+      var(--background)
+    );
+    display: flex;
+    grid-area: 1 / 1;
+    flex-direction: column;
+    gap: 0.9rem;
+    width: var(--card-width);
+    padding: 1rem;
+    border-radius: 14px;
+    background: color-mix(in oklab, var(--background), var(--accent) 9%);
+    box-shadow: 0 3px 8px rgb(0 0 0 / 0.14);
+    /* Landing here from a task in the box below still shows the toggles above. The margin
+       allows for the card being scaled down when the browser measures it. */
+    scroll-margin-top: 9rem;
+    transition:
+      opacity 160ms linear,
+      visibility 240ms;
+  }
+  /* Only the card leaving and the card arriving travel, however far apart they are. The other
+     cards are blank shapes that look alike, so they just swap places where they stand. */
+  .card[data-moving] {
+    transition:
+      transform 240ms cubic-bezier(0.25, 1, 0.5, 1),
+      opacity 160ms linear,
+      visibility 240ms;
+  }
+  .card[data-pos="active"] {
+    z-index: 2;
+  }
+  .card[data-pos="prev"],
+  .card[data-pos="next"] {
+    z-index: 1;
+    cursor: pointer;
+  }
+  /* only the active card shows anything; the others are blank shapes behind it */
+  .card > * {
+    transition:
+      opacity 120ms linear,
+      visibility 120ms;
+  }
+  .card:not([data-pos="active"]) > * {
+    visibility: hidden;
+    opacity: 0;
+  }
+  /* The hidden cards wait exactly where the neighbours peek out, on the side they belong to,
+     so a card always arrives and leaves by the same short slide as a swipe. */
+  .card[data-pos="prev"],
+  .card[data-pos="before"] {
+    transform: translateX(calc(var(--peek-shift) * -1)) scale(var(--peek-scale));
+  }
+  .card[data-pos="next"],
+  .card[data-pos="after"] {
+    transform: translateX(var(--peek-shift)) scale(var(--peek-scale));
+  }
+  .card[data-pos="before"],
+  .card[data-pos="after"] {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  /* an empty monitor: the display, and the stand under it */
+  .screen {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .screen::after {
+    content: "";
+    width: 22%;
+    height: 7px;
+    border-radius: 0 0 4px 4px;
+    background: color-mix(in oklab, var(--background), var(--accent) 45%);
+  }
+  /* The screens lay themselves out by this container's width, so the same illustration works
+     on a monitor and on a phone. */
+  .display {
+    --screen-mark: color-mix(in oklab, var(--background), var(--accent) 22%);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    overflow: hidden;
+    border: 2px solid color-mix(in oklab, var(--background), var(--accent) 45%);
+    border-radius: 8px;
+    background: var(--background);
+    font-size: 0.875rem;
+    line-height: 1.3;
+    container-type: inline-size;
+  }
+  /* the green background leaves less room between secondary text and full contrast */
+  :global(html[data-theme="dark"]) .display {
+    --screen-mark: color-mix(in oklab, var(--background), var(--accent) 13%);
+  }
+  :global(html[data-theme="dark"]) .card {
+    --screen-muted: color-mix(
+      in oklab,
+      var(--foreground) 90%,
+      var(--background)
+    );
+  }
+
+  .body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    container-type: inline-size;
+  }
+  .name {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--accent-text);
+    text-wrap: balance;
+  }
+  .what {
+    margin: 0.25rem 0 0.7rem;
+    line-height: 1.4;
+    text-wrap: pretty;
+  }
+  /* The card's last row: three segments of the same shape, set off by rules. The last column
+     is the widest, because model ids are long. */
+  .specs {
+    --spec-rule: color-mix(in oklab, var(--background), var(--accent) 30%);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.8fr);
+    column-gap: 1.5rem;
+    margin: auto 0 0;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--spec-rule);
+  }
+  .spec {
+    position: relative;
+    min-width: 0;
+    padding-left: 2rem;
+  }
+  .spec + .spec::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -0.75rem;
+    width: 1px;
+    background: var(--spec-rule);
+  }
+  .spec-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--screen-muted);
+  }
+  .spec-label :global(svg) {
+    position: absolute;
+    top: 0.15rem;
+    left: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--accent-text);
+  }
+  .spec-value {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  /* Narrower cards: the first two segments stay side by side, with the model under them. */
+  @container (max-width: 40rem) {
+    .specs {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      row-gap: 0.6rem;
+    }
+    .spec:last-child {
+      grid-column: 1 / -1;
+    }
+    .spec:last-child::before {
+      display: none;
+    }
+  }
+  /* The narrowest can't fit the longest ids. The link's title still has the owner. */
+  @container (max-width: 20rem) {
+    .owner {
+      display: none;
+    }
+  }
+  .repo {
+    display: inline-flex;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklab, var(--accent), transparent 55%);
+    text-underline-offset: 2px;
+    transition:
+      color 60ms linear,
+      text-decoration-color 60ms linear;
+  }
+  .repo:hover {
+    color: var(--accent-text);
+    text-decoration-color: currentColor;
+  }
+  .model {
+    font-weight: 600;
+  }
+
+  .arrow {
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--background);
+    transform: translateY(-50%);
+    transition: background-color 60ms linear;
+  }
+  .arrow:hover {
+    background: color-mix(in oklab, var(--accent), var(--foreground) 22%);
+  }
+  .arrow :global(svg) {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .arrow-prev {
+    left: 0;
+  }
+  .arrow-next {
+    right: 0;
+  }
+
+  /* Phones: the card takes more of the width, and the arrows move under it so they don't
+     cover it. */
+  @media (max-width: 720px) {
+    .section {
+      margin-block: 2.75rem;
+    }
+    .tabs {
+      margin-inline: -1rem;
+      padding-inline: 1rem;
+    }
+    .stage {
+      --card-width: 90%;
+      --peek-shift: 7.3%;
+    }
+    .card {
+      padding: 0.75rem;
+    }
+    /* taller than 2:1, or a phone's display wouldn't hold readable text */
+    .display {
+      height: max(13rem, 42vw);
+      aspect-ratio: auto;
+    }
+    .name {
+      font-size: 1.35rem;
+    }
+    .carousel {
+      padding-bottom: 3.5rem;
+    }
+    .arrow {
+      top: auto;
+      bottom: 0;
+      transform: none;
+    }
+    .arrow-prev {
+      left: calc(50% - 3.25rem);
+    }
+    .arrow-next {
+      right: calc(50% - 3.25rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card,
+    .card[data-moving] {
+      transition: none;
+    }
+    .tabs {
+      scroll-behavior: auto;
+    }
+  }
+</style>
+
+<script>
+  // Delegated to the document, so it keeps working after client-side navigation swaps the
+  // page. Without JS every card is listed in turn (see the noscript styles).
+  const section = () => document.querySelector<HTMLElement>("[data-uses]");
+
+  const cardsIn = (root: HTMLElement) => [
+    ...root.querySelectorAll<HTMLElement>('[role="tabpanel"]'),
+  ];
+  const tabsIn = (root: HTMLElement) => [
+    ...root.querySelectorAll<HTMLElement>('[role="tab"]'),
+  ];
+  const activeIndex = (root: HTMLElement) =>
+    cardsIn(root).findIndex(card => card.dataset.pos === "active");
+
+  /** Shows the card at `index`, wrapping around past either end. */
+  function select(root: HTMLElement, index: number) {
+    const cards = cardsIn(root);
+    const count = cards.length;
+    const active = (index + count) % count;
+    const previous = activeIndex(root);
+
+    cards.forEach((card, i) => {
+      card.toggleAttribute("data-moving", i === active || i === previous);
+      if (i === active) card.dataset.pos = "active";
+      else if (i === (active + 1) % count) card.dataset.pos = "next";
+      else if (i === (active - 1 + count) % count) card.dataset.pos = "prev";
+      else card.dataset.pos = i < active ? "before" : "after";
+      if (i === active) card.removeAttribute("aria-hidden");
+      else card.setAttribute("aria-hidden", "true");
+    });
+
+    const tabs = tabsIn(root);
+    tabs.forEach((tab, i) => {
+      tab.setAttribute("aria-selected", String(i === active));
+      tab.tabIndex = i === active ? 0 : -1;
+    });
+
+    // Where the toggles overflow, keep the current one in view. This moves the row alone, so
+    // the page itself stays where it is.
+    const tab = tabs[active];
+    const strip = tab?.parentElement;
+    if (tab && strip) {
+      strip.scrollTo({
+        left: tab.offsetLeft - (strip.clientWidth - tab.offsetWidth) / 2,
+      });
+    }
+  }
+
+  /** Brings up the card a `#use-…` link points to, such as the tasks in the box below. */
+  function selectFromHash(hash: string) {
+    const root = section();
+    if (!root || !hash.startsWith("#use-")) return;
+    const index = cardsIn(root).findIndex(card => `#${card.id}` === hash);
+    if (index >= 0) select(root, index);
+  }
+
+  document.addEventListener("click", e => {
+    if (!(e.target instanceof Element)) return;
+
+    const link = e.target.closest<HTMLAnchorElement>('a[href^="#use-"]');
+    if (link) {
+      selectFromHash(link.getAttribute("href") ?? "");
+      return;
+    }
+
+    const root = e.target.closest<HTMLElement>("[data-uses]");
+    if (!root) return;
+
+    const arrow = e.target.closest<HTMLElement>("[data-step]");
+    if (arrow) {
+      select(root, activeIndex(root) + Number(arrow.dataset.step));
+      return;
+    }
+    const tab = e.target.closest<HTMLElement>('[role="tab"]');
+    if (tab) {
+      select(root, tabsIn(root).indexOf(tab));
+      return;
+    }
+    // a neighbour peeking out from behind is a target too
+    const card = e.target.closest<HTMLElement>('[role="tabpanel"]');
+    if (card && card.dataset.pos !== "active") {
+      select(root, cardsIn(root).indexOf(card));
+    }
+  });
+
+  document.addEventListener("keydown", e => {
+    if (!(e.target instanceof Element)) return;
+    const tab = e.target.closest<HTMLElement>('[data-uses] [role="tab"]');
+    const root = tab?.closest<HTMLElement>("[data-uses]");
+    if (!tab || !root) return;
+
+    const tabs = tabsIn(root);
+    const i = tabs.indexOf(tab);
+    const next = {
+      ArrowRight: i + 1,
+      ArrowDown: i + 1,
+      ArrowLeft: i - 1,
+      ArrowUp: i - 1,
+      Home: 0,
+      End: tabs.length - 1,
+    }[e.key];
+    if (next === undefined) return;
+
+    e.preventDefault();
+    select(root, next);
+    tabs[(next + tabs.length) % tabs.length]?.focus();
+  });
+
+  // A sideways swipe over the cards. Vertical movement is left to the page's own scrolling.
+  let swipeStart: { x: number; y: number } | null = null;
+
+  document.addEventListener(
+    "touchstart",
+    e => {
+      const touch = e.touches[0];
+      const onStage =
+        e.target instanceof Element && e.target.closest("[data-uses-stage]");
+      swipeStart =
+        onStage && touch ? { x: touch.clientX, y: touch.clientY } : null;
+    },
+    { passive: true }
+  );
+
+  document.addEventListener(
+    "touchend",
+    e => {
+      const touch = e.changedTouches[0];
+      const root = section();
+      if (!swipeStart || !touch || !root) return;
+      const dx = touch.clientX - swipeStart.x;
+      const dy = touch.clientY - swipeStart.y;
+      swipeStart = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+        select(root, activeIndex(root) + (dx < 0 ? 1 : -1));
+      }
+    },
+    { passive: true }
+  );
+
+  // Going back through history, and arriving on the page with a card in the address.
+  window.addEventListener("hashchange", () => selectFromHash(location.hash));
+  document.addEventListener("astro:page-load", () =>
+    selectFromHash(location.hash)
+  );
+</script>

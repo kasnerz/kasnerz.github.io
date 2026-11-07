@@ -1,0 +1,174 @@
+---
+import { Icon } from "astro-icon/components";
+
+// `optional` lines drop out where the screen is narrow.
+const DIFF = [
+  { sign: "+", code: "from decimal import Decimal", optional: true },
+  { sign: " ", code: "", optional: true },
+  { sign: "-", code: "def dph(cena):", optional: true },
+  { sign: "-", code: "return round(cena * 0.21)", indented: true },
+  { sign: "+", code: "def dph(cena: Decimal) -> Decimal:", optional: true },
+  {
+    sign: "+",
+    code: 'return round(cena * Decimal("0.21"), 2)',
+    indented: true,
+  },
+];
+---
+
+<div class="coding">
+  <p class="task">Oprav zaokrouhlování DPH na faktuře.</p>
+
+  <div class="code">
+    <p class="path">
+      <Icon name="tabler:file-code" aria-hidden="true" />
+      faktura.py
+    </p>
+    <div class="lines">
+      {
+        DIFF.map(line => (
+          <div
+            class="line"
+            data-sign={line.sign}
+            data-optional={line.optional || undefined}
+          >
+            <span class="sign" aria-hidden="true">
+              {line.sign}
+            </span>
+            <code class="source" data-indented={line.indented}>
+              {line.code}
+            </code>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <p class="result">
+    <Icon name="tabler:circle-check" aria-hidden="true" />
+    42 testů prošlo
+  </p>
+</div>
+
+<style>
+  .coding {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    padding: 0.75rem 0.9rem;
+  }
+  .task {
+    align-self: flex-end;
+    margin: 0 0 0.65rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: 10px 10px 2px;
+    background: var(--accent);
+    color: var(--background);
+  }
+
+  .code {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 0;
+    padding: 0.5rem 0.65rem;
+    border-radius: 6px;
+    background: color-mix(in oklab, var(--background), var(--accent) 7%);
+  }
+  .path {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+    margin: 0 0 0.35rem;
+    color: var(--screen-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .path :global(svg) {
+    flex: none;
+    width: 1.2em;
+    height: 1.2em;
+    color: var(--accent-text);
+  }
+  .lines {
+    display: grid;
+  }
+  /* The sign has a column of its own, so a long line wraps with its continuation in line
+     with the code, and striking out a removed line leaves the sign and indent alone. */
+  .line {
+    display: grid;
+    grid-template-columns: 2ch minmax(0, 1fr);
+    min-height: 1.5em;
+    padding-inline: 0.35rem;
+    border-radius: 2px;
+    font-family: "Fira Mono", ui-monospace, monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .source {
+    font: inherit;
+    overflow-wrap: anywhere;
+  }
+  .source[data-indented] {
+    padding-left: 4ch;
+  }
+  .line[data-sign="+"] {
+    background: var(--screen-mark);
+  }
+  .line[data-sign="-"] {
+    color: var(--screen-muted);
+  }
+  .line[data-sign="-"] .source {
+    text-decoration: line-through;
+  }
+
+  .result {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+    margin: 0.55rem 0 0;
+    font-weight: 500;
+  }
+  .result :global(svg) {
+    flex: none;
+    width: 1.3em;
+    height: 1.3em;
+    color: var(--accent-text);
+  }
+
+  /* Short screens: only the lines that carry the fix. */
+  @container (max-width: 38rem) {
+    .line[data-optional] {
+      display: none;
+    }
+    .task {
+      margin-bottom: 0.4rem;
+    }
+  }
+  @container (max-width: 30rem) {
+    .coding {
+      padding-block: 0.5rem;
+    }
+    .code {
+      padding: 0.35rem 0.4rem;
+    }
+    .path {
+      display: none;
+    }
+    .line {
+      padding-inline: 0.2rem;
+      font-size: 0.75rem;
+    }
+    .source[data-indented] {
+      padding-left: 0;
+    }
+    .task {
+      font-size: 0.875rem;
+    }
+    .result {
+      margin-top: 0.35rem;
+    }
+  }
+</style>

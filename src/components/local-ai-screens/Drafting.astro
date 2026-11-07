@@ -1,0 +1,167 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div class="drafting">
+  <div class="brief">
+    <p class="brief-label">Zadání</p>
+    <p class="brief-text">
+      Stavba garáže v&nbsp;Lipové ulici, cena 485&nbsp;000 Kč, hotovo do
+      30.&nbsp;června 2027.
+    </p>
+    <p class="brief-label">Vzor</p>
+    <p class="template">
+      <Icon name="tabler:file-text" aria-hidden="true" />
+      smlouva_o_dilo.docx
+    </p>
+  </div>
+
+  <div class="draft">
+    <p class="title">Smlouva o dílo</p>
+    <p class="heading" data-optional>Článek IV. Cena díla</p>
+    <p class="clause">
+      <span class="number">4.1</span>
+      Objednatel se zavazuje zaplatit zhotoviteli za řádně provedené dílo cenu
+      <mark>485&nbsp;000 Kč</mark> bez DPH.
+    </p>
+    <p class="heading" data-optional>Článek V. Doba plnění</p>
+    <p class="clause">
+      <span class="number">5.1</span>
+      Zhotovitel dokončí dílo nejpozději do <mark>30.&nbsp;června 2027</mark>.
+    </p>
+    <p class="clause" data-optional aria-hidden="true">
+      <span class="number">5.2</span>
+      <span class="caret"></span>
+    </p>
+  </div>
+</div>
+
+<style>
+  .drafting {
+    display: grid;
+    flex: 1;
+    grid-template-columns: 12.5rem minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .brief {
+    padding: 0.75rem 0.9rem;
+    background: color-mix(in oklab, var(--background), var(--accent) 7%);
+  }
+  .brief-label {
+    margin: 0 0 0.2rem;
+    color: var(--screen-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .brief-text {
+    margin: 0 0 0.85rem;
+    line-height: 1.4;
+  }
+  .template {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    margin: 0;
+    font-weight: 500;
+  }
+  .template :global(svg) {
+    flex: none;
+    width: 1.2em;
+    height: 1.2em;
+    color: var(--accent-text);
+  }
+
+  .draft {
+    padding: 0.75rem 1.25rem;
+  }
+  .title {
+    margin: 0 0 0.6rem;
+    font-family: var(--font-head);
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--accent-text);
+  }
+  .heading {
+    margin: 0.65rem 0 0.2rem;
+    font-weight: 700;
+  }
+  .clause {
+    position: relative;
+    margin: 0;
+    padding-left: 1.75rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .clause + .clause {
+    margin-top: 0.35rem;
+  }
+  .number {
+    position: absolute;
+    left: 0;
+    color: var(--screen-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  mark {
+    padding: 0 0.2em;
+    border-radius: 3px;
+    background: var(--screen-mark);
+    color: inherit;
+    white-space: nowrap;
+  }
+  /* the text cursor, where the model has got to */
+  .caret {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background: var(--accent-text);
+    vertical-align: text-bottom;
+  }
+
+  @container (max-width: 38rem) {
+    .drafting {
+      grid-template-columns: 10.5rem minmax(0, 1fr);
+    }
+    .brief {
+      padding: 0.6rem 0.7rem;
+    }
+    .template {
+      font-size: 0.8rem;
+    }
+    .draft {
+      padding: 0.6rem 0.9rem;
+    }
+    .title {
+      margin-bottom: 0.35rem;
+      font-size: 1.05rem;
+    }
+    .heading {
+      margin-top: 0.35rem;
+    }
+    .clause {
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+    .clause[data-optional] {
+      display: none;
+    }
+  }
+
+  /* Narrow: just the draft, showing the values filled in from the brief. */
+  @container (max-width: 30rem) {
+    .drafting {
+      display: block;
+    }
+    .brief,
+    .heading {
+      display: none;
+    }
+    .draft {
+      padding: 0.5rem 0.9rem;
+    }
+    .clause + .clause {
+      margin-top: 0.45rem;
+    }
+  }
+</style>

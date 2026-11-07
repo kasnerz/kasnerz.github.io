@@ -1,0 +1,201 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div class="report">
+  <div class="source">
+    <p class="file">
+      <Icon name="tabler:file-spreadsheet" aria-hidden="true" />
+      vyroba_2026_Q3.xlsx
+    </p>
+    <table class="table">
+      <thead>
+        <tr>
+          <td></td>
+          <th scope="col">Q2</th>
+          <th scope="col">Q3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Tržby (mil. Kč)</th>
+          <td><mark>116,2</mark></td>
+          <td><mark>126,0</mark></td>
+        </tr>
+        <tr>
+          <th scope="row">Prostoje L2 (h)</th>
+          <td><mark>41</mark></td>
+          <td><mark>29</mark></td>
+        </tr>
+        <tr data-optional>
+          <th scope="row">Reklamace (ks)</th>
+          <td><mark>38</mark></td>
+          <td><mark>44</mark></td>
+        </tr>
+        <tr data-optional>
+          <th scope="row">Zmetkovitost (%)</th>
+          <td><mark>2,1</mark></td>
+          <td><mark>1,8</mark></td>
+        </tr>
+        <tr data-spare>
+          <th scope="row">Energie (MWh)</th>
+          <td>412</td>
+          <td>398</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flow" aria-hidden="true">
+    <Icon name="tabler:arrow-right" />
+  </div>
+
+  <div class="output">
+    <p class="output-title">Zpráva za 3. čtvrtletí 2026</p>
+    <p class="text">
+      Tržby vzrostly o&nbsp;<mark>8,4&nbsp;%</mark> na <mark
+        >126&nbsp;mil. Kč</mark
+      >. Prostoje linky L2 klesly ze&nbsp;<mark>41</mark> na <mark
+        >29 hodin</mark
+      ><span data-optional>
+        a&nbsp;zmetkovitost z&nbsp;<mark>2,1</mark> na <mark>1,8&nbsp;%</mark
+        ></span
+      >.
+      <span data-optional>
+        Počet reklamací ale stoupl z&nbsp;<mark>38</mark> na <mark>44</mark>.
+      </span>
+    </p>
+    <p class="legend" data-optional>Zvýrazněná čísla vycházejí z tabulky.</p>
+  </div>
+</div>
+
+<style>
+  .report {
+    display: grid;
+    flex: 1;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    column-gap: 0.75rem;
+    padding: 0.75rem 0.9rem;
+  }
+
+  .file {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+    margin: 0 0 0.45rem;
+    color: var(--screen-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .file :global(svg) {
+    flex: none;
+    width: 1.2em;
+    height: 1.2em;
+    color: var(--accent-text);
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+  }
+  .table th,
+  .table td {
+    padding: 0.32rem 0.25rem;
+    border-top: 1px solid var(--border);
+    font-weight: 400;
+    text-align: right;
+  }
+  .table thead th,
+  .table thead td {
+    border-top: 0;
+    padding-block: 0 0.2rem;
+    color: var(--screen-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .table tbody tr {
+    height: 2.35rem;
+  }
+  .table tbody th {
+    padding-left: 0;
+    text-align: left;
+  }
+
+  mark {
+    padding: 0 0.2em;
+    border-radius: 3px;
+    background: var(--screen-mark);
+    color: inherit;
+    white-space: nowrap;
+  }
+
+  .flow {
+    align-self: center;
+    color: color-mix(in oklab, var(--background), var(--accent) 55%);
+  }
+  .flow :global(svg) {
+    display: block;
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  .output {
+    display: flex;
+    flex-direction: column;
+  }
+  .output-title {
+    margin: 0 0 0.45rem;
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--accent-text);
+  }
+  .text {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .legend {
+    margin: auto 0 0;
+    color: var(--screen-muted);
+    font-size: 0.8rem;
+  }
+
+  @container (max-width: 38rem) {
+    .table tbody tr {
+      height: auto;
+    }
+    .table tr[data-spare] {
+      display: none;
+    }
+    .text {
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+  }
+
+  /* Narrow: the report goes under its table, and both shrink to two lines of data. */
+  @container (max-width: 30rem) {
+    .report {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding-block: 0.5rem;
+    }
+    .flow,
+    .file,
+    [data-optional] {
+      display: none;
+    }
+    .output-title {
+      margin-bottom: 0.2rem;
+      font-size: 1rem;
+    }
+    .text {
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+  }
+</style>

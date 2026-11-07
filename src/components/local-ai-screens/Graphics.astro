@@ -1,0 +1,149 @@
+---
+import { Icon } from "astro-icon/components";
+
+// Generated pictures don't change with the page's theme, so these colours are fixed.
+const LIGHT = "#fcfcfc";
+const VARIANTS = [
+  { background: LIGHT, ink: "var(--brand)", weight: 2 },
+  { background: "var(--brand)", ink: LIGHT, weight: 2.5, chosen: true },
+  { background: "var(--mint)", ink: "var(--brand)", weight: 2.5 },
+  { background: LIGHT, ink: "var(--brand)", weight: 4 },
+];
+---
+
+<div class="graphics">
+  <div class="brief">
+    <p class="label">Zadání</p>
+    <p class="prompt">
+      Ikona elektrokola pro mobilní aplikaci. Jednoduché tvary, tmavě zelená
+      barva.
+    </p>
+    <p class="meta">
+      <Icon name="tabler:palette" aria-hidden="true" />
+      4 varianty, 1024 × 1024 px
+    </p>
+  </div>
+
+  <div class="tiles" role="img" aria-label="Čtyři varianty ikony elektrokola">
+    {
+      VARIANTS.map(variant => (
+        <div
+          class="tile"
+          data-chosen={variant.chosen}
+          style={`--tile: ${variant.background}; --ink: ${variant.ink}; --weight: ${variant.weight}`}
+        >
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <circle cx="12" cy="32" r="8" />
+            <circle cx="36" cy="32" r="8" />
+            <path d="M12 32 20 18h11l5 14M20 18l6 14H12M31 18l-1-6h5M20 18l-1-4m-3 0h6" />
+          </svg>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .graphics {
+    display: grid;
+    flex: 1;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 1.25rem;
+    align-items: center;
+    min-height: 0;
+    padding: 0.75rem 0.9rem;
+  }
+
+  .label {
+    margin: 0 0 0.2rem;
+    color: var(--screen-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .prompt {
+    margin: 0 0 0.65rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+  .meta {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+    margin: 0;
+    color: var(--screen-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .meta :global(svg) {
+    flex: none;
+    width: 1.2em;
+    height: 1.2em;
+    color: var(--accent-text);
+  }
+
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    width: min(100%, 18.5rem);
+    margin-left: auto;
+  }
+  .tile {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--tile);
+  }
+  .tile[data-chosen] {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .tile svg {
+    width: 72%;
+    height: 72%;
+    fill: none;
+    stroke: var(--ink);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: var(--weight);
+  }
+
+  @container (max-width: 38rem) {
+    .graphics {
+      padding-block: 0.5rem;
+    }
+    .prompt {
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+    .tiles {
+      width: min(100%, 13rem);
+    }
+  }
+
+  /* Narrow: the brief over a row of all four variants. */
+  @container (max-width: 30rem) {
+    .graphics {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: stretch;
+      justify-content: center;
+    }
+    .label,
+    .meta {
+      display: none;
+    }
+    .prompt {
+      margin: 0;
+    }
+    .tiles {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      width: 100%;
+      gap: 0.35rem;
+    }
+  }
+</style>

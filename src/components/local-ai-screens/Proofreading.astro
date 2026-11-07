@@ -1,0 +1,155 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div class="review">
+  <p class="file">
+    <Icon name="tabler:file-text" aria-hidden="true" />
+    najemni_smlouva.docx
+  </p>
+  <ul class="issues">
+    <li class="issue">
+      <p class="text">
+        Nájemci <del>byly</del>
+        <ins>byli</ins> poučeni o svých povinnostech.
+      </p>
+      <div class="comment">
+        <p class="kind">Pravopis</p>
+        <p class="note">Shoda podmětu s přísudkem.</p>
+      </div>
+    </li>
+    <li class="issue">
+      <p class="text">
+        Čl. 3: Závadu nahlásí do&nbsp;<mark>30&nbsp;dnů</mark>.<br />
+        Čl. 7: Závadu nahlásí do&nbsp;<mark>14&nbsp;dnů</mark>.
+      </p>
+      <div class="comment">
+        <p class="kind">Rozpor</p>
+        <p class="note">Která lhůta platí?</p>
+      </div>
+    </li>
+    <li class="issue" data-optional>
+      <p class="text">
+        <mark class="wrap"
+          >Výše uvedené se nevztahuje na případy, kdy není stanoveno jinak.</mark
+        >
+      </p>
+      <div class="comment">
+        <p class="kind">Nejasná věta</p>
+        <p class="note">Na které případy se vztahuje?</p>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<style>
+  .review {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    padding: 0.75rem 0.9rem;
+  }
+  .file {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+    margin: 0 0 0.45rem;
+    color: var(--screen-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .file :global(svg) {
+    flex: none;
+    width: 1.2em;
+    height: 1.2em;
+    color: var(--accent-text);
+  }
+
+  .issues {
+    display: grid;
+    flex: 1;
+    grid-auto-rows: 1fr;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .issue {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    column-gap: 1.25rem;
+    align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .text {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  del {
+    color: var(--screen-muted);
+  }
+  ins {
+    padding: 0 0.2em;
+    border-radius: 3px;
+    background: var(--screen-mark);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  mark {
+    padding: 0 0.2em;
+    border-radius: 3px;
+    background: var(--screen-mark);
+    color: inherit;
+    white-space: nowrap;
+  }
+  mark.wrap {
+    white-space: normal;
+    box-decoration-break: clone;
+  }
+
+  .kind {
+    margin: 0;
+    font-weight: 600;
+    color: var(--accent-text);
+  }
+  .note {
+    margin: 0;
+    color: var(--screen-muted);
+    font-size: 0.8rem;
+  }
+
+  @container (max-width: 38rem) {
+    .text {
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+  }
+
+  /* Narrow: each finding is just its name, under the text it belongs to. */
+  @container (max-width: 30rem) {
+    .review {
+      padding-block: 0.4rem;
+    }
+    .file,
+    .note {
+      display: none;
+    }
+    .issue {
+      grid-template-columns: minmax(0, 1fr);
+      padding-block: 0.3rem;
+    }
+    .issue:first-child {
+      border-top: 0;
+    }
+    .kind {
+      font-size: 0.8rem;
+    }
+  }
+  @container (max-width: 20rem) {
+    .issue[data-optional] {
+      display: none;
+    }
+  }
+</style>

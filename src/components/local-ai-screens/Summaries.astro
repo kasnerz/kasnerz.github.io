@@ -1,0 +1,211 @@
+---
+import { Icon } from "astro-icon/components";
+
+const EVENTS = [
+  { date: "12. 3.", what: "trestní oznámení" },
+  { date: "2. 4.", what: "výslech svědka" },
+  { date: "18. 5.", what: "zajištění účetnictví" },
+];
+---
+
+<div class="summary">
+  <div class="file">
+    <div class="pile" aria-hidden="true">
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+    </div>
+    <p class="file-name">Trestní spis</p>
+    <p class="file-size">1&nbsp;240 stran</p>
+  </div>
+
+  <div class="flow" aria-hidden="true">
+    <Icon name="tabler:arrow-right" />
+  </div>
+
+  <div class="output">
+    <p class="file-line">
+      <Icon name="tabler:file-text" aria-hidden="true" />
+      Trestní spis, 1&nbsp;240 stran
+    </p>
+    <p class="text">
+      Obviněný měl v&nbsp;letech 2023 až 2025 vystavovat fiktivní faktury za
+      stavební práce. Škodu policie odhaduje na 3,2 milionu korun.
+    </p>
+    <ol class="events">
+      {
+        EVENTS.map(event => (
+          <li class="event">
+            <span class="date">{event.date}</span>
+            {event.what}
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</div>
+
+<style>
+  .summary {
+    display: grid;
+    flex: 1;
+    grid-template-columns: 11rem auto minmax(0, 1fr);
+    column-gap: 1rem;
+    min-height: 0;
+    padding-right: 0.9rem;
+  }
+
+  .file {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem;
+    background: color-mix(in oklab, var(--background), var(--accent) 7%);
+  }
+  /* The file: a sheet of paper with more of them behind it. */
+  .pile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 5.25rem;
+    margin: 0 0.6rem 1.25rem 0;
+    padding: 0.75rem 0.65rem;
+    border: 1px solid color-mix(in oklab, var(--background), var(--accent) 45%);
+    border-radius: 3px;
+    background: var(--background);
+    box-shadow:
+      3px 3px 0 -1px var(--background),
+      3px 3px 0 0 color-mix(in oklab, var(--background), var(--accent) 45%),
+      6px 6px 0 -1px var(--background),
+      6px 6px 0 0 color-mix(in oklab, var(--background), var(--accent) 45%),
+      9px 9px 0 -1px var(--background),
+      9px 9px 0 0 color-mix(in oklab, var(--background), var(--accent) 45%);
+  }
+  .pile i {
+    height: 3px;
+    border-radius: 1px;
+    background: color-mix(in oklab, var(--background), var(--accent) 30%);
+  }
+  .pile i:last-child {
+    width: 60%;
+  }
+  .file-name {
+    margin: 0;
+    font-weight: 600;
+  }
+  .file-size {
+    margin: 0;
+    color: var(--screen-muted);
+    font-size: 0.8rem;
+  }
+
+  .flow {
+    align-self: center;
+    color: color-mix(in oklab, var(--background), var(--accent) 55%);
+  }
+  .flow :global(svg) {
+    display: block;
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  .output {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 0.75rem;
+  }
+  .file-line {
+    display: none;
+    gap: 0.35rem;
+    align-items: center;
+    margin: 0 0 0.4rem;
+    color: var(--screen-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .file-line :global(svg) {
+    flex: none;
+    width: 1.2em;
+    height: 1.2em;
+    color: var(--accent-text);
+  }
+  .text {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+  .events {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .event {
+    display: grid;
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    padding-block: 0.3rem;
+    border-top: 1px solid var(--border);
+  }
+  .date {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: var(--accent-text);
+  }
+
+  @container (max-width: 38rem) {
+    .summary {
+      grid-template-columns: 8.5rem auto minmax(0, 1fr);
+      column-gap: 0.75rem;
+    }
+    .text {
+      margin-bottom: 0.4rem;
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+    .event {
+      padding-block: 0.15rem;
+    }
+    .event:last-child {
+      display: none;
+    }
+    .pile {
+      width: 4rem;
+      margin-bottom: 1rem;
+      padding: 0.55rem 0.5rem;
+      gap: 0.35rem;
+    }
+  }
+
+  /* Narrow: the summary alone, under the name and length of the file it came from. */
+  @container (max-width: 30rem) {
+    .summary {
+      display: block;
+      padding-inline: 0.9rem;
+    }
+    .file,
+    .flow {
+      display: none;
+    }
+    .file-line {
+      display: flex;
+    }
+    .output {
+      height: 100%;
+      padding-block: 0.5rem;
+    }
+    .event:last-child {
+      display: grid;
+    }
+    .event:nth-child(2) {
+      display: none;
+    }
+  }
+  @container (max-width: 17rem) {
+    .events {
+      display: none;
+    }
+  }
+</style>
