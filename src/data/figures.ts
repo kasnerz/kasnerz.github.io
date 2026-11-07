@@ -151,14 +151,14 @@ const TALK = `
 
 /* Small figures, 48×48: navigation on every page. */
 export const SMALL: Record<PageId, string> = {
-  /* the AI expert beside a computer on a desk: a training curve and an attention fan */
+  /* the AI expert beside a computer screen: two embeddings and attention over them */
   consulting: `
-    <rect x="1.5" y="2" width="29" height="21.5" rx="1.5"/>
-    <path d="M16 23.5V30M1 30H31M3.5 30V45.5M28.5 30V45.5"/>
-    <path class="thin" d="M4.5 5.5C6 14 9 18 14.5 19.5"/>
-    <path class="thin" d="M22.5 7.5L18.5 17.5M22.5 7.5V17.5M22.5 7.5L26.5 17.5"/>
-    <circle class="dot" cx="18.5" cy="18" r="1.3"/><circle class="dot" cx="22.5" cy="18" r="1.3"/><circle class="dot" cx="26.5" cy="18" r="1.3"/>
-    <g class="a-blink"><circle class="dot" cx="22.5" cy="7" r="1.3"/></g>
+    <rect x="1.5" y="4" width="29" height="21" rx="1.5"/>
+    <path d="M16 25V30M11 30.5H21"/>
+    <path class="thin" d="M10.5 11.5V17.5M21.5 11.5V17.5M21.5 11.5L10.5 17.5"/>
+    <rect x="6" y="17.5" width="9" height="4" rx="0.8"/><rect x="17" y="17.5" width="9" height="4" rx="0.8"/>
+    <rect x="6" y="7.5" width="9" height="4" rx="0.8"/><rect x="17" y="7.5" width="9" height="4" rx="0.8"/>
+    <g class="a-blink"><rect class="dot" x="17" y="7.5" width="9" height="4" rx="0.8"/></g>
     <circle class="head" cx="39.5" cy="16" r="4.5"/>
     <path d="M39.5 20.5V33M39.5 33L35.5 45.5M39.5 33L43.5 45.5M39.5 24L43 29.5L41 33.5"/>
     <path class="a-point" ${pivot(39.5, 24, "--r:18deg")} d="M39.5 24L35 19.5L32 14"/>`,
@@ -227,12 +227,9 @@ export const SMALL: Record<PageId, string> = {
  */
 export const PROPS: Record<PageId, string> = {
   consulting: `
-    <rect x="2.5" y="3.5" width="19" height="13" rx="1.5"/>
-    <path d="M12 16.5V20M8 20.5H16"/>
-    <path class="thin" d="M5 6.5C6 11 8 12.5 11 13.5"/>
-    <path class="thin" d="M16.75 7.5L14 12.5M16.75 7.5V12.5M16.75 7.5L19.5 12.5"/>
-    <circle class="dot" cx="14" cy="13" r="0.95"/><circle class="dot" cx="16.75" cy="13" r="0.95"/><circle class="dot" cx="19.5" cy="13" r="0.95"/>
-    <circle class="dot" cx="16.75" cy="7" r="0.95"/>`,
+    <path class="thin" d="M6.5 7.5V16.5M17.5 7.5V16.5M17.5 7.5L6.5 16.5"/>
+    <rect x="2.5" y="16.5" width="8" height="4" rx="0.8"/><rect x="13.5" y="16.5" width="8" height="4" rx="0.8"/>
+    <rect x="2.5" y="3.5" width="8" height="4" rx="0.8"/><rect class="head" x="13.5" y="3.5" width="8" height="4" rx="0.8"/>`,
   teaching: `
     <rect x="2.5" y="3" width="19" height="13" rx="1"/>
     <path class="thin" d="M9 7H18M9 10H18M9 13H15"/>

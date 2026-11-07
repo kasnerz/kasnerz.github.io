@@ -29,7 +29,7 @@ export const NAV: NavItem[] = [
   {
     id: "consulting",
     label: { en: "Consultant", cs: "AI expert" },
-    heading: { en: "I build solutions", cs: "Stavím řešení" },
+    heading: { en: "I build AI solutions", cs: "Stavím AI řešení" },
     tagline: {
       en: "on deploying local AI models",
       cs: "nasazuji lokální AI modely",
