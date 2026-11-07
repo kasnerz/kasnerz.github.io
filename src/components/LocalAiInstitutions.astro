@@ -6,11 +6,31 @@ type Reason = keyof typeof data.reasons;
 
 const REASON_ICONS: Record<Reason, string> = {
   secrecy: "tabler:lock",
-  offline: "tabler:wifi-off",
   volume: "tabler:coins",
-  unfiltered: "tabler:message-off",
-  audit: "tabler:clipboard-check",
+  offline: "tabler:wifi-off",
+  robust: "tabler:plug-connected-x",
 };
+
+/** When running the models locally pays off: one box per reason, in the panels' badge order.
+    HTML, so each box can bold its key phrase. */
+const CRITERIA_TEXT: Record<Reason, string> = {
+  secrecy: "Vaše data musí zůstat <b>zaručeně soukromá</b>.",
+  volume:
+    "Nákup hardwaru <b>dlouhodobě vyjde levněji</b>, než platba za velký objem tokenů.",
+  offline:
+    "Vaše AI modely musí běžet <b>i offline</b> na koncových zařízeních.",
+  robust:
+    "Vaše AI řešení musí fungovat <b>bez externích závislostí</b> a <b>bez cenzury</b>.",
+};
+const reasonOrder = Object.keys(data.reasons) as Reason[];
+const criteria = reasonOrder.map(reason => ({
+  icon: REASON_ICONS[reason],
+  text: CRITERIA_TEXT[reason],
+}));
+
+/** An institution's badges, in the order of the boxes. */
+const badgesFor = (reasons: string[]) =>
+  reasonOrder.filter(reason => reasons.includes(reason));
 
 const uses = data.groups.flatMap(group => group.uses);
 
@@ -32,11 +52,26 @@ function useFor(id: string) {
     Jak může lokální AI pomoci ve vaší firmě/instituci?
   </h2>
   <p class="lead">
-    AI může zjednodušit procesy a zvýšit efektivitu zaměstnanců ve vaší firmě
-    nebo instituci. Lokální nasazení modelů pak zajistí, že AI poběží offline,
-    zdarma a bez externích závislostí. Vaše data a data vašich zákazníků navíc
-    zůstanou soukromá.
+    Lokální provoz AI modelů není pro každého. Počáteční <b>
+      investice do vlastního hardwaru může být vysoká a provoz modelů náročnější
+    </b>, než v případě běžných komerčních řešení. Nasazení otevřených modelů je
+    tak potřeba důkladně zvážit.
   </p>
+  <p class="lead lead-intro">
+    Lokální provoz AI modelů dává smysl, pokud se najdete alespoň v jedné z
+    následujících podmínek:
+  </p>
+  <ul class="criteria">
+    {
+      criteria.map(criterion => (
+        <li class="criterion">
+          <Icon name={criterion.icon} aria-hidden="true" />
+          <p class="criterion-text" set:html={criterion.text} />
+        </li>
+      ))
+    }
+  </ul>
+  <p class="lead">Pro lepší představu zde najdete sadu konkrétních příkladů:</p>
 
   <div class="box">
     <div
@@ -76,15 +111,11 @@ function useFor(id: string) {
             data-institution-panel
           >
             <h3 class="name">{institution.label.cs}</h3>
-            <p class="why">{institution.why.cs}</p>
             <ul class="reasons" aria-label="Proč lokálně">
-              {institution.reasons.map(reason => (
+              {badgesFor(institution.reasons).map(reason => (
                 <li class="reason">
-                  <Icon
-                    name={REASON_ICONS[reason as Reason]}
-                    aria-hidden="true"
-                  />
-                  {data.reasons[reason as Reason].label.cs}
+                  <Icon name={REASON_ICONS[reason]} aria-hidden="true" />
+                  {data.reasons[reason].label.cs}
                 </li>
               ))}
             </ul>
@@ -140,6 +171,64 @@ function useFor(id: string) {
   .lead {
     margin-bottom: 1.5rem;
     text-wrap: pretty;
+  }
+  .lead-intro {
+    margin-bottom: 1rem;
+  }
+
+  /* the same tinted cards as the tiers under "Typ provozu" (LocalAiScope) */
+  .criteria {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin: 0 0 1.75rem;
+  }
+  .criterion {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1rem 0.9rem;
+    border-radius: 14px;
+    background: color-mix(in oklab, var(--background), var(--accent) 7%);
+  }
+  .criterion :global(svg) {
+    flex: none;
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 0.55rem;
+    color: var(--accent-text);
+  }
+  .criterion-text {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    text-wrap: pretty;
+  }
+  .criterion-text :global(b) {
+    font-weight: 600;
+    color: var(--accent-text);
+  }
+
+  @media (max-width: 900px) {
+    .criteria {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 560px) {
+    .criteria {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .criterion {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      column-gap: 0.9rem;
+      padding: 1rem;
+    }
+    .criterion :global(svg) {
+      width: 1.75rem;
+      height: 1.75rem;
+      margin-bottom: 0;
+    }
   }
 
   .box {
@@ -211,17 +300,11 @@ function useFor(id: string) {
     line-height: 1.15;
     color: var(--accent-text);
   }
-  .why {
-    margin: 0;
-    font-size: 0.98rem;
-    line-height: 1.4;
-    text-wrap: pretty;
-  }
   .reasons {
     display: flex;
     flex-wrap: wrap;
     gap: 0.3rem 0.9rem;
-    margin: 0.6rem 0 0;
+    margin: 0.2rem 0 0;
   }
   .reason {
     display: inline-flex;
