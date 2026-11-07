@@ -151,16 +151,17 @@ const TALK = `
 
 /* Small figures, 48×48: navigation on every page. */
 export const SMALL: Record<PageId, string> = {
-  /* the AI expert: beside a dashboard with a training curve and an attention scheme */
+  /* the AI expert beside a computer on a desk: a training curve and an attention fan */
   consulting: `
-    <rect x="2" y="3" width="24" height="18" rx="1.5"/>
-    <path class="thin" d="M4.8 6.5C6 13 8.5 16 12.8 17"/>
-    <path class="thin" d="M19.5 7.5L16 15M19.5 7.5V15M19.5 7.5L23 15"/>
-    <circle class="dot" cx="16" cy="15.5" r="1.3"/><circle class="dot" cx="19.5" cy="15.5" r="1.3"/><circle class="dot" cx="23" cy="15.5" r="1.3"/>
-    <g class="a-blink"><circle class="dot" cx="19.5" cy="7" r="1.3"/></g>
-    <circle class="head" cx="37.5" cy="17" r="4.5"/>
-    <path d="M37.5 21.5V34M37.5 34L33.5 45.5M37.5 34L41.5 45.5M37.5 25L41 30.5L39 34.5"/>
-    <path class="a-point" ${pivot(37.5, 25, "--r:18deg")} d="M37.5 25L32.5 20.5L28 15"/>`,
+    <rect x="1.5" y="2" width="29" height="21.5" rx="1.5"/>
+    <path d="M16 23.5V30M1 30H31M3.5 30V45.5M28.5 30V45.5"/>
+    <path class="thin" d="M4.5 5.5C6 14 9 18 14.5 19.5"/>
+    <path class="thin" d="M22.5 7.5L18.5 17.5M22.5 7.5V17.5M22.5 7.5L26.5 17.5"/>
+    <circle class="dot" cx="18.5" cy="18" r="1.3"/><circle class="dot" cx="22.5" cy="18" r="1.3"/><circle class="dot" cx="26.5" cy="18" r="1.3"/>
+    <g class="a-blink"><circle class="dot" cx="22.5" cy="7" r="1.3"/></g>
+    <circle class="head" cx="39.5" cy="16" r="4.5"/>
+    <path d="M39.5 20.5V33M39.5 33L35.5 45.5M39.5 33L43.5 45.5M39.5 24L43 29.5L41 33.5"/>
+    <path class="a-point" ${pivot(39.5, 24, "--r:18deg")} d="M39.5 24L35 19.5L32 14"/>`,
   teaching: `
     <g mask="url(#ko-teach-s)">
       <rect x="10" y="3" width="35" height="22" rx="1.5"/>
@@ -264,30 +265,26 @@ export const PROPS: Record<PageId, string> = {
  * Their figures stand on the top edge of the content card.
  */
 export const LARGE: Partial<Record<ArtId, string>> = {
-  /* the AI expert in front of a dashboard: a training curve, and a Transformer's
-     embeddings with attention from the last position to the ones before it */
+  /* the AI expert beside a computer on a table; the screen shows a training curve, and
+     a Transformer's embeddings with attention from the last position to the earlier ones */
   consulting: `
     <path class="ground" d="M0 215H240"/>
     <rect x="100" y="44" width="130" height="88" rx="4"/>
-    <path d="M118 132L112 215M212 132L218 215"/>
+    <path d="M165 132V159M151 168L157 159H173L179 168M94 168H236M102 168V215M228 168V215"/>
     <path class="thin" d="M110 56V120H160"/>
     <path class="thin" d="M113 62C118 90 126 102 136 106S150 111 158 112"/>
-    <path class="thin" d="M175 69.5V98M188 69.5V98M201 69.5V98M214 69.5V98"/>
-    <path class="thin" style="opacity:0.35" d="M214 69.5L175 98"/>
-    <path class="thin" style="opacity:0.6" d="M214 69.5L188 98"/>
-    <path class="thin" style="opacity:0.9" d="M214 69.5L201 98"/>
-    <rect class="thin" x="171" y="98" width="8" height="20" rx="1"/>
-    <path class="thin" d="M171 104.67H179M171 111.33H179"/>
-    <rect class="thin" x="184" y="98" width="8" height="20" rx="1"/>
-    <path class="thin" d="M184 104.67H192M184 111.33H192"/>
-    <rect class="thin" x="197" y="98" width="8" height="20" rx="1"/>
-    <path class="thin" d="M197 104.67H205M197 111.33H205"/>
-    <rect class="thin" x="210" y="98" width="8" height="20" rx="1"/>
-    <path class="thin" d="M210 104.67H218M210 111.33H218"/>
-    <circle class="thin" cx="175" cy="66" r="3.5"/>
-    <circle class="thin" cx="188" cy="66" r="3.5"/>
-    <circle class="thin" cx="201" cy="66" r="3.5"/>
-    <g class="a-blink"><circle class="dot" cx="214" cy="66" r="3.5"/></g>
+    <path class="thin" d="M175 67V105M188 67V105M201 67V105M214 67V105"/>
+    <path class="thin" style="opacity:0.35" d="M214 67L175 105"/>
+    <path class="thin" style="opacity:0.6" d="M214 67L188 105"/>
+    <path class="thin" style="opacity:0.9" d="M214 67L201 105"/>
+    <rect class="thin" x="170" y="105" width="10" height="6" rx="1"/>
+    <rect class="thin" x="183" y="105" width="10" height="6" rx="1"/>
+    <rect class="thin" x="196" y="105" width="10" height="6" rx="1"/>
+    <rect class="thin" x="209" y="105" width="10" height="6" rx="1"/>
+    <rect class="thin" x="170" y="61" width="10" height="6" rx="1"/>
+    <rect class="thin" x="183" y="61" width="10" height="6" rx="1"/>
+    <rect class="thin" x="196" y="61" width="10" height="6" rx="1"/>
+    <g class="a-blink"><rect class="dot" x="209" y="61" width="10" height="6" rx="1"/></g>
     <circle class="head" cx="62" cy="110" r="9"/>
     <path d="M62 119V165M62 165L53 215M62 165L71 215M62 130L50 146L56 162"/>
     <path class="a-point" ${pivot(62, 130)} d="M62 130L80 120L96 104"/>`,
