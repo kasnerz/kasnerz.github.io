@@ -1,7 +1,8 @@
 ---
 // Shared SVG defs for the stickman figures, rendered once per page.
-// The masks cut the board away behind the lecturer, so the figure reads as standing in front of it,
-// and the laptop away behind the blogger, who is seen from the back.
+// The masks cut the board away behind the lecturer and the screen behind the AI expert, so the
+// figures read as standing in front of them, and the laptop away behind the blogger, who is seen
+// from the back.
 // On the research page they hide the sheet while it is inside the pile.
 ---
 
@@ -29,6 +30,24 @@
       stroke-linecap="round"
       stroke-linejoin="round"></path>
     <circle cx="17" cy="17" r="7.5" fill="#000"></circle>
+  </mask>
+  <mask
+    id="ko-ai-s"
+    maskUnits="userSpaceOnUse"
+    x="0"
+    y="0"
+    width="48"
+    height="48"
+  >
+    <rect width="48" height="48" fill="#fff"></rect>
+    <path
+      d="M31 21.5V34M31 34L26 46M31 34L36 46M31 25L25.5 21L21.5 15M31 25L36 31L39 28"
+      fill="none"
+      stroke="#000"
+      stroke-width="6"
+      stroke-linecap="round"
+      stroke-linejoin="round"></path>
+    <circle cx="31" cy="17" r="7.5" fill="#000"></circle>
   </mask>
   <mask
     id="ko-blog-s"

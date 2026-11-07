@@ -151,17 +151,20 @@ const TALK = `
 
 /* Small figures, 48×48: navigation on every page. */
 export const SMALL: Record<PageId, string> = {
-  /* the AI expert beside a computer screen: two embeddings and attention over them */
+  /* the AI expert in front of a computer screen, pointing at two embeddings and the
+     attention over them: the lecturer's figure, mirrored */
   consulting: `
-    <rect x="1.5" y="4" width="29" height="21" rx="1.5"/>
-    <path d="M16 25V30M11 30.5H21"/>
-    <path class="thin" d="M10.5 10.5V18.5M21.5 10.5V18.5M21.5 10.5L10.5 18.5"/>
-    <rect class="dot" x="7" y="18" width="7" height="3" rx="0.6"/><rect class="dot" x="18" y="18" width="7" height="3" rx="0.6"/>
-    <rect class="dot" x="7" y="8" width="7" height="3" rx="0.6"/>
-    <g class="a-blink"><rect class="dot" x="18" y="8" width="7" height="3" rx="0.6"/></g>
-    <circle class="head" cx="39.5" cy="16" r="4.5"/>
-    <path d="M39.5 20.5V33M39.5 33L35.5 45.5M39.5 33L43.5 45.5M39.5 24L43 29.5L41 33.5"/>
-    <path class="a-point" ${pivot(39.5, 24, "--r:18deg")} d="M39.5 24L35 19.5L32 14"/>`,
+    <g mask="url(#ko-ai-s)">
+      <rect x="3" y="3" width="35" height="22" rx="1.5"/>
+      <path d="M20.5 25V30M15.5 30.5H25.5"/>
+    </g>
+    <path class="thin" d="M8.5 10.1V17M15 10.1V17M15 10.1L8.5 17"/>
+    <rect class="dot" x="6" y="17" width="5" height="2.6" rx="0.5"/><rect class="dot" x="12.5" y="17" width="5" height="2.6" rx="0.5"/>
+    <rect class="dot" x="6" y="7.5" width="5" height="2.6" rx="0.5"/>
+    <g class="a-blink"><rect class="dot" x="12.5" y="7.5" width="5" height="2.6" rx="0.5"/></g>
+    <circle class="head" cx="31" cy="17" r="4.5"/>
+    <path d="M31 21.5V34M31 34L26 46M31 34L36 46M31 25L36 31L39 28"/>
+    <path class="a-point" ${pivot(31, 25, "--r:18deg")} d="M31 25L25.5 21L21.5 15"/>`,
   teaching: `
     <g mask="url(#ko-teach-s)">
       <rect x="10" y="3" width="35" height="22" rx="1.5"/>

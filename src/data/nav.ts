@@ -64,7 +64,7 @@ export const NAV: NavItem[] = [
   },
   {
     id: "research",
-    label: { en: "Researcher", cs: "Výzkumník" },
+    label: { en: "Researcher", cs: "Ex-výzkumník" },
     heading: { en: "I do research", cs: "Zkoumám" },
     tagline: {
       en: "in large language models",
