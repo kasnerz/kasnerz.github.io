@@ -151,18 +151,16 @@ const TALK = `
 
 /* Small figures, 48×48: navigation on every page. */
 export const SMALL: Record<PageId, string> = {
-  /* the AI expert: pointing at a dashboard, a GPU in the other hand */
+  /* the AI expert: beside a dashboard with a training curve and an attention scheme */
   consulting: `
-    <rect x="20" y="3" width="26" height="18" rx="1.5"/>
-    <path class="thin" d="M23 6.5C24.5 13 27 16 32 17M35 8H43M35 11.5H42M35 15H39"/>
-    <g class="a-blink"><rect class="dot" x="40" y="13.5" width="1.6" height="3"/></g>
-    <circle class="head" cx="11" cy="17" r="4.5"/>
-    <path d="M11 21.5V34M11 34L7 45.5M11 34L15 45.5M11 25L17 31L21 32.5"/>
-    <path class="a-point" ${pivot(11, 25)} d="M11 25L15.5 20L19 14"/>
-    <rect x="21" y="28.5" width="15" height="8" rx="1"/>
-    <path class="thin" d="M36.5 27.5V38"/>
-    <circle class="thin" cx="25.5" cy="32.5" r="2.4"/><g class="a-spin" ${pivot(25.5, 32.5)}><path class="thin" d="M25.5 30.9V34.1M23.9 32.5H27.1"/></g>
-    <circle class="thin" cx="31.5" cy="32.5" r="2.4"/><g class="a-spin" ${pivot(31.5, 32.5)}><path class="thin" d="M31.5 30.9V34.1M29.9 32.5H33.1"/></g>`,
+    <rect x="2" y="3" width="24" height="18" rx="1.5"/>
+    <path class="thin" d="M4.8 6.5C6 13 8.5 16 12.8 17"/>
+    <path class="thin" d="M19.5 7.5L16 15M19.5 7.5V15M19.5 7.5L23 15"/>
+    <circle class="dot" cx="16" cy="15.5" r="1.3"/><circle class="dot" cx="19.5" cy="15.5" r="1.3"/><circle class="dot" cx="23" cy="15.5" r="1.3"/>
+    <g class="a-blink"><circle class="dot" cx="19.5" cy="7" r="1.3"/></g>
+    <circle class="head" cx="37.5" cy="17" r="4.5"/>
+    <path d="M37.5 21.5V34M37.5 34L33.5 45.5M37.5 34L41.5 45.5M37.5 25L41 30.5L39 34.5"/>
+    <path class="a-point" ${pivot(37.5, 25, "--r:18deg")} d="M37.5 25L32.5 20.5L28 15"/>`,
   teaching: `
     <g mask="url(#ko-teach-s)">
       <rect x="10" y="3" width="35" height="22" rx="1.5"/>
@@ -230,7 +228,10 @@ export const PROPS: Record<PageId, string> = {
   consulting: `
     <rect x="2.5" y="3.5" width="19" height="13" rx="1.5"/>
     <path d="M12 16.5V20M8 20.5H16"/>
-    <path class="thin" d="M5 6.5C6 11 8 12.5 11 13.5M14 7H19M14 10H18.5M14 13H16.5"/>`,
+    <path class="thin" d="M5 6.5C6 11 8 12.5 11 13.5"/>
+    <path class="thin" d="M16.75 7.5L14 12.5M16.75 7.5V12.5M16.75 7.5L19.5 12.5"/>
+    <circle class="dot" cx="14" cy="13" r="0.95"/><circle class="dot" cx="16.75" cy="13" r="0.95"/><circle class="dot" cx="19.5" cy="13" r="0.95"/>
+    <circle class="dot" cx="16.75" cy="7" r="0.95"/>`,
   teaching: `
     <rect x="2.5" y="3" width="19" height="13" rx="1"/>
     <path class="thin" d="M9 7H18M9 10H18M9 13H15"/>
@@ -263,24 +264,33 @@ export const PROPS: Record<PageId, string> = {
  * Their figures stand on the top edge of the content card.
  */
 export const LARGE: Partial<Record<ArtId, string>> = {
-  /* the AI expert in front of a dashboard (a training curve and generated text),
-     pointing at it, a GPU in the other hand */
+  /* the AI expert in front of a dashboard: a training curve, and a Transformer's
+     embeddings with attention from the last position to the ones before it */
   consulting: `
     <path class="ground" d="M0 215H240"/>
     <rect x="100" y="44" width="130" height="88" rx="4"/>
     <path d="M118 132L112 215M212 132L218 215"/>
     <path class="thin" d="M110 56V120H160"/>
     <path class="thin" d="M113 62C118 90 126 102 136 106S150 111 158 112"/>
-    <rect class="thin" x="168" y="54" width="54" height="66" rx="2"/>
-    <path class="thin" d="M175 66H215M175 77H212M175 88H201"/>
-    <g class="a-blink"><rect class="dot" x="204" y="83" width="4" height="9"/></g>
+    <path class="thin" d="M175 69.5V98M188 69.5V98M201 69.5V98M214 69.5V98"/>
+    <path class="thin" style="opacity:0.35" d="M214 69.5L175 98"/>
+    <path class="thin" style="opacity:0.6" d="M214 69.5L188 98"/>
+    <path class="thin" style="opacity:0.9" d="M214 69.5L201 98"/>
+    <rect class="thin" x="171" y="98" width="8" height="20" rx="1"/>
+    <path class="thin" d="M171 104.67H179M171 111.33H179"/>
+    <rect class="thin" x="184" y="98" width="8" height="20" rx="1"/>
+    <path class="thin" d="M184 104.67H192M184 111.33H192"/>
+    <rect class="thin" x="197" y="98" width="8" height="20" rx="1"/>
+    <path class="thin" d="M197 104.67H205M197 111.33H205"/>
+    <rect class="thin" x="210" y="98" width="8" height="20" rx="1"/>
+    <path class="thin" d="M210 104.67H218M210 111.33H218"/>
+    <circle class="thin" cx="175" cy="66" r="3.5"/>
+    <circle class="thin" cx="188" cy="66" r="3.5"/>
+    <circle class="thin" cx="201" cy="66" r="3.5"/>
+    <g class="a-blink"><circle class="dot" cx="214" cy="66" r="3.5"/></g>
     <circle class="head" cx="62" cy="110" r="9"/>
-    <path d="M62 119V165M62 165L53 215M62 165L71 215M62 130L46 150L34 141"/>
-    <path class="a-point" ${pivot(62, 130)} d="M62 130L80 120L96 104"/>
-    <rect x="14" y="120" width="34" height="18" rx="2"/>
-    <path class="thin" d="M11 117V141M22 138v3H40v-3"/>
-    <g class="a-spin" ${pivot(24, 129)}><circle class="thin" cx="24" cy="129" r="5.5"/><path class="thin" d="M24 124V134M19 129H29"/></g>
-    <g class="a-spin" ${pivot(38, 129)}><circle class="thin" cx="38" cy="129" r="5.5"/><path class="thin" d="M38 124V134M33 129H43"/></g>`,
+    <path d="M62 119V165M62 165L53 215M62 165L71 215M62 130L50 146L56 162"/>
+    <path class="a-point" ${pivot(62, 130)} d="M62 130L80 120L96 104"/>`,
   teaching: `
     <path class="ground" d="M0 215H240"/>
     <g mask="url(#ko-teach-l)">
@@ -437,7 +447,7 @@ export const SPOTS = {
  */
 export const LARGE_FIT: Partial<Record<ArtId, { scale: number; cx: number }>> =
   {
-    consulting: { scale: 0.9, cx: 120 },
+    consulting: { scale: 0.9, cx: 140 },
     teaching: { scale: 0.87, cx: 126 },
     projects: { scale: 1.36, cx: 160 },
     research: { scale: 1.2, cx: 125 },
