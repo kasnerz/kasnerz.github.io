@@ -268,8 +268,8 @@ export const LARGE: Partial<Record<ArtId, string>> = {
     <path class="ground" d="M0 215H240"/>
     <rect x="100" y="44" width="130" height="88" rx="4"/>
     <path d="M165 132V159M151 168L157 159H173L179 168M94 168H236M102 168V215M228 168V215"/>
-    <path class="thin" d="M110 56V120H160"/>
-    <path class="thin" d="M113 62C118 90 126 102 136 106S150 111 158 112"/>
+    <path class="thin" d="M110 61V111H160"/>
+    <path class="thin" d="M114 63C118 87 125 97 135 101S150 106 158 107"/>
     <path class="thin" d="M175 67V105M188 67V105M201 67V105M214 67V105"/>
     <path class="thin" style="opacity:0.35" d="M214 67L175 105"/>
     <path class="thin" style="opacity:0.6" d="M214 67L188 105"/>
