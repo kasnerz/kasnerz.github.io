@@ -1,0 +1,63 @@
+---
+/* Billing details: trade licence, company ID linked to the public register, VAT status. */
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+
+const ICO = "06845762";
+
+const copies = {
+  en: {
+    title: "Business details",
+    business:
+      "I am a self-employed person operating under the Czech Trade Licensing Act.",
+    businessId: "Company ID (IČO)",
+    vat: "I am not a VAT payer.",
+  },
+  cs: {
+    title: "Fakturační údaje",
+    business: "Jsem fyzická osoba podnikající dle živnostenského zákona.",
+    businessId: "IČO",
+    vat: "Nejsem plátce DPH.",
+  },
+};
+const copy = copies[lang];
+---
+
+<div class="business">
+  <h3>{copy.title}</h3>
+  <p>
+    {copy.business}
+    {copy.businessId}:{" "}
+    <a class="link" href={`https://ares.gov.cz/ekonomicke-subjekty/ros/${ICO}`}
+      >{ICO}</a
+    >.
+    {copy.vat}
+  </p>
+</div>
+
+<style>
+  .business {
+    margin-top: 2rem;
+  }
+  h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent-text);
+  }
+  p {
+    margin: 0;
+    color: var(--text-muted);
+  }
+  .link {
+    color: var(--accent-text);
+    text-decoration: underline dashed;
+    text-underline-offset: 4px;
+  }
+  .link:hover {
+    color: var(--accent);
+  }
+</style>

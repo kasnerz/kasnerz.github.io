@@ -1,5 +1,6 @@
 ---
 import SubpageLayout from "../layouts/SubpageLayout.astro";
+import BusinessDetails from "./BusinessDetails.astro";
 import ContactCta from "./ContactCta.astro";
 import LocalAiInstitutions from "./LocalAiInstitutions.astro";
 import LocalAiScope from "./LocalAiScope.astro";
@@ -149,12 +150,14 @@ const SHOW_PRICE = false;
             </aside>
           )}
           <ContactCta lang="cs" class="cta-dark" />
+          <BusinessDetails lang="cs" />
         </section>
       </>
     ) : (
       <section class="outro">
         <p>{copy.outro}</p>
         <ContactCta lang={lang} />
+        <BusinessDetails lang={lang} />
       </section>
     )
   }
