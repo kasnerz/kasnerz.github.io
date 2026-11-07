@@ -151,12 +151,14 @@ const t = useTranslations(lang);
   /* the tagline wraps to about the label's width: inline-size containment keeps it
      from widening .scene-text, stretch gives it that width, and the negative margins
      let it run a little past the label on each side; min-width is a floor so short
-     labels ("Člověk") don't squeeze it into a column */
+     labels ("Člověk") don't squeeze it into a column, and the padding caps the lines
+     at 10em so long labels ("Ex-výzkumník") don't stretch it onto one line */
   .home :global(.scene-tagline) {
     align-self: stretch;
     contain: inline-size;
     min-width: 9em;
     margin-inline: -1em;
+    padding-inline: max(0px, (100% - 8em) / 2);
     margin-top: -0.1rem;
     font-size: clamp(0.8rem, 1vw, 0.92rem);
     font-style: italic;
