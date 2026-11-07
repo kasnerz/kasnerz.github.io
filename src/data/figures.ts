@@ -151,17 +151,18 @@ const TALK = `
 
 /* Small figures, 48×48: navigation on every page. */
 export const SMALL: Record<PageId, string> = {
-  /* the AI expert: plugging into a server rack crowned with an AI chip */
+  /* the AI expert: pointing at a dashboard, a GPU in the other hand */
   consulting: `
-    <rect x="27" y="24" width="16" height="21.5" rx="1.5"/>
-    <path class="thin" d="M27 31.2H43M27 38.3H43"/>
-    <g class="a-blink"><circle class="dot" cx="30.5" cy="27.6" r="1"/><circle class="dot" cx="30.5" cy="34.7" r="1"/><circle class="dot" cx="30.5" cy="41.9" r="1"/></g>
-    <rect x="30" y="10" width="10" height="9" rx="1.2"/>
-    <path class="thin" d="M33 8V10M37 8V10M33 19V21M37 19V21M28 14.5H30M40 14.5H42"/>
-    <path class="solid a-spin" ${pivot(35, 14.5)} d="M35 11.6L35.8 13.7L37.9 14.5L35.8 15.3L35 17.4L34.2 15.3L32.1 14.5L34.2 13.7Z"/>
-    <circle class="head" cx="12" cy="15" r="4.5"/>
-    <path d="M12 19.5V33M12 33L8 45.5M12 33L16 45.5M12 23L8 29L10 33.5M12 23L18 28L22 30"/>
-    <path d="M22 28.5h3.5v3h-3.5z"/><path class="thin" d="M25.5 29.3h1.5M25.5 30.7h1.5"/>`,
+    <rect x="20" y="3" width="26" height="18" rx="1.5"/>
+    <path class="thin" d="M23 6.5C24.5 13 27 16 32 17M35 8H43M35 11.5H42M35 15H39"/>
+    <g class="a-blink"><rect class="dot" x="40" y="13.5" width="1.6" height="3"/></g>
+    <circle class="head" cx="11" cy="17" r="4.5"/>
+    <path d="M11 21.5V34M11 34L7 45.5M11 34L15 45.5M11 25L17 31L21 32.5"/>
+    <path class="a-point" ${pivot(11, 25)} d="M11 25L15.5 20L19 14"/>
+    <rect x="21" y="28.5" width="15" height="8" rx="1"/>
+    <path class="thin" d="M36.5 27.5V38"/>
+    <circle class="thin" cx="25.5" cy="32.5" r="2.4"/><g class="a-spin" ${pivot(25.5, 32.5)}><path class="thin" d="M25.5 30.9V34.1M23.9 32.5H27.1"/></g>
+    <circle class="thin" cx="31.5" cy="32.5" r="2.4"/><g class="a-spin" ${pivot(31.5, 32.5)}><path class="thin" d="M31.5 30.9V34.1M29.9 32.5H33.1"/></g>`,
   teaching: `
     <g mask="url(#ko-teach-s)">
       <rect x="10" y="3" width="35" height="22" rx="1.5"/>
@@ -227,9 +228,9 @@ export const SMALL: Record<PageId, string> = {
  */
 export const PROPS: Record<PageId, string> = {
   consulting: `
-    <rect x="5" y="5" width="14" height="14" rx="2"/>
-    <path class="thin" d="M9 2.5V5M12 2.5V5M15 2.5V5M9 19V21.5M12 19V21.5M15 19V21.5M2.5 9H5M2.5 12H5M2.5 15H5M19 9H21.5M19 12H21.5M19 15H21.5"/>
-    <path class="solid a-spin" ${pivot(12, 12)} d="M12 7.5L13.3 10.7L16.5 12L13.3 13.3L12 16.5L10.7 13.3L7.5 12L10.7 10.7Z"/>`,
+    <rect x="2.5" y="3.5" width="19" height="13" rx="1.5"/>
+    <path d="M12 16.5V20M8 20.5H16"/>
+    <path class="thin" d="M5 6.5C6 11 8 12.5 11 13.5M14 7H19M14 10H18.5M14 13H16.5"/>`,
   teaching: `
     <rect x="2.5" y="3" width="19" height="13" rx="1"/>
     <path class="thin" d="M9 7H18M9 10H18M9 13H15"/>
@@ -262,20 +263,24 @@ export const PROPS: Record<PageId, string> = {
  * Their figures stand on the top edge of the content card.
  */
 export const LARGE: Partial<Record<ArtId, string>> = {
-  /* the AI expert plugs into a server rack crowned with an AI chip */
+  /* the AI expert in front of a dashboard (a training curve and generated text),
+     pointing at it, a GPU in the other hand */
   consulting: `
     <path class="ground" d="M0 215H240"/>
-    <rect x="128" y="125" width="52" height="90" rx="3"/>
-    <path class="thin" d="M128 147.5H180M128 170H180M128 192.5H180M144 136.3H172M144 158.8H172M144 181.3H172M144 203.8H172"/>
-    <g class="a-blink"><circle class="dot" cx="136" cy="136.3" r="2"/><circle class="dot" cx="136" cy="158.8" r="2"/><circle class="dot" cx="136" cy="181.3" r="2"/><circle class="dot" cx="136" cy="203.8" r="2"/></g>
-    <rect x="140" y="86" width="28" height="26" rx="3"/>
-    <path class="thin" d="M147 80V86M154 80V86M161 80V86M147 112V118M154 112V118M161 112V118M134 92.5H140M134 99H140M134 105.5H140M168 92.5H174M168 99H174M168 105.5H174"/>
-    <path class="solid a-spin" ${pivot(154, 99)} d="M154 91L156.2 96.8L162 99L156.2 101.2L154 107L151.8 101.2L146 99L151.8 96.8Z"/>
-    <circle class="head" cx="84" cy="110" r="9"/>
-    <path d="M84 119V165M84 165L75 215M84 165L93 215M84 130L72 146L78 162M84 130L100 142L116 150"/>
-    <path d="M116 146h9v7h-9z"/><path class="thin" d="M125 147.5h3M125 151.5h3"/>
-    <path d="M116 152C100 162 114 196 96 206S40 213 14 213"/>
-    <path class="thin a-spark" d="M118 140l-2-5M124 140l2-5"/>`,
+    <rect x="100" y="44" width="130" height="88" rx="4"/>
+    <path d="M118 132L112 215M212 132L218 215"/>
+    <path class="thin" d="M110 56V120H160"/>
+    <path class="thin" d="M113 62C118 90 126 102 136 106S150 111 158 112"/>
+    <rect class="thin" x="168" y="54" width="54" height="66" rx="2"/>
+    <path class="thin" d="M175 66H215M175 77H212M175 88H201"/>
+    <g class="a-blink"><rect class="dot" x="204" y="83" width="4" height="9"/></g>
+    <circle class="head" cx="62" cy="110" r="9"/>
+    <path d="M62 119V165M62 165L53 215M62 165L71 215M62 130L46 150L34 141"/>
+    <path class="a-point" ${pivot(62, 130)} d="M62 130L80 120L96 104"/>
+    <rect x="14" y="120" width="34" height="18" rx="2"/>
+    <path class="thin" d="M11 117V141M22 138v3H40v-3"/>
+    <g class="a-spin" ${pivot(24, 129)}><circle class="thin" cx="24" cy="129" r="5.5"/><path class="thin" d="M24 124V134M19 129H29"/></g>
+    <g class="a-spin" ${pivot(38, 129)}><circle class="thin" cx="38" cy="129" r="5.5"/><path class="thin" d="M38 124V134M33 129H43"/></g>`,
   teaching: `
     <path class="ground" d="M0 215H240"/>
     <g mask="url(#ko-teach-l)">
@@ -432,7 +437,7 @@ export const SPOTS = {
  */
 export const LARGE_FIT: Partial<Record<ArtId, { scale: number; cx: number }>> =
   {
-    consulting: { scale: 1.15, cx: 126 },
+    consulting: { scale: 0.9, cx: 120 },
     teaching: { scale: 0.87, cx: 126 },
     projects: { scale: 1.36, cx: 160 },
     research: { scale: 1.2, cx: 125 },
