@@ -11,6 +11,15 @@ export interface Project {
 /** Representative software projects, shown on the developer page. */
 export const projects: Project[] = [
     {
+        title: "Proč se to učím?",
+        url: "https://procsetoucim.cz",
+        description: {
+            en: "A website showing primary school pupils why they learn specific topics, whether a tool can help them with it and which jobs need it.",
+            cs: "Web, který žákům základních škol ukazuje, proč se učí konkrétní látku, jestli jim s ní pomůže nějaký nástroj a v jakých povoláních se hodí.",
+        },
+        image: "/projects/procsetoucim.png",
+    },
+    {
         title: "AnimatedLLM",
         url: "https://animatedllm.github.io/",
         description: {
