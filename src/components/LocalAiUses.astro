@@ -15,8 +15,38 @@ import Translation from "./local-ai-screens/Translation.astro";
 import Triage from "./local-ai-screens/Triage.astro";
 import Vision from "./local-ai-screens/Vision.astro";
 
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+
 type Czech = keyof typeof data.czech;
 type Hardware = keyof typeof data.hardware;
+
+const copies = {
+  cs: {
+    tasks: "Úlohy",
+    model: "Příklad modelu",
+    hardware: "Hardwarová náročnost",
+    czech: "Čeština",
+    onHf: "na Hugging Face",
+    prev: "Předchozí úloha",
+    next: "Další úloha",
+  },
+  en: {
+    tasks: "Tasks",
+    model: "Example model",
+    hardware: "Hardware demands",
+    czech: "Czech",
+    onHf: "on Hugging Face",
+    prev: "Previous task",
+    next: "Next task",
+  },
+};
+const copy = copies[lang];
+// How well models handle Czech only matters to Czech readers.
+const showCzech = lang === "cs";
 
 /** The illustration on each task's screen, by the task's id. */
 const SCREENS: Record<string, typeof Triage> = {
@@ -42,7 +72,7 @@ function screenFor(taskId: string) {
 
 const cards = data.groups
   .flatMap(group => group.uses)
-  .sort((a, b) => a.short.cs.localeCompare(b.short.cs, "cs"))
+  .sort((a, b) => a.short[lang].localeCompare(b.short[lang], lang))
   .map(use => ({
     use,
     model: modelFor(use.id),
@@ -58,20 +88,46 @@ function initialPosition(index: number) {
 ---
 
 <section class="section" aria-labelledby="uses-title" data-uses>
-  <h2 id="uses-title" class="title">Na co nasadit otevřené AI modely?</h2>
-  <p class="lead">
-    Otevřené AI modely se od proprietárních AI modelů příliš neliší. Téměř na
-    cokoliv, co zvládne komerční AI, <b>existuje i otevřená alternativa</b>.
-    Protože ale tyto modely budete provozovat na vlastním hardware, je potřeba
-    zvážit, jak schopný model zvládne konkrétní úlohu a jaké jsou jeho
-    hardwarové nároky.
-  </p>
-  <p class="lead">
-    Pro lepší představu zde jsou ilustrativní ukázky úloh vhodných pro otevřené
-    AI modely, včetně příkladů konkrétních modelů:
-  </p>
+  {
+    lang === "cs" ? (
+      <>
+        <h2 id="uses-title" class="title">
+          Na co nasadit otevřené AI modely?
+        </h2>
+        <p class="lead">
+          Otevřené AI modely se od proprietárních AI modelů příliš neliší. Téměř
+          ke všemu, co zvládne komerční AI,{" "}
+          <b>existuje i otevřená alternativa</b>. Protože ale tyto modely budete
+          provozovat na vlastním hardwaru, je potřeba zvážit, jak schopný model
+          daná úloha vyžaduje a jaké má hardwarové nároky.
+        </p>
+        <p class="lead">
+          Pro představu uvádím několik ukázek úloh pro otevřené AI modely,
+          včetně příkladů modelů, které se na ně hodí (aktuální k listopadu
+          2026):
+        </p>
+      </>
+    ) : (
+      <>
+        <h2 id="uses-title" class="title">
+          What can you use open-weight AI models for?
+        </h2>
+        <p class="lead">
+          Open-weight AI models are not that different from proprietary ones.
+          For almost anything a commercial AI can do,{" "}
+          <b>there is an open alternative</b>. Since you will be running these
+          models on your own hardware, though, you need to weigh how capable a
+          model the task requires and how much hardware it needs.
+        </p>
+        <p class="lead">
+          To give you an idea, here are a few example tasks for open-weight AI
+          models, along with models that suit them (as of November 2026):
+        </p>
+      </>
+    )
+  }
 
-  <div class="tabs" role="tablist" aria-label="Úlohy" data-uses-controls>
+  <div class="tabs" role="tablist" aria-label={copy.tasks} data-uses-controls>
     {
       cards.map(({ use }, i) => (
         <button
@@ -81,11 +137,11 @@ function initialPosition(index: number) {
           id={`use-tab-${use.id}`}
           aria-controls={`use-${use.id}`}
           aria-selected={i === 0 ? "true" : "false"}
-          title={use.label.cs}
+          title={use.label[lang]}
           tabindex={i === 0 ? 0 : -1}
         >
           <Icon name={use.icon} aria-hidden="true" />
-          {use.short.cs}
+          {use.short[lang]}
         </button>
       ))
     }
@@ -106,35 +162,17 @@ function initialPosition(index: number) {
           >
             <div class="screen">
               <div class="display">
-                <Screen />
+                <Screen lang={lang} />
               </div>
             </div>
             <div class="body">
-              <h3 class="name">{use.label.cs}</h3>
-              <p class="what">{use.what.cs}</p>
-              <dl class="specs">
-                <div class="spec">
-                  <dt class="spec-label">
-                    <Icon name="tabler:cpu" aria-hidden="true" />
-                    Hardwarová náročnost
-                  </dt>
-                  <dd class="spec-value">
-                    {data.hardware[String(use.hardware) as Hardware].label.cs}
-                  </dd>
-                </div>
-                <div class="spec">
-                  <dt class="spec-label">
-                    <Icon name="tabler:abc" aria-hidden="true" />
-                    Čeština
-                  </dt>
-                  <dd class="spec-value">
-                    {data.czech[use.czech as Czech].label.cs}
-                  </dd>
-                </div>
-                <div class="spec">
+              <h3 class="name">{use.label[lang]}</h3>
+              <p class="what">{use.what[lang]}</p>
+              <dl class="specs" data-pair={!showCzech || undefined}>
+                <div class="spec spec-model">
                   <dt class="spec-label">
                     <Icon name="tabler:brain" aria-hidden="true" />
-                    Příklad modelu
+                    {copy.model}
                   </dt>
                   <dd class="spec-value">
                     <a
@@ -142,13 +180,37 @@ function initialPosition(index: number) {
                       href={model.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      title={`${model.owner}/${model.name} na Hugging Face`}
+                      title={`${model.owner}/${model.name} ${copy.onHf}`}
                     >
                       <span class="owner">{model.owner}/</span>
                       <span class="model">{model.name}</span>
                     </a>
                   </dd>
                 </div>
+                <div class="spec">
+                  <dt class="spec-label">
+                    <Icon name="tabler:cpu" aria-hidden="true" />
+                    {copy.hardware}
+                  </dt>
+                  <dd class="spec-value">
+                    {
+                      data.hardware[String(use.hardware) as Hardware].label[
+                        lang
+                      ]
+                    }
+                  </dd>
+                </div>
+                {showCzech && (
+                  <div class="spec">
+                    <dt class="spec-label">
+                      <Icon name="tabler:abc" aria-hidden="true" />
+                      {copy.czech}
+                    </dt>
+                    <dd class="spec-value">
+                      {data.czech[use.czech as Czech].label.cs}
+                    </dd>
+                  </div>
+                )}
               </dl>
             </div>
           </article>
@@ -158,7 +220,7 @@ function initialPosition(index: number) {
     <button
       class="arrow arrow-prev"
       type="button"
-      aria-label="Předchozí úloha"
+      aria-label={copy.prev}
       data-step="-1"
       data-uses-controls
     >
@@ -167,7 +229,7 @@ function initialPosition(index: number) {
     <button
       class="arrow arrow-next"
       type="button"
-      aria-label="Další úloha"
+      aria-label={copy.next}
       data-step="1"
       data-uses-controls
     >
@@ -408,16 +470,20 @@ function initialPosition(index: number) {
     line-height: 1.4;
     text-wrap: pretty;
   }
-  /* The card's last row: three segments of the same shape, set off by rules. The last column
-     is the widest, because model ids are long. */
+  /* The card's last row: three segments of the same shape, set off by rules. The model comes
+     first and its column is the widest, because model ids are long. */
   .specs {
     --spec-rule: color-mix(in oklab, var(--background), var(--accent) 30%);
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.8fr);
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 1fr);
     column-gap: 1.5rem;
     margin: auto 0 0;
     padding-top: 0.7rem;
     border-top: 1px solid var(--spec-rule);
+  }
+  /* without the Czech segment: the model and the hardware */
+  .specs[data-pair] {
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
   }
   .spec {
     position: relative;
@@ -453,16 +519,17 @@ function initialPosition(index: number) {
     font-weight: 500;
     line-height: 1.3;
   }
-  /* Narrower cards: the first two segments stay side by side, with the model under them. */
+  /* Narrower cards: hardware and Czech side by side, with the model under them. */
   @container (max-width: 40rem) {
     .specs {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       row-gap: 0.6rem;
     }
-    .spec:last-child {
+    .spec-model {
+      order: 1;
       grid-column: 1 / -1;
     }
-    .spec:last-child::before {
+    .spec-model + .spec::before {
       display: none;
     }
   }

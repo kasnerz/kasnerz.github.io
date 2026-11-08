@@ -1,6 +1,13 @@
 ---
 import { Icon } from "astro-icon/components";
 
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+const en = lang === "en";
+
 /*
  * What the assessment and the deployment deal with, one area after another. The second
  * one lays out the four ways to run AI models, from the most of the operation in Your
@@ -9,8 +16,10 @@ import { Icon } from "astro-icon/components";
  */
 const tiers = [
   {
-    title: "Plně lokálně",
-    text: "Modely běží na hardwaru, který vlastníte, ve Vaší síti. Data neopouštějí budovu a provoz funguje i bez internetu.",
+    title: en ? "Fully local" : "Plně lokálně",
+    text: en
+      ? "The models run on hardware you own, in your network. Data never leaves the building and everything works without the internet, too."
+      : "Modely běží na hardwaru, který vlastníte, ve vaší síti. Data neopouštějí budovu a provoz funguje i bez internetu.",
     // a server inside a house
     icon: `
       <path d="M6 22L24 7L42 22"/>
@@ -20,8 +29,10 @@ const tiers = [
       <circle class="dot" cx="20.5" cy="25.7" r="1"/><circle class="dot" cx="20.5" cy="31" r="1"/><circle class="dot" cx="20.5" cy="36.3" r="1"/>`,
   },
   {
-    title: "Pronajatý výpočetní výkon",
-    text: "Otevřené modely na pronajatém GPU serveru, třeba v českém datacentru. Hardware nekupujete, ale server máte jen pro sebe.",
+    title: en ? "Rented compute" : "Pronajatý výpočetní výkon",
+    text: en
+      ? "Open-weight models on a rented GPU server, for example in a local data center. You don't buy the hardware, but the server is yours alone."
+      : "Otevřené modely na pronajatém GPU serveru, třeba v českém datacentru. Hardware nekupujete, ale server máte jen pro sebe.",
     // a server with a rental tag
     icon: `
       <rect x="6" y="8" width="20" height="32" rx="2"/>
@@ -32,8 +43,12 @@ const tiers = [
       <circle class="thin" cx="37" cy="24.5" r="1.6"/>`,
   },
   {
-    title: "Otevřené modely s platbou za tokeny",
-    text: "Otevřené modely přes API poskytovatele, platíte jen za spotřebu. Kdykoli můžete přejít k jinému poskytovateli nebo k sobě.",
+    title: en
+      ? "Open-weight models, paid per token"
+      : "Otevřené modely s platbou za tokeny",
+    text: en
+      ? "Open-weight models through a provider's API, paying only for what you use. You can switch to another provider or to your own hardware at any time."
+      : "Otevřené modely přes API poskytovatele, platíte jen za spotřebu. Kdykoli můžete přejít k jinému poskytovateli nebo na vlastní hardware.",
     // a cloud fed by a coin
     icon: `
       <path d="M13 27H35A6.5 6.5 0 0 0 35.8 14.05A10 10 0 0 0 16.6 12.5A7.25 7.25 0 0 0 13 27Z"/>
@@ -42,8 +57,12 @@ const tiers = [
       <path class="thin" d="M24 36V42"/>`,
   },
   {
-    title: "Komerční služba se zárukami",
-    text: "Firemní verze komerčních služeb se smlouvou o zpracování dat a se zárukou, že na Vašich datech nebudou trénovat.",
+    title: en
+      ? "Business plan of a commercial service"
+      : "Firemní tarif komerční služby",
+    text: en
+      ? "Business editions of commercial services, with a data processing agreement and a guarantee that the provider won't train models on your data."
+      : "Firemní verze komerčních služeb se smlouvou o zpracování dat a se zárukou, že poskytovatel na vašich datech nebude trénovat modely.",
     // a cloud and a shield with a tick
     icon: `
       <path d="M6 20H20A4.5 4.5 0 0 0 20.5 11.03A7 7 0 0 0 7.2 10.6A5 5 0 0 0 6 20Z"/>
@@ -57,41 +76,56 @@ const topics = [
     id: "data",
     title: "Data",
     icon: "tabler:database",
-    text: "Projdeme, jaká data máte a kde leží: dokumenty, databáze, e-maily, skeny. Navrhnu, jak je převést do formátu, se kterým modely umí pracovat, a jak je udržovat aktuální.",
+    text: en
+      ? "We go through what data you have and where it lives: documents, databases, emails, scans. I propose how to convert it into a format the models can work with, and how to keep it up to date."
+      : "Projdeme, jaká data máte a kde leží: dokumenty, databáze, e-maily, skeny. Navrhnu, jak je převést do formátu, se kterým modely umí pracovat, a jak je udržovat aktuální.",
   },
   {
     id: "typy-provozu",
-    title: "Typ provozu",
+    title: en ? "Type of operation" : "Typ provozu",
     icon: "tabler:route",
-    text: "Lokální AI má několik podob. Podle citlivosti dat, Vašich povinností (GDPR, AI Act, zákon o kybernetické bezpečnosti), objemu a rozpočtu doporučím, která se Vám hodí. Často to bývá kombinace.",
+    text: en
+      ? 'AI "with guarantees" can actually take several forms. Depending on how sensitive your data is, its volume and your budget, I recommend the one that suits you best.'
+      : 'AI "se zárukami" může mít ve skutečnosti několik podob. Podle citlivosti dat, jejich objemu a vašeho rozpočtu doporučím, která je pro vás nejvhodnější.',
     tiers: true,
   },
   {
     id: "modely",
-    title: "Modely, hardware a škálování",
+    title: en ? "Models, hardware and scaling" : "Modely, hardware a škálování",
     icon: "tabler:cpu",
-    text: "Vybereme otevřené modely pro Vaše úlohy a vyzkoušíme je na Vašich datech. Spočítám, jaký hardware potřebují pro požadovanou kvalitu a objem a jak to vychází proti platbám za API. Ukážu i cestu dál: jak řešení rozšířit, až poroste objem nebo vyjdou silnější modely.",
+    text: en
+      ? "We pick suitable models for your tasks and test them on your data. I work out what hardware you need for the output quality and request volume you require, and how that compares with paying for an API. I also show how to extend the solution once the request volume grows or a stronger model is needed."
+      : "Vybereme vhodné modely pro vaše úlohy a vyzkoušíme je na vašich datech. Spočítám, jaký hardware je potřeba pro požadovanou kvalitu výstupů a objem požadavků a jak to vychází ve srovnání s platbami za API. Ukážu také, jak řešení rozšířit, až poroste objem požadavků nebo bude potřeba spustit silnější model.",
   },
   {
     id: "software",
     title: "Software",
     icon: "tabler:apps",
-    text: "Navrhnu, co poběží nad modely: inferenční server, rozhraní pro Vaše zaměstnance, napojení na stávající systémy a nástroje pro konkrétní úlohy, například vyhledávání ve Vašich dokumentech.",
+    text: en
+      ? "I design an interface on top of the AI model and connect it to your existing systems. I build tools for specific tasks, such as searching your documents."
+      : "Navrhnu rozhraní nad AI modelem a napojím ho na stávající systémy. Vytvořím nástroje pro konkrétní úlohy, například vyhledávání ve vašich dokumentech.",
   },
   {
     id: "bezpecnost",
-    title: "Bezpečnost a údržba",
+    title: en ? "Maintenance and further development" : "Údržba a další rozvoj",
     icon: "tabler:shield-check",
-    text: "Kdo bude mít k modelům přístup, co se bude zaznamenávat a jak řešení chránit. Domluvíme se, jak budou probíhat aktualizace modelů a kdo se o řešení postará, a vše sepíšu do dokumentace.",
+    text: en
+      ? "We plan regular maintenance of the system, model updates and further software development."
+      : "Naplánujeme pravidelnou údržbu systému, aktualizace modelů a další vývoj softwaru.",
   },
 ];
 ---
 
 <section class="section" aria-labelledby="spolu">
-  <h2 id="spolu" class="title">Detaily naší spolupráce</h2>
+  <h2 id="spolu" class="title">
+    {en ? "What we will work on" : "Co budeme řešit"}
+  </h2>
   <p class="lead">
-    Během posouzení projdeme pět oblastí. Na jejich závěrech pak stavíme návrh
-    řešení i samotné nasazení.
+    {
+      en
+        ? "When deploying a local AI solution, we will work on these areas:"
+        : "Během nasazování lokálního AI řešení budeme řešit tyto oblasti:"
+    }
   </p>
 
   <ol class="topics">
@@ -107,37 +141,35 @@ const topics = [
             </h3>
             <p class="topic-text">{topic.text}</p>
             {topic.tiers && (
-              <ol class="tiers">
-                {tiers.map((tier, i) => (
-                  <li class="tier">
-                    <svg
-                      class="icon"
-                      viewBox="0 0 48 48"
-                      aria-hidden="true"
-                      focusable="false"
-                    >
-                      <g class="ink" set:html={tier.icon} />
-                    </svg>
-                    <h4 class="name">{tier.title}</h4>
-                    <p class="text">{tier.text}</p>
-                    <p class="own">
-                      <span>Vlastní provoz</span>
-                      <span
-                        class="pips"
-                        role="img"
-                        aria-label={`${tiers.length - i} ze ${tiers.length}`}
+              <div class="tiers-wrap">
+                <ol class="tiers">
+                  {tiers.map(tier => (
+                    <li class="tier">
+                      <svg
+                        class="icon"
+                        viewBox="0 0 48 48"
+                        aria-hidden="true"
+                        focusable="false"
                       >
-                        {tiers.map((_, j) => (
-                          <span
-                            class="pip"
-                            data-on={j < tiers.length - i || undefined}
-                          />
-                        ))}
-                      </span>
-                    </p>
-                  </li>
-                ))}
-              </ol>
+                        <g class="ink" set:html={tier.icon} />
+                      </svg>
+                      <h4 class="name">{tier.title}</h4>
+                      <p class="text">{tier.text}</p>
+                    </li>
+                  ))}
+                </ol>
+                <p class="scale">
+                  <span class="end">
+                    <Icon name="tabler:arrow-up" aria-hidden="true" />
+                    {en ? "More guarantees" : "Více záruk"}
+                  </span>
+                  <span class="arrow" aria-hidden="true" />
+                  <span class="end">
+                    {en ? "Easier to use" : "Jednodušší použití"}
+                    <Icon name="tabler:arrow-down" aria-hidden="true" />
+                  </span>
+                </p>
+              </div>
             )}
           </div>
         </li>
@@ -243,35 +275,58 @@ const topics = [
     text-wrap: balance;
   }
   .text {
-    margin: 0 0 0.9rem;
+    margin: 0;
     font-size: 0.9rem;
     line-height: 1.4;
     text-wrap: pretty;
   }
 
-  /* how much of the operation stays with You, falling from left to right */
-  .own {
+  /* one double-headed arrow under all four cards: more guarantees towards the left,
+     easier use towards the right */
+  .scale {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-    margin: auto 0 0;
-    padding-top: 0.6rem;
-    border-top: 1px solid var(--border);
-    font-size: 0.8rem;
+    gap: 0.75rem;
+    margin: 0.75rem 0 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent-text);
   }
-  .pips {
-    display: flex;
-    gap: 0.25rem;
+  .end {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    white-space: nowrap;
   }
-  .pip {
-    width: 0.55rem;
-    height: 0.55rem;
-    border-radius: 50%;
-    border: 1.5px solid var(--accent);
+  /* the up/down arrows only make sense once the cards stack, on phones */
+  .end :global(svg) {
+    display: none;
+    flex: none;
+    width: 1.1em;
+    height: 1.1em;
   }
-  .pip[data-on] {
+  .arrow {
+    position: relative;
+    flex: 1;
+    height: 2px;
+    margin-inline: 9px;
     background: var(--accent);
+  }
+  .arrow::before,
+  .arrow::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    border-block: 5px solid transparent;
+    translate: 0 -50%;
+  }
+  .arrow::before {
+    right: 100%;
+    border-right: 9px solid var(--accent);
+  }
+  .arrow::after {
+    left: 100%;
+    border-left: 9px solid var(--accent);
   }
 
   @media (max-width: 900px) {
@@ -295,11 +350,28 @@ const topics = [
       padding-top: 0.3rem;
     }
     /* the cards take the full width, over the line under the icon column */
-    .tiers {
+    .tiers-wrap {
       position: relative;
       z-index: 1;
-      grid-template-columns: minmax(0, 1fr);
+      display: flex;
+      flex-direction: column;
       margin-left: calc(-1 * (var(--mark) + 0.8rem));
+    }
+    .tiers {
+      grid-template-columns: minmax(0, 1fr);
+      margin-top: 0.6rem;
+    }
+    /* the cards stack, so the scale moves above them: up for guarantees, down for ease */
+    .scale {
+      order: -1;
+      justify-content: space-between;
+      margin: 1.1rem 0 0;
+    }
+    .arrow {
+      display: none;
+    }
+    .end :global(svg) {
+      display: block;
     }
     .tier {
       display: grid;
@@ -308,7 +380,7 @@ const topics = [
       padding: 1rem;
     }
     .icon {
-      grid-row: 1 / span 3;
+      grid-row: 1 / span 2;
       width: 2.6rem;
       height: 2.6rem;
     }

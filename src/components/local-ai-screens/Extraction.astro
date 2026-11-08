@@ -1,31 +1,84 @@
 ---
 import { Icon } from "astro-icon/components";
 
-const FIELDS = [
-  { name: "Dodavatel", value: "Elektro Novák s.r.o." },
-  { name: "IČO", value: "12345678" },
-  { name: "Variabilní symbol", value: "20261184" },
-  { name: "Splatnost", value: "14. 12. 2026" },
-  { name: "Částka", value: "48 400,00 Kč" },
-];
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+
+const copies = {
+  cs: {
+    fields: [
+      { name: "Dodavatel", value: "Elektro Novák s.r.o." },
+      { name: "IČO", value: "12345678" },
+      { name: "Variabilní symbol", value: "20261184" },
+      { name: "Splatnost", value: "14. 12. 2026" },
+      { name: "Částka", value: "48 400,00 Kč" },
+    ],
+    title: "Faktura č. 2026/1184",
+    id: "IČO",
+    ref: "VS",
+    due: "Splatnost",
+    dueDate: "14. 12. 2026",
+    items: [
+      ["Montáž rozvaděče", "28 000,00"],
+      ["Materiál", "12 000,00"],
+      ["DPH 21 %", "8 400,00"],
+    ],
+    total: "Celkem",
+    amount: "48 400,00 Kč",
+    sheet: "faktury_2026.xlsx",
+    pdf: "faktura_1184.pdf",
+  },
+  en: {
+    fields: [
+      { name: "Supplier", value: "Elektro Novák s.r.o." },
+      { name: "Company ID", value: "12345678" },
+      { name: "Payment reference", value: "20261184" },
+      { name: "Due date", value: "14 Dec 2026" },
+      { name: "Amount", value: "CZK 48,400.00" },
+    ],
+    title: "Invoice no. 2026/1184",
+    id: "Company ID",
+    ref: "Ref.",
+    due: "Due",
+    dueDate: "14 Dec 2026",
+    items: [
+      ["Switchboard installation", "28,000.00"],
+      ["Material", "12,000.00"],
+      ["VAT 21%", "8,400.00"],
+    ],
+    total: "Total",
+    amount: "CZK 48,400.00",
+    sheet: "invoices_2026.xlsx",
+    pdf: "invoice_1184.pdf",
+  },
+};
+const copy = copies[lang];
 ---
 
 <div class="extraction">
   <div class="scan">
     <div class="page">
-      <p class="page-title">Faktura č. 2026/1184</p>
+      <p class="page-title">{copy.title}</p>
       <p class="line"><mark>Elektro Novák s.r.o.</mark></p>
-      <p class="line">IČO: <mark>12345678</mark></p>
-      <p class="line">VS: <mark>20261184</mark></p>
-      <p class="line">Splatnost: <mark>14. 12. 2026</mark></p>
+      <p class="line">{copy.id}: <mark>12345678</mark></p>
+      <p class="line">{copy.ref}: <mark>20261184</mark></p>
+      <p class="line">{copy.due}: <mark>{copy.dueDate}</mark></p>
       <table class="items" data-optional>
         <tbody>
-          <tr><td>Montáž rozvaděče</td><td>28 000,00</td></tr>
-          <tr><td>Materiál</td><td>12 000,00</td></tr>
-          <tr><td>DPH 21 %</td><td>8 400,00</td></tr>
+          {
+            copy.items.map(([item, price]) => (
+              <tr>
+                <td>{item}</td>
+                <td>{price}</td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
-      <p class="total">Celkem: <mark>48 400,00 Kč</mark></p>
+      <p class="total">{copy.total}: <mark>{copy.amount}</mark></p>
     </div>
   </div>
 
@@ -36,12 +89,12 @@ const FIELDS = [
   <div class="output">
     <p class="file">
       <Icon name="tabler:file-spreadsheet" aria-hidden="true" />
-      <span class="file-full">faktury_2026.xlsx</span>
-      <span class="file-short">faktura_1184.pdf</span>
+      <span class="file-full">{copy.sheet}</span>
+      <span class="file-short">{copy.pdf}</span>
     </p>
     <dl class="fields">
       {
-        FIELDS.map(field => (
+        copy.fields.map(field => (
           <div class="field">
             <dt>{field.name}</dt>
             <dd>{field.value}</dd>

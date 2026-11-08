@@ -1,28 +1,63 @@
 ---
 import { Icon } from "astro-icon/components";
 
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+
 // `optional` lines drop out where the screen is narrow.
-const DIFF = [
-  { sign: "+", code: "from decimal import Decimal", optional: true },
-  { sign: " ", code: "", optional: true },
-  { sign: "-", code: "def dph(cena):", optional: true },
-  { sign: "-", code: "return round(cena * 0.21)", indented: true },
-  { sign: "+", code: "def dph(cena: Decimal) -> Decimal:", optional: true },
-  {
-    sign: "+",
-    code: 'return round(cena * Decimal("0.21"), 2)',
-    indented: true,
+const DIFFS = {
+  cs: [
+    { sign: "+", code: "from decimal import Decimal", optional: true },
+    { sign: " ", code: "", optional: true },
+    { sign: "-", code: "def dph(cena):", optional: true },
+    { sign: "-", code: "return round(cena * 0.21)", indented: true },
+    { sign: "+", code: "def dph(cena: Decimal) -> Decimal:", optional: true },
+    {
+      sign: "+",
+      code: 'return round(cena * Decimal("0.21"), 2)',
+      indented: true,
+    },
+  ],
+  en: [
+    { sign: "+", code: "from decimal import Decimal", optional: true },
+    { sign: " ", code: "", optional: true },
+    { sign: "-", code: "def vat(price):", optional: true },
+    { sign: "-", code: "return round(price * 0.21)", indented: true },
+    { sign: "+", code: "def vat(price: Decimal) -> Decimal:", optional: true },
+    {
+      sign: "+",
+      code: 'return round(price * Decimal("0.21"), 2)',
+      indented: true,
+    },
+  ],
+};
+const DIFF = DIFFS[lang];
+
+const copies = {
+  cs: {
+    task: "Oprav zaokrouhlování DPH na faktuře.",
+    file: "faktura.py",
+    result: "42 testů prošlo",
   },
-];
+  en: {
+    task: "Fix the VAT rounding on the invoice.",
+    file: "invoice.py",
+    result: "42 tests passed",
+  },
+};
+const copy = copies[lang];
 ---
 
 <div class="coding">
-  <p class="task">Oprav zaokrouhlování DPH na faktuře.</p>
+  <p class="task">{copy.task}</p>
 
   <div class="code">
     <p class="path">
       <Icon name="tabler:file-code" aria-hidden="true" />
-      faktura.py
+      {copy.file}
     </p>
     <div class="lines">
       {
@@ -46,7 +81,7 @@ const DIFF = [
 
   <p class="result">
     <Icon name="tabler:circle-check" aria-hidden="true" />
-    42 testů prošlo
+    {copy.result}
   </p>
 </div>
 

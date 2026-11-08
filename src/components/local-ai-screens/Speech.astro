@@ -1,4 +1,10 @@
 ---
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+
 // A made-up but fixed recording, so the waveform looks the same on every build. It has short
 // pauses between the sentences, like the transcript below it.
 const BAR_COUNT = 72;
@@ -12,16 +18,26 @@ const BARS = Array.from({ length: BAR_COUNT }, (_, i) => {
 });
 
 // The row that is highlighted is the one at the waveform's playback position.
+const TEXTS = {
+  cs: [
+    "Bolí vás to víc při nádechu, nebo při chůzi?",
+    "Hlavně do schodů, a poslední dva dny i v noci.",
+    "Berete teď nějaké léky?",
+    "Jen něco na tlak, jednou denně.",
+  ],
+  en: [
+    "Does it hurt more when you breathe in, or when you walk?",
+    "Mostly on the stairs, and for the last two days at night too.",
+    "Are you taking any medication at the moment?",
+    "Just something for blood pressure, once a day.",
+  ],
+};
 const LINES = [
-  { time: "00:12", text: "Bolí vás to víc při nádechu, nebo při chůzi?" },
-  {
-    time: "00:16",
-    text: "Hlavně do schodů, a poslední dva dny i v noci.",
-    current: true,
-  },
-  { time: "00:21", text: "Berete teď nějaké léky?", optional: true },
-  { time: "00:23", text: "Jen něco na tlak, jednou denně.", optional: true },
-];
+  { time: "00:12" },
+  { time: "00:16", current: true },
+  { time: "00:21", optional: true },
+  { time: "00:23", optional: true },
+].map((line, i) => ({ ...line, text: TEXTS[lang][i] }));
 ---
 
 <div class="speech">

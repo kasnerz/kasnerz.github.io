@@ -2,7 +2,8 @@
 import Layout from "@/layouts/Layout.astro";
 import SceneNav from "@/components/SceneNav.astro";
 import SiteTools from "@/components/SiteTools.astro";
-import type { Lang } from "@/data/nav";
+import InterpolatedText from "@/components/InterpolatedText.astro";
+import { NAV, type Lang, type PageId } from "@/data/nav";
 import { useTranslations } from "@/i18n/utils";
 
 interface Props {
@@ -11,6 +12,11 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+// Figures to leave off the front page (their pages stay in the menu); the block narrows to fit.
+const hidden: PageId[] = [];
+const cols = NAV.length - hidden.length;
+// figures per row on phones: four make a 2×2 grid rather than 3 + 1
+const phoneRow = cols === 4 ? 2 : 3;
 ---
 
 <Layout lang={lang}>
@@ -21,11 +27,25 @@ const t = useTranslations(lang);
     <SiteTools lang={lang} contact />
   </div>
 
-  <main id="main-content" class="home">
+  <main
+    id="main-content"
+    class="home"
+    style={`--cols: ${cols}; --phone-row: ${phoneRow}`}
+  >
     <header class="hero">
       <div class="hero-text">
         <h1>Zdeněk Kasner</h1>
-        <p class="lead">{t("home.lead")}</p>
+        <p class="lead">
+          <InterpolatedText text={t("home.lead")}>
+            <a
+              slot="local"
+              class="lead-link"
+              href="https://lokalni.ai"
+              target="_blank"
+              rel="noopener noreferrer">{t("home.lead.local")}</a
+            >
+          </InterpolatedText>
+        </p>
         <a class="cta" href={lang === "cs" ? "/cs/contact" : "/contact"}>
           {t("home.cta")}
           <span aria-hidden="true">→</span>
@@ -44,7 +64,7 @@ const t = useTranslations(lang);
       <h2 id="help-title" class="help-title">
         <span>{t("home.navIntro")}</span>
       </h2>
-      <SceneNav lang={lang} taglines class="home-nav" />
+      <SceneNav lang={lang} taglines hide={hidden} class="home-nav" />
     </section>
   </main>
 </Layout>
@@ -73,8 +93,9 @@ const t = useTranslations(lang);
     color: #fff;
     /* the block narrows with the window like the name does, so name and photo
        don't drift apart on mid-size screens; full width from ~1400px up. The hero's
-       content and the figures box below share this width, so their edges line up */
-    --home-w: min(1190px, calc(60vw + 350px));
+       content and the figures box below share this width, so their edges line up.
+       With figures hidden, the width shrinks in proportion to keep each figure's size */
+    --home-w: calc(min(1190px, 60vw + 350px) * var(--cols) / 6);
   }
   .hero {
     display: grid;
@@ -100,6 +121,14 @@ const t = useTranslations(lang);
     font-size: clamp(1.15rem, 2vw, 1.5rem);
     opacity: 0.9;
     text-wrap: balance;
+  }
+  .lead-link {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+  .lead-link:hover {
+    text-decoration-thickness: 2px;
   }
   .cta {
     display: inline-block;
@@ -147,6 +176,7 @@ const t = useTranslations(lang);
   }
   .home :global(.home-nav .scene-label) {
     font-size: clamp(1.2rem, 1.9vw, 1.65rem);
+    white-space: nowrap; /* "Ex-výzkumník" would break at its hyphen */
   }
   /* the tagline wraps to about the label's width: inline-size containment keeps it
      from widening .scene-text, stretch gives it that width, and the negative margins
@@ -193,8 +223,17 @@ const t = useTranslations(lang);
       margin-bottom: 1.25rem;
       text-align: center;
     }
+    /* rows of three; an incomplete last row is centred */
     .home :global(.home-nav) {
+      --per-row: var(--phone-row, 3);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 1.75rem 0.25rem;
+    }
+    .home :global(.home-nav .scene) {
+      flex: 0 0
+        calc((100% - (var(--per-row) - 1) * 0.25rem) / var(--per-row));
     }
     .home :global(.home-nav .scene-label) {
       font-size: 1.25rem;
@@ -206,7 +245,7 @@ const t = useTranslations(lang);
   /* three columns get too tight for the taglines on the narrowest phones */
   @media (max-width: 399px) {
     .home :global(.home-nav) {
-      grid-template-columns: repeat(2, 1fr);
+      --per-row: 2;
     }
   }
 </style>

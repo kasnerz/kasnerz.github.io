@@ -1,11 +1,35 @@
 ---
 import { Icon } from "astro-icon/components";
 
-const EVENTS = [
-  { date: "12. 3.", what: "trestní oznámení" },
-  { date: "2. 4.", what: "výslech svědka" },
-  { date: "18. 5.", what: "zajištění účetnictví" },
-];
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+
+const copies = {
+  cs: {
+    events: [
+      { date: "12. 3.", what: "trestní oznámení" },
+      { date: "2. 4.", what: "výslech svědka" },
+      { date: "18. 5.", what: "zajištění účetnictví" },
+    ],
+    name: "Trestní spis",
+    size: "1\u00a0240 stran",
+    text: "Obviněný měl v\u00a0letech 2023 až 2025 vystavovat fiktivní faktury za stavební práce. Škodu policie odhaduje na 3,2 milionu korun.",
+  },
+  en: {
+    events: [
+      { date: "12 Mar", what: "criminal complaint" },
+      { date: "2 Apr", what: "witness interview" },
+      { date: "18 May", what: "accounts seized" },
+    ],
+    name: "Criminal case file",
+    size: "1,240 pages",
+    text: "Between 2023 and 2025, the accused allegedly issued fictitious invoices for construction work. The police estimate the damage at CZK\u00a03.2 million.",
+  },
+};
+const copy = copies[lang];
 ---
 
 <div class="summary">
@@ -16,8 +40,8 @@ const EVENTS = [
       <i></i>
       <i></i>
     </div>
-    <p class="file-name">Trestní spis</p>
-    <p class="file-size">1&nbsp;240 stran</p>
+    <p class="file-name">{copy.name}</p>
+    <p class="file-size">{copy.size}</p>
   </div>
 
   <div class="flow" aria-hidden="true">
@@ -27,15 +51,12 @@ const EVENTS = [
   <div class="output">
     <p class="file-line">
       <Icon name="tabler:file-text" aria-hidden="true" />
-      Trestní spis, 1&nbsp;240 stran
+      {copy.name}, {copy.size}
     </p>
-    <p class="text">
-      Obviněný měl v&nbsp;letech 2023 až 2025 vystavovat fiktivní faktury za
-      stavební práce. Škodu policie odhaduje na 3,2 milionu korun.
-    </p>
+    <p class="text">{copy.text}</p>
     <ol class="events">
       {
-        EVENTS.map(event => (
+        copy.events.map(event => (
           <li class="event">
             <span class="date">{event.date}</span>
             {event.what}

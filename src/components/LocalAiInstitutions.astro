@@ -2,6 +2,12 @@
 import { Icon } from "astro-icon/components";
 import data from "@/data/local-ai-uses.json";
 
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+
 type Reason = keyof typeof data.reasons;
 
 const REASON_ICONS: Record<Reason, string> = {
@@ -13,19 +19,42 @@ const REASON_ICONS: Record<Reason, string> = {
 
 /** When running the models locally pays off: one box per reason, in the panels' badge order.
     HTML, so each box can bold its key phrase. */
-const CRITERIA_TEXT: Record<Reason, string> = {
-  secrecy: "Vaše data musí zůstat <b>zaručeně soukromá</b>.",
-  volume:
-    "Nákup hardwaru <b>dlouhodobě vyjde levněji</b>, než platba za velký objem tokenů.",
-  offline:
-    "Vaše AI modely musí běžet <b>i offline</b> na koncových zařízeních.",
-  robust:
-    "Vaše AI řešení musí fungovat <b>bez externích závislostí</b> a <b>bez cenzury</b>.",
+const CRITERIA_TEXT: Record<"cs" | "en", Record<Reason, string>> = {
+  cs: {
+    secrecy: "Vaše data musí zůstat <b>zaručeně soukromá</b>.",
+    volume:
+      "Nákup hardwaru <b>dlouhodobě vyjde levněji</b> než platba za velký objem tokenů.",
+    offline:
+      "Vaše AI modely musí běžet <b>i offline</b> na koncových zařízeních.",
+    robust:
+      "Vaše AI řešení musí fungovat <b>bez externích závislostí</b> a <b>bez cenzury</b>.",
+  },
+  en: {
+    secrecy: "Your data must stay <b>private, with a guarantee</b>.",
+    volume:
+      "Buying hardware <b>works out cheaper in the long run</b> than paying for a large volume of tokens.",
+    offline: "Your AI models must run <b>offline too</b>, on end devices.",
+    robust:
+      "Your AI solution must work <b>without external dependencies</b> and <b>without censorship</b>.",
+  },
 };
+const copies = {
+  cs: {
+    examples: "Tady je několik konkrétních příkladů:",
+    kind: "Typ organizace",
+    why: "Proč lokálně",
+  },
+  en: {
+    examples: "Here are a few concrete examples:",
+    kind: "Type of organization",
+    why: "Why local",
+  },
+};
+const copy = copies[lang];
 const reasonOrder = Object.keys(data.reasons) as Reason[];
 const criteria = reasonOrder.map(reason => ({
   icon: REASON_ICONS[reason],
-  text: CRITERIA_TEXT[reason],
+  text: CRITERIA_TEXT[lang][reason],
 }));
 
 /** An institution's badges, in the order of the boxes. */
@@ -34,9 +63,9 @@ const badgesFor = (reasons: string[]) =>
 
 const uses = data.groups.flatMap(group => group.uses);
 
-const collator = new Intl.Collator("cs");
+const collator = new Intl.Collator(lang);
 const institutions = [...data.institutions].sort((a, b) =>
-  collator.compare(a.label.cs, b.label.cs)
+  collator.compare(a.label[lang], b.label[lang])
 );
 
 /** The task from the overview above that an institution's row refers to. */
@@ -48,19 +77,47 @@ function useFor(id: string) {
 ---
 
 <section class="section" aria-labelledby="institutions-title" data-institutions>
-  <h2 id="institutions-title" class="title">
-    Jak může lokální AI pomoci ve vaší firmě/instituci?
-  </h2>
-  <p class="lead">
-    Lokální provoz AI modelů není pro každého. Počáteční <b>
-      investice do vlastního hardwaru může být vysoká a provoz modelů náročnější
-    </b>, než v případě běžných komerčních řešení. Nasazení otevřených modelů je
-    tak potřeba důkladně zvážit.
-  </p>
-  <p class="lead lead-intro">
-    Lokální provoz AI modelů dává smysl, pokud se najdete alespoň v jedné z
-    následujících podmínek:
-  </p>
+  {
+    lang === "cs" ? (
+      <>
+        <h2 id="institutions-title" class="title">
+          Jak může lokální AI pomoci ve vaší firmě/instituci?
+        </h2>
+        <p class="lead">
+          Lokální provoz AI modelů není pro každého. Počáteční{" "}
+          <b>
+            investice do vlastního hardwaru může být vysoká a provoz modelů
+            náročnější
+          </b>{" "}
+          než u běžných komerčních řešení. Nasazení otevřených modelů je tak
+          potřeba důkladně zvážit.
+        </p>
+        <p class="lead lead-intro">
+          Lokální provoz AI modelů se může vyplatit, pokud pro vás platí něco z
+          následujícího:
+        </p>
+      </>
+    ) : (
+      <>
+        <h2 id="institutions-title" class="title">
+          How can local AI help your company or institution?
+        </h2>
+        <p class="lead">
+          Running AI models locally is not for everyone. The{" "}
+          <b>
+            upfront investment in your own hardware can be high, and running the
+            models takes more effort
+          </b>{" "}
+          than with the usual commercial services. Deploying open-weight models
+          therefore needs careful consideration.
+        </p>
+        <p class="lead lead-intro">
+          Running AI models locally can pay off if any of the following applies
+          to you:
+        </p>
+      </>
+    )
+  }
   <ul class="criteria">
     {
       criteria.map(criterion => (
@@ -71,13 +128,13 @@ function useFor(id: string) {
       ))
     }
   </ul>
-  <p class="lead">Pro lepší představu zde najdete sadu konkrétních příkladů:</p>
+  <p class="lead">{copy.examples}</p>
 
   <div class="box">
     <div
       class="tabs"
       role="tablist"
-      aria-label="Typ organizace"
+      aria-label={copy.kind}
       aria-orientation="vertical"
       data-institution-tabs
     >
@@ -93,7 +150,7 @@ function useFor(id: string) {
             tabindex={i === 0 ? 0 : -1}
           >
             <Icon name={institution.icon} aria-hidden="true" />
-            {institution.label.cs}
+            {institution.label[lang]}
           </button>
         ))
       }
@@ -110,12 +167,12 @@ function useFor(id: string) {
             data-active={i === 0 || undefined}
             data-institution-panel
           >
-            <h3 class="name">{institution.label.cs}</h3>
-            <ul class="reasons" aria-label="Proč lokálně">
+            <h3 class="name">{institution.label[lang]}</h3>
+            <ul class="reasons" aria-label={copy.why}>
               {badgesFor(institution.reasons).map(reason => (
                 <li class="reason">
                   <Icon name={REASON_ICONS[reason]} aria-hidden="true" />
-                  {data.reasons[reason].label.cs}
+                  {data.reasons[reason].label[lang]}
                 </li>
               ))}
             </ul>
@@ -126,9 +183,9 @@ function useFor(id: string) {
                   <li class="task">
                     <Icon name={use.icon} aria-hidden="true" />
                     <a class="task-use" href={`#use-${use.id}`}>
-                      {use.label.cs}
+                      {use.label[lang]}
                     </a>
-                    <span class="task-what">{task.what.cs}</span>
+                    <span class="task-what">{task.what[lang]}</span>
                   </li>
                 );
               })}

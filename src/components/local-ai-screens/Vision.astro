@@ -1,4 +1,10 @@
 ---
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+
 // A tray of flanges, as a camera over the production line sees it. One of them is cracked.
 const COLUMNS = [50, 150, 250, 350];
 const ROWS = [50, 150, 250];
@@ -14,6 +20,31 @@ const bolts = (part: { cx: number; cy: number }) =>
       cy: Number((part.cy + Math.sin(angle) * BOLT_RADIUS).toFixed(2)),
     };
   });
+
+// `tagWidth` fits the tag's word, which hangs off the box's top-left corner.
+const copies = {
+  cs: {
+    picture:
+      "Snímek dvanácti přírub na paletě. Třetí příruba ve druhé řadě je označená rámečkem a má prasklinu.",
+    tag: "vada",
+    tagWidth: 54,
+    caption: "Linka L2, snímek 418",
+    question: "Najdi na snímku vadné kusy.",
+    answer:
+      "Třetí díl ve druhé řadě má prasklý okraj. Ostatní díly jsou v\u00a0pořádku.",
+  },
+  en: {
+    picture:
+      "A picture of twelve flanges on a tray. The third flange in the second row is marked with a box and has a crack.",
+    tag: "defect",
+    tagWidth: 70,
+    caption: "Line L2, frame 418",
+    question: "Find the defective parts in the picture.",
+    answer:
+      "The third part in the second row has a cracked rim. The other parts are fine.",
+  },
+};
+const copy = copies[lang];
 ---
 
 <div class="vision">
@@ -23,7 +54,7 @@ const bolts = (part: { cx: number; cy: number }) =>
         class="frame"
         viewBox="0 0 400 300"
         role="img"
-        aria-label="Snímek dvanácti přírub na paletě. Třetí příruba ve druhé řadě je označená rámečkem a má prasklinu."
+        aria-label={copy.picture}
       >
         {
           PARTS.map(part => (
@@ -39,20 +70,17 @@ const bolts = (part: { cx: number; cy: number }) =>
         <path class="crack" d="M246 111 l6 7 l-5 6 l9 9 l-3 3"></path>
         <rect class="box" x="202" y="102" width="96" height="96" rx="2"></rect>
         <g class="tag">
-          <rect x="201" y="76" width="54" height="26" rx="2"></rect>
-          <text x="228" y="95">vada</text>
+          <rect x="201" y="76" width={copy.tagWidth} height="26" rx="2"></rect>
+          <text x={201 + copy.tagWidth / 2} y="95">{copy.tag}</text>
         </g>
       </svg>
     </div>
-    <p class="caption">Linka L2, snímek 418</p>
+    <p class="caption">{copy.caption}</p>
   </div>
 
   <div class="chat">
-    <p class="question">Najdi na snímku vadné kusy.</p>
-    <p class="answer">
-      Třetí díl ve druhé řadě má prasklý okraj. Ostatní díly jsou
-      v&nbsp;pořádku.
-    </p>
+    <p class="question">{copy.question}</p>
+    <p class="answer">{copy.answer}</p>
   </div>
 </div>
 

@@ -28,11 +28,11 @@ export interface NavItem {
 export const NAV: NavItem[] = [
   {
     id: "consulting",
-    label: { en: "Consultant", cs: "AI expert" },
+    label: { en: "AI engineer", cs: "AI inženýr" },
     heading: { en: "I build AI solutions", cs: "Stavím AI řešení" },
     tagline: {
-      en: "on deploying local AI models",
-      cs: "nasazuji lokální AI modely",
+      en: "consulting and deploying local AI",
+      cs: "konzultuji a nasazuji lokální AI",
     },
     subtitle: {
       en: "On open-weight AI models.",
@@ -63,29 +63,29 @@ export const NAV: NavItem[] = [
     path: "/projects",
   },
   {
-    id: "research",
-    label: { en: "Ex-researcher", cs: "Ex-výzkumník" },
-    heading: { en: "I do research", cs: "Zkoumám" },
-    tagline: {
-      en: "in large language models",
-      cs: "velkých jazykových modelů",
-    },
-    subtitle: {
-      en: "On large language models.",
-      cs: "Velké jazykové modely.",
-    },
-    path: "/research",
-  },
-  {
     id: "blog",
     label: { en: "Blogger", cs: "Blogger" },
     heading: { en: "I blog", cs: "Píšu blog" },
-    tagline: { en: "on the Lokální.AI portal", cs: "na portálu Lokální.AI" },
+    tagline: { en: "blogging about open AI models", cs: "píšu o otevřených AI modelech" },
     subtitle: {
       en: "On open-weight AI models.",
       cs: "O otevřených AI modelech.",
     },
     path: "/blog",
+  },
+  {
+    id: "research",
+    label: { en: "Ex-researcher", cs: "Ex-výzkumník" },
+    heading: { en: "I have a PhD", cs: "Mám titul PhD" },
+    tagline: {
+      en: "in large language models",
+      cs: "velkých jazykových modelů",
+    },
+    subtitle: {
+      en: "In the field of large language models.",
+      cs: "V oblasti velkých jazykových modelů.",
+    },
+    path: "/research",
   },
   {
     id: "about",

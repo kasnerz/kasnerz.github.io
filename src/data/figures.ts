@@ -157,10 +157,10 @@ export const SMALL: Record<PageId, string> = {
     <g mask="url(#ko-ai-s)">
       <rect x="3" y="3" width="35" height="22" rx="1.5"/>
       <path d="M20.5 25V30M15.5 30.5H25.5"/>
-      <path class="thin" d="M16 8.6L8.5 18.8M16 8.6V18.8M16 8.6L23.5 18.8M16 8.6L31 18.8"/>
-      <rect class="dot" x="6" y="18.8" width="5" height="2.6" rx="0.5"/><rect class="dot" x="13.5" y="18.8" width="5" height="2.6" rx="0.5"/><rect class="dot" x="21" y="18.8" width="5" height="2.6" rx="0.5"/><rect class="dot" x="28.5" y="18.8" width="5" height="2.6" rx="0.5"/>
-      <rect class="dot" x="6" y="6" width="5" height="2.6" rx="0.5"/><rect class="dot" x="21" y="6" width="5" height="2.6" rx="0.5"/><rect class="dot" x="28.5" y="6" width="5" height="2.6" rx="0.5"/>
-      <g class="a-blink"><rect class="dot" x="13.5" y="6" width="5" height="2.6" rx="0.5"/></g>
+      <path class="thin" d="M20.5 8.6L13 18.8M20.5 8.6V18.8M20.5 8.6L28 18.8"/>
+      <rect class="dot" x="10.5" y="18.8" width="5" height="2.6" rx="0.5"/><rect class="dot" x="18" y="18.8" width="5" height="2.6" rx="0.5"/><rect class="dot" x="25.5" y="18.8" width="5" height="2.6" rx="0.5"/>
+      <rect class="dot" x="10.5" y="6" width="5" height="2.6" rx="0.5"/><rect class="dot" x="25.5" y="6" width="5" height="2.6" rx="0.5"/>
+      <g class="a-blink"><rect class="dot" x="18" y="6" width="5" height="2.6" rx="0.5"/></g>
     </g>
     <circle class="head" cx="31" cy="17" r="4.5"/>
     <path d="M31 21.5V34M31 34L26 46M31 34L36 46M31 25L36 31L39 28"/>
@@ -265,26 +265,38 @@ export const PROPS: Record<PageId, string> = {
  * Their figures stand on the top edge of the content card.
  */
 export const LARGE: Partial<Record<ArtId, string>> = {
-  /* the AI expert beside a computer on a table; the screen shows a training curve, and
-     a Transformer's embeddings with attention from the last position to the earlier ones */
+  /* the AI expert beside a computer on a table, its tower standing under it; the screen
+     shows a two-layer Transformer across its full width: four token embeddings, the
+     residual stream of each position, causal attention (in the first layer from the third
+     position, in the second from the last one) and the next token it predicts, blinking
+     on top */
   consulting: `
     <path class="ground" d="M0 215H240"/>
     <rect x="100" y="44" width="130" height="88" rx="4"/>
     <path d="M165 132V159M151 168L157 159H173L179 168M94 168H236M102 168V215M228 168V215"/>
-    <path class="thin" d="M110 61V111H160"/>
-    <path class="thin" d="M114 63C118 87 125 97 135 101S150 106 158 107"/>
-    <path class="thin" d="M175 67V105M188 67V105M201 67V105M214 67V105"/>
-    <path class="thin" style="opacity:0.35" d="M214 67L175 105"/>
-    <path class="thin" style="opacity:0.6" d="M214 67L188 105"/>
-    <path class="thin" style="opacity:0.9" d="M214 67L201 105"/>
-    <rect class="thin" x="170" y="105" width="10" height="6" rx="1"/>
-    <rect class="thin" x="183" y="105" width="10" height="6" rx="1"/>
-    <rect class="thin" x="196" y="105" width="10" height="6" rx="1"/>
-    <rect class="thin" x="209" y="105" width="10" height="6" rx="1"/>
-    <rect class="thin" x="170" y="61" width="10" height="6" rx="1"/>
-    <rect class="thin" x="183" y="61" width="10" height="6" rx="1"/>
-    <rect class="thin" x="196" y="61" width="10" height="6" rx="1"/>
-    <g class="a-blink"><rect class="dot" x="209" y="61" width="10" height="6" rx="1"/></g>
+    <rect x="190" y="178" width="28" height="37" rx="2"/>
+    <path class="thin" d="M196 186H212"/>
+    <circle class="dot" cx="204" cy="198" r="2.2"/>
+    <path class="thin" d="M120 98V119M150 98V119M180 98V119M210 98V119"/>
+    <path class="thin" d="M120 72V93M150 72V93M180 72V93M210 72V93M210 57V67"/>
+    <path class="thin" style="opacity:0.85" d="M180 98L120 119"/>
+    <path class="thin" style="opacity:0.5" d="M180 98L150 119"/>
+    <path class="thin" style="opacity:0.35" d="M210 72L120 93"/>
+    <path class="thin" style="opacity:0.6" d="M210 72L150 93"/>
+    <path class="thin" style="opacity:0.9" d="M210 72L180 93"/>
+    <rect class="thin" x="113" y="119" width="14" height="5" rx="1"/>
+    <rect class="thin" x="143" y="119" width="14" height="5" rx="1"/>
+    <rect class="thin" x="173" y="119" width="14" height="5" rx="1"/>
+    <rect class="thin" x="203" y="119" width="14" height="5" rx="1"/>
+    <rect class="thin" x="113" y="93" width="14" height="5" rx="1"/>
+    <rect class="thin" x="143" y="93" width="14" height="5" rx="1"/>
+    <rect class="thin" x="173" y="93" width="14" height="5" rx="1"/>
+    <rect class="thin" x="203" y="93" width="14" height="5" rx="1"/>
+    <rect class="thin" x="113" y="67" width="14" height="5" rx="1"/>
+    <rect class="thin" x="143" y="67" width="14" height="5" rx="1"/>
+    <rect class="thin" x="173" y="67" width="14" height="5" rx="1"/>
+    <rect class="thin" x="203" y="67" width="14" height="5" rx="1"/>
+    <g class="a-blink"><rect class="dot" x="203" y="52" width="14" height="5" rx="1"/></g>
     <circle class="head" cx="62" cy="110" r="9"/>
     <path d="M62 119V165M62 165L53 215M62 165L71 215M62 130L50 146L56 162"/>
     <path class="a-point" ${pivot(62, 130)} d="M62 130L80 120L96 104"/>`,

@@ -1,39 +1,96 @@
 ---
 import { Icon } from "astro-icon/components";
+
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
 ---
 
 <div class="drafting">
-  <div class="brief">
-    <p class="brief-label">Zadání</p>
-    <p class="brief-text">
-      Stavba garáže v&nbsp;Lipové ulici, cena 485&nbsp;000 Kč, hotovo do
-      30.&nbsp;června 2027.
-    </p>
-    <p class="brief-label">Vzor</p>
-    <p class="template">
-      <Icon name="tabler:file-text" aria-hidden="true" />
-      smlouva_o_dilo.docx
-    </p>
-  </div>
+  {
+    lang === "cs" ? (
+      <div class="brief">
+        <p class="brief-label">Zadání</p>
+        <p class="brief-text">
+          Stavba garáže v&nbsp;Lipové ulici, cena 485&nbsp;000 Kč, hotovo do
+          30.&nbsp;června 2027.
+        </p>
+        <p class="brief-label">Vzor</p>
+        <p class="template">
+          <Icon name="tabler:file-text" aria-hidden="true" />
+          smlouva_o_dilo.docx
+        </p>
+      </div>
+    ) : (
+      <div class="brief">
+        <p class="brief-label">Brief</p>
+        <p class="brief-text">
+          Building a garage on Lipová Street, price CZK&nbsp;485,000, done by
+          30&nbsp;June 2027.
+        </p>
+        <p class="brief-label">Template</p>
+        <p class="template">
+          <Icon name="tabler:file-text" aria-hidden="true" />
+          work_contract.docx
+        </p>
+      </div>
+    )
+  }
 
-  <div class="draft">
-    <p class="title">Smlouva o dílo</p>
-    <p class="heading" data-optional>Článek IV. Cena díla</p>
-    <p class="clause">
-      <span class="number">4.1</span>
-      Objednatel se zavazuje zaplatit zhotoviteli za řádně provedené dílo cenu
-      <mark>485&nbsp;000 Kč</mark> bez DPH.
-    </p>
-    <p class="heading" data-optional>Článek V. Doba plnění</p>
-    <p class="clause">
-      <span class="number">5.1</span>
-      Zhotovitel dokončí dílo nejpozději do <mark>30.&nbsp;června 2027</mark>.
-    </p>
-    <p class="clause" data-optional aria-hidden="true">
-      <span class="number">5.2</span>
-      <span class="caret"></span>
-    </p>
-  </div>
+  {
+    lang === "cs" ? (
+      <div class="draft">
+        <p class="title">Smlouva o dílo</p>
+        <p class="heading" data-optional>
+          Článek IV. Cena díla
+        </p>
+        <p class="clause">
+          <span class="number">4.1</span>
+          Objednatel se zavazuje zaplatit zhotoviteli za řádně provedené dílo
+          cenu <mark>485&nbsp;000 Kč</mark> bez DPH.
+        </p>
+        <p class="heading" data-optional>
+          Článek V. Doba plnění
+        </p>
+        <p class="clause">
+          <span class="number">5.1</span>
+          Zhotovitel dokončí dílo nejpozději do{" "}
+          <mark>30.&nbsp;června 2027</mark>.
+        </p>
+        <p class="clause" data-optional aria-hidden="true">
+          <span class="number">5.2</span>
+          <span class="caret" />
+        </p>
+      </div>
+    ) : (
+      <div class="draft">
+        <p class="title">Contract for Work</p>
+        <p class="heading" data-optional>
+          Article IV. Price
+        </p>
+        <p class="clause">
+          <span class="number">4.1</span>
+          The client shall pay the contractor a price of{" "}
+          <mark>CZK&nbsp;485,000</mark> excluding VAT for the properly completed
+          work.
+        </p>
+        <p class="heading" data-optional>
+          Article V. Completion
+        </p>
+        <p class="clause">
+          <span class="number">5.1</span>
+          The contractor shall complete the work by{" "}
+          <mark>30&nbsp;June 2027</mark> at the latest.
+        </p>
+        <p class="clause" data-optional aria-hidden="true">
+          <span class="number">5.2</span>
+          <span class="caret" />
+        </p>
+      </div>
+    )
+  }
 </div>
 
 <style>

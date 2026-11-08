@@ -2,39 +2,46 @@
   "reasons": {
     "secrecy": {
       "label": {
-        "cs": "Citlivá data"
+        "cs": "Citlivá data",
+        "en": "Sensitive data"
       }
     },
     "volume": {
       "label": {
-        "cs": "Velké objemy"
+        "cs": "Velké objemy",
+        "en": "High volumes"
       }
     },
     "robust": {
       "label": {
-        "cs": "Robustnost"
+        "cs": "Spolehlivost",
+        "en": "Reliability"
       }
     },
     "offline": {
       "label": {
-        "cs": "Bez internetu"
+        "cs": "Bez internetu",
+        "en": "No internet"
       }
     }
   },
   "hardware": {
     "1": {
       "label": {
-        "cs": "nízká"
+        "cs": "nízká",
+        "en": "low"
       }
     },
     "2": {
       "label": {
-        "cs": "střední"
+        "cs": "střední",
+        "en": "medium"
       }
     },
     "3": {
       "label": {
-        "cs": "vysoká"
+        "cs": "vysoká",
+        "en": "high"
       }
     }
   },
@@ -64,20 +71,24 @@
     {
       "id": "reads",
       "label": {
-        "cs": "Čte"
+        "cs": "Čte",
+        "en": "Reads"
       },
       "uses": [
         {
           "id": "triage",
           "icon": "tabler:arrows-split-2",
           "label": {
-            "cs": "Třídění a směrování"
+            "cs": "Třídění a směrování",
+            "en": "Sorting and routing"
           },
           "short": {
-            "cs": "Třídění"
+            "cs": "Třídění",
+            "en": "Sorting"
           },
           "what": {
-            "cs": "Zařadí příchozí zprávy do správné složky, přepošle je správnému člověku."
+            "cs": "Zařadí příchozí zprávy do správné složky nebo je přepošle tomu, komu patří.",
+            "en": "Files incoming messages in the right folder or forwards them to whoever handles them."
           },
           "hardware": 2,
           "czech": "easy"
@@ -86,13 +97,16 @@
           "id": "extraction",
           "icon": "tabler:table-import",
           "label": {
-            "cs": "Extrakce dat"
+            "cs": "Extrakce dat",
+            "en": "Data extraction"
           },
           "short": {
-            "cs": "Data"
+            "cs": "Data",
+            "en": "Data"
           },
           "what": {
-            "cs": "Převede údaje z dokumentů (faktur, smluv, ...) do strukturované podoby."
+            "cs": "Převede údaje z dokumentů (faktur, smluv…) do strukturované podoby.",
+            "en": "Turns details from documents (invoices, contracts…) into structured data."
           },
           "hardware": 2,
           "czech": "easy"
@@ -101,13 +115,16 @@
           "id": "proofreading",
           "icon": "tabler:text-spellcheck",
           "label": {
-            "cs": "Kontrola textu"
+            "cs": "Kontrola textu",
+            "en": "Proofreading"
           },
           "short": {
-            "cs": "Kontrola"
+            "cs": "Kontrola",
+            "en": "Proofing"
           },
           "what": {
-            "cs": "Najde chyby, nejasné věty a rozpory v napsaném dokumentu."
+            "cs": "Najde chyby, nejasné věty a rozpory v napsaném dokumentu.",
+            "en": "Finds mistakes, unclear sentences and contradictions in a written document."
           },
           "hardware": 2,
           "czech": "medium"
@@ -117,20 +134,24 @@
     {
       "id": "writes",
       "label": {
-        "cs": "Píše"
+        "cs": "Píše",
+        "en": "Writes"
       },
       "uses": [
         {
           "id": "translation",
           "icon": "tabler:language",
           "label": {
-            "cs": "Překlad"
+            "cs": "Překlad",
+            "en": "Translation"
           },
           "short": {
-            "cs": "Překlad"
+            "cs": "Překlad",
+            "en": "Translation"
           },
           "what": {
-            "cs": "Přeloží text do jiného jazyka, drží se Vaší terminologie."
+            "cs": "Přeloží text do jiného jazyka a dodrží přitom vaši terminologii.",
+            "en": "Translates text into another language while sticking to your terminology."
           },
           "hardware": 2,
           "czech": "easy"
@@ -139,13 +160,16 @@
           "id": "summaries",
           "icon": "tabler:list-details",
           "label": {
-            "cs": "Shrnutí dlouhých vstupů"
+            "cs": "Shrnutí dlouhých vstupů",
+            "en": "Summarizing long inputs"
           },
           "short": {
-            "cs": "Shrnutí"
+            "cs": "Shrnutí",
+            "en": "Summaries"
           },
           "what": {
-            "cs": "Zkrátí dlouhý text do pár odstavců nebo vět."
+            "cs": "Zkrátí dlouhý text na pár odstavců nebo vět.",
+            "en": "Condenses a long text into a few paragraphs or sentences."
           },
           "hardware": 2,
           "czech": "hard"
@@ -154,13 +178,16 @@
           "id": "reports",
           "icon": "tabler:report-analytics",
           "label": {
-            "cs": "Automatické reporty"
+            "cs": "Automatické reporty",
+            "en": "Automated reports"
           },
           "short": {
-            "cs": "Reporty"
+            "cs": "Reporty",
+            "en": "Reports"
           },
           "what": {
-            "cs": "Sepíše textový report nebo popis produktu na základě strukturovaných dat."
+            "cs": "Sepíše textový report nebo popis produktu na základě strukturovaných dat.",
+            "en": "Writes a text report or a product description from structured data."
           },
           "hardware": 3,
           "czech": "medium"
@@ -169,13 +196,16 @@
           "id": "drafting",
           "icon": "tabler:file-pencil",
           "label": {
-            "cs": "Návrhy dokumentů"
+            "cs": "Návrhy dokumentů",
+            "en": "Document drafts"
           },
           "short": {
-            "cs": "Dokumenty"
+            "cs": "Dokumenty",
+            "en": "Drafts"
           },
           "what": {
-            "cs": "Připraví návrh dokumentů nebo formulářů pro následnou post-editaci."
+            "cs": "Připraví návrh dokumentu nebo formuláře, který pak jen upravíte.",
+            "en": "Prepares a draft of a document or a form, which you then only need to edit."
           },
           "hardware": 3,
           "czech": "hard"
@@ -185,20 +215,24 @@
     {
       "id": "advises",
       "label": {
-        "cs": "Radí"
+        "cs": "Radí",
+        "en": "Advises"
       },
       "uses": [
         {
           "id": "assistant",
           "icon": "tabler:message-chatbot",
           "label": {
-            "cs": "Asistent / chatbot"
+            "cs": "Asistent / chatbot",
+            "en": "Assistant / chatbot"
           },
           "short": {
-            "cs": "Asistent"
+            "cs": "Asistent",
+            "en": "Assistant"
           },
           "what": {
-            "cs": "Odpovídá uživatelům nebo interním zaměstnancům na základě interní znalostní báze."
+            "cs": "Odpoví uživatelům nebo zaměstnancům na základě interní znalostní báze.",
+            "en": "Answers questions from users or employees based on an internal knowledge base."
           },
           "hardware": 3,
           "czech": "medium"
@@ -207,13 +241,16 @@
           "id": "coding",
           "icon": "tabler:code",
           "label": {
-            "cs": "Kódovací agent"
+            "cs": "Kódovací agent",
+            "en": "Coding agent"
           },
           "short": {
-            "cs": "Kód"
+            "cs": "Kód",
+            "en": "Code"
           },
           "what": {
-            "cs": "Píše kód podle zadání, testuje a zabezpečuje software."
+            "cs": "Napíše kód podle zadání, otestuje ho a najde v něm bezpečnostní chyby.",
+            "en": "Writes code to a specification, tests it and finds security flaws in it."
           },
           "hardware": 3,
           "czech": "none"
@@ -223,20 +260,24 @@
     {
       "id": "hears",
       "label": {
-        "cs": "Slyší"
+        "cs": "Slyší",
+        "en": "Hears"
       },
       "uses": [
         {
           "id": "speech",
           "icon": "tabler:microphone",
           "label": {
-            "cs": "Přepis řeči"
+            "cs": "Přepis řeči",
+            "en": "Speech transcription"
           },
           "short": {
-            "cs": "Přepis"
+            "cs": "Přepis",
+            "en": "Speech"
           },
           "what": {
-            "cs": "Převede audionahrávku mluveného slova na text."
+            "cs": "Převede audionahrávku mluveného slova na text.",
+            "en": "Turns an audio recording of speech into text."
           },
           "hardware": 1,
           "czech": "medium"
@@ -246,20 +287,24 @@
     {
       "id": "sees",
       "label": {
-        "cs": "Vidí"
+        "cs": "Vidí",
+        "en": "Sees"
       },
       "uses": [
         {
           "id": "vision",
           "icon": "tabler:eye",
           "label": {
-            "cs": "Obrazová data: popis, segmentace"
+            "cs": "Obrazová data: popis, segmentace",
+            "en": "Image data: description, segmentation"
           },
           "short": {
-            "cs": "Obraz"
+            "cs": "Obraz",
+            "en": "Images"
           },
           "what": {
-            "cs": "Vygeneruje popis fotky nebo videa, detekuje objekty na obrázku."
+            "cs": "Vygeneruje popis fotky nebo videa, rozpozná objekty na obrázku.",
+            "en": "Describes a photo or a video and recognizes objects in an image."
           },
           "hardware": 2,
           "czech": "medium"
@@ -269,20 +314,24 @@
     {
       "id": "draws",
       "label": {
-        "cs": "Kreslí"
+        "cs": "Kreslí",
+        "en": "Draws"
       },
       "uses": [
         {
           "id": "image-generation",
           "icon": "tabler:palette",
           "label": {
-            "cs": "Generování grafiky"
+            "cs": "Generování grafiky",
+            "en": "Image generation"
           },
           "short": {
-            "cs": "Grafika"
+            "cs": "Grafika",
+            "en": "Graphics"
           },
           "what": {
-            "cs": "Podle zadání vytvoří ilustraci, ikonu nebo vizualizaci výrobku."
+            "cs": "Podle zadání vytvoří ilustraci, ikonu nebo vizualizaci výrobku.",
+            "en": "Creates an illustration, an icon or a product visualization from a brief."
           },
           "hardware": 3,
           "czech": "none"
@@ -294,43 +343,45 @@
     {
       "id": "bank",
       "label": {
-        "cs": "Banka"
+        "cs": "Banka",
+        "en": "Bank"
       },
       "icon": "tabler:building-bank",
-      "reasons": [
-        "secrecy",
-        "volume",
-        "robust"
-      ],
+      "reasons": ["secrecy", "volume", "robust"],
       "tasks": [
         {
           "use": "extraction",
           "what": {
-            "cs": "Z výpisů nebo dokladů totožnosti vypíše údaje do tabulky pro další zpracování."
+            "cs": "Z výpisů nebo dokladů totožnosti vypíše údaje do tabulky pro další zpracování.",
+            "en": "Copies details from statements or identity documents into a table for further processing."
           }
         },
         {
           "use": "reports",
           "what": {
-            "cs": "Napíše automatický report z dat o klientech (proces generování je možné kdykoliv zopakovat pro auditora)."
+            "cs": "Napíše automatický report z dat o klientech (proces generování je možné kdykoliv zopakovat pro auditora).",
+            "en": "Writes an automated report from client data (the generation can be rerun for an auditor at any time)."
           }
         },
         {
           "use": "assistant",
           "what": {
-            "cs": "Odpoví zákazníkům na dotazy k poplatkům, úvěrům atd. podle aktuálních směrnic a sazebníku."
+            "cs": "Odpoví zákazníkům na dotazy k poplatkům, úvěrům atd. podle aktuálních směrnic a sazebníku.",
+            "en": "Answers customers' questions about fees, loans and the like, following current policies and the price list."
           }
         },
         {
           "use": "coding",
           "what": {
-            "cs": "Pomůže s aktualizací zastaralého kódu bankovního systému, kód přitom neopustí servery banky."
+            "cs": "Pomůže s aktualizací zastaralého kódu bankovního systému, kód přitom neopustí servery banky.",
+            "en": "Helps update the banking system's legacy code, without the code ever leaving the bank's servers."
           }
         },
         {
           "use": "speech",
           "what": {
-            "cs": "Přepíše hovory z call centra pro kontrolu jednání operátora."
+            "cs": "Přepíše hovory z call centra pro kontrolu jednání operátora.",
+            "en": "Transcribes call centre calls so that operators' conduct can be reviewed."
           }
         }
       ]
@@ -338,41 +389,45 @@
     {
       "id": "law",
       "label": {
-        "cs": "Advokátní kancelář"
+        "cs": "Advokátní kancelář",
+        "en": "Law firm"
       },
       "icon": "tabler:scale",
-      "reasons": [
-        "secrecy"
-      ],
+      "reasons": ["secrecy"],
       "tasks": [
         {
           "use": "triage",
           "what": {
-            "cs": "Přiřadí došlou poštu v datové schránce ke spisu."
+            "cs": "Přiřadí došlou poštu v datové schránce ke spisu.",
+            "en": "Matches incoming mail to the right case file."
           }
         },
         {
           "use": "extraction",
           "what": {
-            "cs": "Vypíše údaje ze smlouvy do tabulky (např. ustanovení o změně vlastníka, zákaz konkurence, smluvní pokuty, ...)."
+            "cs": "Vypíše údaje ze smlouvy do tabulky (např. ustanovení o změně vlastníka, zákaz konkurence, smluvní pokuty).",
+            "en": "Copies terms from a contract into a table (e.g. change-of-control clauses, non-competes, contractual penalties)."
           }
         },
         {
           "use": "proofreading",
           "what": {
-            "cs": "Zkontroluje v napsaném dokumentu nejen gramatické chyby, ale i případné nesrovnalosti a faktické nepřesnosti."
+            "cs": "Zkontroluje v napsaném dokumentu nejen gramatické chyby, ale i případné nesrovnalosti a faktické nepřesnosti.",
+            "en": "Checks a written document not only for grammar mistakes but also for inconsistencies and factual errors."
           }
         },
         {
           "use": "drafting",
           "what": {
-            "cs": "Připraví první verzi smlouvy, žaloby nebo vyjádření podle vašich šablon a doplní do ní údaje ze spisu."
+            "cs": "Připraví první verzi smlouvy, žaloby nebo vyjádření podle vašich šablon a doplní do ní údaje ze spisu.",
+            "en": "Prepares the first version of a contract, a lawsuit or a statement from your templates and fills in details from the case file."
           }
         },
         {
           "use": "assistant",
           "what": {
-            "cs": "Odpoví na právní otázku z judikatury nebo dřívějších podání."
+            "cs": "Odpoví na právní otázku z judikatury nebo dřívějších podání.",
+            "en": "Answers a legal question from case law or earlier filings."
           }
         }
       ]
@@ -380,42 +435,45 @@
     {
       "id": "hospital",
       "label": {
-        "cs": "Nemocnice"
+        "cs": "Nemocnice",
+        "en": "Hospital"
       },
       "icon": "tabler:building-hospital",
-      "reasons": [
-        "secrecy",
-        "robust"
-      ],
+      "reasons": ["secrecy", "robust"],
       "tasks": [
         {
           "use": "extraction",
           "what": {
-            "cs": "Z lékařských zpráv vypíše kódy diagnóz a výkonů pro vykazování pojišťovnám."
+            "cs": "Z lékařských zpráv vypíše kódy diagnóz a výkonů pro vykazování pojišťovnám.",
+            "en": "Pulls diagnosis and procedure codes out of medical reports for billing health insurers."
           }
         },
         {
           "use": "translation",
           "what": {
-            "cs": "Přeloží zprávy a pokyny pro pacienty, kteří nemluví česky."
+            "cs": "Přeloží zprávy a pokyny pro pacienty, kteří nemluví česky.",
+            "en": "Translates reports and instructions for patients who don't speak the local language."
           }
         },
         {
           "use": "reports",
           "what": {
-            "cs": "Z dokumentace hospitalizace připraví návrh propouštěcí zprávy."
+            "cs": "Z dokumentace hospitalizace připraví návrh propouštěcí zprávy.",
+            "en": "Drafts a discharge summary from the hospitalization records."
           }
         },
         {
           "use": "assistant",
           "what": {
-            "cs": "Odpoví sestrám a lékařům na otázky ohledně konkrétních předpisů a postupů."
+            "cs": "Odpoví sestrám a lékařům na otázky ohledně konkrétních předpisů a postupů.",
+            "en": "Answers nurses' and doctors' questions about specific regulations and procedures."
           }
         },
         {
           "use": "speech",
           "what": {
-            "cs": "Z nahrávky rozhovoru s pacientem připraví záznam do dokumentace."
+            "cs": "Z nahrávky rozhovoru s pacientem připraví záznam do dokumentace.",
+            "en": "Turns a recording of a conversation with a patient into an entry in the medical records."
           }
         }
       ]
@@ -423,36 +481,38 @@
     {
       "id": "defense",
       "label": {
-        "cs": "Armáda a obrana"
+        "cs": "Armáda a obrana",
+        "en": "Military and defense"
       },
       "icon": "tabler:shield",
-      "reasons": [
-        "offline",
-        "secrecy"
-      ],
+      "reasons": ["offline", "secrecy"],
       "tasks": [
         {
           "use": "translation",
           "what": {
-            "cs": "Přeloží zpravodajské weby nebo telegramové kanály."
+            "cs": "Přeloží zpravodajské weby nebo kanály na Telegramu.",
+            "en": "Translates news websites or Telegram channels."
           }
         },
         {
           "use": "reports",
           "what": {
-            "cs": "Z datových sad (např. o logistice) sepíše automatický report v předepsaném formátu."
+            "cs": "Z datových sad (např. o logistice) sepíše automatický report v předepsaném formátu.",
+            "en": "Writes an automated report in the prescribed format from datasets (e.g. on logistics)."
           }
         },
         {
           "use": "assistant",
           "what": {
-            "cs": "Odpoví na dotazy ohledně interních předpisů."
+            "cs": "Odpoví na dotazy ohledně interních předpisů.",
+            "en": "Answers questions about internal regulations."
           }
         },
         {
           "use": "vision",
           "what": {
-            "cs": "Rozpozná ze snímků objekty i offline přímo na zařízení v terénu."
+            "cs": "Rozpozná objekty na snímcích i offline přímo na zařízení v terénu.",
+            "en": "Recognizes objects in images even offline, right on a device in the field."
           }
         }
       ]
@@ -460,41 +520,45 @@
     {
       "id": "government",
       "label": {
-        "cs": "Úřad"
+        "cs": "Úřad",
+        "en": "Public authority"
       },
       "icon": "tabler:building-community",
-      "reasons": [
-        "secrecy"
-      ],
+      "reasons": ["secrecy"],
       "tasks": [
         {
           "use": "triage",
           "what": {
-            "cs": "Roztřídí podání z datové schránky a e-podatelny (žádosti, odvolání, stížnosti) a předá je příslušnému odboru."
+            "cs": "Roztřídí podání z datové schránky a e-podatelny (žádosti, odvolání, stížnosti) a předá je příslušnému odboru.",
+            "en": "Sorts incoming filings (applications, appeals, complaints) and passes them on to the right department."
           }
         },
         {
           "use": "proofreading",
           "what": {
-            "cs": "V návrhu vyhlášky najde odkazy na špatné paragrafy a nejednotně použité pojmy."
+            "cs": "V návrhu vyhlášky najde odkazy na špatné paragrafy a nejednotně použité pojmy.",
+            "en": "Finds references to wrong sections and inconsistently used terms in a draft regulation."
           }
         },
         {
           "use": "summaries",
           "what": {
-            "cs": "Přepíše úřední dopis tak, aby adresát i bez právníka pochopil, co má udělat."
+            "cs": "Přepíše úřední dopis tak, aby adresát i bez právníka pochopil, co má udělat.",
+            "en": "Rewrites an official letter so that the recipient understands what to do without needing a lawyer."
           }
         },
         {
           "use": "assistant",
           "what": {
-            "cs": "Odpoví úředníkům z interních směrnic a dřívějších spisů."
+            "cs": "Odpoví úředníkům z interních směrnic a dřívějších spisů.",
+            "en": "Answers civil servants' questions from internal guidelines and earlier case files."
           }
         },
         {
           "use": "speech",
           "what": {
-            "cs": "Přepíše jednání komise nebo zastupitelstva."
+            "cs": "Přepíše jednání komise nebo zastupitelstva.",
+            "en": "Transcribes committee or council meetings."
           }
         }
       ]
@@ -502,41 +566,45 @@
     {
       "id": "police",
       "label": {
-        "cs": "Policie"
+        "cs": "Policie",
+        "en": "Police"
       },
       "icon": "tabler:fingerprint",
-      "reasons": [
-        "secrecy"
-      ],
+      "reasons": ["secrecy"],
       "tasks": [
         {
           "use": "extraction",
           "what": {
-            "cs": "Extrahuje data z nestrukturovaných dokumentů pro následnou analýzu při vyšetřování."
+            "cs": "Extrahuje data z nestrukturovaných dokumentů pro následnou analýzu při vyšetřování.",
+            "en": "Extracts data from unstructured documents for further analysis during an investigation."
           }
         },
         {
           "use": "translation",
           "what": {
-            "cs": "Pomůže s rychlým překladem při vyšetřování v terénu."
+            "cs": "Pomůže s rychlým překladem při vyšetřování v terénu.",
+            "en": "Helps with quick translation during investigations in the field."
           }
         },
         {
           "use": "reports",
           "what": {
-            "cs": "Sestaví přehledný report z trestního spisu."
+            "cs": "Sestaví přehledný report z trestního spisu.",
+            "en": "Compiles a clear report from a criminal case file."
           }
         },
         {
           "use": "speech",
           "what": {
-            "cs": "Přepíše zvukový záznam výslechu do textu."
+            "cs": "Přepíše zvukový záznam výslechu do textu.",
+            "en": "Transcribes the audio recording of an interrogation."
           }
         },
         {
           "use": "vision",
           "what": {
-            "cs": "Ve videích najde záběry podle popisu."
+            "cs": "Ve videích najde záběry podle popisu.",
+            "en": "Finds footage in videos that matches a description."
           }
         }
       ]
@@ -544,37 +612,38 @@
     {
       "id": "manufacturing",
       "label": {
-        "cs": "Výrobní podnik"
+        "cs": "Výrobní podnik",
+        "en": "Manufacturing company"
       },
       "icon": "tabler:building-factory-2",
-      "reasons": [
-        "offline",
-        "secrecy",
-        "robust"
-      ],
+      "reasons": ["offline", "secrecy", "robust"],
       "tasks": [
         {
           "use": "translation",
           "what": {
-            "cs": "Přeloží manuály ke strojům od zahraničních výrobců."
+            "cs": "Přeloží manuály ke strojům od zahraničních výrobců.",
+            "en": "Translates machine manuals from foreign manufacturers."
           }
         },
         {
           "use": "reports",
           "what": {
-            "cs": "Z dat výrobního systému sepíše předávací zprávu."
+            "cs": "Z dat výrobního systému sepíše předávací zprávu.",
+            "en": "Writes a shift handover report from production system data."
           }
         },
         {
           "use": "assistant",
           "what": {
-            "cs": "Údržbářům poradí z manuálů a historie oprav, jak odstranit závadu."
+            "cs": "Údržbářům poradí z manuálů a historie oprav, jak odstranit závadu.",
+            "en": "Advises maintenance staff how to fix a fault, drawing on the manuals and the repair history."
           }
         },
         {
           "use": "vision",
           "what": {
-            "cs": "Na snímcích z linky označí vadné kusy, třeba s prasklinou nebo chybějící součástkou."
+            "cs": "Na snímcích z linky označí vadné kusy, třeba s prasklinou nebo chybějící součástkou.",
+            "en": "Marks defective parts in images from the production line, such as ones with a crack or a missing component."
           }
         }
       ]
@@ -582,37 +651,38 @@
     {
       "id": "energy",
       "label": {
-        "cs": "Energetika"
+        "cs": "Energetika",
+        "en": "Energy"
       },
       "icon": "tabler:bolt",
-      "reasons": [
-        "offline",
-        "secrecy",
-        "robust"
-      ],
+      "reasons": ["offline", "secrecy", "robust"],
       "tasks": [
         {
           "use": "translation",
           "what": {
-            "cs": "Přeloží manuály od zahraničních dodavatelů zařízení."
+            "cs": "Přeloží manuály od zahraničních dodavatelů zařízení.",
+            "en": "Translates manuals from foreign equipment suppliers."
           }
         },
         {
           "use": "reports",
           "what": {
-            "cs": "Z provozních dat sepíše automatizovaně zprávy o poruchách."
+            "cs": "Z provozních dat automaticky sepíše zprávy o poruchách.",
+            "en": "Writes fault reports from operational data automatically."
           }
         },
         {
           "use": "assistant",
           "what": {
-            "cs": "Najde dispečerovi postup v provozních předpisech."
+            "cs": "Najde dispečerovi postup v provozních předpisech.",
+            "en": "Finds the right procedure in the operating rules for a dispatcher."
           }
         },
         {
           "use": "vision",
           "what": {
-            "cs": "Analyzuje snímky infrastruktury z dronu."
+            "cs": "Analyzuje snímky infrastruktury z dronu.",
+            "en": "Analyzes drone images of the infrastructure."
           }
         }
       ]
@@ -620,35 +690,38 @@
     {
       "id": "accounting",
       "label": {
-        "cs": "Účetní kancelář"
+        "cs": "Účetní kancelář",
+        "en": "Accounting firm"
       },
       "icon": "tabler:calculator",
-      "reasons": [
-        "secrecy"
-      ],
+      "reasons": ["secrecy"],
       "tasks": [
         {
           "use": "triage",
           "what": {
-            "cs": "Roztřídí doklady od klientů podle firmy, měsíce nebo druhu (faktura, účtenka, výpis, ...)."
+            "cs": "Roztřídí doklady od klientů podle firmy, měsíce nebo druhu (faktura, účtenka, výpis…).",
+            "en": "Sorts clients' documents by company, month or type (invoice, receipt, statement…)."
           }
         },
         {
           "use": "extraction",
           "what": {
-            "cs": "Z faktur a výpisů vytáhne částky, DPH a variabilní symboly, spáruje platby s fakturami."
+            "cs": "Z faktur a výpisů vytáhne částky, DPH a variabilní symboly, spáruje platby s fakturami.",
+            "en": "Pulls amounts, VAT and payment references out of invoices and statements, and matches payments to invoices."
           }
         },
         {
           "use": "drafting",
           "what": {
-            "cs": "Připraví první návrh dokumentů a formulářů."
+            "cs": "Připraví první návrh dokumentů a formulářů.",
+            "en": "Prepares the first draft of documents and forms."
           }
         },
         {
           "use": "assistant",
           "what": {
-            "cs": "Odpoví na dotaz ohledně předpisů a interních postupů."
+            "cs": "Odpoví na dotaz ohledně předpisů a interních postupů.",
+            "en": "Answers questions about regulations and internal procedures."
           }
         }
       ]
@@ -656,42 +729,45 @@
     {
       "id": "archive",
       "label": {
-        "cs": "Archiv a knihovna"
+        "cs": "Archiv a knihovna",
+        "en": "Archive and library"
       },
       "icon": "tabler:archive",
-      "reasons": [
-        "volume",
-        "secrecy"
-      ],
+      "reasons": ["volume", "secrecy"],
       "tasks": [
         {
           "use": "extraction",
           "what": {
-            "cs": "Přepíše naskenované tisky a rukopisy do textu, ve kterém je možné vyhledávat."
+            "cs": "Přepíše naskenované tisky a rukopisy do textu, ve kterém je možné vyhledávat.",
+            "en": "Transcribes scanned prints and manuscripts into searchable text."
           }
         },
         {
           "use": "translation",
           "what": {
-            "cs": "Přeloží cizojazyčné dokumenty do češtiny."
+            "cs": "Přeloží cizojazyčné dokumenty do češtiny.",
+            "en": "Translates foreign-language documents for researchers."
           }
         },
         {
           "use": "summaries",
           "what": {
-            "cs": "Ke každému dokumentu napíše krátký obsah a navrhne údaje do katalogu (datum, autor, místo, ...)."
+            "cs": "Ke každému dokumentu napíše krátký obsah a navrhne údaje do katalogu (datum, autor, místo…).",
+            "en": "Writes a short abstract for each document and suggests catalog details (date, author, place…)."
           }
         },
         {
           "use": "assistant",
           "what": {
-            "cs": "Umožní badatelům vyhledávat v interních databázích přirozeným jazykem."
+            "cs": "Umožní badatelům vyhledávat v interních databázích přirozeným jazykem.",
+            "en": "Lets researchers search internal databases in natural language."
           }
         },
         {
           "use": "speech",
           "what": {
-            "cs": "Přepíše do textu rozhovory s pamětníky a jiné archivní nahrávky."
+            "cs": "Přepíše do textu rozhovory s pamětníky a jiné archivní nahrávky.",
+            "en": "Transcribes oral history interviews and other archival recordings."
           }
         }
       ]
@@ -699,43 +775,45 @@
     {
       "id": "software",
       "label": {
-        "cs": "Softwarová firma"
+        "cs": "Softwarová firma",
+        "en": "Software company"
       },
       "icon": "tabler:code",
-      "reasons": [
-        "secrecy",
-        "volume",
-        "robust"
-      ],
+      "reasons": ["secrecy", "volume", "robust"],
       "tasks": [
         {
           "use": "triage",
           "what": {
-            "cs": "Roztřídí požadavky od zákazníků a předá je správnému týmu."
+            "cs": "Roztřídí požadavky od zákazníků a předá je správnému týmu.",
+            "en": "Sorts customer requests and passes them on to the right team."
           }
         },
         {
           "use": "reports",
           "what": {
-            "cs": "Z logů sepíše zprávu o chybách nebo bezpečnostních incidentech."
+            "cs": "Z logů sepíše zprávu o chybách nebo bezpečnostních incidentech.",
+            "en": "Writes a report on bugs or security incidents from the logs."
           }
         },
         {
           "use": "assistant",
           "what": {
-            "cs": "Vývojářům a podpoře odpoví z interní dokumentace, wiki a vyřešených tiketů."
+            "cs": "Vývojářům a podpoře odpoví z interní dokumentace, wiki a vyřešených tiketů.",
+            "en": "Answers developers and support staff from internal documentation, the wiki and resolved tickets."
           }
         },
         {
           "use": "coding",
           "what": {
-            "cs": "Napíše i exploit pro penetrační test, který komerční služby často odmítnou."
+            "cs": "Píše kód, který neopustí firmu, a zvládne i exploit pro penetrační test, což komerční služby často odmítnou.",
+            "en": "Writes code that never leaves the company, and can even write an exploit for a penetration test, which commercial services often refuse to do."
           }
         },
         {
           "use": "image-generation",
           "what": {
-            "cs": "Navrhne ikony, ilustrace a makety obrazovek pro produkt."
+            "cs": "Navrhne ikony, ilustrace a makety obrazovek pro produkt.",
+            "en": "Designs icons, illustrations and screen mock-ups for the product."
           }
         }
       ]
@@ -743,35 +821,38 @@
     {
       "id": "eshop",
       "label": {
-        "cs": "E-shop"
+        "cs": "E-shop",
+        "en": "E-shop"
       },
       "icon": "tabler:shopping-cart",
-      "reasons": [
-        "volume"
-      ],
+      "reasons": ["volume"],
       "tasks": [
         {
           "use": "extraction",
           "what": {
-            "cs": "Z produktových listů dodavatelů v PDF vytáhne rozměry, materiál a další parametry do tabulky pro import."
+            "cs": "Z produktových listů dodavatelů v PDF vytáhne rozměry, materiál a další parametry do tabulky pro import.",
+            "en": "Pulls dimensions, material and other parameters from suppliers' PDF product sheets into a table for import."
           }
         },
         {
           "use": "translation",
           "what": {
-            "cs": "Přeloží popisy produktů pro distribuci v dalších zemích."
+            "cs": "Přeloží popisy produktů pro distribuci v dalších zemích.",
+            "en": "Translates product descriptions for sales in other countries."
           }
         },
         {
           "use": "reports",
           "what": {
-            "cs": "Z parametrů napíše popisy pro produktů v jednotném stylu."
+            "cs": "Z parametrů napíše popisy produktů v jednotném stylu.",
+            "en": "Writes product descriptions in a consistent style from their parameters."
           }
         },
         {
           "use": "vision",
           "what": {
-            "cs": "Z fotografie produktu napíše alternativní text a doplní chybějící parametry, třeba barvu nebo střih."
+            "cs": "Z fotografie produktu napíše alternativní text a doplní chybějící parametry, třeba barvu nebo střih.",
+            "en": "Writes alt text for a product photo and fills in missing parameters, such as the color or the cut."
           }
         }
       ]

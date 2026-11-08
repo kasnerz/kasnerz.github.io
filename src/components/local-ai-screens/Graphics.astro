@@ -1,6 +1,12 @@
 ---
 import { Icon } from "astro-icon/components";
 
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+
 // Generated pictures don't change with the page's theme, so these colours are fixed.
 const LIGHT = "#fcfcfc";
 const VARIANTS = [
@@ -9,22 +15,37 @@ const VARIANTS = [
   { background: "var(--mint)", ink: "var(--brand)", weight: 2.5 },
   { background: LIGHT, ink: "var(--brand)", weight: 4 },
 ];
+
+const copies = {
+  cs: {
+    label: "Zadání",
+    prompt:
+      "Jednoduchá ikona jízdního kola pro mobilní aplikaci. Pouze křivky, čtyři různé verze.",
+    meta: "4 varianty, 1024 × 1024 px",
+    tiles: "Čtyři varianty ikony jízdního kola",
+  },
+  en: {
+    label: "Brief",
+    prompt:
+      "A simple bicycle icon for a mobile app. Outlines only, four different versions.",
+    meta: "4 variants, 1024 × 1024 px",
+    tiles: "Four variants of a bicycle icon",
+  },
+};
+const copy = copies[lang];
 ---
 
 <div class="graphics">
   <div class="brief">
-    <p class="label">Zadání</p>
-    <p class="prompt">
-      Jednoduchá ikona jízdního kola pro mobilní aplikaci. Pouze křivky, čtyři
-      různé verze.
-    </p>
+    <p class="label">{copy.label}</p>
+    <p class="prompt">{copy.prompt}</p>
     <p class="meta">
       <Icon name="tabler:palette" aria-hidden="true" />
-      4 varianty, 1024 × 1024 px
+      {copy.meta}
     </p>
   </div>
 
-  <div class="tiles" role="img" aria-label="Čtyři varianty ikony elektrokola">
+  <div class="tiles" role="img" aria-label={copy.tiles}>
     {
       VARIANTS.map(variant => (
         <div

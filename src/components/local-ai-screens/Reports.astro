@@ -1,12 +1,75 @@
 ---
 import { Icon } from "astro-icon/components";
+
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+
+// `text` is HTML: the highlighted figures, and the parts that drop out on narrow screens.
+// Each row: its label, the two quarters, and whether it is highlighted (`mark`), shown only
+// on wider screens (`optional`) or kept as a spare row (`spare`).
+const copies = {
+  cs: {
+    file: "vyroba_2026_Q3.xlsx",
+    rows: [
+      { label: "Tržby (mil. Kč)", q2: "116,2", q3: "126,0", mark: true },
+      { label: "Prostoje L2 (h)", q2: "41", q3: "29", mark: true },
+      {
+        label: "Reklamace (ks)",
+        q2: "38",
+        q3: "44",
+        mark: true,
+        optional: true,
+      },
+      {
+        label: "Zmetkovitost (%)",
+        q2: "2,1",
+        q3: "1,8",
+        mark: true,
+        optional: true,
+      },
+      { label: "Energie (MWh)", q2: "412", q3: "398", spare: true },
+    ],
+    title: "Zpráva za 3. čtvrtletí 2026",
+    text: "Tržby vzrostly o&nbsp;<mark>8,4&nbsp;%</mark> na <mark>126&nbsp;mil. Kč</mark>. Prostoje linky L2 klesly ze&nbsp;<mark>41</mark> na <mark>29 hodin</mark><span data-optional> a&nbsp;zmetkovitost z&nbsp;<mark>2,1</mark> na <mark>1,8&nbsp;%</mark></span>. <span data-optional>Počet reklamací ale stoupl z&nbsp;<mark>38</mark> na <mark>44</mark>.</span>",
+    legend: "Zvýrazněná čísla vycházejí z tabulky.",
+  },
+  en: {
+    file: "production_2026_Q3.xlsx",
+    rows: [
+      { label: "Revenue (CZK m)", q2: "116.2", q3: "126.0", mark: true },
+      { label: "L2 downtime (h)", q2: "41", q3: "29", mark: true },
+      {
+        label: "Complaints (pcs)",
+        q2: "38",
+        q3: "44",
+        mark: true,
+        optional: true,
+      },
+      {
+        label: "Scrap rate (%)",
+        q2: "2.1",
+        q3: "1.8",
+        mark: true,
+        optional: true,
+      },
+      { label: "Energy (MWh)", q2: "412", q3: "398", spare: true },
+    ],
+    title: "Report for Q3 2026",
+    text: "Revenue grew by <mark>8.4%</mark> to <mark>CZK&nbsp;126&nbsp;m</mark>. Downtime on line L2 fell from <mark>41</mark> to <mark>29 hours</mark><span data-optional> and the scrap rate from <mark>2.1</mark> to <mark>1.8%</mark></span>. <span data-optional>Complaints, however, rose from <mark>38</mark> to <mark>44</mark>.</span>",
+    legend: "Highlighted figures come from the table.",
+  },
+};
+const copy = copies[lang];
 ---
 
 <div class="report">
   <div class="source">
     <p class="file">
       <Icon name="tabler:file-spreadsheet" aria-hidden="true" />
-      vyroba_2026_Q3.xlsx
+      {copy.file}
     </p>
     <table class="table">
       <thead>
@@ -17,31 +80,31 @@ import { Icon } from "astro-icon/components";
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">Tržby (mil. Kč)</th>
-          <td><mark>116,2</mark></td>
-          <td><mark>126,0</mark></td>
-        </tr>
-        <tr>
-          <th scope="row">Prostoje L2 (h)</th>
-          <td><mark>41</mark></td>
-          <td><mark>29</mark></td>
-        </tr>
-        <tr data-optional>
-          <th scope="row">Reklamace (ks)</th>
-          <td><mark>38</mark></td>
-          <td><mark>44</mark></td>
-        </tr>
-        <tr data-optional>
-          <th scope="row">Zmetkovitost (%)</th>
-          <td><mark>2,1</mark></td>
-          <td><mark>1,8</mark></td>
-        </tr>
-        <tr data-spare>
-          <th scope="row">Energie (MWh)</th>
-          <td>412</td>
-          <td>398</td>
-        </tr>
+        {
+          copy.rows.map(row => (
+            <tr
+              data-optional={row.optional || undefined}
+              data-spare={row.spare || undefined}
+            >
+              <th scope="row">{row.label}</th>
+              {row.mark ? (
+                <>
+                  <td>
+                    <mark>{row.q2}</mark>
+                  </td>
+                  <td>
+                    <mark>{row.q3}</mark>
+                  </td>
+                </>
+              ) : (
+                <>
+                  <td>{row.q2}</td>
+                  <td>{row.q3}</td>
+                </>
+              )}
+            </tr>
+          ))
+        }
       </tbody>
     </table>
   </div>
@@ -51,21 +114,9 @@ import { Icon } from "astro-icon/components";
   </div>
 
   <div class="output">
-    <p class="output-title">Zpráva za 3. čtvrtletí 2026</p>
-    <p class="text">
-      Tržby vzrostly o&nbsp;<mark>8,4&nbsp;%</mark> na <mark
-        >126&nbsp;mil. Kč</mark
-      >. Prostoje linky L2 klesly ze&nbsp;<mark>41</mark> na <mark
-        >29 hodin</mark
-      ><span data-optional>
-        a&nbsp;zmetkovitost z&nbsp;<mark>2,1</mark> na <mark>1,8&nbsp;%</mark
-        ></span
-      >.
-      <span data-optional>
-        Počet reklamací ale stoupl z&nbsp;<mark>38</mark> na <mark>44</mark>.
-      </span>
-    </p>
-    <p class="legend" data-optional>Zvýrazněná čísla vycházejí z tabulky.</p>
+    <p class="output-title">{copy.title}</p>
+    <p class="text" set:html={copy.text} />
+    <p class="legend" data-optional>{copy.legend}</p>
   </div>
 </div>
 
@@ -122,7 +173,8 @@ import { Icon } from "astro-icon/components";
     text-align: left;
   }
 
-  mark {
+  /* global, so it also reaches the marks in the report's text (set:html) */
+  .report :global(mark) {
     padding: 0 0.2em;
     border-radius: 3px;
     background: var(--screen-mark);
@@ -186,7 +238,7 @@ import { Icon } from "astro-icon/components";
     }
     .flow,
     .file,
-    [data-optional] {
+    .report :global([data-optional]) {
       display: none;
     }
     .output-title {

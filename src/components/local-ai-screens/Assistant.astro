@@ -1,40 +1,89 @@
 ---
 import { Icon } from "astro-icon/components";
+
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
 ---
 
 <div class="assistant">
-  <div class="chat">
-    <p class="question">Kolik dnů dovolené si můžu převést do dalšího roku?</p>
-    <p class="answer">
-      Podle směrnice S-12/2026 si můžete převést nejvýše 5&nbsp;dnů. Žádost
-      podejte vedoucímu do&nbsp;30.&nbsp;listopadu.
-    </p>
-    <p class="citation">
-      <Icon name="tabler:file-text" aria-hidden="true" />
-      Směrnice S-12/2026, čl. 4
-    </p>
-    <div class="composer" aria-hidden="true">
-      Napište dotaz
-      <Icon name="tabler:send" />
-    </div>
-  </div>
+  {
+    lang === "cs" ? (
+      <div class="chat">
+        <p class="question">
+          Kolik dnů dovolené si můžu převést do dalšího roku?
+        </p>
+        <p class="answer">
+          Podle směrnice S-12/2026 si můžete převést nejvýše 5&nbsp;dnů. Žádost
+          podejte vedoucímu do&nbsp;30.&nbsp;listopadu.
+        </p>
+        <p class="citation">
+          <Icon name="tabler:file-text" aria-hidden="true" />
+          Směrnice S-12/2026, čl. 4
+        </p>
+        <div class="composer" aria-hidden="true">
+          Napište dotaz
+          <Icon name="tabler:send" />
+        </div>
+      </div>
+    ) : (
+      <div class="chat">
+        <p class="question">
+          How many days of leave can I carry over to next year?
+        </p>
+        <p class="answer">
+          Under policy S-12/2026, you can carry over at most 5&nbsp;days. Submit
+          the request to your manager by 30&nbsp;November.
+        </p>
+        <p class="citation">
+          <Icon name="tabler:file-text" aria-hidden="true" />
+          Policy S-12/2026, art. 4
+        </p>
+        <div class="composer" aria-hidden="true">
+          Ask a question
+          <Icon name="tabler:send" />
+        </div>
+      </div>
+    )
+  }
 
-  <div class="document">
-    <p class="document-source">Směrnice S-12/2026, str. 7</p>
-    <p class="document-title">Čl. 4 Převod dovolené</p>
-    <ol class="clauses">
-      <li>
-        Zaměstnanec si může převést <mark>nejvýše 5&nbsp;dnů</mark> nevyčerpané dovolené
-        do následujícího kalendářního roku.
-      </li>
-      <li>
-        Žádost podává vedoucímu nejpozději <mark
-          >do&nbsp;30.&nbsp;listopadu</mark
-        >.
-      </li>
-      <li>O žádosti rozhodne personální oddělení do 10 pracovních dnů.</li>
-    </ol>
-  </div>
+  {
+    lang === "cs" ? (
+      <div class="document">
+        <p class="document-source">Směrnice S-12/2026, str. 7</p>
+        <p class="document-title">Čl. 4 Převod dovolené</p>
+        <ol class="clauses">
+          <li>
+            Zaměstnanec si může převést <mark>nejvýše 5&nbsp;dnů</mark>{" "}
+            nevyčerpané dovolené do následujícího kalendářního roku.
+          </li>
+          <li>
+            Žádost podává vedoucímu nejpozději{" "}
+            <mark>do&nbsp;30.&nbsp;listopadu</mark>.
+          </li>
+          <li>O žádosti rozhodne personální oddělení do 10 pracovních dnů.</li>
+        </ol>
+      </div>
+    ) : (
+      <div class="document">
+        <p class="document-source">Policy S-12/2026, p. 7</p>
+        <p class="document-title">Art. 4 Carrying over leave</p>
+        <ol class="clauses">
+          <li>
+            Employees may carry over <mark>at most 5&nbsp;days</mark> of unused
+            leave to the following calendar year.
+          </li>
+          <li>
+            The request must be submitted to the manager{" "}
+            <mark>by 30&nbsp;November</mark> at the latest.
+          </li>
+          <li>HR decides on the request within 10 working days.</li>
+        </ol>
+      </div>
+    )
+  }
 </div>
 
 <style>

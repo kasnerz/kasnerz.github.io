@@ -68,7 +68,7 @@
 /* ---------- front page and phone menu: the six figures ---------- */
 .scene-nav {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(var(--cols, 6), 1fr);
 }
 .scene {
   --sw: 2.05;

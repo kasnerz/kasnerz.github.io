@@ -1,45 +1,98 @@
 ---
 import { Icon } from "astro-icon/components";
+
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
 ---
 
 <div class="review">
-  <p class="file">
-    <Icon name="tabler:file-text" aria-hidden="true" />
-    najemni_smlouva.docx
-  </p>
-  <ul class="issues">
-    <li class="issue">
-      <p class="text">
-        Nájemci <del>byly</del>
-        <ins>byli</ins> poučeni o svých povinnostech.
-      </p>
-      <div class="comment">
-        <p class="kind">Pravopis</p>
-        <p class="note">Shoda podmětu s přísudkem.</p>
-      </div>
-    </li>
-    <li class="issue">
-      <p class="text">
-        Čl. 3: Závadu nahlásí do&nbsp;<mark>30&nbsp;dnů</mark>.<br />
-        Čl. 7: Závadu nahlásí do&nbsp;<mark>14&nbsp;dnů</mark>.
-      </p>
-      <div class="comment">
-        <p class="kind">Rozpor</p>
-        <p class="note">Která lhůta platí?</p>
-      </div>
-    </li>
-    <li class="issue" data-optional>
-      <p class="text">
-        <mark class="wrap"
-          >Výše uvedené se nevztahuje na případy, kdy není stanoveno jinak.</mark
-        >
-      </p>
-      <div class="comment">
-        <p class="kind">Nejasná věta</p>
-        <p class="note">Na které případy se vztahuje?</p>
-      </div>
-    </li>
-  </ul>
+  {
+    lang === "cs" ? (
+      <>
+        <p class="file">
+          <Icon name="tabler:file-text" aria-hidden="true" />
+          najemni_smlouva.docx
+        </p>
+        <ul class="issues">
+          <li class="issue">
+            <p class="text">
+              Nájemci <del>byly</del>
+              <ins>byli</ins> poučeni o svých povinnostech.
+            </p>
+            <div class="comment">
+              <p class="kind">Pravopis</p>
+              <p class="note">Shoda podmětu s přísudkem.</p>
+            </div>
+          </li>
+          <li class="issue">
+            <p class="text">
+              Čl. 3: Závadu nahlásí do&nbsp;<mark>30&nbsp;dnů</mark>.<br />
+              Čl. 7: Závadu nahlásí do&nbsp;<mark>14&nbsp;dnů</mark>.
+            </p>
+            <div class="comment">
+              <p class="kind">Rozpor</p>
+              <p class="note">Která lhůta platí?</p>
+            </div>
+          </li>
+          <li class="issue" data-optional>
+            <p class="text">
+              <mark class="wrap">
+                Výše uvedené se nevztahuje na případy, kdy není stanoveno jinak.
+              </mark>
+            </p>
+            <div class="comment">
+              <p class="kind">Nejasná věta</p>
+              <p class="note">Na které případy se vztahuje?</p>
+            </div>
+          </li>
+        </ul>
+      </>
+    ) : (
+      <>
+        <p class="file">
+          <Icon name="tabler:file-text" aria-hidden="true" />
+          lease_agreement.docx
+        </p>
+        <ul class="issues">
+          <li class="issue">
+            <p class="text">
+              The tenants <del>was</del>
+              <ins>were</ins> informed of their obligations.
+            </p>
+            <div class="comment">
+              <p class="kind">Grammar</p>
+              <p class="note">Subject–verb agreement.</p>
+            </div>
+          </li>
+          <li class="issue">
+            <p class="text">
+              Art. 3: Report defects within&nbsp;<mark>30&nbsp;days</mark>.
+              <br />
+              Art. 7: Report defects within&nbsp;<mark>14&nbsp;days</mark>.
+            </p>
+            <div class="comment">
+              <p class="kind">Contradiction</p>
+              <p class="note">Which deadline applies?</p>
+            </div>
+          </li>
+          <li class="issue" data-optional>
+            <p class="text">
+              <mark class="wrap">
+                The above shall not apply to cases unless otherwise specified.
+              </mark>
+            </p>
+            <div class="comment">
+              <p class="kind">Unclear sentence</p>
+              <p class="note">Which cases does it apply to?</p>
+            </div>
+          </li>
+        </ul>
+      </>
+    )
+  }
 </div>
 
 <style>

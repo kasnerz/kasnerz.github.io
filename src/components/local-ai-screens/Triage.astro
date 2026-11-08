@@ -1,51 +1,92 @@
 ---
 import { Icon } from "astro-icon/components";
 
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+
 // `to` is the row of the department, so the routes cross the way real post does. The third
 // message drops out where the screen is narrow.
-const MESSAGES = [
-  {
-    subject: "Faktura č. 2026/1184",
-    note: "Elektro Novák s.r.o.",
-    score: "99 %",
-    department: "Účtárna",
-    icon: "tabler:receipt",
-    to: 3,
-  },
-  {
-    subject: "Žádost o nahlédnutí do spisu",
-    note: "sp. zn. OV 412/2026",
-    score: "98 %",
-    department: "Právní odbor",
-    icon: "tabler:scale",
-    to: 1,
-  },
-  {
-    subject: "Kdy se zapisují děti do školky?",
-    note: "dotaz z webového formuláře",
-    score: "97 %",
-    department: "Odbor školství",
-    icon: "tabler:school",
-    to: 2,
-  },
-  {
-    subject: "Hluk ze stavby v Lipové ulici",
-    note: "stavební úřad, nebo životní prostředí?",
-    score: "58 %",
-    department: "Ke kontrole",
-    icon: "tabler:user-question",
-    to: 4,
-    unsure: true,
-  },
+const ROUTES = [
+  { icon: "tabler:receipt", to: 3 },
+  { icon: "tabler:scale", to: 1 },
+  { icon: "tabler:school", to: 2 },
+  { icon: "tabler:user-question", to: 4, unsure: true },
 ];
+const copies = {
+  cs: {
+    from: "Doručená pošta",
+    to: "Kam to patří",
+    messages: [
+      {
+        subject: "Faktura č. 2026/1184",
+        note: "Elektro Novák s.r.o.",
+        score: "99 %",
+        department: "Účtárna",
+      },
+      {
+        subject: "Žádost o nahlédnutí do spisu",
+        note: "sp. zn. OV 412/2026",
+        score: "98 %",
+        department: "Právní odbor",
+      },
+      {
+        subject: "Kdy se zapisují děti do školky?",
+        note: "dotaz z webového formuláře",
+        score: "97 %",
+        department: "Odbor školství",
+      },
+      {
+        subject: "Hluk ze stavby v Lipové ulici",
+        note: "stavební úřad, nebo životní prostředí?",
+        score: "58 %",
+        department: "Ke kontrole",
+      },
+    ],
+  },
+  en: {
+    from: "Inbox",
+    to: "Where it belongs",
+    messages: [
+      {
+        subject: "Invoice no. 2026/1184",
+        note: "Elektro Novák s.r.o.",
+        score: "99%",
+        department: "Accounts",
+      },
+      {
+        subject: "Request to inspect a case file",
+        note: "ref. OV 412/2026",
+        score: "98%",
+        department: "Legal",
+      },
+      {
+        subject: "When does kindergarten enrollment open?",
+        note: "question from the web form",
+        score: "97%",
+        department: "Education",
+      },
+      {
+        subject: "Construction noise on Lipová Street",
+        note: "building office, or environment?",
+        score: "58%",
+        department: "To review",
+      },
+    ],
+  },
+};
+const copy = copies[lang];
+const MESSAGES = ROUTES.map((route, i) => ({ ...route, ...copy.messages[i]! }));
 
 /** The middle of a row, in the units of the routes' viewBox. */
 const rowCentre = (row: number) => (row - 0.5) * 100;
 ---
 
 <div class="routes">
-  <span class="heading heading-from">Doručená pošta</span>
-  <span class="heading heading-to">Kam to patří</span>
+  <span class="heading heading-from">{copy.from}</span>
+  <span class="heading heading-to">{copy.to}</span>
 
   <svg
     class="lines"

@@ -2,10 +2,12 @@
 import SubpageLayout from "../layouts/SubpageLayout.astro";
 import BusinessDetails from "./BusinessDetails.astro";
 import ContactCta from "./ContactCta.astro";
+import LinkButton from "./LinkButton.astro";
 import LocalAiInstitutions from "./LocalAiInstitutions.astro";
 import LocalAiScope from "./LocalAiScope.astro";
 import LocalAiUses from "./LocalAiUses.astro";
 import { SPOTS } from "@/data/figures";
+import { getNavItem, navHref } from "@/data/nav";
 
 interface Props {
   lang: "cs" | "en";
@@ -14,62 +16,79 @@ interface Props {
 const { lang } = Astro.props;
 
 type Step = { art: keyof typeof SPOTS; title: string; text: string };
-type Copy = { lead: string; steps: Step[]; outro: string };
+// `why` is HTML, one bullet each, for the links. The blog bullet with its screenshot follows
+// them in the markup, starting with `blog`.
+type Copy = {
+  heading: string;
+  lead: string;
+  steps: Step[];
+  whyTitle: string;
+  why: string[];
+  blog: string;
+};
 
 const copies: Record<"cs" | "en", Copy> = {
   en: {
-    lead: "I can guide you through the whole process of <b>deploying a local AI solution</b> built on open-weight AI models (such as Qwen, Gemma, DeepSeek, Nemotron, ...) and hardware running right on your premises (a GPU server, an AI workstation, ...).<p>This is what our collaboration can look like:</p>",
+    heading: "How I can help you",
+    lead: "I can guide you through the whole process of <b>deploying a local AI solution</b> built on open-weight AI models (such as Qwen, Gemma, DeepSeek, Nemotron…) and hardware running right on your premises (a GPU server, an AI workstation…).<p>You decide the scope of our collaboration: it can be just one or a few consultations, or a long-term collaboration on rolling out the whole system.</p><p>A long-term collaboration can look like this, for example:</p>",
     steps: [
       {
         art: "talk",
         title: "Initial consultation",
-        text: "We discuss how you use AI today and whether a local solution makes sense. <b>Free of charge.</b>",
+        text: "We discuss how you want to use AI and whether a local AI solution makes sense for you. <i>The initial consultation is free of charge.</i>",
       },
       {
         art: "strategy",
-        title: "Analyzing your AI strategy",
-        text: "Over a few meetings I prepare a proposal: hardware, models and how your tools plug in.",
+        title: "Solution design",
+        text: "Within 1–3 weeks, I prepare a strategy for the solution. I present suitable hardware, models and options for connecting your tools.",
       },
       {
         art: "deploy",
-        title: "Deployment on your premises",
-        text: "I set up the inference server, connect your services and write the documentation.",
+        title: "Deploying AI models",
+        text: "I set up an inference server with AI models, connect your tools to it and prepare the documentation.",
       },
       {
         art: "workshop",
-        title: "Tailored workshop",
-        text: "I train your team to work with the solution, its limits and risks included.",
+        title: "Team training",
+        text: "I teach your team to work with the new solution. I explain its benefits, limits, risks and possibilities.",
       },
       {
         art: "upkeep",
         title: "Maintenance",
-        text: "Model updates, hardware scaling or new tools.",
+        text: "I remain available to update the models, scale the hardware or implement new tools.",
       },
     ],
-    outro: "Want to know more? Get in touch and we will talk it through.",
+    whyTitle: "Why me?",
+    why: [
+      `I hold a PhD in language model <a href="${navHref(getNavItem("research"), "en")}">research</a> and have years of experience in the field.`,
+      "I'm a freelancer: dealing with me is more straightforward than with a large company.",
+      "I use AI models every day in my own work.",
+    ],
+    blog: "I write a blog and a newsletter about open-weight AI models (in Czech) at",
   },
   cs: {
-    lead: "Dokážu Vás provést celým procesem <b>nasazení lokálního AI řešení</b> postaveného na otevřených AI modelech (jako Qwen, Gemma, DeepSeek, Nemotron, ...) a hardwaru běžícím přímo u Vás (GPU server, AI pracovní stanice, ...).<p>Rozsah naší spolupráce určujete sami: může jít o pouze o jednu nebo několik konzultací, stejně tak ale může jít i o dlouhodobou spolupráci na implementaci kompletního systému.</p><p>Naše dlouhodobá spolupráce může vypadat například takto:</p>",
+    heading: "Jak vám mohu pomoci",
+    lead: "Dokážu vás provést celým procesem <b>nasazení lokálního AI řešení</b> postaveného na otevřených AI modelech (jako Qwen, Gemma, DeepSeek, Nemotron…) a hardwaru běžícím přímo u vás (GPU server, AI pracovní stanice…).<p>Rozsah naší spolupráce určujete sami: může jít pouze o jednu nebo několik konzultací, ale také o dlouhodobou spolupráci na zavedení celého systému.</p><p>Naše dlouhodobá spolupráce může vypadat například takto:</p>",
     steps: [
       {
         art: "talk",
         title: "Úvodní konzultace",
-        text: "Probereme, jak chcete používat AI a jestli má lokální AI řešení pro Vás smysl. <i>Úvodní konzultace je zdarma.</i>",
+        text: "Probereme, jak chcete používat AI a jestli má lokální AI řešení pro vás smysl. <i>Úvodní konzultace je zdarma.</i>",
       },
       {
         art: "strategy",
         title: "Návrh řešení",
-        text: "Během 1-3 týdnů připravím strategii řešení. Přestavím Vám vhodný hardware, modely a možnosti napojení Vašich nástrojů.",
+        text: "Během 1–3 týdnů připravím strategii řešení. Představím vám vhodný hardware, modely a možnosti napojení vašich nástrojů.",
       },
       {
         art: "deploy",
         title: "Nasazení AI modelů",
-        text: "Zprovozním inferenční server s AI modely, napojím na ně Vaše nástroje a připravím dokumentaci.",
+        text: "Zprovozním inferenční server s AI modely, napojím na ně vaše nástroje a připravím dokumentaci.",
       },
       {
         art: "workshop",
-        title: "Školení s nástroji",
-        text: "Naučím Váš tým s novým řešením pracovat. Vysvětlím jeho přínosy, omezení, rizika a možnosti.",
+        title: "Školení týmu",
+        text: "Naučím váš tým s novým řešením pracovat. Vysvětlím jeho přínosy, omezení, rizika a možnosti.",
       },
       {
         art: "upkeep",
@@ -77,29 +96,21 @@ const copies: Record<"cs" | "en", Copy> = {
         text: "Budu k dispozici pro aktualizaci modelů, škálování hardwaru nebo implementaci nových nástrojů.",
       },
     ],
-    outro: "Zajímá Vás víc? Ozvěte se a probereme to spolu.",
+    whyTitle: "Proč já?",
+    why: [
+      `Mám titul PhD z <a href="${navHref(getNavItem("research"), "cs")}">výzkumu</a> jazykových modelů a dlouhodobé zkušenosti v tomto oboru.`,
+      "Jsem freelancer: jednání se mnou je přímočařejší než s velkou firmou.",
+      "AI modely používám každý den při vlastní práci.",
+    ],
+    blog: "O otevřených AI modelech píšu blog a newsletter na webu",
   },
 };
 const copy = copies[lang];
-// The assessment details and the sections above the steps are Czech-only for now.
-const expanded = lang === "cs";
-const StepHeading = expanded ? "h3" : "h2";
-
-const why =
-  'Přicházím z akademického prostředí a výzkumu jazykových modelů. S lokálními modely mám praktické zkušenosti a píšu o nich na <a href="https://lokalni.ai">Lokální.AI</a>. AI modely používám každý den při vlastní práci.';
-// The assessment's indicative price, hidden for now. Flip to show it under "Proč já".
-const SHOW_PRICE = false;
 ---
 
 <SubpageLayout lang={lang} page="consulting">
-  <section class="mb-8" aria-labelledby={expanded ? "nasazeni" : undefined}>
-    {
-      expanded && (
-        <h2 id="nasazeni" class="section-title">
-          Jak vám mohu pomoci
-        </h2>
-      )
-    }
+  <section class="mb-8" aria-labelledby="nasazeni">
+    <h2 id="nasazeni" class="section-title">{copy.heading}</h2>
     <div class="lead" set:html={copy.lead} />
   </section>
 
@@ -119,7 +130,7 @@ const SHOW_PRICE = false;
             <span class="tl-num">{i + 1}</span>
           </span>
           <div class="tl-body">
-            <StepHeading class="step-title">{step.title}</StepHeading>
+            <h3 class="step-title">{step.title}</h3>
             <p set:html={step.text} />
           </div>
         </li>
@@ -127,40 +138,40 @@ const SHOW_PRICE = false;
     }
   </ol>
 
-  {
-    expanded ? (
-      <>
-        <LocalAiUses />
-        <LocalAiInstitutions />
-        <LocalAiScope />
+  <LocalAiUses lang={lang} />
+  <LocalAiInstitutions lang={lang} />
+  <LocalAiScope lang={lang} />
 
-        <section class="closing" aria-labelledby="why-title">
-          <h2 id="why-title" class="section-title">
-            Proč já?
-          </h2>
-          <p class="why" set:html={why} />
-          {SHOW_PRICE && (
-            <aside class="price" aria-label="Orientační cena posouzení">
-              <p class="price-label">Orientační cena posouzení</p>
-              <p class="price-value">90 000–190 000&nbsp;Kč</p>
-              <p class="price-note">
-                Bez DPH, podle velikosti organizace a počtu úloh. Pevnou částku
-                potvrdíme po první konzultaci.
-              </p>
-            </aside>
-          )}
-          <ContactCta lang="cs" class="cta-dark" />
-          <BusinessDetails lang="cs" />
-        </section>
-      </>
-    ) : (
-      <section class="outro">
-        <p>{copy.outro}</p>
-        <ContactCta lang={lang} />
-        <BusinessDetails lang={lang} />
-      </section>
-    )
-  }
+  <section class="closing" aria-labelledby="why-title">
+    <h2 id="why-title" class="section-title">{copy.whyTitle}</h2>
+    <ul class="why">
+      {copy.why.map(point => <li set:html={point} />)}
+      <li>
+        {copy.blog}{" "}
+        <LinkButton icon="tabler:cpu" href="https://lokalni.ai">
+          Lokální.AI
+        </LinkButton>
+        :
+        <a
+          href="https://lokalni.ai"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-4 mb-2 block max-w-md overflow-hidden rounded-xl border border-border hover:border-accent"
+        >
+          <img
+            src="/projects/lokalni-ai.png"
+            alt="Lokální.AI"
+            width="1200"
+            height="630"
+            class="h-auto w-full"
+            loading="lazy"
+          />
+        </a>
+      </li>
+    </ul>
+    <BusinessDetails lang={lang} />
+    <ContactCta lang={lang} class="cta-dark" />
+  </section>
 </SubpageLayout>
 
 <style>
@@ -246,7 +257,7 @@ const SHOW_PRICE = false;
     text-wrap: pretty;
   }
 
-  .why :global(a) {
+  .why :global(a:not([class])) {
     color: var(--accent-text);
     text-decoration: underline;
     text-underline-offset: 2px;
@@ -265,38 +276,15 @@ const SHOW_PRICE = false;
   }
   .why {
     margin: 0 0 1.25rem;
+    padding-left: 1.25rem;
+    list-style: disc;
     text-wrap: pretty;
   }
-  .price {
-    margin-bottom: 1.25rem;
-    padding: 1.25rem 1.5rem 1.4rem;
-    border-radius: 14px;
-    background: color-mix(in oklab, var(--background), var(--accent) 12%);
+  .why li + li {
+    margin-top: 0.35rem;
   }
-  .price-label {
-    margin: 0;
-    font-size: 0.95rem;
-  }
-  .price-value {
-    margin: 0.1rem 0 0.4rem;
-    font-family: var(--font-head);
-    font-size: clamp(1.6rem, 3.4vw, 1.9rem);
-    font-weight: 700;
-    line-height: 1.15;
-    color: var(--accent-text);
-  }
-  .price-note {
-    margin: 0;
-    font-size: 0.95rem;
-    line-height: 1.4;
-    text-wrap: pretty;
-  }
-
-  .outro {
-    margin-top: 2.25rem;
-  }
-  .outro p {
-    margin-bottom: 1rem;
+  .why li::marker {
+    color: var(--accent);
   }
 
   /* ---------- narrower screens ---------- */
@@ -347,11 +335,6 @@ const SHOW_PRICE = false;
       grid-column: 3;
       grid-row: 1;
       padding-top: 0.2rem;
-    }
-  }
-  @media (max-width: 640px) {
-    .price {
-      padding: 1.1rem 1.1rem 1.2rem;
     }
   }
 </style>

@@ -1,38 +1,98 @@
 ---
 import { Icon } from "astro-icon/components";
+
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+
+// The Czech page translates from English, the English page from Czech. `<mark>` picks out
+// the terms from the glossary.
+const copies = {
+  cs: {
+    from: "Angličtina",
+    to: "Čeština",
+    sourceLang: "en",
+    pairs: [
+      [
+        "Disconnect the machine from the <mark>power supply</mark> before removing the <mark>guard</mark>.",
+        "Před sejmutím <mark>krytu</mark> odpojte stroj od <mark>napájení</mark>.",
+      ],
+      [
+        "Refit the <mark>guard</mark> before restarting the machine.",
+        "Před opětovným spuštěním stroje nasaďte <mark>kryt</mark> zpět.",
+      ],
+    ],
+    glossary: "Váš slovník",
+    terms: [
+      ["guard", "kryt"],
+      ["power supply", "napájení"],
+    ],
+  },
+  en: {
+    from: "Czech",
+    to: "English",
+    sourceLang: "cs",
+    pairs: [
+      [
+        "Před sejmutím <mark>krytu</mark> odpojte stroj od <mark>napájení</mark>.",
+        "Disconnect the machine from the <mark>power supply</mark> before removing the <mark>guard</mark>.",
+      ],
+      [
+        "Před opětovným spuštěním stroje nasaďte <mark>kryt</mark> zpět.",
+        "Refit the <mark>guard</mark> before restarting the machine.",
+      ],
+    ],
+    glossary: "Your glossary",
+    terms: [
+      ["kryt", "guard"],
+      ["napájení", "power supply"],
+    ],
+  },
+};
+const copy = copies[lang];
 ---
 
 <div class="translation">
   <div class="columns">
-    <p class="language">Angličtina</p>
+    <p class="language">{copy.from}</p>
     <p class="language language-target">
       <Icon name="tabler:arrow-right" aria-hidden="true" />
-      Čeština
+      {copy.to}
     </p>
 
-    <p class="source" lang="en">
-      Disconnect the machine from the <mark>power supply</mark> before removing the
-      <mark>guard</mark>.
-    </p>
-    <p class="target">
-      Před sejmutím <mark>krytu</mark> odpojte stroj od <mark>napájení</mark>.
-    </p>
-
-    <p class="source" lang="en" data-optional>
-      Refit the <mark>guard</mark> before restarting the machine.
-    </p>
-    <p class="target" data-optional>
-      Před opětovným spuštěním stroje nasaďte <mark>kryt</mark> zpět.
-    </p>
+    {
+      copy.pairs.map(([source, target], i) => (
+        <>
+          <p
+            class="source"
+            lang={copy.sourceLang}
+            data-optional={i > 0 || undefined}
+            set:html={source}
+          />
+          <p
+            class="target"
+            data-optional={i > 0 || undefined}
+            set:html={target}
+          />
+        </>
+      ))
+    }
   </div>
 
   <div class="glossary">
     <span class="glossary-name">
       <Icon name="tabler:book-2" aria-hidden="true" />
-      Váš slovník
+      {copy.glossary}
     </span>
-    <span class="term"><span lang="en">guard</span> → kryt</span>
-    <span class="term"><span lang="en">power supply</span> → napájení</span>
+    {
+      copy.terms.map(([source, target]) => (
+        <span class="term">
+          <span lang={copy.sourceLang}>{source}</span> → {target}
+        </span>
+      ))
+    }
   </div>
 </div>
 
@@ -78,7 +138,8 @@ import { Icon } from "astro-icon/components";
   .target {
     font-weight: 500;
   }
-  mark {
+  /* global, so it reaches the marks in the sentences (set:html) */
+  .translation :global(mark) {
     padding: 0 0.2em;
     border-radius: 3px;
     background: var(--screen-mark);

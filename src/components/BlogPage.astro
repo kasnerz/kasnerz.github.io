@@ -1,40 +1,436 @@
 ---
+import { Icon } from "astro-icon/components";
 import SubpageLayout from "../layouts/SubpageLayout.astro";
+import ContactCta from "./ContactCta.astro";
 import LinkButton from "./LinkButton.astro";
 import InterpolatedText from "./InterpolatedText.astro";
-import { useTranslations } from "../i18n/utils";
+import {
+  BLOG_DISCORD,
+  BLOG_ICON_SVG,
+  BLOG_NEWSLETTER,
+  BLOG_URL,
+  LEVELS,
+  featuredPosts,
+  getFeedSummary,
+  postUrl,
+  type BlogPost,
+} from "@/data/blog";
 
 interface Props {
   lang: "cs" | "en";
 }
 
 const { lang } = Astro.props;
-const t = useTranslations(lang);
+const en = lang === "en";
+
+const copy = {
+  en: {
+    intro:
+      "I started the {blog} portal, where I regularly write about open-weight AI models and running them locally.",
+    featured: "Featured posts",
+    czechOnly:
+      "The posts are written in <b>Czech only</b>; the titles and summaries below are translated.",
+    minutes: "min read",
+    follow: "Newsletter & Discord",
+    followText:
+      "About once a month, I send out a newsletter with news from the world of local AI, upcoming workshops and other useful tips (in Czech). On Discord, you can ask questions, share tips and meet other people interested in local AI.",
+    newsletter: "Subscribe to the newsletter",
+    discord: "Join the Discord",
+    pitch: "Your project or topic on the blog",
+    pitchIntro:
+      "I am happy to write about projects and topics that interest the readers of Lokální.AI. For example:",
+    pitchItems: [
+      "an open-source tool or an app built on local models,",
+      "an open-weight model, a Czech dataset or a benchmark,",
+      "a local AI deployment at your company or institution,",
+      "a topic you are missing on the blog.",
+    ],
+    pitchOutro:
+      "Send me a short description and a link, and we will agree on what the post could look like.",
+  },
+  cs: {
+    intro:
+      "Založil jsem portál {blog}, kde pravidelně píšu o otevřených AI modelech a jejich lokálním provozu.",
+    featured: "Doporučené články",
+    czechOnly: "",
+    minutes: "min čtení",
+    follow: "Newsletter a Discord",
+    followText:
+      "Zhruba jednou měsíčně rozesílám newsletter s novinkami ze světa lokální AI, termíny workshopů a dalšími užitečnými tipy. Na Discordu se můžete ptát, sdílet tipy a potkat ostatní zájemce o lokální AI.",
+    newsletter: "Odebírat newsletter",
+    discord: "Připojit se na Discord",
+    pitch: "Váš projekt nebo téma na blogu",
+    pitchIntro:
+      "Rád na Lokální.AI napíšu o projektech a tématech, která zajímají jeho čtenáře. Může jít například o:",
+    pitchItems: [
+      "open-source nástroj nebo aplikaci postavenou na lokálních modelech,",
+      "otevřený model, český dataset nebo benchmark,",
+      "nasazení lokální AI ve vaší firmě nebo instituci,",
+      "téma, které vám na blogu zatím chybí.",
+    ],
+    pitchOutro:
+      "Pošlete mi krátký popis a odkaz a domluvíme se, jak by mohl článek vypadat.",
+  },
+}[lang];
+
+// ---------- the one-line summary from the RSS (left out when the fetch fails) ----------
+const summary = await getFeedSummary();
+const date = (d: Date) =>
+  d.toLocaleDateString(en ? "en-GB" : "cs-CZ", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+// the noun after a count: [one, two to four, five and more]; English uses only 1 and 3
+const noun = (n: number, forms: [string, string, string]) =>
+  n === 1 ? forms[0] : en || n >= 5 || n === 0 ? forms[2] : forms[1];
+const stats = summary && [
+  {
+    n: summary.articles,
+    label: en
+      ? noun(summary.articles, ["article", "", "articles"])
+      : noun(summary.articles, ["článek", "články", "článků"]),
+  },
+  {
+    n: summary.newsletters,
+    label: en
+      ? noun(summary.newsletters, ["newsletter", "", "newsletters"])
+      : noun(summary.newsletters, ["newsletter", "newslettery", "newsletterů"]),
+  },
+];
+
+const ext = { target: "_blank", rel: "noopener noreferrer", hreflang: "cs" };
+const meta = (post: BlogPost) =>
+  `${post.minutes} ${copy.minutes} · ${LEVELS[post.level][lang]}`;
 ---
 
 <SubpageLayout lang={lang} page="blog">
-  <section id="blog" class="mb-12">
+  <section class="mb-10">
     <p>
-      <InterpolatedText text={t("blog.text")}>
-        <LinkButton slot="blog" icon="tabler:cpu" href="https://lokalni.ai"
+      <InterpolatedText text={copy.intro}>
+        <LinkButton slot="blog" icon="tabler:cpu" href={BLOG_URL}
           >Lokální.AI</LinkButton
         >
       </InterpolatedText>
     </p>
-    <a
-      href="https://lokalni.ai"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="mt-6 block max-w-2xl overflow-hidden rounded-xl border border-border hover:border-accent"
-    >
-      <img
-        src="/projects/lokalni-ai.png"
-        alt="Lokální.AI"
-        width="1200"
-        height="630"
-        class="h-auto w-full"
-        loading="lazy"
-      />
-    </a>
+    {
+      summary && stats && (
+        <div class="stats">
+          <div class="stats-counts">
+            <dl>
+              {stats.map(stat => (
+                <div>
+                  <dt>{stat.label}</dt>
+                  <dd>{stat.n}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <a class="stats-latest" href={summary.latest.url} {...ext}>
+            <span class="stats-kicker">
+              {en ? "Latest post" : "Nejnovější příspěvek"} ·{" "}
+              {date(summary.latest.date)}
+            </span>
+            <span class="stats-title">
+              {summary.latest.title} <span aria-hidden="true">→</span>
+            </span>
+          </a>
+        </div>
+      )
+    }
+  </section>
+
+  <section class="mb-12" aria-labelledby="featured-title">
+    <h2 id="featured-title" class="section-title">{copy.featured}</h2>
+    {
+      en && (
+        <p class="czech-only">
+          <Icon name="tabler:language" aria-hidden="true" />
+          <span set:html={copy.czechOnly} />
+        </p>
+      )
+    }
+
+    <ul class="grid3 singles">
+      {
+        featuredPosts.map(post => (
+          <li>
+            <a class="card" href={postUrl(post)} {...ext}>
+              <svg
+                class="icon"
+                {...BLOG_ICON_SVG}
+                aria-hidden="true"
+                set:html={post.icon}
+              />
+              <span class="card-body">
+                <span class="card-title">{post.title[lang]}</span>
+                <span class="card-text">{post.description[lang]}</span>
+                <span class="card-meta">{meta(post)}</span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section aria-labelledby="follow-title">
+    <h2 id="follow-title" class="section-title">{copy.follow}</h2>
+    <p class="mb-5">{copy.followText}</p>
+    <ul class="follow">
+      <li>
+        <a href={BLOG_NEWSLETTER} {...ext}>
+          <Icon name="tabler:mail" aria-hidden="true" />
+          {copy.newsletter}
+        </a>
+      </li>
+      <li>
+        <a href={BLOG_DISCORD} target="_blank" rel="noopener noreferrer">
+          <Icon name="tabler:brand-discord" aria-hidden="true" />
+          {copy.discord}
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="pitch" aria-labelledby="pitch-title">
+    <h2 id="pitch-title" class="section-title">{copy.pitch}</h2>
+    <p>{copy.pitchIntro}</p>
+    <ul class="pitch-list">
+      {copy.pitchItems.map(item => <li>{item}</li>)}
+    </ul>
+    <p class="mb-5">{copy.pitchOutro}</p>
+    <ContactCta lang={lang} class="cta-dark" />
   </section>
 </SubpageLayout>
+
+<style>
+  .section-title {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--accent-text);
+  }
+
+  .czech-only {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin: 0 0 1.25rem;
+    padding: 0.6rem 0.85rem;
+    border-radius: 10px;
+    background: color-mix(in oklab, var(--background), var(--accent) 10%);
+    font-size: 0.95rem;
+  }
+  .czech-only svg {
+    flex: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.1rem;
+    color: var(--accent);
+  }
+
+  /* ---------- cards ---------- */
+  .grid3 {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .grid3 > li {
+    display: flex;
+  }
+  .card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: 1.1rem 1.15rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--background);
+    color: var(--foreground);
+    text-decoration: none;
+    transition: border-color 60ms linear;
+  }
+  .card:hover {
+    border-color: var(--accent);
+  }
+  .icon {
+    flex: none;
+    height: 4.5rem;
+    width: auto;
+    align-self: flex-start;
+    color: var(--accent);
+  }
+  .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .card-title {
+    font-family: var(--font-head);
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  .card:hover .card-title {
+    color: var(--accent-text);
+  }
+  .card-text {
+    font-size: 0.92rem;
+    line-height: 1.4;
+    color: var(--text-muted);
+    text-wrap: pretty;
+  }
+  .card-meta {
+    margin-top: auto;
+    padding-top: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+  /* ---------- the blog in numbers, from the RSS, under the posts ---------- */
+  .stats {
+    display: flex;
+    align-items: stretch;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    padding: 1rem 1.25rem;
+    border-radius: 14px;
+    background: color-mix(in oklab, var(--background), var(--accent) 8%);
+  }
+  .stats-counts {
+    flex: none;
+  }
+  .stats dl {
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+  }
+  .stats dl > div {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .stats dd {
+    margin: 0;
+    font-family: var(--font-head);
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--accent-text);
+  }
+  .stats dt {
+    font-size: 0.9rem;
+    color: var(--foreground);
+  }
+  .stats-latest {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.25rem;
+    padding-left: 1.5rem;
+    border-left: 1px solid color-mix(in oklab, var(--border), var(--accent) 25%);
+    color: var(--foreground);
+    text-decoration: none;
+  }
+  .stats-kicker {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+  }
+  .stats-title {
+    font-family: var(--font-head);
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.25;
+    text-wrap: balance;
+  }
+  .stats-latest:hover .stats-title {
+    color: var(--accent-text);
+  }
+
+  /* ---------- newsletter, Discord, RSS ---------- */
+  .follow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 0 0 1.75rem;
+  }
+  .follow a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.1rem;
+    border-radius: 10px;
+    background: color-mix(in oklab, var(--background), var(--accent) 12%);
+    color: var(--accent-text);
+    font-family: var(--font-head);
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 60ms linear;
+  }
+  .follow a:hover {
+    background: color-mix(in oklab, var(--background), var(--accent) 20%);
+  }
+  .follow svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  /* ---------- your project or topic on the blog ---------- */
+  .pitch {
+    margin-top: 3rem;
+  }
+  .pitch :global(.cta-dark) {
+    background: var(--accent);
+    color: var(--background);
+  }
+  .pitch :global(.cta-dark:hover) {
+    background: color-mix(in oklab, var(--accent), var(--foreground) 22%);
+  }
+  .pitch-list {
+    margin: 0.5rem 0 1rem;
+    padding-left: 1.25rem;
+    list-style: disc;
+    text-wrap: pretty;
+  }
+  .pitch-list li + li {
+    margin-top: 0.25rem;
+  }
+  .pitch-list li::marker {
+    color: var(--accent);
+  }
+
+  /* ---------- narrower screens: one column, icon beside the text ---------- */
+  @media (max-width: 760px) {
+    .grid3 {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .card {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    .icon {
+      height: 3.5rem;
+    }
+    .stats {
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+    .stats-latest {
+      padding: 0.9rem 0 0;
+      border-left: 0;
+      border-top: 1px solid
+        color-mix(in oklab, var(--border), var(--accent) 25%);
+    }
+  }
+</style>

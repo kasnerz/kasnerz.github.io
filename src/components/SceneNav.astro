@@ -9,16 +9,29 @@ interface Props {
   current?: PageId;
   /** Show each item's tagline under its label (front page). */
   taglines?: boolean;
+  /** Pages to leave out; the grid narrows to the remaining figures. */
+  hide?: PageId[];
   class?: string;
 }
 
-const { lang, current, taglines = false, class: className } = Astro.props;
+const {
+  lang,
+  current,
+  taglines = false,
+  hide = [],
+  class: className,
+} = Astro.props;
+const items = NAV.filter(item => !hide.includes(item.id));
 const t = useTranslations(lang);
 ---
 
-<nav class:list={["scene-nav", className]} aria-label={t("nav.main")}>
+<nav
+  class:list={["scene-nav", className]}
+  style={`--cols: ${items.length}`}
+  aria-label={t("nav.main")}
+>
   {
-    NAV.map(item => (
+    items.map(item => (
       <a
         class="scene"
         href={navHref(item, lang)}
