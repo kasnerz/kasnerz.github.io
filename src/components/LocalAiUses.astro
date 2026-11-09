@@ -28,7 +28,7 @@ const copies = {
   cs: {
     tasks: "Úlohy",
     model: "Příklad modelu",
-    hardware: "Hardwarová náročnost",
+    hardware: "Nároky na HW",
     czech: "Čeština",
     onHf: "na Hugging Face",
     prev: "Předchozí úloha",
@@ -37,7 +37,7 @@ const copies = {
   en: {
     tasks: "Tasks",
     model: "Example model",
-    hardware: "Hardware demands",
+    hardware: "HW requirements",
     czech: "Czech",
     onHf: "on Hugging Face",
     prev: "Previous task",
@@ -70,14 +70,17 @@ function screenFor(taskId: string) {
   return screen;
 }
 
-const cards = data.groups
-  .flatMap(group => group.uses)
-  .sort((a, b) => a.short[lang].localeCompare(b.short[lang], lang))
-  .map(use => ({
-    use,
-    model: modelFor(use.id),
-    Screen: screenFor(use.id),
-  }));
+// Grouped by what the task does (reads, writes, …), in the order of data.groups;
+// alphabetical within a group.
+const cards = data.groups.flatMap(group =>
+  [...group.uses]
+    .sort((a, b) => a.short[lang].localeCompare(b.short[lang], lang))
+    .map(use => ({
+      use,
+      model: modelFor(use.id),
+      Screen: screenFor(use.id),
+    }))
+);
 
 /** Where a card starts out: the first on top, its neighbours peeking out behind it. */
 function initialPosition(index: number) {
@@ -95,16 +98,14 @@ function initialPosition(index: number) {
           Na co nasadit otevřené AI modely?
         </h2>
         <p class="lead">
-          Otevřené AI modely se od proprietárních AI modelů příliš neliší. Téměř
-          ke všemu, co zvládne komerční AI,{" "}
+          Téměř ke všemu, co zvládne komerční AI,{" "}
           <b>existuje i otevřená alternativa</b>. Protože ale tyto modely budete
-          provozovat na vlastním hardwaru, je potřeba zvážit, jak schopný model
-          daná úloha vyžaduje a jaké má hardwarové nároky.
+          provozovat na vlastním hardwaru, je potřeba zvážit, jaké hardwarové
+          nároky má model, který úlohu zvládne.
         </p>
         <p class="lead">
-          Pro představu uvádím několik ukázek úloh pro otevřené AI modely,
-          včetně příkladů modelů, které se na ně hodí (aktuální k listopadu
-          2026):
+          Zde je několik ukázek vhodných úloh spolu s příklady otevřených
+          modelů, které se na ni hodí:
         </p>
       </>
     ) : (
@@ -113,15 +114,14 @@ function initialPosition(index: number) {
           What can you use open-weight AI models for?
         </h2>
         <p class="lead">
-          Open-weight AI models are not that different from proprietary ones.
           For almost anything a commercial AI can do,{" "}
           <b>there is an open alternative</b>. Since you will be running these
-          models on your own hardware, though, you need to weigh how capable a
-          model the task requires and how much hardware it needs.
+          models on your own hardware, though, you need to consider the hardware
+          demands of a model that can handle the task.
         </p>
         <p class="lead">
-          To give you an idea, here are a few example tasks for open-weight AI
-          models, along with models that suit them (as of November 2026):
+          Here are a few examples of suitable tasks, along with examples of
+          open-weight models that suit them:
         </p>
       </>
     )

@@ -28,7 +28,7 @@ export interface NavItem {
 export const NAV: NavItem[] = [
   {
     id: "consulting",
-    label: { en: "AI engineer", cs: "AI inženýr" },
+    label: { en: "AI consultant", cs: "AI konzultant" },
     heading: { en: "I build AI solutions", cs: "Stavím AI řešení" },
     tagline: {
       en: "consulting and deploying local AI",

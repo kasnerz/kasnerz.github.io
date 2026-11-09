@@ -3,6 +3,7 @@ import SubpageLayout from "../layouts/SubpageLayout.astro";
 import BusinessDetails from "./BusinessDetails.astro";
 import ContactCta from "./ContactCta.astro";
 import LinkButton from "./LinkButton.astro";
+import LocalAiCriteria from "./LocalAiCriteria.astro";
 import LocalAiInstitutions from "./LocalAiInstitutions.astro";
 import LocalAiScope from "./LocalAiScope.astro";
 import LocalAiUses from "./LocalAiUses.astro";
@@ -138,6 +139,7 @@ const copy = copies[lang];
     }
   </ol>
 
+  <LocalAiCriteria lang={lang} />
   <LocalAiUses lang={lang} />
   <LocalAiInstitutions lang={lang} />
   <LocalAiScope lang={lang} />

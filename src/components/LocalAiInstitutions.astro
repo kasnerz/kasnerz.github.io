@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import data from "@/data/local-ai-uses.json";
+import { REASON_ICONS, type Reason } from "@/data/local-ai-reasons";
 
 interface Props {
   lang: "cs" | "en";
@@ -8,56 +9,20 @@ interface Props {
 
 const { lang } = Astro.props;
 
-type Reason = keyof typeof data.reasons;
-
-const REASON_ICONS: Record<Reason, string> = {
-  secrecy: "tabler:lock",
-  volume: "tabler:coins",
-  offline: "tabler:wifi-off",
-  robust: "tabler:plug-connected-x",
-};
-
-/** When running the models locally pays off: one box per reason, in the panels' badge order.
-    HTML, so each box can bold its key phrase. */
-const CRITERIA_TEXT: Record<"cs" | "en", Record<Reason, string>> = {
-  cs: {
-    secrecy: "Vaše data musí zůstat <b>zaručeně soukromá</b>.",
-    volume:
-      "Nákup hardwaru <b>dlouhodobě vyjde levněji</b> než platba za velký objem tokenů.",
-    offline:
-      "Vaše AI modely musí běžet <b>i offline</b> na koncových zařízeních.",
-    robust:
-      "Vaše AI řešení musí fungovat <b>bez externích závislostí</b> a <b>bez cenzury</b>.",
-  },
-  en: {
-    secrecy: "Your data must stay <b>private, with a guarantee</b>.",
-    volume:
-      "Buying hardware <b>works out cheaper in the long run</b> than paying for a large volume of tokens.",
-    offline: "Your AI models must run <b>offline too</b>, on end devices.",
-    robust:
-      "Your AI solution must work <b>without external dependencies</b> and <b>without censorship</b>.",
-  },
-};
 const copies = {
   cs: {
-    examples: "Tady je několik konkrétních příkladů:",
     kind: "Typ organizace",
     why: "Proč lokálně",
   },
   en: {
-    examples: "Here are a few concrete examples:",
     kind: "Type of organization",
     why: "Why local",
   },
 };
 const copy = copies[lang];
 const reasonOrder = Object.keys(data.reasons) as Reason[];
-const criteria = reasonOrder.map(reason => ({
-  icon: REASON_ICONS[reason],
-  text: CRITERIA_TEXT[lang][reason],
-}));
 
-/** An institution's badges, in the order of the boxes. */
+/** An institution's badges, in the order of the criteria boxes (LocalAiCriteria). */
 const badgesFor = (reasons: string[]) =>
   reasonOrder.filter(reason => reasons.includes(reason));
 
@@ -84,17 +49,8 @@ function useFor(id: string) {
           Jak může lokální AI pomoci ve vaší firmě/instituci?
         </h2>
         <p class="lead">
-          Lokální provoz AI modelů není pro každého. Počáteční{" "}
-          <b>
-            investice do vlastního hardwaru může být vysoká a provoz modelů
-            náročnější
-          </b>{" "}
-          než u běžných komerčních řešení. Nasazení otevřených modelů je tak
-          potřeba důkladně zvážit.
-        </p>
-        <p class="lead lead-intro">
-          Lokální provoz AI modelů se může vyplatit, pokud pro vás platí něco z
-          následujícího:
+          Konkrétní příklady, jak vám mohou otevřené AI modely zefektivňovat
+          práci:
         </p>
       </>
     ) : (
@@ -103,32 +59,12 @@ function useFor(id: string) {
           How can local AI help your company or institution?
         </h2>
         <p class="lead">
-          Running AI models locally is not for everyone. The{" "}
-          <b>
-            upfront investment in your own hardware can be high, and running the
-            models takes more effort
-          </b>{" "}
-          than with the usual commercial services. Deploying open-weight models
-          therefore needs careful consideration.
-        </p>
-        <p class="lead lead-intro">
-          Running AI models locally can pay off if any of the following applies
-          to you:
+          Concrete examples of how open-weight AI models can make your work more
+          efficient:
         </p>
       </>
     )
   }
-  <ul class="criteria">
-    {
-      criteria.map(criterion => (
-        <li class="criterion">
-          <Icon name={criterion.icon} aria-hidden="true" />
-          <p class="criterion-text" set:html={criterion.text} />
-        </li>
-      ))
-    }
-  </ul>
-  <p class="lead">{copy.examples}</p>
 
   <div class="box">
     <div
@@ -228,64 +164,6 @@ function useFor(id: string) {
   .lead {
     margin-bottom: 1.5rem;
     text-wrap: pretty;
-  }
-  .lead-intro {
-    margin-bottom: 1rem;
-  }
-
-  /* the same tinted cards as the tiers under "Typ provozu" (LocalAiScope) */
-  .criteria {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.75rem;
-    margin: 0 0 1.75rem;
-  }
-  .criterion {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem 1rem 0.9rem;
-    border-radius: 14px;
-    background: color-mix(in oklab, var(--background), var(--accent) 7%);
-  }
-  .criterion :global(svg) {
-    flex: none;
-    width: 2rem;
-    height: 2rem;
-    margin-bottom: 0.55rem;
-    color: var(--accent-text);
-  }
-  .criterion-text {
-    margin: 0;
-    font-size: 0.95rem;
-    line-height: 1.4;
-    text-wrap: pretty;
-  }
-  .criterion-text :global(b) {
-    font-weight: 600;
-    color: var(--accent-text);
-  }
-
-  @media (max-width: 900px) {
-    .criteria {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-  @media (max-width: 560px) {
-    .criteria {
-      grid-template-columns: minmax(0, 1fr);
-    }
-    .criterion {
-      display: grid;
-      grid-template-columns: auto minmax(0, 1fr);
-      align-items: center;
-      column-gap: 0.9rem;
-      padding: 1rem;
-    }
-    .criterion :global(svg) {
-      width: 1.75rem;
-      height: 1.75rem;
-      margin-bottom: 0;
-    }
   }
 
   .box {

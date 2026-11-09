@@ -209,16 +209,7 @@
           },
           "hardware": 3,
           "czech": "hard"
-        }
-      ]
-    },
-    {
-      "id": "advises",
-      "label": {
-        "cs": "Radí",
-        "en": "Advises"
-      },
-      "uses": [
+        },
         {
           "id": "assistant",
           "icon": "tabler:message-chatbot",
@@ -236,7 +227,16 @@
           },
           "hardware": 3,
           "czech": "medium"
-        },
+        }
+      ]
+    },
+    {
+      "id": "advises",
+      "label": {
+        "cs": "Radí",
+        "en": "Advises"
+      },
+      "uses": [
         {
           "id": "coding",
           "icon": "tabler:code",
@@ -805,8 +805,8 @@
         {
           "use": "coding",
           "what": {
-            "cs": "Píše kód, který neopustí firmu, a zvládne i exploit pro penetrační test, což komerční služby často odmítnou.",
-            "en": "Writes code that never leaves the company, and can even write an exploit for a penetration test, which commercial services often refuse to do."
+            "cs": "Generuje kód, který neopustí firmu. Zvládne navíc i pomoct s kyberbezpečnostními úlohami, které komerční služby často odmítnou.",
+            "en": "Generates code that never leaves the company. It can also help with cybersecurity tasks that commercial services often refuse."
           }
         },
         {

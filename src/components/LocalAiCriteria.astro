@@ -1,0 +1,145 @@
+---
+/**
+ * "Proč lokální AI?": the caveat, then when running the models locally pays off, one box
+ * per reason (data.reasons in local-ai-uses.json). Comes ahead of LocalAiUses and
+ * LocalAiInstitutions, whose badges reuse the same reasons and icons.
+ */
+import { Icon } from "astro-icon/components";
+import data from "@/data/local-ai-uses.json";
+import { REASON_ICONS, type Reason } from "@/data/local-ai-reasons";
+
+interface Props {
+  lang: "cs" | "en";
+}
+
+const { lang } = Astro.props;
+
+/** One box per reason, in the order of data.reasons. HTML, so each box can bold its key phrase. */
+const CRITERIA_TEXT: Record<"cs" | "en", Record<Reason, string>> = {
+  cs: {
+    secrecy: "Vaše data musí zůstat <b>zaručeně soukromá</b>.",
+    volume:
+      "Nákup hardwaru pro vás <b>dlouhodobě vyjde levněji</b> než platba za velký objem tokenů.",
+    offline:
+      "Vaše AI řešení musí fungovat <b>i offline</b> na koncových zařízeních.",
+    robust:
+      "Vaše AI řešení musí fungovat spolehlivě <b>bez cenzury</b> a <b>bez externích závislostí</b>.",
+  },
+  en: {
+    secrecy: "Your data must stay <b>private, with a guarantee</b>.",
+    volume:
+      "Buying hardware <b>works out cheaper for you in the long run</b> than paying for a large volume of tokens.",
+    offline: "Your AI solution must work <b>offline too</b>, on end devices.",
+    robust:
+      "Your AI solution must work reliably <b>without censorship</b> and <b>without external dependencies</b>.",
+  },
+};
+
+/** The lead is HTML, so it can bold its key phrase (a string, so the comma after it stays put). */
+const copies = {
+  cs: {
+    title: "Proč lokální AI?",
+    lead: "Lokální provoz AI modelů není pro každého. Počáteční <b>investice do vlastního hardwaru může být vysoká a provoz modelů náročnější</b>, než u běžných komerčních řešení. Správnou volbou je ve chvíli, kdy pro vás platí něco z následujícího:",
+  },
+  en: {
+    title: "Why local AI?",
+    lead: "Running AI models locally is not for everyone. The <b>upfront investment in your own hardware can be high, and running the models takes more effort</b> than with the usual commercial services. It is the right choice when any of the following applies to you:",
+  },
+};
+const copy = copies[lang];
+
+const criteria = (Object.keys(data.reasons) as Reason[]).map(reason => ({
+  icon: REASON_ICONS[reason],
+  text: CRITERIA_TEXT[lang][reason],
+}));
+---
+
+<section class="section" aria-labelledby="why-local-title">
+  <h2 id="why-local-title" class="title">{copy.title}</h2>
+  <p class="lead" set:html={copy.lead} />
+  <ul class="criteria">
+    {
+      criteria.map(criterion => (
+        <li class="criterion">
+          <Icon name={criterion.icon} aria-hidden="true" />
+          <p class="criterion-text" set:html={criterion.text} />
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .section {
+    margin-block: 3.5rem;
+  }
+  .title {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--accent-text);
+    text-wrap: balance;
+  }
+  .lead {
+    margin-bottom: 1rem;
+    text-wrap: pretty;
+  }
+
+  /* the same tinted cards as the tiers under "Typ provozu" (LocalAiScope) */
+  .criteria {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+  .criterion {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1rem 0.9rem;
+    border-radius: 14px;
+    background: color-mix(in oklab, var(--background), var(--accent) 7%);
+  }
+  .criterion :global(svg) {
+    flex: none;
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 0.55rem;
+    color: var(--accent-text);
+  }
+  .criterion-text {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    text-wrap: pretty;
+  }
+  .criterion-text :global(b) {
+    font-weight: 600;
+    color: var(--accent-text);
+  }
+
+  @media (max-width: 900px) {
+    .criteria {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 560px) {
+    .section {
+      margin-block: 2.75rem;
+    }
+    .criteria {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .criterion {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      column-gap: 0.9rem;
+      padding: 1rem;
+    }
+    .criterion :global(svg) {
+      width: 1.75rem;
+      height: 1.75rem;
+      margin-bottom: 0;
+    }
+  }
+</style>
